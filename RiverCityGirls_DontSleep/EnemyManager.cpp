@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "EnemyManager.h"
-
 #include "schoolGirl.h"
 #include "schoolBoy.h"
 #include "cheerLeader.h"
