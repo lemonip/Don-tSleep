@@ -163,20 +163,20 @@ void Boss::ChangeImg(string imgName)
 {
 	/*_info.img = IMAGEMANAGER->findImage(imgName);
 
-	IMAGEMANAGER->addFrameImage("move", "image/bs/move.bmp", 2110, 588, 10, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("idle", "image/bs/idle.bmp", 3180, 634, 12, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("block", "image/bs/block.bmp", 1688, 576, 8, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("attacked", "image/bs/attacked.bmp", 2214, 594, 9, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("groggy", "image/bs/groggy.bmp", 1024, 434, 4, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("phase", "image/bs/phase.bmp", 5658, 748, 23, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("down", "image/bs/down.bmp", 5830, 510, 22, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("death", "image/bs/death.bmp", 4576, 576, 13, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("howling", "image/bs/howling.bmp", 2916, 576, 12, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("meteor", "image/bs/meteor_J.bmp", 1888, 672, 8, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("dash", "image/bs/tackle_L.bmp", 2882, 576, 11, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("elbow", "image/bs/elbow.bmp", 2915, 652, 11, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("slab", "image/bs/slab.bmp", 5278, 582, 14, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("smash", "image/bs/smash.bmp", 11880, 594, 27, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("standat", "image/bs/standattack2.bmp", 3735, 580, 15, 2, true, RGB(255, 0, 255));*/
+	IMAGEMANAGER->addFrameImage("move",		"source/image/character/enemy/boss/move.bmp", 2110, 588, 10, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("idle",		"source/image/character/enemy/boss/idle.bmp", 3180, 634, 12, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("block",	"source/image/character/enemy/boss/block.bmp", 1688, 576, 8, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("attacked", "source/image/character/enemy/boss/attacked.bmp", 2214, 594, 9, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("groggy",	"source/image/character/enemy/boss/groggy.bmp", 1024, 434, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("phase",	"source/image/character/enemy/boss/phase.bmp", 5658, 748, 23, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("down",		"source/image/character/enemy/boss/down.bmp", 5830, 510, 22, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("death",	"source/image/character/enemy/boss/death.bmp", 4576, 576, 13, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("howling",	"source/image/character/enemy/boss/howling.bmp", 2916, 576, 12, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("meteor",	"source/image/character/enemy/boss/meteor_J.bmp", 1888, 672, 8, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("dash",		"source/image/character/enemy/boss/tackle_L.bmp", 2882, 576, 11, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("elbow",	"source/image/character/enemy/boss/elbow.bmp", 2915, 652, 11, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("slab",		"source/image/character/enemy/boss/slab.bmp", 5278, 582, 14, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("smash",	"source/image/character/enemy/boss/smash.bmp", 11880, 594, 27, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("standat",	"source/image/character/enemy/boss/standattack2.bmp", 3735, 580, 15, 2, true, RGB(255, 0, 255));*/
 	
 }
