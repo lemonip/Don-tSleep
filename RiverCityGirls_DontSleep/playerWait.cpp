@@ -11,6 +11,7 @@ void playerWait::UpdateState()
 {
 	_thisPl->ChangeImg("pl_wallet");
 
+	if(EVENT_M->isEvent())
 	//기본동작
 	basePattern();
 
