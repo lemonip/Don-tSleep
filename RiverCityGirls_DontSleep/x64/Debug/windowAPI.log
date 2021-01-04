@@ -1,0 +1,16 @@
+﻿  IPlayerState.cpp
+  playerDashAttack.cpp
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashattack.cpp(32): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashattack.cpp(33): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerDashSAttack.cpp
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashsattack.cpp(31): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashsattack.cpp(32): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerJump.cpp
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerjump.cpp(15): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerJumpAttack.cpp
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerjumpattack.cpp(15): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerRun.cpp
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerrun.cpp(25): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerrun.cpp(26): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  windowAPI.vcxproj -> C:\Users\Administrator.JY-201709111318\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe
