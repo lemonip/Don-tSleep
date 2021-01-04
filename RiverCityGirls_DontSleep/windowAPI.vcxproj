@@ -171,6 +171,7 @@
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="cheerLeader.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="EasyStage.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="ItemObj.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="Linear.h" />
+    <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="NormalStage.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
@@ -269,6 +271,7 @@
     <ClCompile Include="BrokenObj.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="cheerLeader.cpp" />
+    <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="EasyStage.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
@@ -288,6 +291,7 @@
     <ClCompile Include="ItemObj.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="Linear.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="NormalStage.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
