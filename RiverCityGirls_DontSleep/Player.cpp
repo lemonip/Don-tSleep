@@ -38,7 +38,7 @@ HRESULT Player::init()
 	/*====================================================================
 		플래이어의 오브젝트 초기화와 기본 설정을 합니다.
 	====================================================================*/
-	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_idle"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
+	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wallet"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
 	_obj.imgIndex = { 0,0 };	//아직 애니메이션이 만들어지지 않아 임시로 해두었습니다.
 
 

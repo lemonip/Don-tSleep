@@ -13,31 +13,31 @@ void playerWalk::EnterState()
 void playerWalk::UpdateState()
 {
 	_thisPl->ChangeImg("pl_walk");
-	/*
+	
 	//한번더 누르면 대쉬
-	if (_thisPl->GetInfo().dest == PL_DEST::LEFT &&
-		KEYMANAGER->isOnceKeyDownV(VK_LEFT))_thisPl->setState(PL_STATE::RUN);
+	if (_thisPl->getInfo().dest == DIRECTION::LEFT &&
+		KEY_M->isOnceKeyDownV(VK_LEFT))_thisPl->setState(PL_STATE::RUN);
 
-	if (_thisPl->GetInfo().dest == PL_DEST::RIGHT &&
-		KEYMANAGER->isOnceKeyDownV(VK_RIGHT))_thisPl->setState(PL_STATE::RUN);
+	if (_thisPl->getInfo().dest == DIRECTION::RIGHT &&
+		KEY_M->isOnceKeyDownV(VK_RIGHT))_thisPl->setState(PL_STATE::RUN);
 
 	//키를 누르지 않으면 기본 상태
 	
 	if (TIME_M->getWorldTime() - _startTime >0.25f
-		&&!KEYMANAGER->isStayKeyDown(VK_LEFT)
-		&& !KEYMANAGER->isStayKeyDown(VK_RIGHT)
-		&& !KEYMANAGER->isStayKeyDown(VK_UP)
-		&& !KEYMANAGER->isStayKeyDown(VK_DOWN))
+		&&!KEY_M->isStayKeyDown(VK_LEFT)
+		&& !KEY_M->isStayKeyDown(VK_RIGHT)
+		&& !KEY_M->isStayKeyDown(VK_UP)
+		&& !KEY_M->isStayKeyDown(VK_DOWN))
 	{
-		KEYMANAGER->clearVKey();
+		KEY_M->clearVKey();
 		_thisPl->setState(PL_STATE::IDLE);
 	}
 	
-
+	
 
 	//이동
-	lineMove(_thisPl->GetInfo().speed / 2);
-	crossMove(_thisPl->GetInfo().speed);*/
+	lineMove(_thisPl->getInfo().speed / 2);
+	crossMove(_thisPl->getInfo().speed);
 }
 
 void playerWalk::ExitState()
