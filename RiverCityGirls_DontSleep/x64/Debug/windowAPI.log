@@ -1,3 +1,22 @@
-﻿  Player.cpp
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(244): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+﻿  Event.cpp
+  IPlayerState.cpp
+  Player.cpp
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(95): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(202): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(247): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+  StageManager.cpp
+  playerCombo1.cpp
+  playerCombo2.cpp
+  playerCombo3.cpp
+  playerDashAttack.cpp
+  playerDashSAttack.cpp
+  playerGuard.cpp
+  playerIdle.cpp
+  playerJump.cpp
+  playerJumpAttack.cpp
+  playerRun.cpp
+  playerSAttack.cpp
+  playerWait.cpp
+  playerWalk.cpp
+  코드를 생성하고 있습니다...
   windowAPI.vcxproj -> C:\Users\Administrator.JY-201709111318\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe

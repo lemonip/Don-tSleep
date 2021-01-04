@@ -11,6 +11,14 @@ class ObjectManager;
 class EnemyManager;
 class IPlayerState;
 
+//임시 그림자 구조체 (후에 GameObject쪽으로 옮겨질 예정.)
+struct tagShadow
+{
+	RECT rc;
+	vector3 LT, RT, RB, LB;
+	vector3 pos;
+};
+
 /*====================================================================
 	플래이어입니다. Stage와 링크되어 있어,
 	에너미 매니저, 오브젝트 매니저와 연결됩니다.
@@ -88,6 +96,13 @@ private:
 	};
 private:
 	//맴버
+	RECT _shadowRc;			//그림자 렉트
+	vector3 _shadowLT, _shadowRT, _shadowRB, _shadowLB;	//그림자 지점
+	vector3 _shadowPos;		//그림자 위치
+	tagShadow _shadow;		//그림자
+
+
+
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
 
@@ -166,12 +181,12 @@ public:
 /*====================================================================
 								COLLISION
 ====================================================================*/
-	//void playerObjectCollision();
+	void playerObjectCollision();
 
 	// 전후 좌우 충돌 판정
-	//void LRUDCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
+	void LRUDCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
 	// 점프 판정
-	//void AirCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
+	void AirCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
 
 };
 

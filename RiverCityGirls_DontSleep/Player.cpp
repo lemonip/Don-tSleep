@@ -38,8 +38,9 @@ HRESULT Player::init()
 	/*====================================================================
 		플래이어의 오브젝트 초기화와 기본 설정을 합니다.
 	====================================================================*/
-	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("kyoko"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
+	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_idle"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
 	_obj.imgIndex = { 0,0 };	//아직 애니메이션이 만들어지지 않아 임시로 해두었습니다.
+
 
 	//기본 변수 초기화
 	_info.jumpPower = 0;
@@ -55,7 +56,7 @@ HRESULT Player::init()
 
 	_info.hitCount = 3;
 
-	
+
 	//상태패턴 등록
 	_idle = new playerIdle;
 	_wait = new playerWait;
@@ -85,16 +86,18 @@ HRESULT Player::init()
 	_SAttackDown = new playerSAttackDown;
 
 	setState(PL_STATE::WAIT);
+
 	/*====================================================================
 		그림자 등 충돌 처리에 관련 해 설정합니다.
 	====================================================================*/
-	/*
+	
 	_shadow.pos = vector3(_obj.pos.x, _obj.pos.y, _obj.pos.z);
 	_shadow.rc = RectMakeCenter(_shadow.pos.x, _shadow.pos.z, _obj.img->getWidth(), 20);
 	_shadow.LT = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z - 10);
 	_shadow.RT = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z - 10);
 	_shadow.RB = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z + 10);
-	_shadow.LB = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z + 10);*/
+	_shadow.LB = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z + 10);
+
 
 	return S_OK;
 }
@@ -109,11 +112,16 @@ void Player::update()
 	keyInput();
 	//중력작용
 	gravity();
-	//move();
+	//상태업데이트
+	_IState->UpdateState();
 
+	
+	
+	
+	//move();
 	shadowUpdate();
 	_obj.update(); //요기하나
-	//playerObjectCollision();
+	playerObjectCollision();
 	shadowUpdate();
 	_obj.update(); //이거 왜 두개..? 
 }
@@ -127,7 +135,7 @@ void Player::render()
 	//(아직 플래이어 애니메이션이 없어 임시로 해두었습니다. 나중에 ANI_RENDER로 바꿔서 쓰세요!)
 }
 
-/*
+
 void Player::move()
 {
 	
@@ -137,9 +145,9 @@ void Player::move()
 	if (_obj.pos.y > _info.jumpPower)_info.jumpPower = 0;
 	if (_obj.pos.y < 0) _info.jumpPower -= GRAVITY;
 
-	if (_info.jumpPower == 0) _info.jumpCount = 1;
+	if (_info.jumpPower == 0) _info.isSky = true;
 }
-*/
+
 
 void Player::setState(PL_STATE state)
 {
@@ -190,13 +198,12 @@ void Player::setState(PL_STATE state)
 
 void Player::shadowUpdate()
 {
-	/*
 	_shadow.pos = vector3(_obj.pos.x, _obj.pos.y, _obj.pos.z);
 	_shadow.rc = RectMakeCenter(_shadow.pos.x, _shadow.pos.z, _obj.img->getWidth(), 20);
 	_shadow.LT = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z - 10);
 	_shadow.RT = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z - 10);
 	_shadow.RB = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z + 10);
-	_shadow.LB = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z + 10);*/
+	_shadow.LB = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z + 10);
 }
 
 void Player::stageInit()
@@ -326,7 +333,7 @@ void Player::MovePos(float x, float z, float jumpPower)
 	_obj.RectRenew();
 }
 
-/*
+
 void Player::playerObjectCollision()
 {
 	for (int i = 0; i < _objectM->getVObject().size(); ++i)
@@ -448,8 +455,8 @@ void Player::AirCollision(GameObject* cha, tagShadow* sh, GameObject * obj)
 				if (obj->topPlane[0].getStart().y < cha->pos.y)			// 오브젝트 위로 떨어지면
 				{
 					cha->pos.y = obj->topPlane[0].getStart().y;
-					_jumpPower = 0;
-					_jumpCount = 0;
+					_info.jumpPower = 0;
+					_info.isSky = false;
 				}
 			}
 			else
@@ -472,4 +479,3 @@ void Player::AirCollision(GameObject* cha, tagShadow* sh, GameObject * obj)
 		
 	}
 }
-*/
