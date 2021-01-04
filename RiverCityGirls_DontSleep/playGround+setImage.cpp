@@ -25,7 +25,6 @@ void playGround::setImage()
 	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 2769, 1080, false, MAGENTA);
 
 	//================= 플래이어 =================
-
 	IMG_M->addFrameImage("pl_comboAttack3", "source/image/character/player/comboAttack3.bmp", 2970, 462, 9, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_comboAttack2", "source/image/character/player/comboAttack2.bmp", 1869, 459, 7, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_comboAttack1", "source/image/character/player/comboAttack1.bmp", 1548, 462, 6, 2, true, MAGENTA, true);
@@ -38,7 +37,6 @@ void playGround::setImage()
 	IMG_M->addFrameImage("pl_guard", "source/image/character/player/guard.bmp", 351, 464, 3, 2,true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_hit", "source/image/character/player/hit.bmp", 246, 456, 2, 2, true, MAGENTA, true);
 
-	//IMG_M->addFrameImage("kyoko", "source/image/character/player/idle.bmp", 1440, 450, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_idle", "source/image/character/player/idle.bmp", 1440, 450, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_jump", "source/image/character/player/jump.bmp", 405, 414, 3, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_jumpAttack", "source/image/character/player/jumpAttack.bmp", 1560, 432, 10, 2, true, MAGENTA, true);
