@@ -17,7 +17,7 @@ void IPlayerState::basePattern()
 	walkPattern();
 
 	//가드
-	if (KEY_M->isStayKeyDown(VK_SPACE))_thisPl->setState(PL_STATE::GUARD);
+	if (KEY_M->isStayKeyDown('F'))_thisPl->setState(PL_STATE::GUARD);
 
 	//약공격
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO1);

@@ -14,7 +14,7 @@ void playerGuard::UpdateState()
 	_thisPl->ChangeImg("pl_guard");
 
 	//키를 안 누르면 기본상태
-	if (!KEY_M->isStayKeyDown(VK_SPACE))
+	if (!KEY_M->isStayKeyDown('F'))
 	{
 		KEY_M->clearVKey();
 		_thisPl->setState(PL_STATE::IDLE);
