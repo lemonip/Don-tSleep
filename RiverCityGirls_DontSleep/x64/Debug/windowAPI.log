@@ -1,12 +1,16 @@
-﻿  Boss.cpp
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(62): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(65): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(64): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(64): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(140): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(142): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(141): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(141): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  stdafx.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.h(95): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  animation.cpp
+  Boss.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(62): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(65): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(64): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(64): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(140): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(142): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(141): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\boss.cpp(141): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   bossAttacked.cpp
   bossBlock.cpp
   bossDashAttack.cpp
@@ -21,9 +25,152 @@ c:\users\wls62\desktop\rivercitygirls_dontsleep\boss.cpp(141): warning C4244: '�
   bossPhase2.cpp
   bossSlabAttack.cpp
   bossSmashAttack.cpp
+  BossStage.cpp
   bossStandAttack.cpp
   bossWait.cpp
-  EnemyManager.cpp
-  IBossState.cpp
+  BrokenObj.cpp
   코드를 생성하고 있습니다...
-  windowAPI.vcxproj -> C:\Users\wls62\Desktop\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe
+  컴파일하고 있습니다...
+  CameraManager.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(50): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(49): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(113): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(114): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(115): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(156): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(157): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(158): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(159): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(160): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(169): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(170): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(171): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(172): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(173): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(202): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(261): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\cameramanager.cpp(262): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  cheerLeader.cpp
+  EasyStage.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\easystage.cpp(29): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+  effect.cpp
+  effectManager.cpp
+  EndingScene.cpp
+  Enemy.cpp
+  EnemyManager.cpp
+  Event.cpp
+  EventManager.cpp
+  gameNode.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gamenode.cpp(98): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gamenode.cpp(99): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gamenode.cpp(93): warning C4101: 'hdc' :참조되지 않은 지역 변수입니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gamenode.cpp(92): warning C4101: 'ps' :참조되지 않은 지역 변수입니다.
+  GameObject.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gameobject.cpp(12): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gameobject.cpp(13): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gameobject.cpp(51): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gameobject.cpp(52): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\gameobject.cpp(113): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GameScene.cpp
+  HardStage.cpp
+  IBossState.cpp
+  image.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\image.cpp(72): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\image.cpp(129): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\image.cpp(185): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\image.cpp(408): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\image.cpp(407): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\image.cpp(424): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\image.cpp(423): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  imageManager.cpp
+  IPlayerState.cpp
+  ItemObj.cpp
+  keyManager.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  Linear.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\linear.cpp(38): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\linear.cpp(92): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\linear.cpp(93): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  NormalStage.cpp
+  Object.cpp
+  ObjectManager.cpp
+  Player.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(95): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(202): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(247): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+  playerCombo1.cpp
+  playerCombo2.cpp
+  playerCombo3.cpp
+  playerDashAttack.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerdashattack.cpp(32): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerdashattack.cpp(33): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerDashSAttack.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerdashsattack.cpp(31): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerdashsattack.cpp(32): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerDead.cpp
+  playerDown.cpp
+  playerGuard.cpp
+  playerHit.cpp
+  playerIdle.cpp
+  playerJump.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerjump.cpp(15): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerJumpAttack.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerjumpattack.cpp(15): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerLadder.cpp
+  playerRoll.cpp
+  playerRun.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerrun.cpp(25): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playerrun.cpp(26): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  playerSAttack.cpp
+  playerSAttackDown.cpp
+  playerStand.cpp
+  playerStick.cpp
+  playerStomp.cpp
+  playerStun.cpp
+  playerWait.cpp
+  playerWalk.cpp
+  playGround+setImage.cpp
+  playGround.cpp
+  SaveLoadManager.cpp
+  Scene.cpp
+  SceneManager.cpp
+  schoolBoy.cpp
+  schoolGirl.cpp
+  ShopScene.cpp
+  soundManager.cpp
+  Stage.cpp
+  StageManager.cpp
+  StandingObj.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  timeManager.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\timemanager.cpp(46): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\timemanager.cpp(49): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\timemanager.cpp(52): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  timer.cpp
+  TitleScene.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\titlescene.cpp(72): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  txtData.cpp
+  UI.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\ui.cpp(20): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\ui.cpp(36): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  UIManager.cpp
+  utils.cpp
+  vector3.cpp
+  Video.cpp
+  winMain.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\winmain.cpp(89): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  zOrderManager.cpp
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\zordermanager.cpp(29): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\zordermanager.cpp(37): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\zordermanager.cpp(46): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\zordermanager.cpp(49): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\zordermanager.cpp(52): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\txtdata.cpp(40): warning C4172: 지역 변수 또는 임시: str의 주소를 반환하고 있습니다.
+  LINK : C:\Users\wls62\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+  windowAPI.vcxproj -> C:\Users\wls62\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe
