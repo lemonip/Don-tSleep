@@ -2,6 +2,16 @@
 #include "IPlayerState.h"
 #include "Player.h"
 
+//업데이트 일시정지 유무 
+bool IPlayerState::pauseUpdate()
+{
+	//키조작이 불가능일경우 
+	if (!_thisPl->getInfo().isControl)return true;
+
+	//그외
+	else return false;
+}
+
 void IPlayerState::walkPattern()
 {
 	//걷기

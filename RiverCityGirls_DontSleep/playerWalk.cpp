@@ -13,16 +13,15 @@ void playerWalk::EnterState()
 void playerWalk::UpdateState()
 {
 	_thisPl->ChangeImg("pl_walk");
-	
-	//한번더 누르면 대쉬
-	if (_thisPl->getInfo().dest == DIRECTION::LEFT &&
-		KEY_M->isOnceKeyDownV(VK_LEFT))_thisPl->setState(PL_STATE::RUN);
 
-	if (_thisPl->getInfo().dest == DIRECTION::RIGHT &&
-		KEY_M->isOnceKeyDownV(VK_RIGHT))_thisPl->setState(PL_STATE::RUN);
+	//한번더 누르면 대쉬
+	if (_thisPl->getInfo().dest == DIRECTION::LEFT && KEY_M->isStayKeyDown(VK_LEFT))
+		_thisPl->setState(PL_STATE::RUN);
+
+	if (_thisPl->getInfo().dest == DIRECTION::RIGHT && KEY_M->isStayKeyDown(VK_RIGHT))
+		_thisPl->setState(PL_STATE::RUN);
 
 	//키를 누르지 않으면 기본 상태
-	
 	if (TIME_M->getWorldTime() - _startTime >0.25f
 		&&!KEY_M->isStayKeyDown(VK_LEFT)
 		&& !KEY_M->isStayKeyDown(VK_RIGHT)
@@ -32,7 +31,6 @@ void playerWalk::UpdateState()
 		KEY_M->clearVKey();
 		_thisPl->setState(PL_STATE::IDLE);
 	}
-	
 	
 
 	//이동
