@@ -67,6 +67,10 @@ void playGround::setImage()
 
 	//================= 에너미 =================
 	IMG_M->addFrameImage("schoolGirl", "source/image/character/enemy/schoolGirl/idle.bmp", 1170, 354, 10,2,true, MAGENTA, true);
+	//이미지등록은 schoolGirl ▲만 해놓고
+
+	//▼이건 내가 없어서 예시로 이렇게 해야한다고 추가한것..ㅠㅠ
+	IMG_M->addFrameImage("schoolGirlIdle", "source/image/character/enemy/schoolGirl/idle.bmp", 1170, 354, 10, 2, true, MAGENTA, true);
 
 	//================= 오브젝트 =================
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 98, 108, true, MAGENTA, true);
