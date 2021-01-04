@@ -55,7 +55,7 @@ void TitleScene::update()
 	{
 		UI_M->findUI("title")->setActive(false);	//title UI 비활성화
 		UI_M->popUI("title");						//title UI 아예 삭제
-		SCENE_M->changeScene("game");				//씬을 게임 씬으로 변경
+		SCENE_M->changeScene("loading");			//씬을 변경
 	}
 
 	/*====================================================================

@@ -58,7 +58,7 @@ void LoadingScene::update()
 	if (_count == _max)
 	{
 		UI_M->findUI("loadingBar")->setActive(false);
-		SCENE_M->changeScene("title");
+		SCENE_M->changeScene("game");
 	}
 }
 
