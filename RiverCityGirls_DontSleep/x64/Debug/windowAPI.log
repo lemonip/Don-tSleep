@@ -1,0 +1,3 @@
+﻿  Player.cpp
+c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(244): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+  windowAPI.vcxproj -> C:\Users\Administrator.JY-201709111318\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe

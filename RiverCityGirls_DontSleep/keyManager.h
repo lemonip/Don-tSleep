@@ -1,6 +1,7 @@
 #pragma once
 #include "singletonBase.h"
 #include <bitset>
+#include <vector>
 
 #define KEYMAX 256
 
@@ -11,6 +12,7 @@ class keyManager : public singletonBase <keyManager>
 private:
 	bitset<KEYMAX> _keyUp;
 	bitset<KEYMAX> _keyDown;
+	vector<int> _vKeyBuffer;			//키버퍼
 
 public:
 	keyManager();
@@ -22,6 +24,9 @@ public:
 	//키를 한 번만 눌렀다면
 	bool isOnceKeyDown(int key);
 
+	//키를 한 번만 눌렀다면 벡터저장용
+	bool isOnceKeyDownV(int key);
+
 	//키를 눌렀다가 떼면
 	bool isOnceKeyUp(int key);
 
@@ -31,10 +36,19 @@ public:
 	//키가 토글되면(?) 
 	bool isToggleKey(int key);
 
+
+
 	bitset<KEYMAX> getKeyUp() { return _keyUp; }
 	bitset<KEYMAX> getKeyDown() { return _keyDown; }
+	//키벡터를 가져온다
+	vector<int> getVKeyBuffer() { return _vKeyBuffer; }
+	//키벡터의 최근인덱스에서 -num한 인덱스의 값을 반환한다.
+	int getKeyBuffer(int num) { return _vKeyBuffer[_vKeyBuffer.size() - num - 1]; }
 
 	void setKeyDown(int key, bool state) { _keyDown.set(key, state); }
 	void setKeyUp(int key, bool state) { _keyUp.set(key, state); }
+	//받은 키 벡터를 모두 지운다.
+	void clearVKey();
+
 };
 
