@@ -1,0 +1,91 @@
+#pragma once
+
+class Video;
+enum class VIDEOTYPE;
+class Player;
+
+/*====================================================================
+	이벤트 클래스입니다. 다양한 이벤트에게 상속하고 있습니다.
+====================================================================*/
+class Event
+{
+protected:
+	bool _isEnd;
+	bool _isMovie;
+	Player* _player;
+
+public:
+	virtual void enter() { _isEnd = false; _isMovie = false; }
+	virtual bool update() = 0;
+	virtual void exit() = 0;
+
+	bool isMovie() { return _isMovie; }
+	void setLinkPlyaer(Player* player) { _player = player; }
+};
+
+/*====================================================================
+	카메라 이동과 배율 조정
+====================================================================*/
+class cameraMove : public Event
+{
+private:
+	vector3 _goal;
+	float _moveSpeed;
+	float _mag;
+	float _magSpeed;
+
+public:
+	cameraMove(vector3 goal, float moveSpeed, float mag, float magSpeed);
+	~cameraMove() {}
+
+	virtual void enter();
+	virtual bool update();
+	virtual void exit();
+};
+
+
+/*====================================================================
+	동영상 재생
+====================================================================*/
+class moviePlay : public Event
+{
+	VIDEOTYPE _videoName;
+	Video* _video;
+
+public:
+	moviePlay(VIDEOTYPE fileName);
+
+	virtual void enter();
+	virtual bool update();
+	virtual void exit();
+};
+
+/*====================================================================
+	대화
+====================================================================*/
+class dialogue : public Event
+{
+public:
+
+	virtual void enter();
+	virtual bool update();
+	virtual void exit();
+};
+
+
+/*====================================================================
+	대기
+====================================================================*/
+class waitForSec : public Event
+{
+private:
+	float _sec;
+	float _endTime;
+
+public:
+	waitForSec(float sec);
+
+	virtual void enter();
+	virtual bool update();
+	virtual void exit();
+};
