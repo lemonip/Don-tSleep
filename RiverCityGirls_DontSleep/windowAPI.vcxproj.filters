@@ -79,6 +79,9 @@
     <Filter Include="2DGameFramework\Manager\UI">
       <UniqueIdentifier>{ec0f56c5-26f0-416e-adb1-2c3251f0e692}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Player\playerState">
+      <UniqueIdentifier>{3fa101a3-0d2d-4a1b-8d27-94ec0e0e7c3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -252,6 +255,84 @@
     <ClInclude Include="cheerLeader.h">
       <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="playerCombo1.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerCombo2.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerCombo3.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerDashAttack.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerDashSAttack.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerDead.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerDown.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerGuard.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerHit.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerIdle.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerJump.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerJumpAttack.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerLadder.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerRoll.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerRun.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerSAttack.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerSAttackDown.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerStand.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerStick.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerStomp.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerStun.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerWait.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerWalk.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerState.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>playGround\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueManager.h">
+      <Filter>2DGameFramework\Manager\Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -406,6 +487,84 @@
     </ClCompile>
     <ClCompile Include="cheerLeader.cpp">
       <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="playerCombo1.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerCombo2.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerCombo3.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerDashAttack.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerDashSAttack.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerDead.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerDown.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerGuard.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerHit.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerIdle.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerJump.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerJumpAttack.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerLadder.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerRoll.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerRun.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerSAttack.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerSAttackDown.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerStand.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerStick.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerStomp.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerStun.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerWait.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerWalk.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlayerState.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>playGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueManager.cpp">
+      <Filter>2DGameFramework\Manager\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
