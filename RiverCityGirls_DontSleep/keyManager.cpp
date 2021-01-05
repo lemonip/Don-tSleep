@@ -25,6 +25,7 @@ void keyManager::release()
 
 bool keyManager::isOnceKeyDown(int key)
 {
+	//이전에 누른적이 없고 호풀시점에 눌림
 	if (GetAsyncKeyState(key) & 0x8000)
 	{
 		if (!this->getKeyDown()[key])
@@ -33,7 +34,6 @@ bool keyManager::isOnceKeyDown(int key)
 			return true;
 		}
 	}
-
 	else this->setKeyDown(key, false);
 	return false;
 }
@@ -48,7 +48,7 @@ bool keyManager::isOnceKeyDownV(int key)
 		if (!this->getKeyDown()[key])
 		{
 			this->setKeyDown(key, true);
-			_vKeyBuffer.push_back(key); //키벡터에집어넣는다!!
+			_vKeyComendBuffer.push_back(key); //키벡터에집어넣는다!!
 			return true;
 		}
 	}
@@ -90,5 +90,5 @@ bool keyManager::isToggleKey(int key)
 //키버퍼(벡터)를 비운다
 void keyManager::clearVKey()
 {
-	_vKeyBuffer.clear();
+	_vKeyComendBuffer.clear();
 }

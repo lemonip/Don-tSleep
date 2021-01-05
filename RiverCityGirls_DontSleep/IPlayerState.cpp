@@ -38,18 +38,18 @@ void IPlayerState::basePattern()
 void IPlayerState::lineMove(float speed)
 {	
 	if (KEY_M->isStayKeyDown(VK_UP))
-		_thisPl->MovePos(0, -speed, 0);
+		_thisPl->movePos(0, -speed, 0);
 
 	if (KEY_M->isStayKeyDown(VK_DOWN))
-		_thisPl->MovePos(0, speed, 0);
+		_thisPl->movePos(0, speed, 0);
 }
 
 //ÁÂ¿ìÀÌµ¿
 void IPlayerState::crossMove(float speed)
 {
 	if (KEY_M->isStayKeyDown(VK_RIGHT))
-		_thisPl->MovePos(speed, 0, 0);
+		_thisPl->movePos(speed, 0, 0);
 
 	if (KEY_M->isStayKeyDown(VK_LEFT))
-		_thisPl->MovePos(-speed, 0, 0);
+		_thisPl->movePos(-speed, 0, 0);
 }

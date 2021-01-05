@@ -1,8 +1,9 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE 0.5f			//중력수치
-#define JUMPPOWERVALUE 20.f			//점프파워수치
+#define GRAVITYVALUE	0.5f			//중력수치
+#define JUMPPOWERVALUE  15.f			//점프파워수치
+#define FRAMEINTERVAL	1.f				//프레임인터벌
 
 //전방선언
 class StageManager;
@@ -11,11 +12,10 @@ class EnemyManager;
 class IPlayerState;
 class CollisionManager;
 
-/*====================================================================
-	플래이어입니다. Stage와 링크되어 있어,
-	에너미 매니저, 오브젝트 매니저와 연결됩니다.
-====================================================================*/
-
+	/*====================================================================
+		플래이어입니다. Stage와 링크되어 있어,
+		에너미 매니저, 오브젝트 매니저와 연결됩니다.
+	====================================================================*/
 //플레이어 상태 이넘
 enum class PL_STATE : int
 {
@@ -56,13 +56,20 @@ enum class MOVE_DIRECTION : int
 	DOWN
 };
 
-class Player : public gameNode
+//프레임 실행 타입 이넘
+enum class PL_FRAMETYPE : int
 {
+	ONCE,
+	ROOP
+};
 
+class Player: public gameNode
+{
 private:
 	//정보 구조체
 	struct tagInfo
 	{
+	public:
 		RECT  plAttackRc;			//플레이어 공격렉트
 		float jumpPower;			//점프파워
 		float speed;				//속도
@@ -77,7 +84,7 @@ private:
 		DIRECTION dest;				//인덱스 방향
 		PL_STATE state;				//플레이어 상태
 		PL_STATE preState;			//플레이어 이전상태
-		
+
 		WEAPON_TYPE weaponType;		//무기종류
 		float hp;					//체력
 		float force;				//공격력
@@ -86,10 +93,17 @@ private:
 		float  exp;					//경험치
 		int hitCount;				//피격 카운트 (3번맞으면 다운됨)
 
+		float _frameTimer;			//프레임시간 타이머
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
-
+	//임시?????맴버
+	RECT _shadowRc;			//그림자 렉트
+	vector3 _shadowLT, _shadowRT, _shadowRB, _shadowLB;	//그림자 지점
+	vector3 _shadowPos;		//그림자 위치
+	tagShadow _shadow;		//그림자
+	//========================================================================
+private:
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
 
@@ -97,6 +111,9 @@ private:
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	EnemyManager* _enemyM;		//에너미 매니저 링크
 	CollisionManager* _colM;
+
+	//★맴버로 에너미를 가질 예정(동료로)
+
 private:
 	//상태 클래스
 	IPlayerState*	_IState;		//현재 상태
@@ -134,15 +151,14 @@ public:
 	virtual void update();		//업데이트
 	virtual void render();		//렌더
 
-/*====================================================================
-								GETTER
-====================================================================*/
-	GameObject getObj() { return _obj; }
+	/*====================================================================
+									GETTER
+	====================================================================*/
 	tagInfo   getInfo() { return _info; }
 	GameObject* getPObj() { return &_obj; }
-/*====================================================================
-								SETTER
-====================================================================*/
+	/*====================================================================
+									SETTER
+	====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	void setLinkColM(CollisionManager* colM) { _colM = colM; }
 	//조작 유무
@@ -151,21 +167,32 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
-	
-/*====================================================================
-								FUNCTION
-====================================================================*/
+	/*====================================================================
+									FUNCTION
+	====================================================================*/
+	void shadowUpdate();
 	void stageInit();
+	void move();
 
 	//중력작용
 	void gravity();
 	//키 입력
 	void keyInput();
 	//이미지변경
-	void ChangeImg(string imgName);
+	void changeImg(string imgName);
+	//프레임 실행
+	void playFrame();
 	//좌표 이동
-	void MovePos(float x, float z, float y);
+	void movePos(float x, float z, float y);
 
+	/*====================================================================
+									COLLISION
+	====================================================================*/
+	void playerObjectCollision();
+
+	// 전후 좌우 충돌 판정
+	void LRUDCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
+	// 점프 판정
+	void AirCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
 
 };
-
