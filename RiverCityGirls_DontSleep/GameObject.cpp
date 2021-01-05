@@ -100,6 +100,8 @@ void GameObject::release()
 
 void GameObject::update()
 {
+	size.x = img->getFrameWidth();
+	size.z = img->getFrameHeight();
 	RectRenew();
 }
 

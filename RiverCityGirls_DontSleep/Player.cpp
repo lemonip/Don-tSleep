@@ -228,7 +228,6 @@ void Player::gravity()
 		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
 		else setState(PL_STATE::IDLE);
 		_info.isSky = false;
-
 	}
 	//그림자 밑으로 떨어질 때 예외처리
 	if (_obj.pos.y > 0) _info.jumpPower = 0;
@@ -239,14 +238,16 @@ void Player::gravity()
 //키 입력
 void Player::keyInput()
 {
+	cout << (int)_info.state << endl;
+
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl)return;
 
 	//공격키받기(커맨드를위해)
-	if (KEY_M->isOnceKeyDownV('D'));
+	//if (KEY_M->isOnceKeyDownV('D'));
 
 	//점프
-	if (KEY_M->isOnceKeyDownV('A') && !_info.isSky)
+	if (KEY_M->isOnceKeyDown('A') && !_info.isSky)
 	{
 		//이전상태 저장
 		_info.preState = _info.state;
@@ -259,7 +260,7 @@ void Player::keyInput()
 
 	//방향조작을 못하는 상태라면 리턴
 	if (!_info.isConDest)return;
-
+	
 	//왼
 	if (KEY_M->isOnceKeyDownV(VK_LEFT))
 	{
@@ -277,6 +278,7 @@ void Player::keyInput()
 	//아래
 	if (KEY_M->isOnceKeyDownV(VK_DOWN))_info.moveDest = MOVE_DIRECTION::DOWN;
 
+	
 	//키커맨드 
 	if (!_info.isSky && KEY_M->getVKeyBuffer().size() >= 3)
 	{

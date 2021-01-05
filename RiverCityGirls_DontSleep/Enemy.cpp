@@ -90,7 +90,7 @@ void Enemy::update()
 {
 	_obj.update();
 	_EState->UpdateState();
-	if (KEY_M->isOnceKeyDown('A'))
+	if (KEY_M->isOnceKeyDown('P'))
 	{
 		SetState(EN_STATE::EN_IDLE);
 	}
