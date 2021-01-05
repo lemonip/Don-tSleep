@@ -3,7 +3,7 @@
 
 void playerRun::EnterState()
 {
-	_thisPl->changeImg("pl_run");
+	_thisPl->changeImg("pl_run",true);
 }
 
 void playerRun::UpdateState()

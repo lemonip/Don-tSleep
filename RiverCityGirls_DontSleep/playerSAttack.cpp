@@ -4,7 +4,7 @@
 void playerSAttack::EnterState()
 {
 	_thisPl->setIsControl(false);
-	_thisPl->changeImg("pl_sAttack");
+	_thisPl->changeImg("pl_sAttack",false);
 
 	tempTime = TIME_M->getWorldTime();
 }

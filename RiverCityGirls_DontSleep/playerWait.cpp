@@ -3,7 +3,7 @@
 
 void playerWait::EnterState()
 {
-	_thisPl->changeImg("pl_wait");
+	_thisPl->changeImg("pl_wait",false);
 }
 
 void playerWait::UpdateState()

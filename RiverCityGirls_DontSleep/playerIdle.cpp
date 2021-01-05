@@ -3,7 +3,7 @@
 
 void playerIdle::EnterState()
 {
-	_thisPl->changeImg("pl_idle");
+	_thisPl->changeImg("pl_idle",true);
 	//키조작 가능한 상태로 변경
 	_thisPl->setIsControl(true);
 	_thisPl->setIsControl(true);

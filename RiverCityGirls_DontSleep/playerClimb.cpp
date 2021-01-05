@@ -3,7 +3,7 @@
 
 void playerClimb::EnterState()
 {
-	_thisPl->changeImg("pl_climb");
+	_thisPl->changeImg("pl_climb", false);
 	_thisPl->getInfo()._ani->setDefPlayFrame(false, true);
 	_thisPl->getInfo()._ani->setFPS(1);
 	

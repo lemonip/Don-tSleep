@@ -4,7 +4,7 @@
 void playerWalk::EnterState()
 {
 	//이미지변경
-	_thisPl->changeImg("pl_walk");
+	_thisPl->changeImg("pl_walk",true);
 	_startTime = TIME_M->getWorldTime();
 	//방향변경가능상태로 전환
 	_thisPl->setIsConDest(true);

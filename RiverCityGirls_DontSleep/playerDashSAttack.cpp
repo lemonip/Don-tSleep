@@ -7,7 +7,7 @@ void playerDashSAttack::EnterState()
 	_thisPl->setIsConDest(false);
 
 	tempTime = TIME_M->getWorldTime();
-	_thisPl->changeImg("pl_dashSAttack");
+	_thisPl->changeImg("pl_dashSAttack",false);
 }
 
 void playerDashSAttack::UpdateState()

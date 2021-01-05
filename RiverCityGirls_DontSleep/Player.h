@@ -60,10 +60,12 @@ enum class MOVE_DIRECTION : int
 };
 
 //프레임 실행 타입 이넘
-enum class PL_FRAMETYPE : int
+enum class FRAMETYPE : int
 {
 	ONCE,
-	ROOP
+	ROOP,
+	REVERSONCE,
+	REVERSROOP
 };
 
 class Player: public gameNode
@@ -186,11 +188,9 @@ public:
 	//키 입력
 	void keyInput();
 	//이미지변경
-	void changeImg(string imgName);
-	//애니 변경
-	void changeAni();
+	void changeImg(string imgName, bool reverse);
 	//프레임 연산
-	void setFrame(PL_FRAMETYPE frameType, float frameInterval);
+	void setFrame(FRAMETYPE frameType, float frameInterval);
 	//프레임 실행
 	void playFrame();
 	//좌표 이동

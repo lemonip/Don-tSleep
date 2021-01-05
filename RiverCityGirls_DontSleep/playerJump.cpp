@@ -3,7 +3,7 @@
 
 void playerJump::EnterState()
 {
-	_thisPl->changeImg("pl_jump");
+	_thisPl->changeImg("pl_jump",false);
 }
 
 void playerJump::UpdateState()

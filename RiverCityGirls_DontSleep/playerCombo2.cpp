@@ -3,7 +3,7 @@
 
 void playerCombo2::EnterState()
 {
-	_thisPl->changeImg("pl_comboAttack2");
+	_thisPl->changeImg("pl_comboAttack2", false);
 	tempTime = TIME_M->getWorldTime();
 	//방향조작 못하는 상태로 변경
 	_thisPl->setIsConDest(false);

@@ -3,7 +3,7 @@
 
 void playerGuard::EnterState()
 {
-	_thisPl->changeImg("pl_guard");
+	_thisPl->changeImg("pl_guard",true);
 	//키조작 불가능 상태로 변경
 	_thisPl->setIsControl(false);
 }
