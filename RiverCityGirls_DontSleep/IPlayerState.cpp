@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "IPlayerState.h"
-#include "Player.h"
 
 //업데이트 일시정지 유무 
 bool IPlayerState::pauseUpdate()
@@ -38,18 +37,18 @@ void IPlayerState::basePattern()
 void IPlayerState::lineMove(float speed)
 {	
 	if (KEY_M->isStayKeyDown(VK_UP))
-		_thisPl->MovePos(0, -speed, 0);
+		_thisPl->movePos(0, -speed, 0);
 
 	if (KEY_M->isStayKeyDown(VK_DOWN))
-		_thisPl->MovePos(0, speed, 0);
+		_thisPl->movePos(0, speed, 0);
 }
 
 //좌우이동
 void IPlayerState::crossMove(float speed)
 {
 	if (KEY_M->isStayKeyDown(VK_RIGHT))
-		_thisPl->MovePos(speed, 0, 0);
+		_thisPl->movePos(speed, 0, 0);
 
 	if (KEY_M->isStayKeyDown(VK_LEFT))
-		_thisPl->MovePos(-speed, 0, 0);
+		_thisPl->movePos(-speed, 0, 0);
 }

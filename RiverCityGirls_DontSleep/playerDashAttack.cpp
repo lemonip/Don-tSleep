@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "playerDashAttack.h"
-#include "player.h"
 
 void playerDashAttack::EnterState()
 {
@@ -8,13 +7,13 @@ void playerDashAttack::EnterState()
 	_thisPl->setIsConDest(false);
 	
 	tempTime = TIME_M->getWorldTime();
-	_thisPl->ChangeImg("pl_dashAttack");
+	_thisPl->changeImg("pl_dashAttack");
 
 }
 
 void playerDashAttack::UpdateState()
 {
-	_thisPl->ChangeImg("pl_dashAttack");
+	_thisPl->changeImg("pl_dashAttack");
 	//임시타이머..원래는 프레임렌더 다돌아가면 변경할듯!
 	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
 

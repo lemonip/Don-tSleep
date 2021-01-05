@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "playerWait.h"
-#include "player.h"
 
 void playerWait::EnterState()
 {
-	_thisPl->ChangeImg("pl_wallet");
+	_thisPl->changeImg("pl_wallet");
 }
 
 void playerWait::UpdateState()
 {
-	_thisPl->ChangeImg("pl_wallet");
+	_thisPl->changeImg("pl_wallet");
 
 	//업데이트정지 유무
 	if (pauseUpdate())return;

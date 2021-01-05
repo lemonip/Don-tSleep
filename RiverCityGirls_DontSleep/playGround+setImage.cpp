@@ -55,16 +55,16 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pl_sAttack", "source/image/character/player/sAttack.bmp", 3030, 560, 10, 2, true, MAGENTA, true);
 	
 	IMG_M->addFrameImage("pl_sAttackDown", "source/image/character/player/sAttackDown.bmp", 7992, 438, 24, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("pl_stand", "source/image/character/player/stand.bmp", 3315, 457, 15, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_stand", "source/image/character/player/stand.bmp", 1863, 450, 9, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_stick", "source/image/character/player/stick.bmp", 294, 330, 2, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("pl_stomp", "source/image/character/player/stomp.bmp", 1290, 451, 4, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_stomp", "source/image/character/player/stomp.bmp", 1290, 420, 10, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_stun", "source/image/character/player/stun.bmp", 384, 384, 4, 2, true, MAGENTA, true);
 	
 	IMG_M->addFrameImage("pl_walk", "source/image/character/player/walk.bmp", 1476, 402, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wallet", "source/image/character/player/wallet.bmp", 2964, 420, 26, 2, true, MAGENTA, true);
 	
 	IMG_M->addFrameImage("pl_wBatAttack", "source/image/character/player/wBatAttack.bmp", 1700, 700, 5, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("pl_wBatIdle", "source/image/character/player/wBatIdle.bmp", 1440, 280, 12, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_wBatIdle", "source/image/character/player/wBatIdle.bmp", 1440, 560, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatJump", "source/image/character/player/wBatJump.bmp", 480, 640, 3, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatRun", "source/image/character/player/wBatRun.bmp", 2736, 560, 16, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatThrow", "source/image/character/player/wBatThrow.bmp", 1616, 600, 8, 2, true, MAGENTA, true);

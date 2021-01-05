@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
+#include "Player.h"
 
-class Player;
 class IPlayerState: public gameNode
 {
 protected:
