@@ -29,11 +29,12 @@ HRESULT gameNode::init(bool managerInit)
 		KEY_M->init();
 		IMG_M->init();
 		TIME_M->init();
-		CAMERA_M->init();
+		EFFECT_M->init();
 		SCENE_M->init();
-		TXTDATA->init();
-		EVENT_M->init();
 		SOUND_M->init();
+		TXTDATA->init();
+		CAMERA_M->init();
+		EVENT_M->init();
 	}
 
 	return S_OK;

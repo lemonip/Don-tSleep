@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "playGround.h"
 
-#include "LoadingScene.h"
 #include "TitleScene.h"
+#include "SelectScene.h"
+#include "LoadingScene.h"
 #include "GameScene.h"
 #include "ShopScene.h"
 #include "EndingScene.h"
@@ -91,8 +92,9 @@ void playGround::render()
 ====================================================================*/
 void playGround::addScene()
 {
-	SCENE_M->addScene("loading", new LoadingScene);		//·Îµù ¾À Ãß°¡
 	SCENE_M->addScene("title", new TitleScene);			//Å¸ÀÌÆ² ¾À Ãß°¡
+	SCENE_M->addScene("select", new SelectScene);		//¼±ÅÃ ¾À Ãß°¡
+	SCENE_M->addScene("loading", new LoadingScene);		//·Îµù ¾À Ãß°¡
 	SCENE_M->addScene("game", new GameScene);			//°ÔÀÓ ¾À Ãß°¡
 	SCENE_M->addScene("shop", new ShopScene);			//»óÁ¡ ¾À Ãß°¡
 	SCENE_M->addScene("ending", new EndingScene);		//¿£µù ¾À Ãß°¡

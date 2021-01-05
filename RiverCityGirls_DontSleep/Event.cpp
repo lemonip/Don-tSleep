@@ -74,7 +74,7 @@ void moviePlay::enter()
 bool moviePlay::update()
 {
 	//엔터로 스킵
-	if (_video->getIsPlaying() && KEY_M->isOnceKeyDown(VK_RETURN)) _video->stop();
+	if (_video->getIsPlaying() && (KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE))) _video->stop();
 
 	//영상 재생이 끝났는지 확인
 	if (_video->getIsPlaying())

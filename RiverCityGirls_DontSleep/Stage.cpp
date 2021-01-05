@@ -9,6 +9,7 @@ HRESULT Stage::init()
 {
 	_enemyM = new EnemyManager;
 	_enemyM->init();
+	_enemyM->setLinkStageM(_stageM);
 
 	_objectM = new ObjectManager;
 	_objectM->init();

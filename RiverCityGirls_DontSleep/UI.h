@@ -11,7 +11,7 @@ public:
 	UITYPE _type;
 	image* _img;
 
-	vector3 _pos;
+	vector3* _pos;
 	vector3 _goal;
 	float _speed;
 	RECT _rc;
@@ -24,11 +24,6 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render(HDC hdc);
-
-	void setX(float x) { _pos.x = x; }
-	void setY(float y) { _pos.y = y; }
-
-	virtual void move(vector3 goal, float speed);
 
 	void setActive(bool active) { _isActive = active; }
 };

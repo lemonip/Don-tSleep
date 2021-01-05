@@ -80,27 +80,32 @@ void StageManager::setStage(STAGETYPE current)
 	{
 		case STAGETYPE::EASY:
 			_stage = new EasyStage;
+			_stage->setLinkStageM(this);
 			_stage->init();
 		break;
 
 		case STAGETYPE::NORMAL:
 			_stage = new NormalStage;
+			_stage->setLinkStageM(this);
 			_stage->init();
 		break;
 
 		case STAGETYPE::HARD:
 			_stage = new HardStage;
+			_stage->setLinkStageM(this);
 			_stage->init();
 		break;
 
 		case STAGETYPE::BOSS:
 			_stage = new BossStage;
+			_stage->setLinkStageM(this);
 			_stage->init();
 		break;
 	}
 
 	//플래이어가 스테이지 초기화를 한다.
 	_player->stageInit();
+
 }
 
 

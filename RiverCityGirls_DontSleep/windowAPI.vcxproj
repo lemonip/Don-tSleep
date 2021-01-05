@@ -217,6 +217,7 @@
     <ClInclude Include="IBossState.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
+    <ClInclude Include="Interpolation.h" />
     <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="ItemObj.h" />
     <ClInclude Include="keyManager.h" />
@@ -257,6 +258,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="schoolBoy.h" />
     <ClInclude Include="schoolGirl.h" />
+    <ClInclude Include="SelectScene.h" />
     <ClInclude Include="ShopScene.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="soundManager.h" />
@@ -345,6 +347,7 @@
     <ClCompile Include="IBossState.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
+    <ClCompile Include="Interpolation.cpp" />
     <ClCompile Include="IPlayerState.cpp" />
     <ClCompile Include="ItemObj.cpp" />
     <ClCompile Include="keyManager.cpp" />
@@ -384,6 +387,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="schoolBoy.cpp" />
     <ClCompile Include="schoolGirl.cpp" />
+    <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="ShopScene.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="Stage.cpp" />

@@ -6,9 +6,11 @@
 
 void enemyIdle::EnterState()
 {
+	
 	_thisEn->SetImage();
 	_thisEn->getPlayerAddress()->getObj().pos.x;
-	//_thisEn->getWalkSpeed = 2;
+	//_thisEn->getWalkSpeed = 2; //enemy->setWalkSpeed(2);
+	
 }
 
 void enemyIdle::UpdateState()

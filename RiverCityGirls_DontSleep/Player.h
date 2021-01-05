@@ -6,7 +6,6 @@
 
 //전방선언
 class StageManager;
-class Stage;
 class ObjectManager;
 class EnemyManager;
 class IPlayerState;

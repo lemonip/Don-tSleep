@@ -15,26 +15,11 @@ void UI::release()
 ====================================================================*/
 void UI::update()
 {
-	if (_isMove)
-	{
-		_pos.x += cosf(getAngle(_pos.x, _pos.y, _goal.x, _goal.y))*_speed;
-		_pos.y -= sinf(getAngle(_pos.x, _pos.y, _goal.x, _goal.y))*_speed;
-
-		if (getDistance(_pos.x, _pos.y, _goal.x, _goal.y) < 10) _isMove = false;
-	}
 }
 
 void UI::render(HDC hdc)
 {
-	_img->render(hdc, _pos.x, _pos.y);
-}
-
-void UI::move(vector3 point, float speed)
-{
-	_goal.x = point.x;
-	_goal.y = point.y;
-	this->_speed = speed;
-	_isMove = true;
+	_img->render(hdc, _pos->x, _pos->y);
 }
 
 /*====================================================================
@@ -52,7 +37,7 @@ Bar::Bar(image * front, image * back, int* currentGauge, int* maxGauge)
 HRESULT Bar::init()
 {
 	_ratio = *_current / *_max;
-	_rc = RectMakeCenter(_pos.x, _pos.y, _back->getWidth(), _back->getHeight());
+	_rc = RectMakeCenter(_pos->x, _pos->y, _back->getWidth(), _back->getHeight());
 	return S_OK;
 }
 void Bar::release()
@@ -66,8 +51,8 @@ void Bar::update()
 void Bar::render(HDC hdc)
 {
 	//Bar는 x, y가 Left Top 기준으로 그려진다.
-	_back->render(hdc, _pos.x + _back->getWidth() / 2, _pos.y + _back->getHeight() / 2);
-	_front->render(hdc, _pos.x , _pos.y ,0,0, _front->getWidth()*_ratio,_front->getHeight());			//잘라 그리는 버전
+	_back->render(hdc, _pos->x + _back->getWidth() / 2, _pos->y + _back->getHeight() / 2);
+	_front->render(hdc, _pos->x , _pos->y ,0,0, _front->getWidth()*_ratio,_front->getHeight());			//잘라 그리는 버전
 	//_front->render(hdc, _pos.x + _front->getWidth() / 2, _pos.y + _back->getHeight() / 2, _ratio, 1); //비율로 축소 시켜 그리는 버전
 
 }

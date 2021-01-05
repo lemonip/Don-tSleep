@@ -56,7 +56,7 @@ void UIManager::addImage(string name, image* img, vector3 pos)
 	UI* ui = new UI;
 	ui->_type = UITYPE::UI;
 	ui->_img = img;
-	ui->_pos = pos;
+	ui->_pos = new vector3(pos.x, pos.y, pos.z);
 	ui->_isActive = false;
 
 	_mUI.insert(make_pair(name, ui));
@@ -68,7 +68,7 @@ void UIManager::addBar(string name, image * front, image * back, vector3 pos, in
 	if (_miUI != _mUI.end()) return;
 
 	UI* ui = new Bar(front, back, current, max);
-	ui->_pos = pos;
+	ui->_pos = new vector3(pos.x, pos.y, pos.z);
 	ui->init();
 	ui->_type = UITYPE::BAR;
 	ui->_isActive = false;

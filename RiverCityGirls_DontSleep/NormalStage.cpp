@@ -3,6 +3,7 @@
 
 HRESULT NormalStage::init()
 {
+	Stage::init();
 	/*====================================================================
 		스테이지의 배경 이미지를 설정하고, 카메라에게 맵 사이즈를 알려 줍니다.
 	====================================================================*/
@@ -22,12 +23,15 @@ HRESULT NormalStage::init()
 
 void NormalStage::release()
 {
+	Stage::release();
 }
 
 void NormalStage::update()
 {
+	Stage::update();
 }
 
 void NormalStage::render()
 {
+	Stage::render();
 }

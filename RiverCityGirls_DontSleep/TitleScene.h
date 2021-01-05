@@ -8,7 +8,17 @@ class TitleScene : public Scene
 {
 private:
 	vector3 loop;
-	image* _title;
+
+	Interpolation* _titleInter;
+
+	image* _kyoko;
+	vector3 _kyokoPos;
+	Interpolation* _kyokoInter;
+
+	image* _misako;
+	vector3 _misakoPos;
+	Interpolation* _misakoInter;
+
 
 public:
 

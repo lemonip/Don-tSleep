@@ -17,6 +17,11 @@ public:
 	int getIntZ() { return (int)(this->z); }
 	POINT getPoint();
 
+	// ======================= setter =======================
+	void setX(float x) { this->x = x; }
+	void setY(float y) { this->y = y; }
+	void setZ(float z) { this->z = z; }
+
 	// ======================= operator =======================
 	vector3 operator+ (vector3& v);
 	vector3 operator- (vector3& v);

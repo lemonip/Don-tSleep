@@ -72,7 +72,7 @@ void Boss::release()
 
 void Boss::update()
 {
-	
+
 	
 	
 }

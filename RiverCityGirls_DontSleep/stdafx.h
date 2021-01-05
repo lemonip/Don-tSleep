@@ -18,6 +18,7 @@
 #include "utils.h"
 #include "txtData.h"
 #include "vector3.h"
+#include "Interpolation.h"
 
 #include "imageManager.h"
 #include "CameraManager.h"

@@ -27,7 +27,7 @@ HRESULT LoadingScene::init()
 	_sprite = IMG_M->findImage("loading_sprite");
 	_ani = new animation;
 	_ani->init(_sprite->getWidth(), _sprite->getHeight(), _sprite->getFrameWidth(), _sprite->getFrameHeight());
-	_ani->setDefPlayFrame(true, true);
+	_ani->setDefPlayFrame(false, true);
 	_ani->setFPS(1);
 	_ani->start();
 
@@ -54,6 +54,8 @@ void LoadingScene::update()
 {
 	CAMERA_M->SetPos(WINSIZEX / 2, WINSIZEY / 2);
 
+	_ani->frameUpdate(0.1f);
+
 	//로딩이 다 되면
 	if (_count == _max)
 	{
@@ -66,7 +68,6 @@ void LoadingScene::render()
 {
 	backGround->render(getMapDC());
 	_sprite->aniRender(getMapDC(), WINSIZEX - 150, WINSIZEY - 220, _ani);
-	//_sprite->frameRender(getMapDC(), WINSIZEX - 200, WINSIZEY - 200, 1, 0);
 }
 
 DWORD CALLBACK threadFunction(LPVOID lpParameter)
