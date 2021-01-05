@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "playerRun.h"
-#include "player.h"
+#include "Player.h"
 
 void playerRun::EnterState()
 {

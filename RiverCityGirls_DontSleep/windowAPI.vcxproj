@@ -170,6 +170,7 @@
     <ClInclude Include="BrokenObj.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="cheerLeader.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="EasyStage.h" />
@@ -302,6 +303,7 @@
     <ClCompile Include="BrokenObj.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="cheerLeader.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="EasyStage.cpp" />
     <ClCompile Include="effect.cpp" />

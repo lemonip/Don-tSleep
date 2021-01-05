@@ -2,21 +2,14 @@
 #include "gameNode.h"
 #include "GameObject.h"
 #define GRAVITYVALUE 0.5f			//중력수치
-#define JUMPPOWERVALUE 15.f			//점프파워수치
+#define JUMPPOWERVALUE 20.f			//점프파워수치
 
 //전방선언
 class StageManager;
 class ObjectManager;
 class EnemyManager;
 class IPlayerState;
-
-//임시 그림자 구조체 (후에 GameObject쪽으로 옮겨질 예정.)
-struct tagShadow
-{
-	RECT rc;
-	vector3 LT, RT, RB, LB;
-	vector3 pos;
-};
+class CollisionManager;
 
 /*====================================================================
 	플래이어입니다. Stage와 링크되어 있어,
@@ -54,16 +47,18 @@ enum class PL_STATE : int
 	SATTACKDOWN		//바라보는방향키 + ↓ + 강공격 (커맨드입력)
 };
 
+//플레이어 방향 이넘
+enum class MOVE_DIRECTION : int
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
+
 class Player : public gameNode
 {
-	//플레이어 방향 이넘
-	enum class MOVE_DIRECTION : int
-	{
-		LEFT,
-		RIGHT,
-		UP,
-		DOWN
-	};
+
 private:
 	//정보 구조체
 	struct tagInfo
@@ -94,13 +89,6 @@ private:
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
-	//맴버
-	RECT _shadowRc;			//그림자 렉트
-	vector3 _shadowLT, _shadowRT, _shadowRB, _shadowLB;	//그림자 지점
-	vector3 _shadowPos;		//그림자 위치
-	tagShadow _shadow;		//그림자
-
-
 
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
@@ -108,7 +96,7 @@ private:
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	EnemyManager* _enemyM;		//에너미 매니저 링크
-
+	CollisionManager* _colM;
 private:
 	//상태 클래스
 	IPlayerState*	_IState;		//현재 상태
@@ -139,7 +127,8 @@ private:
 	IPlayerState*	_jumpAttack;    //점프공격
 	IPlayerState*	_SAttackDown;   //바라보는방향키 + ↓ + 강공격 (커맨드입력)
 public:
-
+	Player() {};
+	~Player() {};
 	virtual HRESULT init();		//초기화
 	virtual void release();		//해제
 	virtual void update();		//업데이트
@@ -149,25 +138,24 @@ public:
 								GETTER
 ====================================================================*/
 	GameObject getObj() { return _obj; }
-	tagInfo    getInfo() { return _info; }
+	tagInfo   getInfo() { return _info; }
+	GameObject* getPObj() { return &_obj; }
 /*====================================================================
 								SETTER
 ====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	void setLinkColM(CollisionManager* colM) { _colM = colM; }
 	//조작 유무
 	void setIsControl(bool control) { _info.isControl = control; }
 	//상태 지정
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
+	
 /*====================================================================
 								FUNCTION
 ====================================================================*/
-	
-	void shadowUpdate();
 	void stageInit();
-	//움직임?? 주석상태임 - 뭔지몰라서
-	void move();
 
 	//중력작용
 	void gravity();
@@ -178,15 +166,6 @@ public:
 	//좌표 이동
 	void MovePos(float x, float z, float y);
 
-/*====================================================================
-								COLLISION
-====================================================================*/
-	void playerObjectCollision();
-
-	// 전후 좌우 충돌 판정
-	void LRUDCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
-	// 점프 판정
-	void AirCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
 
 };
 

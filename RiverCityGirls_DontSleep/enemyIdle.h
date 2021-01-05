@@ -2,6 +2,7 @@
 #include "IEnemyState.h"
 
 class Enemy;
+class Player;
 
 class enemyIdle : public IEnemyState
 {

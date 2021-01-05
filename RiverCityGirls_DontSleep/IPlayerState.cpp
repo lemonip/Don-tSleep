@@ -6,7 +6,7 @@
 bool IPlayerState::pauseUpdate()
 {
 	//키조작이 불가능일경우 
-	if (!_thisPl->getInfo().isControl)return true;
+	if (!_thisPl->getInfo().isControl) return true;
 
 	//그외
 	else return false;

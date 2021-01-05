@@ -1,7 +1,7 @@
 #pragma once
 #include "IPlayerState.h"
 
-class playerGuard :public IPlayerState
+class playerGuard : public IPlayerState
 {
 public:
 

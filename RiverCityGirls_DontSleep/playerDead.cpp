@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "playerDead.h"
 
+
 void playerDead::EnterState()
 {
 }

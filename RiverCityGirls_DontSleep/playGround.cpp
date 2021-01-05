@@ -27,7 +27,7 @@ HRESULT playGround::init()
 
 	addImage();						//이미지 세팅
 	addScene();						//씬 세팅
-	SCENE_M->changeScene("title");	//첫 시작씬 (title)
+	SCENE_M->changeScene("game");	//첫 시작씬 (title)
 
 	return S_OK;
 }

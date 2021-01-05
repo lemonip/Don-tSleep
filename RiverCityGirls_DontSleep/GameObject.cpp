@@ -8,7 +8,7 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos)
 	group = _group;
 
 	pos = _pos;
-	angle = - PI / 4;
+	zAngle = - PI / 4;
 	size.x = img->getFrameWidth();
 	size.z = img->getFrameHeight();
 
@@ -46,8 +46,8 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos, float a)
 	group = _group;
 
 	pos = _pos;
-	angle2 = a;
-	angle = -PI / 4;
+	margin = a;
+	zAngle = -PI / 4;
 	size.x = img->getFrameWidth();
 	size.z = img->getFrameHeight();
 
@@ -67,15 +67,15 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos, float a)
 		isShadow = true;
 		break;
 	case OBJECT_GROUP::OBJECT:
-		topPlane[0] = Linear(vector3(pos.x - size.x / 2 + angle2, -size.z + angle2, pos.z - size.z), vector3(pos.x + size.x / 2, -size.z + angle2, pos.z - size.z));					// 위쪽 선분
-		topPlane[1] = Linear(vector3(pos.x + size.x / 2, -size.z + angle2, pos.z - size.z), vector3(pos.x + size.x / 2 - angle2, -size.z + angle2, pos.z - size.z + angle2));			// 오른쪽 선분
-		topPlane[2] = Linear(vector3(pos.x + size.x / 2 - angle2, -size.z + angle2, pos.z - size.z + angle2), vector3(pos.x - size.x / 2, -size.z + angle2, pos.z - size.z + angle2)); // 밑쪽 선분
-		topPlane[3] = Linear(vector3(pos.x - size.x / 2, -size.z + angle2, pos.z - size.z + angle2), vector3(pos.x - size.x / 2 + angle2, -size.z + angle2, pos.z - size.z));			// 왼쪽 선분
+		topPlane[0] = Linear(vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z));					// 위쪽 선분
+		topPlane[1] = Linear(vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z + margin));			// 오른쪽 선분
+		topPlane[2] = Linear(vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z + margin)); // 밑쪽 선분
+		topPlane[3] = Linear(vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z));			// 왼쪽 선분
 
-		bottomPlane[0] = Linear(vector3(pos.x - size.x / 2 + angle2, (float)0, pos.z - angle2), vector3(pos.x + size.x / 2, (float)0, pos.z - angle2));			// 위쪽 선분
-		bottomPlane[1] = Linear(vector3(pos.x + size.x / 2, (float)0, pos.z - angle2), vector3(pos.x + size.x / 2 - angle2, (float)0, pos.z));					// 오른쪽 선분
-		bottomPlane[2] = Linear(vector3(pos.x + size.x / 2 - angle2, (float)0, pos.z), vector3(pos.x - size.x / 2, (float)0, pos.z));							// 밑쪽 선분
-		bottomPlane[3] = Linear(vector3(pos.x - size.x / 2, (float)0, pos.z), vector3(pos.x - size.x / 2 + angle2, (float)0, pos.z - angle2));					// 왼쪽 선분
+		bottomPlane[0] = Linear(vector3(pos.x - size.x / 2 + margin, (float)0, pos.z - margin), vector3(pos.x + size.x / 2, (float)0, pos.z - margin));			// 위쪽 선분
+		bottomPlane[1] = Linear(vector3(pos.x + size.x / 2, (float)0, pos.z - margin), vector3(pos.x + size.x / 2 - margin, (float)0, pos.z));					// 오른쪽 선분
+		bottomPlane[2] = Linear(vector3(pos.x + size.x / 2 - margin, (float)0, pos.z), vector3(pos.x - size.x / 2, (float)0, pos.z));							// 밑쪽 선분
+		bottomPlane[3] = Linear(vector3(pos.x - size.x / 2, (float)0, pos.z), vector3(pos.x - size.x / 2 + margin, (float)0, pos.z - margin));					// 왼쪽 선분
 
 		// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
 		sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());
@@ -90,6 +90,19 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos, float a)
 		break;
 	}
 
+/*====================================================================
+					그림자 등 충돌 처리에 관련 해 설정합니다.
+====================================================================*/
+	if (isShadow)
+	{
+		shadow.pos = vector3(pos.x, pos.y, pos.z);
+		shadow.LT = vector3(pos.x - size.x / 2, pos.y, pos.z - 10);
+		shadow.RT = vector3(pos.x + size.x / 2, pos.y, pos.z - 10);
+		shadow.RB = vector3(pos.x + size.x / 2, pos.y, pos.z + 10);
+		shadow.LB = vector3(pos.x - size.x / 2, pos.y, pos.z + 10);
+		shadow.rc = RectMakeCenter(pos.x, pos.z, size.x, 20);
+	}
+
 	isActive = true;
 }
 
@@ -101,6 +114,7 @@ void GameObject::release()
 void GameObject::update()
 {
 	RectRenew();
+	shadowUpdate();
 }
 
 void GameObject::render()
@@ -111,6 +125,19 @@ void GameObject::render()
 void GameObject::RectRenew()
 {
 	rc = RectMakeCenter(pos.x, pos.z - size.z / 2 + pos.y, size.x, size.z);
+}
+
+void GameObject::shadowUpdate()
+{
+/*====================================================================
+					그림자 업데이트
+====================================================================*/
+	shadow.pos = vector3(pos.x, pos.y, pos.z);
+	shadow.LT = vector3(pos.x - size.x / 2, pos.y, pos.z - 10);
+	shadow.RT = vector3(pos.x + size.x / 2, pos.y, pos.z - 10);
+	shadow.RB = vector3(pos.x + size.x / 2, pos.y, pos.z + 10);
+	shadow.LB = vector3(pos.x - size.x / 2, pos.y, pos.z + 10);
+	shadow.rc = RectMakeCenter(pos.x, pos.z, size.x, 20);
 }
 
 void GameObject::PolyLineRender(HDC hdc)

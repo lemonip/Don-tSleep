@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "playerGuard.h"
-#include "player.h"
+#include "Player.h"
 
 void playerGuard::EnterState()
 {

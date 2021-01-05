@@ -2,15 +2,23 @@
 #include "GameScene.h"
 
 #include "StageManager.h"
-
+#include "CollisionManager.h"
+#include "Player.h"
 
 HRESULT GameScene::init()
 {
 	/*====================================================================
-		게임 씬은 스테이지 매니저를 가집니다.
+		게임 씬은 스테이지 매니저와 콜리전 매니저를 가집니다.
 	====================================================================*/
 	_stageM = new StageManager;
 	_stageM->init();
+
+	_colM = new CollisionManager;
+	_colM->init();
+
+	_colM->setLinkStageM(_stageM);
+	_colM->setLinkPlayer(_stageM->getPlayer());
+	_stageM->getPlayer()->setLinkColM(_colM);
 
 	return S_OK;
 }

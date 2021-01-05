@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "playerStick.h"
+#include "Player.h"
 
 void playerStick::EnterState()
 {

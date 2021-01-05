@@ -2,6 +2,7 @@
 #include "gameNode.h"
 
 class Player;
+
 class IPlayerState: public gameNode
 {
 protected:
