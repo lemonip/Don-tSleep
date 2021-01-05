@@ -233,12 +233,13 @@ void Player::changeImg(string imgName, bool reverse)
 		case DIRECTION::LEFT:
 			if(!reverse)_obj.imgIndex.x = 0;
 			else if(reverse)_obj.imgIndex.x = _obj.img->getMaxFrameX(); 
+			_obj.imgIndex.y = 0;
 			break;
 			
 		case DIRECTION::RIGHT:
 			if (!reverse)_obj.imgIndex.x = _obj.img->getMaxFrameX(); 
 			else if (reverse)_obj.imgIndex.x =0;
-
+			_obj.imgIndex.y = 1;
 			break;
 		}
 
@@ -248,7 +249,18 @@ void Player::changeImg(string imgName, bool reverse)
 //프레임 연산
 void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 {
-	//프레임 y 번호 설정 및 세팅
+	//프레임 y 번호 설정
+	switch (_info.dest)
+	{
+	case DIRECTION::LEFT:
+		_obj.imgIndex.y = 0;
+		break;
+	case DIRECTION::RIGHT:
+		_obj.imgIndex.y = 1;
+		break;
+	}
+
+	//프레임 y 번호 세팅
 	_obj.img->setFrameY((int)_info.dest);
 
 	//프레임 x 번호 조절
