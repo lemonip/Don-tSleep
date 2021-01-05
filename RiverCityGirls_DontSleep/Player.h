@@ -72,7 +72,6 @@ enum class PL_FRAMETYPE : int
 class Player: public gameNode
 {
 private:
-	
 	//정보 구조체
 	struct tagInfo
 	{
