@@ -43,7 +43,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pl_comboAttack2", "source/image/character/player/comboAttack2.bmp", 1869, 402, 7, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_comboAttack3", "source/image/character/player/comboAttack3.bmp", 2970, 462, 9, 2, true, MAGENTA, true);
 	
-	IMG_M->addFrameImage("pl_dashAttack", "source/image/character/player/dashAttack.bmp", 2700, 436, 8, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_dashAttack", "source/image/character/player/dashAttack.bmp", 2565, 414, 8, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_dashSAttack", "source/image/character/player/dashSAttack.bmp", 5460, 456, 21, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_dead", "source/image/character/player/dead.bmp", 7280, 478, 26, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_down", "source/image/character/player/down.bmp", 4968, 390, 23, 2,true, MAGENTA, true);

@@ -154,7 +154,8 @@ public:
 	/*====================================================================
 									GETTER
 	====================================================================*/
-	tagInfo   getInfo() { return _info; }
+	GameObject getObj() { return _obj; }
+	tagInfo    getInfo() { return _info; }
 	GameObject* getPObj() { return &_obj; }
 	/*====================================================================
 									SETTER
@@ -170,9 +171,7 @@ public:
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
-	void shadowUpdate();
 	void stageInit();
-	void move();
 
 	//중력작용
 	void gravity();
@@ -184,15 +183,4 @@ public:
 	void playFrame();
 	//좌표 이동
 	void movePos(float x, float z, float y);
-
-	/*====================================================================
-									COLLISION
-	====================================================================*/
-	void playerObjectCollision();
-
-	// 전후 좌우 충돌 판정
-	void LRUDCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
-	// 점프 판정
-	void AirCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
-
 };
