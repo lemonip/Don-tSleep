@@ -1,10 +1,9 @@
 #include "stdafx.h"
-#include "player.h"
 #include "playerIdle.h"
 
 void playerIdle::EnterState()
 {
-	_thisPl->ChangeImg("pl_idle");
+	_thisPl->changeImg("pl_idle");
 	//키조작 가능한 상태로 변경
 	_thisPl->setIsControl(true);
 	_thisPl->setIsControl(true);
@@ -16,7 +15,7 @@ void playerIdle::EnterState()
 
 void playerIdle::UpdateState()
 {
-	_thisPl->ChangeImg("pl_idle");
+	_thisPl->changeImg("pl_idle");
 
 	//업데이트정지 유무
 	if (pauseUpdate())return;

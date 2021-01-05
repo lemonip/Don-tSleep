@@ -1,8 +1,9 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE 0.5f			//중력수치
-#define JUMPPOWERVALUE 15.f			//점프파워수치
+#define GRAVITYVALUE	0.5f			//중력수치
+#define JUMPPOWERVALUE  15.f			//점프파워수치
+#define FRAMEINTERVAL	1.f				//프레임인터벌
 
 //전방선언
 class StageManager;
@@ -54,6 +55,13 @@ enum class PL_STATE : int
 	SATTACKDOWN		//바라보는방향키 + ↓ + 강공격 (커맨드입력)
 };
 
+//프레임 실행 타입 이넘
+enum class PL_FRAMETYPE : int
+{
+
+};
+
+
 class Player : public gameNode
 {
 	//플레이어 방향 이넘
@@ -91,6 +99,7 @@ private:
 		float  exp;					//경험치
 		int hitCount;				//피격 카운트 (3번맞으면 다운됨)
 
+		float _frameTimer;			//프레임시간 타이머
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
@@ -166,7 +175,6 @@ public:
 	
 	void shadowUpdate();
 	void stageInit();
-	//움직임?? 주석상태임 - 뭔지몰라서
 	void move();
 
 	//중력작용
@@ -174,9 +182,11 @@ public:
 	//키 입력
 	void keyInput();
 	//이미지변경
-	void ChangeImg(string imgName);
+	void changeImg(string imgName);
+	//프레임 실행
+	//void playFrame()
 	//좌표 이동
-	void MovePos(float x, float z, float y);
+	void movePos(float x, float z, float y);
 
 /*====================================================================
 								COLLISION

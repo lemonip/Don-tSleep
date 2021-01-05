@@ -6,8 +6,6 @@
 #include "ObjectManager.h"
 #include "EnemyManager.h"
 
-#include "stdafx.h"
-#include "player.h"
 #include "IPlayerState.h"
 #include "playerIdle.h"
 #include "playerWait.h"
@@ -53,6 +51,7 @@ HRESULT Player::init()
 	_info.hasMember = false;
 	_info.dest = DIRECTION::RIGHT;
 	_info.moveDest = MOVE_DIRECTION::RIGHT;
+	_info._frameTimer = TIME_M->getWorldTime();
 
 	_info.hitCount = 3;
 	}
@@ -133,7 +132,6 @@ void Player::render()
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
 	ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER);
-	//(아직 플래이어 애니메이션이 없어 임시로 해두었습니다. 나중에 ANI_RENDER로 바꿔서 쓰세요!)
 }
 
 
@@ -235,12 +233,12 @@ void Player::gravity()
 	//그림자 밑으로 떨어질 때 예외처리
 	if (_obj.pos.y > 0) _info.jumpPower = 0;
 	//좌표 갱신
-	MovePos(0, 0, _info.jumpPower);
+	movePos(0, 0, _info.jumpPower);
 }
 
+//키 입력
 void Player::keyInput()
 {
-
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl)return;
 
@@ -254,7 +252,7 @@ void Player::keyInput()
 		_info.preState = _info.state;
 		_info.isSky = true;
 		_info.jumpPower = JUMPPOWERVALUE;
-		MovePos(0, 0, JUMPPOWERVALUE);
+		movePos(0, 0, JUMPPOWERVALUE);
 		//점프파워가 - 면 점프상태로 전환
 		if (_info.jumpPower > 0.4)setState(PL_STATE::JUMP);
 	}
@@ -294,31 +292,37 @@ void Player::keyInput()
 	
 }
 
-void Player::ChangeImg(string imgName)
+//이미지 변경
+void Player::changeImg(string imgName)
 {
+	//이미지를 바꾼다.
 	_obj.img = IMG_M->findImage(imgName);
-	//_obj.img->setFrameY((int)_info.indexDest);//여기말고 프레임렌더에있어야함
-	//if (_info.indexDest == DIRECTION::LEFT) _obj.img->setFrameX(0);
-	//else if (_info.indexDest == DIRECTION::RIGHT) _obj.img->setFrameX(_obj.img->getMaxFrameX());
-
+	//프레임 시간 갱신
+	_info._frameTimer = TIME_M->getWorldTime();
+	//방향에 따른 이미지의 x,y변수 변경
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT:
+		_obj.imgIndex.x = 0;
 		_obj.imgIndex.y = 0;
 		break;
 	case DIRECTION::RIGHT:
+		_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		_obj.imgIndex.y = 1;
 		break;
 	}
+	//프레임 실행 방식 설정
 
-		_obj.img->setFrameY((int)_obj.imgIndex.y);//여기말고 프레임렌더에있어야함
+
+	//여기말고 프레임렌더에있어야함
+	_obj.img->setFrameY((int)_obj.imgIndex.y);
 	if (_info.dest == DIRECTION::LEFT) _obj.img->setFrameX(0);
 	else if (_info.dest == DIRECTION::RIGHT) _obj.img->setFrameX(_obj.img->getMaxFrameX());
 
 }
 
 //좌표이동
-void Player::MovePos(float x, float z, float jumpPower)
+void Player::movePos(float x, float z, float jumpPower)
 {
 	_obj.pos.x += x;
 	_obj.pos.z += z;

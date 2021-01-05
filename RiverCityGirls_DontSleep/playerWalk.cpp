@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "playerWalk.h"
-#include "player.h"
 
 void playerWalk::EnterState()
 {
-	_thisPl->ChangeImg("pl_walk");
+	_thisPl->changeImg("pl_walk");
 	_startTime = TIME_M->getWorldTime();
 	//방향변경가능상태로 전환
 	_thisPl->setIsConDest(true);
@@ -12,7 +11,7 @@ void playerWalk::EnterState()
 
 void playerWalk::UpdateState()
 {
-	_thisPl->ChangeImg("pl_walk");
+	_thisPl->changeImg("pl_walk");
 
 	//한번더 누르면 대쉬
 	if (_thisPl->getInfo().dest == DIRECTION::LEFT && KEY_M->isStayKeyDown(VK_LEFT))
