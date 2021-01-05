@@ -129,6 +129,7 @@ void Player::update()
 	_info._ani->frameUpdate(TIME_M->getElapsedTime() * 10);
 	//프레임업뎃
 	playFrame();
+
 }
 
 //렌더
@@ -142,8 +143,8 @@ void Player::render()
 	case RENDERTYPE::FRAME_RENDER:
 		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER); //z오더의 index y에 안들어가..z오더가 obj index y 값 못읽는듯
 
-		cout << "캐방향" << (int)_info.dest << endl;
-		cout << "인덱스 방향 설정" << _obj.img->getFrameY() << endl;
+		//cout << "캐방향" << (int)_info.dest << endl;
+		//cout << "인덱스 방향 설정" << _obj.img->getFrameY() << endl;
 		break;
 
 	case RENDERTYPE::ANI_RENDER:
@@ -237,9 +238,11 @@ void Player::changeImg(string imgName, bool reverse)
 		case DIRECTION::RIGHT:
 			if (!reverse)_obj.imgIndex.x = _obj.img->getMaxFrameX(); 
 			else if (reverse)_obj.imgIndex.x =0;
+
 			break;
 		}
 
+	
 }
 
 //프레임 연산
@@ -287,9 +290,9 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		{
 			_obj.imgIndex.x = 0; return;
 		}
-
-		}
 		break;
+		}
+	
 	case FRAMETYPE::REVERSROOP://반대 무한 재생
 	{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
@@ -299,12 +302,13 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		break;
 	}
-
 	}
 
 	//프레임 x 번호 세팅
 	_obj.img->setFrameX(_obj.imgIndex.x);
 	
+
+
 	//프레임 실행 시간 설정
 	if (TIME_M->getWorldTime() - _info._frameTimer > frameInterval)
 	{
@@ -313,20 +317,17 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		switch (_info.dest)
 		{
 		case DIRECTION::LEFT:
-			if(frameType != FRAMETYPE::REVERSROOP) ++_obj.imgIndex.x;
-			else if(frameType == FRAMETYPE::REVERSROOP) --_obj.imgIndex.x;
+			if(frameType != FRAMETYPE::REVERSROOP && frameType != FRAMETYPE::REVERSONCE) ++_obj.imgIndex.x;
+			else --_obj.imgIndex.x;
 			
 			
 			break;
 		case DIRECTION::RIGHT:
-			if (frameType != FRAMETYPE::REVERSROOP) --_obj.imgIndex.x;
-			else if (frameType == FRAMETYPE::REVERSROOP) ++_obj.imgIndex.x;
-
+			if (frameType != FRAMETYPE::REVERSROOP&& frameType != FRAMETYPE::REVERSONCE) --_obj.imgIndex.x;
+			else  ++_obj.imgIndex.x;
 			break;
 		}
-		
 	}
-	
 }
 
 //프레임 실행
@@ -366,9 +367,9 @@ void Player::playFrame()
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL);	
 		_info._rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-	//반대 한번재생
+	//반대 한번재생 (빨리)
 	case PL_STATE::GUARD:
-		setFrame(FRAMETYPE::REVERSROOP, FRAMEINTERVAL);
+		setFrame(FRAMETYPE::REVERSONCE, FRAMEINTERVAL*0.4);
 		_info._rendType = RENDERTYPE::FRAME_RENDER;
 		break;
 	//애니랜더
@@ -378,6 +379,7 @@ void Player::playFrame()
 			_obj.img->getFrameWidth(), _obj.img->getFrameHeight());
 		break;
 	}
+
 }
 
 //좌표이동
