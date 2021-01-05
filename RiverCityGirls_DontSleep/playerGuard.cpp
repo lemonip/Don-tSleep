@@ -10,8 +10,6 @@ void playerGuard::EnterState()
 
 void playerGuard::UpdateState()
 {
-	_thisPl->changeImg("pl_guard");
-
 	//키를 안 누르면 기본상태
 	if (!KEY_M->isStayKeyDown('F'))
 	{

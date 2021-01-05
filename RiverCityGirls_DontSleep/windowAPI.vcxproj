@@ -228,6 +228,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="playerClimb.h" />
     <ClInclude Include="playerCombo1.h" />
     <ClInclude Include="playerCombo2.h" />
     <ClInclude Include="playerCombo3.h" />
@@ -235,12 +236,13 @@
     <ClInclude Include="playerDashSAttack.h" />
     <ClInclude Include="playerDead.h" />
     <ClInclude Include="playerDown.h" />
+    <ClInclude Include="playerGrab.h" />
     <ClInclude Include="playerGuard.h" />
     <ClInclude Include="playerHit.h" />
     <ClInclude Include="playerIdle.h" />
     <ClInclude Include="playerJump.h" />
     <ClInclude Include="playerJumpAttack.h" />
-    <ClInclude Include="playerLadder.h" />
+    <ClInclude Include="playerPick.h" />
     <ClInclude Include="playerRoll.h" />
     <ClInclude Include="playerRun.h" />
     <ClInclude Include="playerSAttack.h" />
@@ -249,6 +251,7 @@
     <ClInclude Include="playerStick.h" />
     <ClInclude Include="playerStomp.h" />
     <ClInclude Include="playerStun.h" />
+    <ClInclude Include="playerThrow.h" />
     <ClInclude Include="playerWait.h" />
     <ClInclude Include="playerWalk.h" />
     <ClInclude Include="playGround.h" />
@@ -360,6 +363,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="playerClimb.cpp" />
     <ClCompile Include="playerCombo1.cpp" />
     <ClCompile Include="playerCombo2.cpp" />
     <ClCompile Include="playerCombo3.cpp" />
@@ -367,12 +371,13 @@
     <ClCompile Include="playerDashSAttack.cpp" />
     <ClCompile Include="playerDead.cpp" />
     <ClCompile Include="playerDown.cpp" />
+    <ClCompile Include="playerGrab.cpp" />
     <ClCompile Include="playerGuard.cpp" />
     <ClCompile Include="playerHit.cpp" />
     <ClCompile Include="playerIdle.cpp" />
     <ClCompile Include="playerJump.cpp" />
     <ClCompile Include="playerJumpAttack.cpp" />
-    <ClCompile Include="playerLadder.cpp" />
+    <ClCompile Include="playerPick.cpp" />
     <ClCompile Include="playerRoll.cpp" />
     <ClCompile Include="playerRun.cpp" />
     <ClCompile Include="playerSAttack.cpp" />
@@ -381,6 +386,7 @@
     <ClCompile Include="playerStick.cpp" />
     <ClCompile Include="playerStomp.cpp" />
     <ClCompile Include="playerStun.cpp" />
+    <ClCompile Include="playerThrow.cpp" />
     <ClCompile Include="playerWait.cpp" />
     <ClCompile Include="playerWalk.cpp" />
     <ClCompile Include="playGround+setImage.cpp" />

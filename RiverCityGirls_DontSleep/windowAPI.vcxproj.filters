@@ -441,9 +441,6 @@
     <ClInclude Include="playerJumpAttack.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
-    <ClInclude Include="playerLadder.h">
-      <Filter>playGround\Player\playerState</Filter>
-    </ClInclude>
     <ClInclude Include="playerRoll.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
@@ -485,6 +482,21 @@
     </ClInclude>
     <ClInclude Include="Select.h">
       <Filter>2DGameFramework\Manager\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="playerClimb.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerGrab.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerPick.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerThrow.h">
+      <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -824,9 +836,6 @@
     <ClCompile Include="playerJumpAttack.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
-    <ClCompile Include="playerLadder.cpp">
-      <Filter>playGround\Player\playerState</Filter>
-    </ClCompile>
     <ClCompile Include="playerRoll.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
@@ -865,6 +874,21 @@
     </ClCompile>
     <ClCompile Include="Select.cpp">
       <Filter>2DGameFramework\Manager\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="playerClimb.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerGrab.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerPick.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerThrow.cpp">
+      <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
