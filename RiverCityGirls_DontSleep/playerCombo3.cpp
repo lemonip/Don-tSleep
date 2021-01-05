@@ -17,7 +17,7 @@ void playerCombo3::UpdateState()
 	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
 
 	//기본 동작
-	basePattern();
+	//basePattern();
 }
 
 void playerCombo3::ExitState()

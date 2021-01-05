@@ -20,7 +20,7 @@ void playerCombo1::UpdateState()
 	if(KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO2);
 
 	//기본 동작
-	basePattern();
+	//basePattern();
 }
 
 void playerCombo1::ExitState()

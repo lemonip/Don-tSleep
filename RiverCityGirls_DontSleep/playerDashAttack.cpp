@@ -28,8 +28,8 @@ void playerDashAttack::UpdateState()
 		&&_thisPl->getInfo().dest == DIRECTION::LEFT)_thisPl->setState(PL_STATE::RUN);
 		
 	//ÀÌµ¿
-	lineMove(_thisPl->getInfo().speed / 1.5);
-	crossMove(_thisPl->getInfo().speed*1.5);
+	//lineMove(_thisPl->getInfo().speed / 1.5);
+	//crossMove(_thisPl->getInfo().speed*1.5);
 	
 }
 

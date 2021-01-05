@@ -19,10 +19,10 @@ struct tagShadow
 	vector3 pos;
 };
 
-/*====================================================================
-	플래이어입니다. Stage와 링크되어 있어,
-	에너미 매니저, 오브젝트 매니저와 연결됩니다.
-====================================================================*/
+	/*====================================================================
+		플래이어입니다. Stage와 링크되어 있어,
+		에너미 매니저, 오브젝트 매니저와 연결됩니다.
+	====================================================================*/
 
 //플레이어 상태 이넘
 enum class PL_STATE : int
@@ -58,13 +58,14 @@ enum class PL_STATE : int
 //프레임 실행 타입 이넘
 enum class PL_FRAMETYPE : int
 {
-
+	ONCE,
+	ROOP
 };
 
-
-class Player : public gameNode
+class Player: public gameNode
 {
-	//플레이어 방향 이넘
+private:
+	//플레이어 방향
 	enum class MOVE_DIRECTION : int
 	{
 		LEFT,
@@ -72,10 +73,10 @@ class Player : public gameNode
 		UP,
 		DOWN
 	};
-private:
 	//정보 구조체
 	struct tagInfo
 	{
+	public:
 		RECT  plAttackRc;			//플레이어 공격렉트
 		float jumpPower;			//점프파워
 		float speed;				//속도
@@ -90,7 +91,7 @@ private:
 		DIRECTION dest;				//인덱스 방향
 		PL_STATE state;				//플레이어 상태
 		PL_STATE preState;			//플레이어 이전상태
-		
+
 		WEAPON_TYPE weaponType;		//무기종류
 		float hp;					//체력
 		float force;				//공격력
@@ -103,20 +104,21 @@ private:
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
-	//맴버
+	//임시?????맴버
 	RECT _shadowRc;			//그림자 렉트
 	vector3 _shadowLT, _shadowRT, _shadowRB, _shadowLB;	//그림자 지점
 	vector3 _shadowPos;		//그림자 위치
 	tagShadow _shadow;		//그림자
-
-
-
+	//========================================================================
+private:
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
 
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	EnemyManager* _enemyM;		//에너미 매니저 링크
+
+	//★맴버로 에너미를 가질 예정(동료로)
 
 private:
 	//상태 클래스
@@ -154,14 +156,14 @@ public:
 	virtual void update();		//업데이트
 	virtual void render();		//렌더
 
-/*====================================================================
-								GETTER
-====================================================================*/
+	/*====================================================================
+									GETTER
+	====================================================================*/
 	GameObject getObj() { return _obj; }
 	tagInfo    getInfo() { return _info; }
-/*====================================================================
-								SETTER
-====================================================================*/
+	/*====================================================================
+									SETTER
+	====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	//조작 유무
 	void setIsControl(bool control) { _info.isControl = control; }
@@ -169,10 +171,9 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
-/*====================================================================
-								FUNCTION
-====================================================================*/
-	
+	/*====================================================================
+									FUNCTION
+	====================================================================*/
 	void shadowUpdate();
 	void stageInit();
 	void move();
@@ -184,13 +185,13 @@ public:
 	//이미지변경
 	void changeImg(string imgName);
 	//프레임 실행
-	//void playFrame()
+	void playFrame();
 	//좌표 이동
 	void movePos(float x, float z, float y);
 
-/*====================================================================
-								COLLISION
-====================================================================*/
+	/*====================================================================
+									COLLISION
+	====================================================================*/
 	void playerObjectCollision();
 
 	// 전후 좌우 충돌 판정
@@ -199,4 +200,3 @@ public:
 	void AirCollision(GameObject* cha, tagShadow* sh, GameObject* obj);
 
 };
-

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "playerRun.h"
+#include "player.h"
 
 void playerRun::EnterState()
 {
@@ -21,29 +22,17 @@ void playerRun::UpdateState()
 	}
 
 	//이동
-	if (KEY_M->isStayKeyDown(VK_UP))
-		_thisPl->movePos(0, -_thisPl->getInfo().speed* 1.5, 0);
-
-	if (KEY_M->isStayKeyDown(VK_DOWN))
-		_thisPl->movePos(0, _thisPl->getInfo().speed* 1.5, 0);
-
 	if (KEY_M->isStayKeyDown(VK_RIGHT))
-		_thisPl->movePos(_thisPl->getInfo().speed* 1.5, 0, 0);
+		_thisPl->movePos(_thisPl->getInfo().speed*1.5, 0, 0);
 
 	if (KEY_M->isStayKeyDown(VK_LEFT))
-		_thisPl->movePos(-_thisPl->getInfo().speed* 1.5, 0, 0);
+		_thisPl->movePos(-_thisPl->getInfo().speed*1.5, 0, 0);
 
+	if (KEY_M->isStayKeyDown(VK_UP))
+		_thisPl->movePos(0, -_thisPl->getInfo().speed / 1.5, 0);
 
-
-	//이동
-	//lineMove(_thisPl->getInfo().speed / 1.5);
-	//crossMove(_thisPl->getInfo().speed*1.5);
-
-	//약공격
-	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::DASHATTACK);
-
-	//강공격
-	if (KEY_M->isOnceKeyDownV('D'))_thisPl->setState(PL_STATE::DASHSATTACK);
+	if (KEY_M->isStayKeyDown(VK_DOWN))
+		_thisPl->movePos(0, _thisPl->getInfo().speed / 1.5, 0);
 
 
 }
