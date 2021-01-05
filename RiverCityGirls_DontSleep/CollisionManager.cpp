@@ -90,7 +90,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			character->shadow.LT.z < obj->bottomPlane[1].getEnd().z) // Object의 z 범위 안에 있을 때 (왼쪽 오른쪽)
 		{
 			if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[1], &interVector) ||  // 좌측 선분이 우측변이랑 교차하
-				Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &interVector))    // 좌측 선분이 윗밑변이랑 교차하면
+				Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &interVector))    // 좌측 선분이 윗변이랑 교차하면
 			{
 				if (obj->bottomPlane[1].getStart().z < character->shadow.LT.z) // 그림자 윗변이 오브젝트 윗변보다 아래에 있을 경우
 				{
@@ -100,15 +100,15 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 				{
 					character->pos.x = obj->bottomPlane[1].getStart().x + character->size.x / 2;
 				}
-
 			}
 		}
 	}
 
 }
 
-void CollisionManager::Collision()
+void CollisionManager::objectCollision()
 {
+	wallCollsion();
 	GameObject* character = _stageM->getPlayer()->getPObj();
 	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
 	for (int i = 0; i < vObj.size(); ++i)
@@ -149,4 +149,35 @@ void CollisionManager::Collision()
 			}
 		}
 	}
+}
+
+void CollisionManager::wallCollsion()
+{
+	GameObject* character = _stageM->getPlayer()->getPObj();
+	tagWall leftWall = _stageM->getStage()->getLeftWall();
+	tagWall rightWall = _stageM->getStage()->getRightWall();
+	tagWall backWall = _stageM->getStage()->getBackWall();
+	tagWall floor = _stageM->getStage()->getFloor();
+	vector3 interVector;
+
+	if (character->shadow.LT.z < backWall.LB.z)
+	{
+		character->pos.z = backWall.LB.z + 10;
+	}
+	else if (character->shadow.LB.z > floor.LB.z)
+	{
+		character->pos.z = floor.LB.z - 10;
+	}
+
+	if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(leftWall.RB, leftWall.LB), &interVector))  // 그림자 윗변이 왼쪽 벽이랑 교차하면
+	{
+		character->pos.x = interVector.x + character->size.x / 2;
+	}
+	if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(rightWall.LB, rightWall.RB), &interVector))  // 그림자 윗변이 오른쪽 벽이랑 교차하면
+	{
+		character->pos.x = interVector.x - character->size.x / 2;
+	}
+
+	
+
 }

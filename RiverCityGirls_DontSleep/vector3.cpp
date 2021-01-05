@@ -91,8 +91,12 @@ bool vector3::operator!=(vector3 & v)
 
 bool vector3::operator<(vector3 & v)
 {
+	return this->x < v.x && this->z < v.z;
+}
 
-	return this->x < v.x && this->y < v.y;
+bool vector3::operator<=(vector3 & v)
+{
+	return this->x <= v.x && this->z <= v.z;
 }
 
 /*********************************************************************

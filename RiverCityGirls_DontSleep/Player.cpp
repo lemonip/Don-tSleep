@@ -37,7 +37,7 @@ HRESULT Player::init()
 	/*====================================================================
 		플래이어의 오브젝트 초기화와 기본 설정을 합니다.
 	====================================================================*/
-	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wallet"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
+	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wallet"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
 	_obj.imgIndex = { 0,0 };	//아직 애니메이션이 만들어지지 않아 임시로 해두었습니다.
 
 	//기본 변수 초기화
@@ -287,10 +287,11 @@ void Player::MovePos(float x, float z, float jumpPower)
 	_obj.pos.z += z;
 	_obj.pos.y -= jumpPower;
 
-	//그림자만 일단 한번 업데이트
+	
+	//그림자만 일단 한번 업데이트 (충돌처리를 위한거! 건드리면 안됨!)
 	_obj.shadowUpdate();
-	//충돌처리
-	_colM->Collision();
+	//충돌처리 
+	_colM->objectCollision();
 
 	//그림자 아래로 안 떨어지도록 예외처리
 	if (_obj.pos.y > 0)_obj.pos.y = 0;

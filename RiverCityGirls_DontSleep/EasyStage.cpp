@@ -14,11 +14,32 @@ HRESULT EasyStage::init()
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
-	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(WINSIZEX - 300, 0, WINSIZEY / 2));
+	_leftWall.RT = vector3(350, WINSIZEY, 0);
+	_leftWall.RB = vector3(350, 0, 385);
+	_leftWall.LB = vector3(57, 0, 678);
+	_leftWall.LT = vector3(57, WINSIZEY, 0);
+
+	_backWall.LT = vector3(350, WINSIZEY, 0);
+	_backWall.LB = vector3(350, 0, 385);
+	_backWall.RT = vector3(1635, WINSIZEY, 0);
+	_backWall.RB = vector3(1635, 0, 385);
+
+	_rightWall.LT = vector3(1635, WINSIZEY, 0);
+	_rightWall.LB = vector3(1635, 0, 385);
+	_rightWall.RT = vector3(1928, WINSIZEY, 0);
+	_rightWall.RB = vector3(1928, 0, 678);
+
+	_floor.LB = vector3(57, 0, 650);
+	_floor.RB = vector3(1928, 0, 650);
+
+	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(440, 0, 545));
+	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(690, 0, 545));
+	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(950, 0, 545));
+	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(1210, 0, 545));
 	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
 
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 40));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 - 100));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 40));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 - 100));
 
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.

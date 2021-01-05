@@ -27,11 +27,11 @@ void playGround::addImage()
 	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 898, 120, true, MAGENTA);
 
 	//================= 스테이지 =================
-	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2704, 904, false, MAGENTA);
-	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 3820, 1116, false, MAGENTA);
-	IMG_M->addImage("hardStage", "source/image/stage/hard.bmp", 3104, 1904, false, MAGENTA);
-	IMG_M->addImage("bossStage", "source/image/stage/boss1.bmp", 2769, 1080, false, MAGENTA);
-	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 2769, 1080, false, MAGENTA);
+	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
+	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);
+	IMG_M->addImage("hardStage", "source/image/stage/hard.bmp", 2328, 1428, false, MAGENTA);
+	IMG_M->addImage("bossStage", "source/image/stage/boss1.bmp", 2077, 810, false, MAGENTA);
+	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 2077, 810, false, MAGENTA);
 
 	//================= 플래이어 =================
 
@@ -82,7 +82,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolGirlIdle", "source/image/character/enemy/schoolGirl/idle.bmp", 1170, 354, 10, 2, true, MAGENTA, true);
 
 	//================= 오브젝트 =================
-	IMG_M->addImage("desk", "source/image/object/desk.bmp", 98, 108, true, MAGENTA, true);
+	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
 
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);

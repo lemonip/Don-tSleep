@@ -6,9 +6,12 @@ StandingObj::StandingObj(OBJECT_TYPE type, vector3 pos)
 	switch (type)
 	{
 		case OBJECT_TYPE::DESK:
-			_obj.init(OBJECT_GROUP::OBJECT, IMG_M->findImage("desk"), pos, 45);
+			_obj.init(OBJECT_GROUP::OBJECT, IMG_M->findImage("desk"), pos, 58);
 			_type = type;
 		break;
+		case OBJECT_TYPE::LEFTWALL:
+
+			break;
 		default:
 		break;
 	}

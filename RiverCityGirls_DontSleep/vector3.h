@@ -36,6 +36,7 @@ public:
 	bool operator!= (vector3& v);
 
 	bool operator< (vector3& v);
+	bool operator<=(vector3& v);
 
 	// ======================= function =======================
 	vector3 normalize(vector3 v);

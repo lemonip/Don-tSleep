@@ -53,6 +53,12 @@ void playGround::update()
 	CAMERA_M->update();					//카메라를 업데이트 한다.
 	UI_M->update();						//UI 업데이트
 	SCENE_M->update();					//씬 업데이트
+
+	if (KEY_M->isOnceKeyDown(VK_LBUTTON))
+	{
+		cout << "마우스 X좌표: " << _ptMouse.x << endl;
+		cout << "마우스 Y좌표: " << _ptMouse.y << endl;
+	}
 }
 
 /*====================================================================
