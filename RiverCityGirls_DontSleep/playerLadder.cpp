@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "playerLadder.h"
-#include "Player.h"
 
 void playerLadder::EnterState()
 {

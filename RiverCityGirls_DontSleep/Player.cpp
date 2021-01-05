@@ -222,9 +222,59 @@ void Player::changeImg(string imgName)
 
 }
 
-//프레임 재생
+//프레임 연산
+void Player::setFrame(PL_FRAMETYPE frameType)
+{
+	//프레임 y 번호 세팅
+	_obj.img->setFrameY((int)_info.dest);
+
+	//프레임 x 번호 조절
+	switch (frameType)
+	{
+	case PL_FRAMETYPE::ONCE://한 번 재생
+		{
+		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 고정
+		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		_obj.imgIndex.x = _obj.img->getMaxFrameX();
+		
+		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 고정
+		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
+			_obj.imgIndex.x = 0;
+		}
+		break;
+	case PL_FRAMETYPE::ROOP://무한 재생
+		{
+		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 0번으로 갱신
+		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+			_obj.imgIndex.x = 0;
+
+		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 끝번호로 갱신
+		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
+			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+		}
+		break;
+	}
+
+	//프레임 x 번호 세팅
+	_obj.img->setFrameX(_obj.imgIndex.x);
+
+	//프레임 x 번호 연산
+	switch (_info.dest)
+	{
+	case DIRECTION::LEFT : ++_obj.imgIndex.x; break;
+	case DIRECTION::RIGHT: --_obj.imgIndex.x; break;
+		break;
+	}
+}
+
+//프레임 실행
 void Player::playFrame()
 {
+	//프레임 실행 시간 설정
+	if (TIME_M->getWorldTime() - _info._frameTimer > FRAMEINTERVAL)
+	{
+
+	}
 }
 
 //좌표이동

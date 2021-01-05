@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "playerIdle.h"
-#include "Player.h"
 
 void playerIdle::EnterState()
 {

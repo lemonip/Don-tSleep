@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "IPlayerState.h"
-#include "Player.h"
 
 //업데이트 일시정지 유무 
 bool IPlayerState::pauseUpdate()

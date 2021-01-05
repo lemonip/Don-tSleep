@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "playerCombo3.h"
-#include "Player.h"
 
 void playerCombo3::EnterState()
 {
