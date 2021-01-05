@@ -41,8 +41,8 @@ HRESULT Player::init()
 	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wallet"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
 	_obj.imgIndex = { 0,0 };	//아직 애니메이션이 만들어지지 않아 임시로 해두었습니다.
 
-
 	//기본 변수 초기화
+	{
 	_info.jumpPower = 0;
 	_info.speed = 4.f;
 	_info.hasMember = false;
@@ -55,9 +55,10 @@ HRESULT Player::init()
 	_info.moveDest = MOVE_DIRECTION::RIGHT;
 
 	_info.hitCount = 3;
-
+	}
 
 	//상태패턴 등록
+	{
 	_idle = new playerIdle;
 	_wait = new playerWait;
 	_walk = new playerWalk;
@@ -84,7 +85,7 @@ HRESULT Player::init()
 	_dashSAttack = new playerDashSAttack;
 	_jumpAttack = new playerJumpAttack;
 	_SAttackDown = new playerSAttackDown;
-
+	}
 	setState(PL_STATE::WAIT);
 
 	/*====================================================================
@@ -116,7 +117,7 @@ void Player::update()
 	_IState->UpdateState();
 
 	
-	
+	////////////////////////////////////////얘들 어떻게해야해? ▼▼▼▼▼▼
 	
 	//move();
 	shadowUpdate();
@@ -309,9 +310,6 @@ void Player::ChangeImg(string imgName)
 		_obj.imgIndex.y = 1;
 		break;
 	}
-
-
-	
 
 		_obj.img->setFrameY((int)_obj.imgIndex.y);//여기말고 프레임렌더에있어야함
 	if (_info.dest == DIRECTION::LEFT) _obj.img->setFrameX(0);

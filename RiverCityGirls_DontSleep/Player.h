@@ -109,6 +109,7 @@ private:
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	EnemyManager* _enemyM;		//에너미 매니저 링크
+
 private:
 	//상태 클래스
 	IPlayerState*	_IState;		//현재 상태

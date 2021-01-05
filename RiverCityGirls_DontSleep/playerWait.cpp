@@ -11,6 +11,9 @@ void playerWait::UpdateState()
 {
 	_thisPl->ChangeImg("pl_wallet");
 
+	//업데이트정지 유무
+	if (pauseUpdate())return;
+
 	//기본동작
 	basePattern();
 

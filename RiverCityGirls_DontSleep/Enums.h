@@ -66,9 +66,8 @@ enum class OBJECT_GROUP : int
 ====================================================================*/
 enum class DIRECTION : int
 {
-	LEFT,
-	RIGHT
-	
+	RIGHT,
+	LEFT
 };
 
 /*====================================================================
@@ -107,6 +106,6 @@ enum class ITEM_TYPE : int
 ====================================================================*/
 enum class WEAPON_TYPE : int
 {
-	BAT,
+	TRASHCAN,
 	BASEBALL,
 };

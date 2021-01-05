@@ -71,7 +71,7 @@ void ObjectManager::pushWeapon(WEAPON_TYPE type, vector3 pos)
 {
 	switch (type)
 	{
-	case WEAPON_TYPE::BAT:
+	case WEAPON_TYPE::TRASHCAN:
 		break;
 	case WEAPON_TYPE::BASEBALL:
 		break;
