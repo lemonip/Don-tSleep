@@ -10,6 +10,15 @@ void bossIdle::EnterState()
 void bossIdle::UpdateState()
 {
 	_thisBs->ChangeImg("idle");
+
+	if (_player->getObj().pos.x >= _thisBs->getObj()->pos.x)
+	{
+		_thisBs->SetState(BS_STATE::MOVE);
+	}
+	else
+	{
+		_thisBs->SetState(BS_STATE::MOVE);
+	}
 }
 
 void bossIdle::ExitState()

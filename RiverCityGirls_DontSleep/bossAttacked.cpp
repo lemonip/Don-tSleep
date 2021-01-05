@@ -10,6 +10,8 @@ void bossAttacked::EnterState()
 void bossAttacked::UpdateState()
 {
 	_thisBs->ChangeImg("attacked");
+
+	
 }
 
 void bossAttacked::ExitState()

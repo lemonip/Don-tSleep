@@ -1,6 +1,7 @@
 #pragma once
 #include"IBossState.h"
 
+
 class bossMeteor :public IBossState
 {
 private:

@@ -15,6 +15,8 @@ void bossElbowAttack::UpdateState()
 	{
 		_thisBs->ChangeImg("elbow");
 	}
+
+	
 }
 
 void bossElbowAttack::ExitState()
