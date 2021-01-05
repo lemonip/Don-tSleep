@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "playerDashAttack.h"
+#include "player.h"
 
 void playerDashAttack::EnterState()
 {
@@ -17,7 +18,6 @@ void playerDashAttack::UpdateState()
 	//임시타이머..원래는 프레임렌더 다돌아가면 변경할듯!
 	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
 
-	
 	//달리는 키를 누르고 있으면 달리는 상태로 돌아가기
 	if (TIME_M->getWorldTime() - tempTime > .5f
 		&& KEY_M->isStayKeyDown(VK_RIGHT)
@@ -26,11 +26,10 @@ void playerDashAttack::UpdateState()
 	if (TIME_M->getWorldTime() - tempTime > .5f
 		&& KEY_M->isStayKeyDown(VK_LEFT)
 		&&_thisPl->getInfo().dest == DIRECTION::LEFT)_thisPl->setState(PL_STATE::RUN);
-		
+
 	//이동
-	//lineMove(_thisPl->getInfo().speed / 1.5);
-	//crossMove(_thisPl->getInfo().speed*1.5);
-	
+	lineMove(_thisPl->getInfo().speed / 1.5);
+	crossMove(_thisPl->getInfo().speed*1.5);
 }
 
 void playerDashAttack::ExitState()

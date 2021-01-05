@@ -11,11 +11,12 @@ void playerWait::UpdateState()
 {
 	_thisPl->changeImg("pl_wallet");
 
-	//조작키에따른 상태변환
-	if (KEY_M->isStayKeyDown(VK_LEFT))_thisPl->setState(PL_STATE::WALK);
-	if (KEY_M->isStayKeyDown(VK_RIGHT))_thisPl->setState(PL_STATE::WALK);
-	if (KEY_M->isStayKeyDown(VK_UP))_thisPl->setState(PL_STATE::WALK);
-	if (KEY_M->isStayKeyDown(VK_DOWN))_thisPl->setState(PL_STATE::WALK);
+	//기본동작
+	basePattern();
+
+	//강공격
+	if (KEY_M->isOnceKeyDownV('D'))_thisPl->setState(PL_STATE::SATTACK);
+
 }
 
 void playerWait::ExitState()

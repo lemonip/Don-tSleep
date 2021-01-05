@@ -23,7 +23,14 @@ struct tagShadow
 		플래이어입니다. Stage와 링크되어 있어,
 		에너미 매니저, 오브젝트 매니저와 연결됩니다.
 	====================================================================*/
-
+	//플레이어 방향
+enum class MOVE_DIRECTION : int
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
 //플레이어 상태 이넘
 enum class PL_STATE : int
 {
@@ -65,14 +72,7 @@ enum class PL_FRAMETYPE : int
 class Player: public gameNode
 {
 private:
-	//플레이어 방향
-	enum class MOVE_DIRECTION : int
-	{
-		LEFT,
-		RIGHT,
-		UP,
-		DOWN
-	};
+	
 	//정보 구조체
 	struct tagInfo
 	{

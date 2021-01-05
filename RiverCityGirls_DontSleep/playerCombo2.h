@@ -1,5 +1,6 @@
 #pragma once
 #include "IPlayerState.h"
+#include "player.h"
 
 class playerCombo2 : public IPlayerState
 {

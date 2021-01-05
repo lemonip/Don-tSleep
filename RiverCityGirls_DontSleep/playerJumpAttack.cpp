@@ -12,7 +12,7 @@ void playerJumpAttack::EnterState()
 void playerJumpAttack::UpdateState()
 {
 	//ÀÌµ¿
-	//crossMove(_thisPl->getInfo().speed*1.2);
+	crossMove(_thisPl->getInfo().speed*1.2);
 }
 
 void playerJumpAttack::ExitState()

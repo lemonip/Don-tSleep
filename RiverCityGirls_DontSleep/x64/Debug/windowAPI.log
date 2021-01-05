@@ -1,4 +1,4 @@
-﻿  Player.cpp
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(96): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\player.cpp(188): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  IPlayerState.cpp
+  playerGuard.cpp
+  코드를 생성하고 있습니다...
   windowAPI.vcxproj -> C:\Users\Administrator.JY-201709111318\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe
