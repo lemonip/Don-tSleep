@@ -5,16 +5,14 @@ HRESULT TitleScene::init()
 {
 	/*====================================================================
 		타이틀 씬에서 인트로 등의 연출을 진행합니다.
-	====================================================================*/
-
-	/*====================================================================
 		인트로 비디오 이벤트를 실행합니다. 비디오 실행 동안은 모든 업데이트와 렌더가 멈춥니다.
 	====================================================================*/
 	EVENT_M->addEvent(new moviePlay(VIDEOTYPE::GAME_INTRO));
+
 	/*====================================================================
 		맵의 사이즈를 지정하고, 타이틀은 UI로 취급하며, 배경은 루프시킵니다.
 	====================================================================*/
-	backGround = IMG_M->findImage("start_background");
+	_background = IMG_M->findImage("start_background");
 	CAMERA_M->SetMap(*this, WINSIZEX, WINSIZEY);
 	loop = vector3(0, 0, 0);
 
@@ -69,9 +67,9 @@ void TitleScene::update()
 	====================================================================*/
 	loop.x++; loop.y++;
 
-	_kyokoInter->moveTo(&_kyokoPos, 1050.0f, WINSIZEY / 2 + 200.0f, 1.2f);
-	_misakoInter->moveTo(&_misakoPos, 800.0f, WINSIZEY / 2 + 200.0f, 1.2f);
-	_titleInter->moveTo(UI_M->findUI("title")->_pos, WINSIZEX / 2 - 300, WINSIZEY / 2 - 100, 1.2f);
+	_kyokoInter->moveTo(&_kyokoPos, 1050.0f, WINSIZEY / 2 + 200.0f, 1.0f);
+	_misakoInter->moveTo(&_misakoPos, 800.0f, WINSIZEY / 2 + 200.0f, 1.0f);
+	_titleInter->moveTo(UI_M->findUI("title")->_pos, WINSIZEX / 2 - 300, WINSIZEY / 2 - 100, 1.0f);
 
 	_kyokoInter->update();
 	_misakoInter->update();
@@ -93,7 +91,7 @@ void TitleScene::render()
 	/*====================================================================
 		배경을 loop 값에 따라 루프 렌더하고, 캐릭터 이미지를 띄워 줍니다
 	====================================================================*/
-	backGround->loopRender(getMapDC(), &CAMERA_M->GetScreenRect(), loop.x, loop.y);
+	_background->loopRender(getMapDC(), &CAMERA_M->GetScreenRect(), loop.x, loop.y);
 	IMG_M->findImage("start_frame")->render(getMapDC(), 800, 450, 1280 / 1600.0f, 720 / 900.0f);
 	_kyoko->render(getMapDC(), _kyokoPos.x, _kyokoPos.y ,0.8f, 0.8f);
 	_misako->render(getMapDC(), _misakoPos.x , _misakoPos.y, 0.8f, 0.8f);

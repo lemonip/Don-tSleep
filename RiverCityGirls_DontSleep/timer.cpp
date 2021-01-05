@@ -30,6 +30,7 @@ HRESULT timer::init()
 
 void timer::tick(float lockFPS)
 {
+
 	//CPU 에게 신호를 주어 다시 되돌아오는 시간을 센다
 	QueryPerformanceCounter((LARGE_INTEGER*)&_curTime);
 

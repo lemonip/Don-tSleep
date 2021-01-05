@@ -259,6 +259,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="schoolBoy.h" />
     <ClInclude Include="schoolGirl.h" />
+    <ClInclude Include="Select.h" />
     <ClInclude Include="SelectScene.h" />
     <ClInclude Include="ShopScene.h" />
     <ClInclude Include="singletonBase.h" />
@@ -389,6 +390,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="schoolBoy.cpp" />
     <ClCompile Include="schoolGirl.cpp" />
+    <ClCompile Include="Select.cpp" />
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="ShopScene.cpp" />
     <ClCompile Include="soundManager.cpp" />

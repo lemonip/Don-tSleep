@@ -19,7 +19,6 @@ private:
 	vector3 _misakoPos;
 	Interpolation* _misakoInter;
 
-
 public:
 
 	virtual HRESULT init();

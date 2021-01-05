@@ -46,15 +46,28 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render(HDC hdc);
-
-
 };
 
 /*====================================================================
-						인 벤 토 리
+						O P T I O N
 ====================================================================*/
-class Inventory : public UI
+class Option : public UI
 {
 public:
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render(HDC hdc);
+};
+
+/*====================================================================
+						C A L L   P H O N E
+====================================================================*/
+class CallPhone : public UI
+{
+public:
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
 	void render(HDC hdc);
 };

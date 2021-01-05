@@ -34,9 +34,9 @@ public:
 
 	int alpha;				//불투명도 (0~255)
 
-	float zAngle;			//각도
-	float anlgle;		
-	float margin;			//여백
+	float angle;			//각도
+	float zAngle;			//Z각도
+	float margin;			//z여백
 
 	bool isActive;			//활성화 여부
 	bool isShadow;			//그림자가 있는지

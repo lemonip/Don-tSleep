@@ -88,9 +88,6 @@
     <Filter Include="playGround\Player\playerState">
       <UniqueIdentifier>{3029c193-9046-4d28-96a4-4786c162297e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\CollisionManager">
-      <UniqueIdentifier>{6971b850-69b5-40a7-aeb6-5ad06a8d859a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -486,8 +483,8 @@
     <ClInclude Include="Interpolation.h">
       <Filter>2DGameFramework\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>playGround\CollisionManager</Filter>
+    <ClInclude Include="Select.h">
+      <Filter>2DGameFramework\Manager\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -866,8 +863,8 @@
     <ClCompile Include="Interpolation.cpp">
       <Filter>2DGameFramework\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>playGround\CollisionManager</Filter>
+    <ClCompile Include="Select.cpp">
+      <Filter>2DGameFramework\Manager\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

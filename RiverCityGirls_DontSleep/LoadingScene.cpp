@@ -6,8 +6,8 @@ HRESULT LoadingScene::init()
 	/*====================================================================
 		배경과 카메라의 맵 사이즈를 설정한다.
 	====================================================================*/
-	backGround = IMG_M->findImage("load_background");
-	CAMERA_M->SetMap(*this, backGround);
+	_background = IMG_M->findImage("load_background");
+	CAMERA_M->SetMap(*this, _background);
 
 
 	/*====================================================================
@@ -66,7 +66,7 @@ void LoadingScene::update()
 
 void LoadingScene::render()
 {
-	backGround->render(getMapDC());
+	_background->render(getMapDC());
 	_sprite->aniRender(getMapDC(), WINSIZEX - 150, WINSIZEY - 220, _ani);
 }
 
