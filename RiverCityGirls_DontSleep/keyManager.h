@@ -12,8 +12,8 @@ class keyManager : public singletonBase <keyManager>
 private:
 	bitset<KEYMAX> _keyUp;
 	bitset<KEYMAX> _keyDown;
-	vector<int> _vKeyBuffer;			//키버퍼
-
+	vector<int> _vKeyComendBuffer;			//키커맨드용버퍼
+	SHORT _KeyBuffer;						//실제 키 버퍼
 public:
 	keyManager();
 	~keyManager();
@@ -41,9 +41,9 @@ public:
 	bitset<KEYMAX> getKeyUp() { return _keyUp; }
 	bitset<KEYMAX> getKeyDown() { return _keyDown; }
 	//키벡터를 가져온다
-	vector<int> getVKeyBuffer() { return _vKeyBuffer; }
+	vector<int> getVKeyBuffer() { return _vKeyComendBuffer; }
 	//키벡터의 최근인덱스에서 -num한 인덱스의 값을 반환한다.
-	int getKeyBuffer(int num) { return _vKeyBuffer[_vKeyBuffer.size() - num - 1]; }
+	int getKeyBuffer(int num) { return _vKeyComendBuffer[_vKeyComendBuffer.size() - num - 1]; }
 
 	void setKeyDown(int key, bool state) { _keyDown.set(key, state); }
 	void setKeyUp(int key, bool state) { _keyUp.set(key, state); }

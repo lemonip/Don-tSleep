@@ -1,13 +1,12 @@
 #include "stdafx.h"
 #include "playerJumpAttack.h"
-#include "Player.h"
 
 void playerJumpAttack::EnterState()
 {
 	//방향 변경 불가
 	_thisPl->setIsConDest(false);
 
-	_thisPl->ChangeImg("pl_jumpAttack");
+	_thisPl->changeImg("pl_jumpAttack");
 }
 
 void playerJumpAttack::UpdateState()

@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "playerStomp.h"
-#include "Player.h"
-
 
 void playerStomp::EnterState()
 {

@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Player.h"
-
+//외부
 #include "StageManager.h"
 #include "Stage.h"
 #include "ObjectManager.h"
 #include "EnemyManager.h"
 #include "CollisionManager.h"
-
+//상태
 #include "IPlayerState.h"
 #include "playerIdle.h"
 #include "playerWait.h"
@@ -32,6 +32,7 @@
 #include "playerJumpAttack.h"
 #include "playerSAttackDown.h"
 
+//초기화
 HRESULT Player::init()
 {
 	/*====================================================================
@@ -42,52 +43,62 @@ HRESULT Player::init()
 
 	//기본 변수 초기화
 	{
-	_info.jumpPower = 0;
-	_info.speed = 4.f;
-	_info.hasMember = false;
-	_info.isDead = false;
-	_info.isControl = true;
-	_info.isConDest = true;
-	_info.isSky = false;
-	_info.hasMember = false;
-	_info.dest = DIRECTION::RIGHT;
-	_info.moveDest = MOVE_DIRECTION::RIGHT;
+		_info.jumpPower = 0;
+		_info.speed = 4.f;
+		_info.hasMember = false;
+		_info.isDead = false;
+		_info.isControl = true;
+		_info.isConDest = true;
+		_info.isSky = false;
+		_info.hasMember = false;
+		_info.dest = DIRECTION::RIGHT;
+		_info.moveDest = MOVE_DIRECTION::RIGHT;
+		_info._frameTimer = TIME_M->getWorldTime();
 
-	_info.hitCount = 3;
+		_info.hitCount = 3;
 	}
 
 	//상태패턴 등록
 	{
-	_idle = new playerIdle;
-	_wait = new playerWait;
-	_walk = new playerWalk;
-	_run = new playerRun;
-	_jump = new playerJump;
-	_stick = new playerStick;
-	_ladder = new playerLadder;
+		_idle = new playerIdle;
+		_wait = new playerWait;
+		_walk = new playerWalk;
+		_run = new playerRun;
+		_jump = new playerJump;
+		_stick = new playerStick;
+		_ladder = new playerLadder;
 
-	_guard = new playerGuard;
-	_roll = new playerRoll;
-	_hit = new playerHit;
-	_stun = new playerStun;
-	_stand = new playerStand;
-	_down = new playerDown;
-	_dead = new playerDead;
+		_guard = new playerGuard;
+		_roll = new playerRoll;
+		_hit = new playerHit;
+		_stun = new playerStun;
+		_stand = new playerStand;
+		_down = new playerDown;
+		_dead = new playerDead;
 
-	_stomp = new playerStomp;
-	_combo1 = new playerCombo1;
-	_combo2 = new playerCombo2;
-	_combo3 = new playerCombo3;
+		_stomp = new playerStomp;
+		_combo1 = new playerCombo1;
+		_combo2 = new playerCombo2;
+		_combo3 = new playerCombo3;
 
-	_sAttack = new playerSAttack;
-	_dashAttack = new playerDashAttack;
-	_dashSAttack = new playerDashSAttack;
-	_jumpAttack = new playerJumpAttack;
-	_SAttackDown = new playerSAttackDown;
+		_sAttack = new playerSAttack;
+		_dashAttack = new playerDashAttack;
+		_dashSAttack = new playerDashSAttack;
+		_jumpAttack = new playerJumpAttack;
+		_SAttackDown = new playerSAttackDown;
 	}
 	setState(PL_STATE::WAIT);
 
+	/*====================================================================
+		그림자 등 충돌 처리에 관련 해 설정합니다.
+	====================================================================*/
 
+	_shadow.pos = vector3(_obj.pos.x, _obj.pos.y, _obj.pos.z);
+	_shadow.rc = RectMakeCenter(_shadow.pos.x, _shadow.pos.z, _obj.img->getWidth(), 20);
+	_shadow.LT = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z - 10);
+	_shadow.RT = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z - 10);
+	_shadow.RB = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z + 10);
+	_shadow.LB = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z + 10);
 	return S_OK;
 }
 
@@ -95,16 +106,19 @@ void Player::release()
 {
 }
 
+//업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-	//키입력
-	keyInput();
-	//중력작용
-	gravity();
 	//상태업데이트
 	_IState->UpdateState();
+	//중력작용
+	gravity();
+	//키입력
+	keyInput();
 
+	//오브젝트 업뎃
 	_obj.update();
+
 }
 
 void Player::render()
@@ -114,12 +128,9 @@ void Player::render()
 	====================================================================*/
 	ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER);
 	Rectangle(getMapDC(), _obj.shadow.rc);
-	//(아직 플래이어 애니메이션이 없어 임시로 해두었습니다. 나중에 ANI_RENDER로 바꿔서 쓰세요!)
 }
 
-
-
-
+//상태 지정
 void Player::setState(PL_STATE state)
 {
 	if (_info.state == state)return; //같은 상태면 변경하지 않는다.
@@ -168,6 +179,7 @@ void Player::setState(PL_STATE state)
 }
 
 
+//스테이지가 바뀔 때마다 초기화시키는 함수
 void Player::stageInit()
 {
 	/*====================================================================
@@ -181,27 +193,130 @@ void Player::stageInit()
 	_objectM = _stageM->getStage()->getObjectM();
 }
 
+//이미지 변경
+void Player::changeImg(string imgName)
+{
+	//이미지를 바꾼다.
+	_obj.img = IMG_M->findImage(imgName);
+	//프레임 시간 갱신
+	_info._frameTimer = TIME_M->getWorldTime();
+	//방향에 따른 이미지의 x,y변수 변경
+	switch (_info.dest)
+	{
+	case DIRECTION::LEFT:
+		_obj.imgIndex.x = 0;
+		_obj.imgIndex.y = 0;
+		break;
+	case DIRECTION::RIGHT:
+		_obj.imgIndex.x = _obj.img->getMaxFrameX();
+		_obj.imgIndex.y = 1;
+		break;
+	}
+	//프레임 실행 방식 설정
+
+
+	//여기말고 프레임렌더에있어야함
+	_obj.img->setFrameY((int)_obj.imgIndex.y);
+	if (_info.dest == DIRECTION::LEFT) _obj.img->setFrameX(0);
+	else if (_info.dest == DIRECTION::RIGHT) _obj.img->setFrameX(_obj.img->getMaxFrameX());
+
+}
+
+//프레임 연산
+void Player::setFrame(PL_FRAMETYPE frameType)
+{
+	//프레임 y 번호 세팅
+	_obj.img->setFrameY((int)_info.dest);
+
+	//프레임 x 번호 조절
+	switch (frameType)
+	{
+	case PL_FRAMETYPE::ONCE://한 번 재생
+		{
+		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 고정
+		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		_obj.imgIndex.x = _obj.img->getMaxFrameX();
+		
+		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 고정
+		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
+			_obj.imgIndex.x = 0;
+		}
+		break;
+	case PL_FRAMETYPE::ROOP://무한 재생
+		{
+		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 0번으로 갱신
+		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+			_obj.imgIndex.x = 0;
+
+		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 끝번호로 갱신
+		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
+			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+		}
+		break;
+	}
+
+	//프레임 x 번호 세팅
+	_obj.img->setFrameX(_obj.imgIndex.x);
+
+	//프레임 x 번호 연산
+	switch (_info.dest)
+	{
+	case DIRECTION::LEFT : ++_obj.imgIndex.x; break;
+	case DIRECTION::RIGHT: --_obj.imgIndex.x; break;
+		break;
+	}
+}
+
+//프레임 실행
+void Player::playFrame()
+{
+	//프레임 실행 시간 설정
+	if (TIME_M->getWorldTime() - _info._frameTimer > FRAMEINTERVAL)
+	{
+
+	}
+}
+
+//좌표이동
+void Player::movePos(float x, float z, float jumpPower)
+{
+	_obj.prePos = _obj.pos;
+
+	_obj.pos.x += x;
+	_obj.pos.z += z;
+	_obj.pos.y -= jumpPower;
+
+	//그림자만 일단 한번 업데이트 (충돌처리를 위한거! 건드리면 안됨!)
+	_obj.shadowUpdate();
+	//충돌처리 
+	_colM->objectCollision();
+
+	//그림자 아래로 안 떨어지도록 예외처리
+	if (_obj.pos.y > 0)_obj.pos.y = 0;
+
+	//최종 렉트 갱신
+	_obj.update();
+}
+
 //중력작용
 void Player::gravity()
 {
-	_info.jumpPower -= GRAVITYVALUE;
-	if (_obj.pos.y >= 0 && _info.isSky == true)
-	{
-		//이전상태가 걷기나 뛰기일때만 이전상태 그대로 상태 세팅
-		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
-		else setState(PL_STATE::IDLE);
-		_info.isSky = false;
+_info.jumpPower -= GRAVITYVALUE;
+if (_obj.pos.y >= 0 && _info.isSky == true)
+{
+	//이전상태가 걷기나 뛰기일때만 이전상태 그대로 상태 세팅
+	if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
+	else setState(PL_STATE::IDLE);
+	_info.isSky = false;
 
-	}
-	//그림자 밑으로 떨어질 때 예외처리
-	if (_obj.pos.y > 0) _info.jumpPower = 0;
-	//좌표 갱신
-	MovePos(0, 0, _info.jumpPower);
+}
+if (_obj.pos.y > 0) _info.jumpPower = 0;
+movePos(0, 0, _info.jumpPower);
 }
 
+//키입력
 void Player::keyInput()
 {
-
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl)return;
 
@@ -209,15 +324,15 @@ void Player::keyInput()
 	if (KEY_M->isOnceKeyDownV('D'));
 
 	//점프
-	if (KEY_M->isOnceKeyDownV('A') && !_info.isSky)
+	if (KEY_M->isOnceKeyDownV('A'))// <<얘는 다되요 ㅠㅠ
 	{
 		//이전상태 저장
 		_info.preState = _info.state;
 		_info.isSky = true;
 		_info.jumpPower = JUMPPOWERVALUE;
-		MovePos(0, 0, JUMPPOWERVALUE);
-		//점프파워가 - 면 점프상태로 전환
-		if (_info.jumpPower > 0.4)setState(PL_STATE::JUMP);
+		movePos(0, 0, JUMPPOWERVALUE);
+	//점프파워가 - 면 점프상태로 전환
+	if(_info.jumpPower > 0.4)setState(PL_STATE::JUMP);
 	}
 
 	//방향조작을 못하는 상태라면 리턴
@@ -240,6 +355,7 @@ void Player::keyInput()
 	//아래
 	if (KEY_M->isOnceKeyDownV(VK_DOWN))_info.moveDest = MOVE_DIRECTION::DOWN;
 
+
 	//키커맨드 
 	if (!_info.isSky && KEY_M->getVKeyBuffer().size() >= 3)
 	{
@@ -252,50 +368,7 @@ void Player::keyInput()
 			&& KEY_M->getKeyBuffer(2) == VK_LEFT && _info.dest == DIRECTION::LEFT)
 			cout << "공" << endl;
 	}
-	
-}
 
-void Player::ChangeImg(string imgName)
-{
-	_obj.img = IMG_M->findImage(imgName);
-	//_obj.img->setFrameY((int)_info.indexDest);//여기말고 프레임렌더에있어야함
-	//if (_info.indexDest == DIRECTION::LEFT) _obj.img->setFrameX(0);
-	//else if (_info.indexDest == DIRECTION::RIGHT) _obj.img->setFrameX(_obj.img->getMaxFrameX());
-
-	switch (_info.dest)
-	{
-	case DIRECTION::LEFT:
-		_obj.imgIndex.y = 0;
-		break;
-	case DIRECTION::RIGHT:
-		_obj.imgIndex.y = 1;
-		break;
-	}
-
-		_obj.img->setFrameY((int)_obj.imgIndex.y);//여기말고 프레임렌더에있어야함
-	if (_info.dest == DIRECTION::LEFT) _obj.img->setFrameX(0);
-	else if (_info.dest == DIRECTION::RIGHT) _obj.img->setFrameX(_obj.img->getMaxFrameX());
 
 }
 
-//좌표이동
-void Player::MovePos(float x, float z, float jumpPower)
-{
-	_obj.prePos = _obj.pos;
-
-	_obj.pos.x += x;
-	_obj.pos.z += z;
-	_obj.pos.y -= jumpPower;
-
-	
-	//그림자만 일단 한번 업데이트 (충돌처리를 위한거! 건드리면 안됨!)
-	_obj.shadowUpdate();
-	//충돌처리 
-	_colM->objectCollision();
-
-	//그림자 아래로 안 떨어지도록 예외처리
-	if (_obj.pos.y > 0)_obj.pos.y = 0;
-
-	//최종 렉트 갱신
-	_obj.update();
-}
