@@ -77,7 +77,6 @@ HRESULT Enemy::init()
 	_ES_WTHROW = new enemyWThrow;
 	_ES_WWALK = new enemyWWalk;
 	_EState = NULL;
-	_state = EN_STATE::EN_WALK;
 
 	return S_OK;
 }
@@ -110,7 +109,7 @@ void Enemy::xzyMove(int x,int z, int y)
 
 void Enemy::SetState(EN_STATE state)
 {
-	 if (_state == state) return;
+	 if (_EState != NULL && _state == state) return;
 
 	_state = state;
 

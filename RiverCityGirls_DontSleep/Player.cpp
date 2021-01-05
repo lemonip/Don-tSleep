@@ -6,8 +6,6 @@
 #include "ObjectManager.h"
 #include "EnemyManager.h"
 
-#include "stdafx.h"
-#include "player.h"
 #include "IPlayerState.h"
 #include "playerIdle.h"
 #include "playerWait.h"

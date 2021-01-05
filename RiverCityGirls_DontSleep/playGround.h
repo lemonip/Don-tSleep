@@ -28,5 +28,6 @@ public:
 
 	void addImage();	//게임 내 모든 이미지 설정
 	void addScene();	//게임 내 모든 씬 설정
+
 };
 

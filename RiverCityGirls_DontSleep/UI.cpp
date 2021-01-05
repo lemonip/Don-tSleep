@@ -3,7 +3,7 @@
 
 HRESULT UI::init()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void UI::release()
@@ -57,10 +57,43 @@ void Bar::render(HDC hdc)
 
 }
 
+HRESULT CallPhone::init()
+{
+	return E_NOTIMPL;
+}
+
+void CallPhone::release()
+{
+}
+
+void CallPhone::update()
+{
+}
+
 /*====================================================================
-						인 벤 토 리
+						핸 드 폰
 ====================================================================*/
-void Inventory::render(HDC hdc)
+void CallPhone::render(HDC hdc)
 {
 
+}
+
+/*====================================================================
+						옵 션
+====================================================================*/
+HRESULT Option::init()
+{
+	return S_OK;
+}
+
+void Option::release()
+{
+}
+
+void Option::update()
+{
+}
+
+void Option::render(HDC hdc)
+{
 }

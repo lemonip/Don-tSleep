@@ -43,16 +43,15 @@ void zOrderManager::render()
 		switch (_vZorder[i].renderType)
 		{
 			case RENDERTYPE::RENDER:
-				_vZorder[i].img->render(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.y + _vZorder[i].pos.z - _vZorder[i].size.z / 2, _vZorder[i].alpha);
+				_vZorder[i].img->render(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.y + _vZorder[i].pos.z - _vZorder[i].img->getFrameHeight() / 2, _vZorder[i].alpha);
 			break;
 			case RENDERTYPE::FRAME_RENDER:
-				_vZorder[i].img->frameRender(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.y + _vZorder[i].pos.z - _vZorder[i].size.z / 2, _vZorder[i].imgIndex.x, _vZorder[i].imgIndex.y, _vZorder[i].alpha);
+				_vZorder[i].img->frameRender(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.y + _vZorder[i].pos.z - _vZorder[i].img->getFrameHeight() / 2, _vZorder[i].imgIndex.x, _vZorder[i].imgIndex.y, _vZorder[i].alpha);
 			break;
 			case RENDERTYPE::ANI_RENDER:
-				_vZorder[i].img->aniRender(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.y + _vZorder[i].pos.z - _vZorder[i].size.z / 2, _vZorder[i].ani, _vZorder[i].alpha);
+				_vZorder[i].img->aniRender(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.y + _vZorder[i].pos.z - _vZorder[i].img->getFrameHeight() / 2, _vZorder[i].ani, _vZorder[i].alpha);
 			break;
 		}
-
 	}
 
 	//벡터를 비운다.

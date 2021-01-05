@@ -7,22 +7,9 @@ Interpolation::Interpolation()
 	_isMoving = false;
 }
 
-HRESULT Interpolation::init()
-{
-	return S_OK;
-}
-
-void Interpolation::release()
-{
-}
-
 void Interpolation::update()
 {
 	moving();
-}
-
-void Interpolation::render()
-{
 }
 
 void Interpolation::moveTo(vector3* pos, float endX, float endY, float time)

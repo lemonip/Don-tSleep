@@ -8,7 +8,7 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos)
 	group = _group;
 
 	pos = _pos;
-	angle = - PI / 4;
+	zAngle = - PI / 4;
 	size.x = img->getFrameWidth();
 	size.z = img->getFrameHeight();
 
@@ -46,8 +46,8 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos, float a)
 	group = _group;
 
 	pos = _pos;
-	angle2 = a;
-	angle = -PI / 4;
+	margin = a;
+	zAngle = -PI / 4;
 	size.x = img->getFrameWidth();
 	size.z = img->getFrameHeight();
 
@@ -67,15 +67,15 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos, float a)
 		isShadow = true;
 		break;
 	case OBJECT_GROUP::OBJECT:
-		topPlane[0] = Linear(vector3(pos.x - size.x / 2 + angle2, -size.z + angle2, pos.z - size.z), vector3(pos.x + size.x / 2, -size.z + angle2, pos.z - size.z));					// 위쪽 선분
-		topPlane[1] = Linear(vector3(pos.x + size.x / 2, -size.z + angle2, pos.z - size.z), vector3(pos.x + size.x / 2 - angle2, -size.z + angle2, pos.z - size.z + angle2));			// 오른쪽 선분
-		topPlane[2] = Linear(vector3(pos.x + size.x / 2 - angle2, -size.z + angle2, pos.z - size.z + angle2), vector3(pos.x - size.x / 2, -size.z + angle2, pos.z - size.z + angle2)); // 밑쪽 선분
-		topPlane[3] = Linear(vector3(pos.x - size.x / 2, -size.z + angle2, pos.z - size.z + angle2), vector3(pos.x - size.x / 2 + angle2, -size.z + angle2, pos.z - size.z));			// 왼쪽 선분
+		topPlane[0] = Linear(vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z));					// 위쪽 선분
+		topPlane[1] = Linear(vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z + margin));			// 오른쪽 선분
+		topPlane[2] = Linear(vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z + margin)); // 밑쪽 선분
+		topPlane[3] = Linear(vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z));			// 왼쪽 선분
 
-		bottomPlane[0] = Linear(vector3(pos.x - size.x / 2 + angle2, (float)0, pos.z - angle2), vector3(pos.x + size.x / 2, (float)0, pos.z - angle2));			// 위쪽 선분
-		bottomPlane[1] = Linear(vector3(pos.x + size.x / 2, (float)0, pos.z - angle2), vector3(pos.x + size.x / 2 - angle2, (float)0, pos.z));					// 오른쪽 선분
-		bottomPlane[2] = Linear(vector3(pos.x + size.x / 2 - angle2, (float)0, pos.z), vector3(pos.x - size.x / 2, (float)0, pos.z));							// 밑쪽 선분
-		bottomPlane[3] = Linear(vector3(pos.x - size.x / 2, (float)0, pos.z), vector3(pos.x - size.x / 2 + angle2, (float)0, pos.z - angle2));					// 왼쪽 선분
+		bottomPlane[0] = Linear(vector3(pos.x - size.x / 2 + margin, (float)0, pos.z - margin), vector3(pos.x + size.x / 2, (float)0, pos.z - margin));			// 위쪽 선분
+		bottomPlane[1] = Linear(vector3(pos.x + size.x / 2, (float)0, pos.z - margin), vector3(pos.x + size.x / 2 - margin, (float)0, pos.z));					// 오른쪽 선분
+		bottomPlane[2] = Linear(vector3(pos.x + size.x / 2 - margin, (float)0, pos.z), vector3(pos.x - size.x / 2, (float)0, pos.z));							// 밑쪽 선분
+		bottomPlane[3] = Linear(vector3(pos.x - size.x / 2, (float)0, pos.z), vector3(pos.x - size.x / 2 + margin, (float)0, pos.z - margin));					// 왼쪽 선분
 
 		// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
 		sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());

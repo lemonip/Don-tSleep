@@ -483,6 +483,9 @@
     <ClInclude Include="Interpolation.h">
       <Filter>2DGameFramework\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Select.h">
+      <Filter>2DGameFramework\Manager\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -859,6 +862,9 @@
     </ClCompile>
     <ClCompile Include="Interpolation.cpp">
       <Filter>2DGameFramework\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Select.cpp">
+      <Filter>2DGameFramework\Manager\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

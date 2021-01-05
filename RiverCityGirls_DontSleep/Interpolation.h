@@ -18,11 +18,7 @@ public:
 	Interpolation();
 	~Interpolation() {};
 
-
-	HRESULT init();
-	void release();
 	void update();
-	void render();
 
 	void moveTo(vector3* pos, float endX, float endY, float time);
 
