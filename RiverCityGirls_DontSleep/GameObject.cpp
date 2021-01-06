@@ -96,11 +96,13 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos, float a)
 	if (isShadow)
 	{
 		shadow.pos = vector3(pos.x, pos.y, pos.z);
-		shadow.LT = vector3(pos.x - size.x / 2, pos.y, pos.z - 10);
-		shadow.RT = vector3(pos.x + size.x / 2, pos.y, pos.z - 10);
-		shadow.RB = vector3(pos.x + size.x / 2, pos.y, pos.z + 10);
-		shadow.LB = vector3(pos.x - size.x / 2, pos.y, pos.z + 10);
-		shadow.rc = RectMakeCenter(pos.x, pos.z, size.x, 20);
+		shadow.width = 120;
+		shadow.height = 20;
+		shadow.LT = vector3(pos.x - shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+		shadow.RT = vector3(pos.x + shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+		shadow.RB = vector3(pos.x + shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+		shadow.LB = vector3(pos.x - shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+		shadow.rc = RectMakeCenter(pos.x, pos.z, shadow.width, shadow.height);
 	}
 
 	isActive = true;
@@ -135,11 +137,13 @@ void GameObject::shadowUpdate()
 					그림자 업데이트
 ====================================================================*/
 	shadow.pos = vector3(pos.x, pos.y, pos.z);
-	shadow.LT = vector3(pos.x - size.x / 2, pos.y, pos.z - 10);
-	shadow.RT = vector3(pos.x + size.x / 2, pos.y, pos.z - 10);
-	shadow.RB = vector3(pos.x + size.x / 2, pos.y, pos.z + 10);
-	shadow.LB = vector3(pos.x - size.x / 2, pos.y, pos.z + 10);
-	shadow.rc = RectMakeCenter(pos.x, pos.z, size.x, 20);
+	shadow.width = 120;
+	shadow.height = 20;
+	shadow.LT = vector3(pos.x - shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+	shadow.RT = vector3(pos.x + shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+	shadow.RB = vector3(pos.x + shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+	shadow.LB = vector3(pos.x - shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+	shadow.rc = RectMakeCenter(pos.x, pos.z, shadow.width, shadow.height);
 }
 
 void GameObject::PolyLineRender(HDC hdc)
