@@ -19,7 +19,7 @@ void playerWalk::UpdateState()
 	if (_thisPl->getInfo().moveDest == MOVE_DIRECTION::RIGHT &&
 		KEY_M->isOnceKeyDownV(VK_RIGHT))_thisPl->setState(PL_STATE::RUN);
 
-	//키를 누르지 않으면 기본 상태
+	//0.25초안에 키를 누르지 않으면 기본 상태
 	if (TIME_M->getWorldTime() - _startTime >0.25f
 		&&!KEY_M->isStayKeyDown(VK_LEFT)
 		&& !KEY_M->isStayKeyDown(VK_RIGHT)
@@ -29,8 +29,6 @@ void playerWalk::UpdateState()
 		KEY_M->clearVKey();
 		_thisPl->setState(PL_STATE::IDLE);
 	}
-	
-
 
 	//이동
 	lineMove(_thisPl->getInfo().speed / 2);
