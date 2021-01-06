@@ -18,19 +18,23 @@ void EventManager::update()
 {
 	if (_qEvent.empty()) return;					//이벤트 큐가 비어있으면 리턴한다.
 
-
 	bool isEventEnd = _qEvent.front()->update();	//이벤트를 실행하고, 끝나면 End를 받는다.
 	
 	if (isEventEnd)		//이벤트가 끝나면
 	{
 		_qEvent.front()->exit();					//해당 이벤트의 끝 처리 함수를 실행하고,
-		
-
 		SAFE_DELETE(_qEvent.front());				//이벤트 큐의 객체를 지우고,
 		_qEvent.pop();								//이벤트 큐에서 지워준다.
 
 		if (!_qEvent.empty()) _qEvent.front()->enter();		//다음 이벤트가 있으면 시작 처리 함수를 실행한다.
 	}
+
+}
+
+void EventManager::render()
+{
+	if (_qEvent.empty()) return;					//이벤트 큐가 비어있으면 리턴한다.
+	_qEvent.front()->render();
 
 }
 

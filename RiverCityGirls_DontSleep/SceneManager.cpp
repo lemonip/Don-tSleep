@@ -72,3 +72,21 @@ HRESULT SceneManager::changeScene(string sceneName)
 
 	return E_FAIL;
 }
+
+HRESULT SceneManager::setScene(string sceneName)
+{
+
+	//이터레이터에 찾고자 하는 씬의 키 값을 넣는다
+	mapSceneIter find = _mSceneList.find(sceneName);
+
+	//찾고자 하는 씬이 존재하지 않으면 실패를 알린다
+	if (find == _mSceneList.end()) return E_FAIL;
+
+	//찾고자 하는 씬이 현재 씬과 같으면 바꿀필요가 없음
+	if (find->second == _currentScene) return S_OK;
+
+	//바꾸려는 씬을 현재씬으로 체인지 (릴리즈나 이닛을 하지 않음)
+	_currentScene = find->second;
+
+	return S_OK;
+}

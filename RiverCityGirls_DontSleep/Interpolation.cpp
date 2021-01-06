@@ -14,7 +14,6 @@ void Interpolation::update()
 
 void Interpolation::moveTo(vector3* pos, float endX, float endY, float time)
 {
-	if (!pos) return;
 	if (!_isMoving)
 	{
 		_pos = pos;
@@ -34,7 +33,6 @@ void Interpolation::moveTo(vector3* pos, float endX, float endY, float time)
 void Interpolation::moving()
 {
 	if (!_isMoving) return;
-	if (!_pos)return;
 
 	float elapsedTime = TIME_M->getElapsedTime();
 	float moveSpeed = (elapsedTime / _time) * _travelRange;

@@ -67,8 +67,8 @@ void TitleScene::update()
 	====================================================================*/
 	loop.x++; loop.y++;
 
-	_kyokoInter->moveTo(&_kyokoPos, 1050.0f, WINSIZEY / 2 + 200.0f, 1.0f);
-	_misakoInter->moveTo(&_misakoPos, 800.0f, WINSIZEY / 2 + 200.0f, 1.0f);
+	_kyokoInter->moveTo(&_kyokoPos, 1050.0f, WINSIZEY / 2 + 200.0f, 0.7f);
+	_misakoInter->moveTo(&_misakoPos, 800.0f, WINSIZEY / 2 + 200.0f, 0.7f);
 	_titleInter->moveTo(UI_M->findUI("title")->_pos, WINSIZEX / 2 - 300, WINSIZEY / 2 - 100, 1.0f);
 
 	_kyokoInter->update();
