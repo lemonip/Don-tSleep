@@ -4,12 +4,12 @@
 
 void bossBlock::EnterState()
 {
-	_thisBs->ChangeImg("block");
+	_thisBs->ChangeImg("Bs_block");
 }
 
 void bossBlock::UpdateState()
 {
-	_thisBs->ChangeImg("block");
+	_thisBs->ChangeImg("Bs_block");
 }
 
 void bossBlock::ExitState()

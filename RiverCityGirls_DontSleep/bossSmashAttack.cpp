@@ -6,14 +6,14 @@ void bossSmashAttack::EnterState()
 {
 	_count = 0;
 	_count++;
-	_thisBs->ChangeImg("smash");
+	_thisBs->ChangeImg("Bs_smash");
 }
 
 void bossSmashAttack::UpdateState()
 {
 	if (_count % 8 == 0)
 	{
-		_thisBs->ChangeImg("smash");
+		_thisBs->ChangeImg("Bs_smash");
 	}
 }
 

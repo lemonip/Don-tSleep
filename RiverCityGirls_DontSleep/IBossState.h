@@ -14,7 +14,7 @@ public:
 	~IBossState() {}
 
 	//플레이어 링커
-	void LinkPlAddress(Boss* bs) { _thisBs = bs; }
+	void LinkBSAddress(Boss* bs) { _thisBs = bs; }
 
 	//상태마다의 동작
 	virtual void EnterState() = 0;
