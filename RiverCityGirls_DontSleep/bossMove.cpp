@@ -11,7 +11,11 @@ void bossMove::EnterState()
 
 	//_count = TIME_M->getWorldTime();
 
+<<<<<<< HEAD
 	_thisBs->ChangeImg("move");
+=======
+	_thisBs->ChangeImg("Bs_move");
+>>>>>>> c5860b884f4ae64a690c31b4be3f3ab795b95f7d
 	
 }
 
@@ -33,7 +37,11 @@ void bossMove::UpdateState()
 
 	if (_count % 8 == 0)
 	{
+<<<<<<< HEAD
 		_thisBs->ChangeImg("move");
+=======
+		_thisBs->ChangeImg("Bs_move");
+>>>>>>> c5860b884f4ae64a690c31b4be3f3ab795b95f7d
 		
 	}	
 

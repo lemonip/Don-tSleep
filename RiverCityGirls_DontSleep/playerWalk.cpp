@@ -3,7 +3,8 @@
 
 void playerWalk::EnterState()
 {
-	_thisPl->changeImg("pl_walk");
+	//이미지변경
+	_thisPl->changeImg("pl_walk",true);
 	_startTime = TIME_M->getWorldTime();
 	//방향변경가능상태로 전환
 	_thisPl->setIsConDest(true);
@@ -11,8 +12,6 @@ void playerWalk::EnterState()
 
 void playerWalk::UpdateState()
 {
-	_thisPl->changeImg("pl_walk");
-
 	//한번더 누르면 대쉬
 	if (_thisPl->getInfo().moveDest == MOVE_DIRECTION::LEFT &&
 		KEY_M->isOnceKeyDownV(VK_LEFT))_thisPl->setState(PL_STATE::RUN);
@@ -21,7 +20,6 @@ void playerWalk::UpdateState()
 		KEY_M->isOnceKeyDownV(VK_RIGHT))_thisPl->setState(PL_STATE::RUN);
 
 	//키를 누르지 않으면 기본 상태
-	
 	if (TIME_M->getWorldTime() - _startTime >0.25f
 		&&!KEY_M->isStayKeyDown(VK_LEFT)
 		&& !KEY_M->isStayKeyDown(VK_RIGHT)

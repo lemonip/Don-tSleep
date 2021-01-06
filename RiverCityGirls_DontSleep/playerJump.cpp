@@ -3,13 +3,11 @@
 
 void playerJump::EnterState()
 {
-	_thisPl->changeImg("pl_jump");
+	_thisPl->changeImg("pl_jump",false);
 }
 
 void playerJump::UpdateState()
 {
-	_thisPl->changeImg("pl_jump");
-
 	//ÀÌµ¿
 	crossMove(_thisPl->getInfo().speed*1.2);
 

@@ -82,11 +82,11 @@
     <Filter Include="playGround\EnemyManager\Enemy\EnemyState">
       <UniqueIdentifier>{180dac14-8737-49e7-b83f-7abc145b5157}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\EnemyManager\Enemy\Boss">
-      <UniqueIdentifier>{d02a97d4-2d84-4f3a-a4e0-7a9a83c620b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\Player\playerState">
       <UniqueIdentifier>{3029c193-9046-4d28-96a4-4786c162297e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\EnemyManager\Enemy\BossState">
+      <UniqueIdentifier>{d02a97d4-2d84-4f3a-a4e0-7a9a83c620b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,59 +258,56 @@
     <ClInclude Include="Enemy.h">
       <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="bossAttacked.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossBlock.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossDashAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossDeath.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossDown.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossElbowAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossGroggy.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossHowling.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossIdle.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossMeteor.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossMove.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossPhase2.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossSlabAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossSmashAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossStandAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="bossWait.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="IBossState.h">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
     <ClInclude Include="enemyAttack1.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
@@ -441,9 +438,6 @@
     <ClInclude Include="playerJumpAttack.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
-    <ClInclude Include="playerLadder.h">
-      <Filter>playGround\Player\playerState</Filter>
-    </ClInclude>
     <ClInclude Include="playerRoll.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
@@ -485,6 +479,24 @@
     </ClInclude>
     <ClInclude Include="Select.h">
       <Filter>2DGameFramework\Manager\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="playerClimb.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerGrab.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerPick.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerThrow.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -638,59 +650,56 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="bossAttacked.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossBlock.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossDashAttack.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossDeath.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossDown.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossElbowAttack.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossGroggy.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossHowling.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossIdle.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossMeteor.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossMove.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossPhase2.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossSlabAttack.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossSmashAttack.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossStandAttack.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossWait.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="IBossState.cpp">
-      <Filter>playGround\EnemyManager\Enemy\Boss</Filter>
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="enemyAttack1.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
@@ -824,9 +833,6 @@
     <ClCompile Include="playerJumpAttack.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
-    <ClCompile Include="playerLadder.cpp">
-      <Filter>playGround\Player\playerState</Filter>
-    </ClCompile>
     <ClCompile Include="playerRoll.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
@@ -865,6 +871,24 @@
     </ClCompile>
     <ClCompile Include="Select.cpp">
       <Filter>2DGameFramework\Manager\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="playerClimb.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerGrab.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerPick.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerThrow.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

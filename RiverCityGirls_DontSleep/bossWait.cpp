@@ -7,7 +7,7 @@ void bossWait::EnterState()
 	_count = 0;
 	_count++;	
 	_isWait = false;
-	_thisBs->ChangeImg("idle");
+	_thisBs->ChangeImg("Bs_idle");
 	
 }
 
@@ -16,7 +16,7 @@ void bossWait::UpdateState()
 	if (_count % 4 == 0)
 	{	
 		_isWait = true;
-		_thisBs->ChangeImg("idle");
+		_thisBs->ChangeImg("Bs_idle");
 	}
 
 	/*	1. slab attack 

@@ -3,13 +3,11 @@
 
 void playerWait::EnterState()
 {
-	_thisPl->changeImg("pl_wallet");
+	_thisPl->changeImg("pl_wait",false);
 }
 
 void playerWait::UpdateState()
 {
-	_thisPl->changeImg("pl_wallet");
-
 	//기본동작
 	basePattern();
 

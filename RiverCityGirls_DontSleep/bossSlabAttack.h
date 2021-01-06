@@ -1,7 +1,7 @@
 #pragma once
 #include"IBossState.h"
 
-class bossSlabAttack :public IBossState
+class bossSlapAttack :public IBossState
 {
 private:
 	int _count;

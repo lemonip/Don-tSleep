@@ -3,13 +3,11 @@
 
 void playerRun::EnterState()
 {
-	_thisPl->changeImg("pl_run");
+	_thisPl->changeImg("pl_run",true);
 }
 
 void playerRun::UpdateState()
 {
-	_thisPl->changeImg("pl_run");
-
 	//키를 안 누르면 기본상태
 	if (!KEY_M->isStayKeyDown(VK_LEFT)
 		&& !KEY_M->isStayKeyDown(VK_RIGHT)

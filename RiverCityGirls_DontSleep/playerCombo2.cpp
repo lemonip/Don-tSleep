@@ -3,7 +3,7 @@
 
 void playerCombo2::EnterState()
 {
-	_thisPl->changeImg("pl_comboAttack2");
+	_thisPl->changeImg("pl_comboAttack2", false);
 	tempTime = TIME_M->getWorldTime();
 	//방향조작 못하는 상태로 변경
 	_thisPl->setIsConDest(false);
@@ -11,8 +11,6 @@ void playerCombo2::EnterState()
 
 void playerCombo2::UpdateState()
 {
-	_thisPl->changeImg("pl_comboAttack2");
-
 	//임시타이머..원래는 프레임렌더 다돌아가면 변경할듯!
 	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
 

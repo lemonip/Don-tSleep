@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #define GRAVITYVALUE	0.5f			//중력수치
 #define JUMPPOWERVALUE  15.f			//점프파워수치
-#define FRAMEINTERVAL	1.f				//프레임인터벌
+#define FRAMEINTERVAL	0.1f				//프레임인터벌
 
 //전방선언
 class StageManager;
@@ -25,8 +25,10 @@ enum class PL_STATE : int
 	RUN,			//달리기
 	JUMP,			//점프
 	STICK,			//벽잡기
-	LADDER,			//사다리
+	CLIMB,			//오르기
+	PICK,			//줍기
 
+	GRAB,			//잡기
 	GUARD,			//가드
 	ROLL,			//구르기
 	HIT,			//피격
@@ -35,6 +37,7 @@ enum class PL_STATE : int
 	DOWN,			//쓰러짐
 	DEAD,			//사망
 
+	THROW,			//던지기
 	STOMP,			//밟기
 	COMBO1,			//콤보어택1
 	COMBO2,			//콤보어택2
@@ -57,10 +60,12 @@ enum class MOVE_DIRECTION : int
 };
 
 //프레임 실행 타입 이넘
-enum class PL_FRAMETYPE : int
+enum class FRAMETYPE : int
 {
 	ONCE,
-	ROOP
+	ROOP,
+	REVERSONCE,
+	REVERSROOP
 };
 
 class Player: public gameNode
@@ -94,6 +99,8 @@ private:
 		int hitCount;				//피격 카운트 (3번맞으면 다운됨)
 
 		float _frameTimer;			//프레임시간 타이머
+		RENDERTYPE _rendType;		//렌더타입
+		animation* _ani;			//기본 애니메이션
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
@@ -123,8 +130,10 @@ private:
 	IPlayerState*	_run;			//달리기
 	IPlayerState*	_jump;			//점프
 	IPlayerState*	_stick;			//벽잡기
-	IPlayerState*	_ladder;		//사다리
+	IPlayerState*	_climb;			//오르기
+	IPlayerState*	_pick;			//줍기
 
+	IPlayerState*	_grab;			//잡기
 	IPlayerState*	_guard;			//가드
 	IPlayerState*	_roll;			//구르기
 	IPlayerState*	_hit;			//피격
@@ -133,6 +142,7 @@ private:
 	IPlayerState*	_down;			//쓰러짐
 	IPlayerState*	_dead;			//사망
 
+	IPlayerState*	_throw;			//던지기
 	IPlayerState*	_stomp;			//밟기
 	IPlayerState*	_combo1;		//콤보어택1
 	IPlayerState*	_combo2;		//콤보어택2
@@ -178,9 +188,9 @@ public:
 	//키 입력
 	void keyInput();
 	//이미지변경
-	void changeImg(string imgName);
+	void changeImg(string imgName, bool reverse);
 	//프레임 연산
-	void setFrame(PL_FRAMETYPE frameType);
+	void setFrame(FRAMETYPE frameType, float frameInterval);
 	//프레임 실행
 	void playFrame();
 	//좌표 이동

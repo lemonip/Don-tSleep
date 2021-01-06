@@ -68,7 +68,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pl_stun", "source/image/character/player/stun.bmp", 384, 384, 4, 2, true, MAGENTA, true);
 	
 	IMG_M->addFrameImage("pl_walk", "source/image/character/player/walk.bmp", 1476, 402, 12, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("pl_wallet", "source/image/character/player/wallet.bmp", 2964, 420, 26, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_wait", "source/image/character/player/wait.bmp", 2520, 440, 18, 2, true, MAGENTA, true);
 	
 	IMG_M->addFrameImage("pl_wBatAttack", "source/image/character/player/wBatAttack.bmp", 1700, 700, 5, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatIdle", "source/image/character/player/wBatIdle.bmp", 1440, 560, 12, 2, true, MAGENTA, true);
@@ -82,6 +82,23 @@ void playGround::addImage()
 
 	//▼이건 내가 없어서 예시로 이렇게 해야한다고 추가한것..ㅠㅠ
 	IMG_M->addFrameImage("schoolGirlIdle", "source/image/character/enemy/schoolGirl/idle.bmp", 1170, 354, 10, 2, true, MAGENTA, true);
+	//================= 보스 ====================
+	IMG_M->addFrameImage("Bs_move", "source/image/character/enemy/boss/move.bmp", 2110, 588, 10, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_idle", "source/image/character/enemy/boss/idle.bmp", 3180, 634, 12, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_block", "source/image/character/enemy/boss/block.bmp", 1688, 576, 8, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_attacked", "source/image/character/enemy/boss/attacked.bmp", 2214, 594, 9, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_groggy", "source/image/character/enemy/boss/groggy.bmp", 1024, 434, 4, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_phase", "source/image/character/enemy/boss/phase.bmp", 5658, 748, 23, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_down", "source/image/character/enemy/boss/down.bmp", 5830, 510, 22, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_death", "source/image/character/enemy/boss/death.bmp", 4576, 576, 13, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_howling", "source/image/character/enemy/boss/howling.bmp", 2916, 576, 12, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_meteor", "source/image/character/enemy/boss/meteor_J.bmp", 1888, 672, 8, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_dash", "source/image/character/enemy/boss/tackle_L.bmp", 2882, 576, 11, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_elbow", "source/image/character/enemy/boss/elbow.bmp", 2915, 652, 11, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_slap", "source/image/character/enemy/boss/slab.bmp", 5278, 582, 14, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_smash", "source/image/character/enemy/boss/smash.bmp", 11880, 594, 27, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_standat", "source/image/character/enemy/boss/standattack2.bmp", 3735, 580, 15, 2, true, MAGENTA, true);
+
 
 	//================= 오브젝트 =================
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
