@@ -1,6 +1,11 @@
 #pragma once
 #include <vector>
-typedef void(*CALLBACK_FUNCTION)(void);
+//typedef void(*CALLBACK_FUNCTION)(void);		//함수 포인터
+
+typedef void(*CALLBACK_FUNCTION)(void);		//함수 포인터
+
+#include <functional>
+typedef std::function<void(void)> CALLBACKFUCN;
 
 enum class BUTTONSTATE
 {
@@ -25,12 +30,12 @@ public:
 
 	bool _isSelect;
 
-	CALLBACK_FUNCTION _callback;
+	CALLBACK_FUNCTION funcp;
 	Interpolation* _inter;
 
 public:
-	Button(image* _none, image* down, image* up, vector3 pos, CALLBACK_FUNCTION cbFunction);
-	Button(image* down, image* up, vector3 pos, CALLBACK_FUNCTION cbFunction);
+	Button(image* _none, image* down, image* up, vector3 pos, CALLBACK_FUNCTION fp);
+	Button(image* down, image* up, vector3 pos, CALLBACK_FUNCTION fp);
 	~Button() {};
 
 	HRESULT init();
@@ -53,7 +58,6 @@ public:
 	int _index;
 	float _selectTime;
 
-	HRESULT init();
 	void release();
 	bool update();
 	void render(HDC hdc);

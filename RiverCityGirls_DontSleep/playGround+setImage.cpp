@@ -9,25 +9,35 @@
 void playGround::addImage()
 {
 	//================= ¾À ÀÌ¹ÌÁö =================
+	
+	//·Îµù ¾À
 	IMG_M->addImage("load_background", "source/image/ui/scene/LoadingScene_Background.bmp", 1280, 720, true, MAGENTA);
 	IMG_M->addFrameImage("loading_sprite", "source/image/ui/scene/loadingSprite.bmp", 1152, 227, 4, 1, false, MAGENTA);
-
+	
+	//½ÃÀÛ ¾À
 	IMG_M->addImage("start_background", "source/image/ui/scene/StartScene_Background.bmp", 1280, 720, false, MAGENTA);
 	IMG_M->addImage("start_frame", "source/image/ui/scene/StartScene_Frame.bmp", 1600, 900, true, MAGENTA);
 	IMG_M->addImage("start_title", "source/image/ui/scene/StartScene_Title.bmp", 537, 308, true, MAGENTA);
 	IMG_M->addImage("start_kyoko", "source/image/ui/scene/StartScene_Kyoko.bmp", 672, 1024, true, MAGENTA);
 	IMG_M->addImage("start_misako", "source/image/ui/scene/StartScene_Misako.bmp", 672, 1024, true, MAGENTA);
 
+	//¼±ÅÃ ¾À
 	IMG_M->addImage("select_background", "source/image/ui/scene/SelectScene_Background.bmp", 1280, 720, false, MAGENTA);
 	IMG_M->addImage("select_background2", "source/image/ui/scene/SelectScene_background2.bmp", 1280, 720, true, MAGENTA);
 	IMG_M->addImage("select_illust", "source/image/ui/scene/SelectScene_illust.bmp", 996, 1705, true, MAGENTA);
+	IMG_M->addImage("select_kyoko", "source/image/ui/scene/SelectScene_kyoko.bmp", 375, 675, true, MAGENTA);
+	IMG_M->addImage("select_kyoko2", "source/image/ui/scene/SelectScene_kyoko2.bmp", 375, 675, true, MAGENTA);
+	IMG_M->addImage("select_misako", "source/image/ui/scene/SelectScene_misako.bmp", 375, 675, true, MAGENTA);
+	IMG_M->addImage("select_misako2", "source/image/ui/scene/SelectScene_misako2.bmp", 375, 675, true, MAGENTA);
+	IMG_M->addImage("select_kyoko_background", "source/image/ui/scene/SelectScene_kyoko_background.bmp", 360, 563, true, MAGENTA);
+	IMG_M->addImage("select_misako_background", "source/image/ui/scene/SelectScene_misako_background.bmp", 360, 563, true, MAGENTA);
 
 	//================= UI =================
 	IMG_M->addImage("shadow", "source/image/character/shadow.bmp", 128, 38, true, MAGENTA, true);
 	IMG_M->addImage("bossHPBack", "source/image/ui/battle/boss_HP_back.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 898, 120, true, MAGENTA);
-	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 487, 200, true, MAGENTA);
-	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 487, 200, true, MAGENTA);
+	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 365, 150, true, MAGENTA);
+	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
 
 	//================= ½ºÅ×ÀÌÁö =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
