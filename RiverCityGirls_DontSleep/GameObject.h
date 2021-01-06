@@ -43,7 +43,7 @@ public:
 	bool isShadow;			//그림자가 있는지
 
 	tagShadow shadow;		//그림자 구조체
-
+	tagShadow preShadow;
 public:
 	GameObject() {}
 	virtual ~GameObject() {}

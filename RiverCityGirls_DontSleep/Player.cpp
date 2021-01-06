@@ -107,6 +107,7 @@ void Player::release()
 void Player::update()
 {
 	_obj.prePos = _obj.pos;
+	_obj.preShadow = _obj.shadow;
 	//상태업데이트
 	_IState->UpdateState();
 	//중력작용
@@ -233,8 +234,6 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 	{
 	case DIRECTION::LEFT:
 		_obj.imgIndex.y = 0;
-		cout << "캐방향" << (int)_info.dest << endl;
-		cout << "이미지y" << _obj.imgIndex.y;
 		break;
 	case DIRECTION::RIGHT:
 		_obj.imgIndex.y = 1;
