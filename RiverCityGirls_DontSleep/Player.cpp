@@ -302,19 +302,21 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		{
 			_obj.imgIndex.x = 0; return;
 		}
-		break;
 		}
-	
+		break;
 	case FRAMETYPE::REVERSROOP://반대 무한 재생
-	{
+		{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
 
 		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+		
+		}
 		break;
 	}
-	}
+
+	cout << _obj.imgIndex.x << endl;
 
 	//프레임 x 번호 세팅
 	_obj.img->setFrameX(_obj.imgIndex.x);
@@ -354,7 +356,7 @@ void Player::playFrame()
 		break;
 	//반대 무한재생 (빨리)
 	case PL_STATE::RUN:
-		setFrame(FRAMETYPE::REVERSROOP, FRAMEINTERVAL*0.4);
+		setFrame(FRAMETYPE::REVERSROOP, FRAMEINTERVAL*0.35);
 		break;
 	//반대 무한재생
 	case PL_STATE::IDLE:	case PL_STATE::WALK:
