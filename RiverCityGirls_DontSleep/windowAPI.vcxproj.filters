@@ -88,6 +88,9 @@
     <Filter Include="playGround\Player\playerState">
       <UniqueIdentifier>{3029c193-9046-4d28-96a4-4786c162297e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\CollisionManager">
+      <UniqueIdentifier>{789aaecb-c675-4f16-925b-52d4d95c78c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -483,9 +486,6 @@
     <ClInclude Include="Select.h">
       <Filter>2DGameFramework\Manager\UI</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="playerClimb.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
@@ -497,6 +497,9 @@
     </ClInclude>
     <ClInclude Include="playerThrow.h">
       <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>playGround\CollisionManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -875,9 +878,6 @@
     <ClCompile Include="Select.cpp">
       <Filter>2DGameFramework\Manager\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="playerClimb.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
@@ -889,6 +889,9 @@
     </ClCompile>
     <ClCompile Include="playerThrow.cpp">
       <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>playGround\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
