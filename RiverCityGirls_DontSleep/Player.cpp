@@ -95,6 +95,7 @@ HRESULT Player::init()
 		_SAttackDown = new playerSAttackDown;
 	}
 	setState(PL_STATE::WAIT);
+
 	return S_OK;
 }
 
@@ -105,13 +106,13 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-	//키입력
-	keyInput();
+	_obj.prePos = _obj.pos;
 	//상태업데이트
 	_IState->UpdateState();
 	//중력작용
 	gravity();
-	
+	//키입력
+	keyInput();
 	//오브젝트 업뎃
 	_obj.update();
 	//애니프레임 업뎃
@@ -292,19 +293,20 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		{
 			_obj.imgIndex.x = 0; return;
 		}
-		break;
 		}
-	
+		break;
 	case FRAMETYPE::REVERSROOP://반대 무한 재생
-	{
+		{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
 
 		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+		
+		}
 		break;
 	}
-	}
+
 
 	//프레임 x 번호 세팅
 	_obj.img->setFrameX(_obj.imgIndex.x);
@@ -344,7 +346,7 @@ void Player::playFrame()
 		break;
 	//반대 무한재생 (빨리)
 	case PL_STATE::RUN:
-		setFrame(FRAMETYPE::REVERSROOP, FRAMEINTERVAL*0.4);
+		setFrame(FRAMETYPE::REVERSROOP, FRAMEINTERVAL*0.35);
 		break;
 	//반대 무한재생
 	case PL_STATE::IDLE:	case PL_STATE::WALK:
@@ -387,7 +389,7 @@ void Player::playFrame()
 //좌표이동
 void Player::movePos(float x, float z, float jumpPower)
 {
-	_obj.prePos = _obj.pos;
+	
 
 	_obj.pos.x += x;
 	_obj.pos.z += z;
@@ -408,19 +410,17 @@ void Player::movePos(float x, float z, float jumpPower)
 //중력작용
 void Player::gravity()
 {
-	movePos(0, 0, _info.jumpPower);
-	if (_info.jumpPower < _obj.pos.y) _info.jumpPower = 0;
-	if (_obj.pos.y < 0) _info.jumpPower -= GRAVITYVALUE;
+	if (_info.isSky) _info.jumpPower -= GRAVITYVALUE;
 	if (_obj.pos.y >= 0 && _info.isSky == true)
 	{
 		//이전상태가 걷기나 뛰기일때만 이전상태 그대로 상태 세팅
 		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
 		else setState(PL_STATE::IDLE);
 		_info.isSky = false;
+		_platform = nullptr;
 	}
-
-	/*if (0 < _obj.pos.y) _info.jumpPower = 0;*/
-	//movePos(0, 0, _info.jumpPower);
+	if (_obj.pos.y > 0) _info.jumpPower = 0;
+	movePos(0, 0, _info.jumpPower);
 }
 
 //키입력
