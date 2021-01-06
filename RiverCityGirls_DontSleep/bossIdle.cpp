@@ -9,11 +9,9 @@ void bossIdle::EnterState()
 
 void bossIdle::UpdateState()
 {
-<<<<<<< HEAD
-	_thisBs->ChangeImg("idle");
-=======
+
 	_thisBs->ChangeImg("Bs_idle");
->>>>>>> c5860b884f4ae64a690c31b4be3f3ab795b95f7d
+
 
 	if (_player->getObj().pos.x >= _thisBs->getObj()->pos.x)
 	{
