@@ -138,20 +138,8 @@ void Player::render()
 	/*====================================================================
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
-	switch (_info._rendType)
-	{
-	case RENDERTYPE::FRAME_RENDER:
-		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER); //z오더의 index y에 안들어가..z오더가 obj index y 값 못읽는듯
 
-		//cout << "캐방향" << (int)_info.dest << endl;
-		//cout << "인덱스 방향 설정" << _obj.img->getFrameY() << endl;
-		break;
-
-	case RENDERTYPE::ANI_RENDER:
-		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::ANI_RENDER);break;
-	}
-	
-
+	ZORDER_M->renderObject(getMapDC(), &_obj, _info._rendType);
 	Rectangle(getMapDC(), _obj.shadow.rc);
 }
 
@@ -452,6 +440,13 @@ void Player::keyInput()
 		movePos(0, 0, JUMPPOWERVALUE);
 	//점프파워가 - 면 점프상태로 전환
 	if(_info.jumpPower > 0.4)setState(PL_STATE::JUMP);
+	}
+	//구르기
+	if (KEY_M->isOnceKeyDownV('W') && !_info.isSky)
+	{
+		//이전상태 저장
+		_info.preState = _info.state;
+		setState(PL_STATE::ROLL);
 	}
 
 	//방향조작을 못하는 상태라면 리턴
