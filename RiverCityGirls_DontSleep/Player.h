@@ -171,6 +171,7 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
+	void setInfoJumpPower(float num) { _info.jumpPower = num; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
