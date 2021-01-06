@@ -8,6 +8,7 @@ class CollisionManager
 private:
 	StageManager* _stageM;
 	Player* _player;
+	int testNum = 0;
 public:
 	CollisionManager() {};
 	~CollisionManager() {};

@@ -12,6 +12,7 @@ struct tagShadow
 	RECT rc;
 	vector3 LT, RT, RB, LB;
 	vector3 pos;
+	float width, height;
 };
 
 class GameObject

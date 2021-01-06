@@ -88,6 +88,9 @@
     <Filter Include="playGround\EnemyManager\Enemy\BossState">
       <UniqueIdentifier>{d02a97d4-2d84-4f3a-a4e0-7a9a83c620b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\CollisionManager">
+      <UniqueIdentifier>{0be01191-66bd-434e-b3fc-678fc5879341}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -480,9 +483,6 @@
     <ClInclude Include="Select.h">
       <Filter>2DGameFramework\Manager\UI</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="playerClimb.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
@@ -497,6 +497,9 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>playGround\CollisionManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -872,9 +875,6 @@
     <ClCompile Include="Select.cpp">
       <Filter>2DGameFramework\Manager\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="playerClimb.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
@@ -889,6 +889,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>playGround\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

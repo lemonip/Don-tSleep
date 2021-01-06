@@ -104,13 +104,6 @@ private:
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
-	//임시?????맴버
-	RECT _shadowRc;			//그림자 렉트
-	vector3 _shadowLT, _shadowRT, _shadowRB, _shadowLB;	//그림자 지점
-	vector3 _shadowPos;		//그림자 위치
-	tagShadow _shadow;		//그림자
-	//========================================================================
-private:
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
 
@@ -178,6 +171,7 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
+	void setInfoJumpPower(float num) { _info.jumpPower = num; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
