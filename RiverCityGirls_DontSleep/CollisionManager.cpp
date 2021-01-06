@@ -135,7 +135,8 @@ void CollisionManager::objectCollision()
 						if (obj->topPlane[0].getStart().y < character->pos.y)			// 오브젝트 위로 떨어지면
 						{
 							character->pos.y = obj->topPlane[0].getStart().y;
-							_stageM->getPlayer()->setInfoJumpPower(0);
+							//_stageM->getPlayer()->setInfoJumpPower(0);
+							//플레이어헤더 덮어씌워져서  setInfoJumpPower 함수가 지금 없어!
 						}
 						else
 						{

@@ -95,6 +95,17 @@ HRESULT Player::init()
 		_SAttackDown = new playerSAttackDown;
 	}
 	setState(PL_STATE::WAIT);
+
+	/*====================================================================
+		그림자 등 충돌 처리에 관련 해 설정합니다.
+	====================================================================*/
+
+	_shadow.pos = vector3(_obj.pos.x, _obj.pos.y, _obj.pos.z);
+	_shadow.rc = RectMakeCenter(_shadow.pos.x, _shadow.pos.z, _obj.img->getWidth(), 20);
+	_shadow.LT = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z - 10);
+	_shadow.RT = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z - 10);
+	_shadow.RB = vector3(_obj.pos.x + _obj.size.x / 2, (float)0, _obj.pos.z + 10);
+	_shadow.LB = vector3(_obj.pos.x - _obj.size.x / 2, (float)0, _obj.pos.z + 10);
 	return S_OK;
 }
 
@@ -105,13 +116,12 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-	//키입력
-	keyInput();
 	//상태업데이트
 	_IState->UpdateState();
 	//중력작용
 	gravity();
-	
+	//키입력
+	keyInput();
 	//오브젝트 업뎃
 	_obj.update();
 	//애니프레임 업뎃
@@ -410,19 +420,17 @@ void Player::movePos(float x, float z, float jumpPower)
 //중력작용
 void Player::gravity()
 {
-	movePos(0, 0, _info.jumpPower);
-	if (_info.jumpPower < _obj.pos.y) _info.jumpPower = 0;
-	if (_obj.pos.y < 0) _info.jumpPower -= GRAVITYVALUE;
-	if (_obj.pos.y >= 0 && _info.isSky == true)
-	{
-		//이전상태가 걷기나 뛰기일때만 이전상태 그대로 상태 세팅
-		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
-		else setState(PL_STATE::IDLE);
-		_info.isSky = false;
-	}
+_info.jumpPower -= GRAVITYVALUE;
+if (_obj.pos.y >= 0 && _info.isSky == true)
+{
+	//이전상태가 걷기나 뛰기일때만 이전상태 그대로 상태 세팅
+	if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
+	else setState(PL_STATE::IDLE);
+	_info.isSky = false;
 
-	/*if (0 < _obj.pos.y) _info.jumpPower = 0;*/
-	//movePos(0, 0, _info.jumpPower);
+}
+if (_obj.pos.y > 0) _info.jumpPower = 0;
+movePos(0, 0, _info.jumpPower);
 }
 
 //키입력
