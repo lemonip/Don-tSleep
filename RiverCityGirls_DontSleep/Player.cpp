@@ -233,6 +233,8 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 	{
 	case DIRECTION::LEFT:
 		_obj.imgIndex.y = 0;
+		cout << "캐방향" << (int)_info.dest << endl;
+		cout << "이미지y" << _obj.imgIndex.y;
 		break;
 	case DIRECTION::RIGHT:
 		_obj.imgIndex.y = 1;
@@ -443,21 +445,21 @@ void Player::keyInput()
 	if (!_info.isConDest)return;
 
 	//왼
-	if (KEY_M->isOnceKeyDownV(VK_LEFT))
+	if (KEY_M->isOnceKeyDownV(VK_LEFT) || KEY_M->isStayKeyDown(VK_LEFT))
 	{
 		_info.moveDest = MOVE_DIRECTION::LEFT;
 		_info.dest = DIRECTION::LEFT;
 	}
 	//오
-	if (KEY_M->isOnceKeyDownV(VK_RIGHT))
+	if (KEY_M->isOnceKeyDownV(VK_RIGHT) || KEY_M->isStayKeyDown(VK_RIGHT))
 	{
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
 		_info.dest = DIRECTION::RIGHT;
 	}
 	//위
-	if (KEY_M->isOnceKeyDownV(VK_UP))_info.moveDest = MOVE_DIRECTION::UP;
+	if (KEY_M->isOnceKeyDownV(VK_UP) || KEY_M->isStayKeyDown(VK_UP))_info.moveDest = MOVE_DIRECTION::UP;
 	//아래
-	if (KEY_M->isOnceKeyDownV(VK_DOWN))_info.moveDest = MOVE_DIRECTION::DOWN;
+	if (KEY_M->isOnceKeyDownV(VK_DOWN) || KEY_M->isStayKeyDown(VK_DOWN))_info.moveDest = MOVE_DIRECTION::DOWN;
 
 
 	//키커맨드 
