@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "Select.h"
 
-Button::Button(image* none, image * down, image * up, vector3 pos, CALLBACK_FUNCTION cbFunction)
+Button::Button(image* none, image * down, image * up, vector3 pos, CALLBACK_FUNCTION fp)
 {
-	_callback = static_cast<CALLBACK_FUNCTION>(cbFunction);
+	funcp = fp;
 	_none = none; _down = down; _up = up;
 	_pos = pos;
 
 	init();
 }
 
-Button::Button(image * down, image * up, vector3 pos, CALLBACK_FUNCTION cbFunction)
+Button::Button(image * down, image * up, vector3 pos, CALLBACK_FUNCTION fp)
 {
-	_callback = static_cast<CALLBACK_FUNCTION>(cbFunction);
+	funcp = fp;
 	_none = _down = down; _up = up;
 	_pos = pos;
 	init();
@@ -55,11 +55,6 @@ void Button::render(HDC hdc)
 	}
 }
 
-HRESULT Select::init()
-{
-
-	return S_OK;
-}
 
 void Select::release()
 {
@@ -94,6 +89,14 @@ bool Select::update()
 	====================================================================*/
 	for (int i = 0; i < _vButton.size(); i++)
 	{
+		if (KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE))
+		{
+			_vButton[_index]->_state = BUTTONSTATE::UP;
+			_selectTime = TIME_M->getWorldTime();
+			_vButton[_index]->_isSelect = true;
+			if (_vButton[_index]->funcp) _vButton[_index]->funcp();
+		}
+
 		if (!PtInRect(&_vButton[i]->_rc, _ptMouse))
 		{
 			if (KEY_M->isOnceKeyDown(VK_DOWN) || KEY_M->isOnceKeyDown(VK_RIGHT))
@@ -105,14 +108,6 @@ bool Select::update()
 			{
 				_index--;
 				if (_index < 0) _index = _vButton.size() - 1;
-			}
-
-			if (KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE))
-			{
-				_vButton[_index]->_state = BUTTONSTATE::UP;
-				_selectTime = TIME_M->getWorldTime();
-				_vButton[i]->_isSelect = true;
-				if (_vButton[i]->_callback) _vButton[i]->_callback();
 			}
 		}
 	}
@@ -130,9 +125,9 @@ bool Select::update()
 			if (KEY_M->isOnceKeyUp(VK_LBUTTON))
 			{
 				_vButton[i]->_state = BUTTONSTATE::UP;
-				_selectTime = TIME_M->getWorldTime();
 				_vButton[i]->_isSelect = true;
-				if (_vButton[i]->_callback) _vButton[i]->_callback();
+				_selectTime = TIME_M->getWorldTime();
+				if (_vButton[i]->funcp) _vButton[i]->funcp();
 			}
 		}
 	}
@@ -143,12 +138,12 @@ bool Select::update()
 	{
 		if (_vButton[i]->_isSelect)
 		{
-			_vButton[i]->_inter->moveTo(&_vButton[i]->_pos, _vButton[i]->_pos.x - 20, _vButton[i]->_pos.y, 0.1f);
+			_vButton[i]->_inter->moveTo(&_vButton[i]->_pos, _vButton[i]->_pos.x - 10, _vButton[i]->_pos.y, 0.15f);
 			_vButton[i]->_inter->update();
-			_vButton[i]->_inter->moveTo(&_vButton[i]->_pos, _vButton[i]->_pos.x + 50, _vButton[i]->_pos.y, 0.25f);
+			_vButton[i]->_inter->moveTo(&_vButton[i]->_pos, _vButton[i]->_pos.x + 40, _vButton[i]->_pos.y, 0.2f);
 			_vButton[i]->_inter->update();
 
-			if (TIME_M->getWorldTime() - _selectTime > 0.25f)
+			if (TIME_M->getWorldTime() - _selectTime > 0.4f)
 			{
 				this->release();
 				return true;
