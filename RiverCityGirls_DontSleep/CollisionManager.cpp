@@ -17,10 +17,8 @@ void CollisionManager::release()
 void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 {
 	vector3 interVector; // 교차점을 담을 벡터
-
 	if (character->prePos.z < character->pos.z) // 플레이어가 아래로 움직였을 때
 	{
-		
 		if (obj->bottomPlane[0].getStart().x < character->shadow.RB.x &&
 			character->shadow.LB.x < obj->bottomPlane[0].getEnd().x) // 오브젝트의 x 범위 안에 들어왔을 때
 		{
@@ -67,13 +65,13 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			}
 		}
 	}
-	if (character->prePos.x < character->pos.x && character->prePos.z == character->pos.z) // 플레이어가 오른쪽으로 움직였을 때
+	if (character->prePos.x < character->pos.x) // 플레이어가 오른쪽으로 움직였을 때
 	{
 		if (obj->bottomPlane[3].getEnd().z < character->shadow.RB.z &&
 			character->shadow.RT.z < obj->bottomPlane[3].getStart().z) // Object의 z 범위 안에 있을 때 (왼쪽 오른쪽)
 		{
 			if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) || // 우측 선분이 좌측변이랑 교차하면
-				Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &interVector))	// 우측 선분이 밑변이랑 교차하면
+				Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &interVector))		// 우측 선분이 밑변이랑 교차하면
 			{
 				if (character->shadow.RB.z < obj->bottomPlane[3].getStart().z) // 그림자 밑변이 오브젝트 밑변보다 위에 있을 경우
 				{
@@ -86,9 +84,8 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			}
 		}
 	}
-	else if (character->prePos.x > character->pos.x && character->prePos.z == character->pos.z) // 플레이어가 왼쪽으로 움직였을 때
+	else if (character->prePos.x > character->pos.x) // 플레이어가 왼쪽으로 움직였을 때
 	{
-		
 		if (obj->bottomPlane[1].getStart().z < character->shadow.LB.z &&
 			character->shadow.LT.z < obj->bottomPlane[1].getEnd().z) // Object의 z 범위 안에 있을 때 (왼쪽 오른쪽)
 		{
@@ -130,8 +127,8 @@ void CollisionManager::objectCollision()
 				{
 					if (character->prePos.y < character->pos.y) // 낙하 중일 때
 					{
-						if (obj->topPlane[0].getStart().y - 4 < character->pos.y && 
-							character->pos.y <= obj->topPlane[0].getStart().y + 2) // 해당 범위에 들어가면
+						if (obj->topPlane[0].getStart().y - 5 < character->pos.y && 
+							character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
 						{
 							// y값 보정
 							character->pos.y = obj->topPlane[0].getStart().y;
