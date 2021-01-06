@@ -1,0 +1,204 @@
+#include "stdafx.h"
+#include "SelectScene.h"
+
+HRESULT SelectScene::init()
+{
+	/*====================================================================
+		선택 씬에서 세이브 파일을 로딩할 수 있게 합니다.
+		세이브 파일, 캐릭터 선택, 옵션, 메뉴얼 창 등 게임 시작 전의 모든 선택을 합니다.
+	====================================================================*/
+
+	/*====================================================================
+		맵의 사이즈를 지정하고, 타이틀은 UI로 취급하며, 배경은 루프시킵니다.
+	====================================================================*/
+	_background = IMG_M->findImage("select_background");
+	CAMERA_M->SetMap(*this, WINSIZEX, WINSIZEY);
+	loop = vector3(0, 0, 0);
+	_background2 = IMG_M->findImage("select_background2");
+
+	/*====================================================================
+		두 캐릭터 이미지를 선형 보간으로 이동시킵니다.
+	====================================================================*/
+	_illust = IMG_M->findImage("select_illust");
+	_illustPos = vector3(350.0f, WINSIZEY / 2 + 350.0f, 0.0f);
+	_illustInter = new Interpolation;
+	_illustInter->moveTo(&_illustPos, 450, WINSIZEY / 2 + 350, 0.2f);
+	_ratioOffset = 0.0f;
+
+	/*====================================================================
+		UI에 선택 이미지를 추가하고, 선택할 수 있도록 합니다.
+	====================================================================*/
+	//로드 파일 선택 버튼
+	_loadSelect = new Select;
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, 150, 0), load1));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, 350, 0), load2));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, 550, 0), load3));
+
+	//옵션 UI
+
+
+	//메뉴얼 UI
+
+	/*====================================================================
+		상태를 로드로 설정합니다. LOAD - OPTION - MANUAL 후에 로딩씬으로 이어집니다.
+	====================================================================*/
+	setState(SELECTTYPE::LOAD);
+
+	return S_OK;
+}
+
+void SelectScene::release()
+{
+}
+
+void SelectScene::update()
+{
+	/*====================================================================
+		캐릭터 일러스트의 이동과 확대 축소 효과를 진행하고
+		배경을 x+1, y+1 대각선 방향으로 루프 시킵니다.
+	====================================================================*/
+	loop.x++; loop.y++;
+
+	_illustInter->update();
+	_ratioOffset = (TIME_M->getWorldTime() - _ratioTime) * 0.04f;
+	if (TIME_M->getWorldTime() - _ratioTime > 0.35f) _ratioTime = TIME_M->getWorldTime();
+
+	/*====================================================================
+		카메라는 중앙에 고정시키고, 엔터를 치면 다음 씬으로 넘깁니다.
+	====================================================================*/
+	CAMERA_M->SetPos(WINSIZEX / 2, WINSIZEY / 2);
+
+	/*====================================================================
+		
+	====================================================================*/
+	switch (_state)
+	{
+		/*====================================================================
+			버튼을 선택하고, 선택이 된 후에는 캐릭터 선택으로 넘어갑니다.
+		====================================================================*/
+		case SELECTTYPE::LOAD:
+			if(_loadSelect->update()) setState(SELECTTYPE::CHARACTER);
+		break;
+
+		/*====================================================================
+			캐릭터를 선택하고, 옵션창으로 넘어갑니다.
+		====================================================================*/
+		case SELECTTYPE::CHARACTER:
+			if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
+			{
+				setState(SELECTTYPE::OPTION);
+			}
+		break;
+		/*====================================================================
+			음량 조절 등 옵션 창을 띄우고, 다음으로 넘어갑니다.
+		====================================================================*/
+		case SELECTTYPE::OPTION:
+			if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
+			{
+				setState(SELECTTYPE::MANUAL);
+			}
+		break;
+
+		/*====================================================================
+			메뉴얼 UI를 띄우고, 씬을 로딩씬으로 변경합니다.
+		====================================================================*/
+		case SELECTTYPE::MANUAL:
+			if (!EVENT_M->isEvent())
+			{
+				if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
+				{
+					SCENE_M->changeScene("loading");			//로딩 씬으로 변경
+				}
+			}
+		break;
+		default:
+		break;
+	}
+}
+
+void SelectScene::render()
+{
+	/*====================================================================
+		배경을 loop 값에 따라 루프 렌더하고, 캐릭터 이미지를 띄워 줍니다.
+	====================================================================*/
+	_background->loopRender(getMapDC(), &CAMERA_M->GetScreenRect(), loop.x, loop.y);
+	_background2->render(getMapDC());
+	IMG_M->findImage("start_frame")->render(getMapDC(), 800, 450, 1280 / 1600.0f , 720 / 900.0f);
+	_illust->render(getMapDC(), _illustPos.x, _illustPos.y, 0.7f + _ratioOffset, 0.7f + _ratioOffset);
+
+	switch (_state)
+	{
+		case SELECTTYPE::LOAD:
+			_loadSelect->render(getMapDC());
+		break;
+		case SELECTTYPE::OPTION:
+
+		break;
+		case SELECTTYPE::MANUAL:
+
+		break;
+		default:
+		break;
+	}
+
+}
+
+/*====================================================================
+	버튼 선택에 따라 세이브 파일을 로드합니다.
+====================================================================*/
+void SelectScene::load0()
+{
+	cout << "0" << endl;
+}
+
+void SelectScene::load1()
+{
+	cout << "1" << endl;
+}
+
+void SelectScene::load2()
+{
+	cout << "2" << endl;
+}
+
+void SelectScene::load3()
+{
+	cout << "3" << endl;
+}
+
+/*====================================================================
+	선택 씬의 상태를 설정합니다.
+====================================================================*/
+void SelectScene::setState(SELECTTYPE type)
+{
+	_state = type;
+
+	switch (_state)
+	{
+		case SELECTTYPE::LOAD:
+
+
+		break;
+		case SELECTTYPE::CHARACTER:
+
+		break;
+		case SELECTTYPE::OPTION:
+
+
+		break;
+		case SELECTTYPE::MANUAL:
+
+		break;
+		default:
+		break;
+	}
+	/*====================================================================
+		화면 상태가 바뀔 때마다 카메라 움직임과 대기 이벤트를 실행합니다.
+	====================================================================*/
+	EVENT_M->addEvent(new waitForSec(0.3f));
+	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.0, 0.005f));
+	EVENT_M->addEvent(new waitForSec(0.1f));
+	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.8, 0.005f));
+	EVENT_M->addEvent(new waitForSec(0.2f));
+	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.0, 0.005f));
+}
