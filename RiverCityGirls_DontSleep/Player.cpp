@@ -107,10 +107,7 @@ void Player::release()
 void Player::update()
 {
 	_obj.prePos = _obj.pos;
-<<<<<<< HEAD
-=======
 	_obj.preShadow = _obj.shadow;
->>>>>>> 79f686a7cb847fb600885c0a57299594da952cf3
 	//상태업데이트
 	_IState->UpdateState();
 	//중력작용
