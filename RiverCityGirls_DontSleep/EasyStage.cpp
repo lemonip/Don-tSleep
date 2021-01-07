@@ -12,14 +12,19 @@ HRESULT EasyStage::init()
 	CAMERA_M->SetMap(*this, backGround);
 
 	/*====================================================================
-		오브젝트와 에너미를 배치합니다.
+		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
 	====================================================================*/
 	backWallInit(vector3(350, WINSIZEY, 0), vector3(1635, WINSIZEY, 0), vector3(1635, 0, 385), vector3(350, 0, 385));
+
 	leftWallInit(vector3(57, WINSIZEY, 0), vector3(350, WINSIZEY, 0), vector3(350, 0, 385), vector3(57, 0, 678));
+
 	rightWallInit(vector3(1635, WINSIZEY, 0), vector3(1928, WINSIZEY, 0), vector3(1928, 0, 678), vector3(1635, 0, 385));
+
 	floorInit(vector3(0, 0, 650), vector3(2028, 0, 650), vector3(1928, 0, 650), vector3(57, 0, 650));
 	
-
+	/*====================================================================
+		오브젝트와 에너미를 배치합니다.
+	====================================================================*/
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(440, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(690, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(950, 0, 545));

@@ -19,7 +19,7 @@ class GameObject
 {
 public:
 	OBJECT_GROUP group;		//그룹
-
+	DIRECTION dir;
 	image* img;				//이미지
 	POINT imgIndex;			//프레임 인덱스
 	animation* ani;			//애니메이션
@@ -41,6 +41,7 @@ public:
 
 	bool isActive;			//활성화 여부
 	bool isShadow;			//그림자가 있는지
+	bool isBroken;			//오브젝트 파괴여부
 
 	tagShadow shadow;		//그림자 구조체
 	tagShadow preShadow;
@@ -49,7 +50,9 @@ public:
 	virtual ~GameObject() {}
 
 	virtual void init(OBJECT_GROUP _group, image* _img, vector3 _pos);				//초기화
-	virtual void init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vector3 _pos, float a);		//오브젝트 여백 초기화
+	virtual void init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vector3 _pos, float a);		//스탠딩오브젝트 생성
+	virtual void init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vector3 _pos, float a, bool broken);	//브로큰오브젝트 생성
+	
 	virtual void release();
 	virtual void update();
 	virtual void render();

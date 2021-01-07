@@ -80,6 +80,7 @@ void StageManager::setStage(STAGETYPE current)
 		SAFE_DELETE(_stage);	//메모리를 날려 주고 딜리트 해 준다.
 	}
 
+	_preStage = _currentStage;
 	_currentStage = current;	//현재 스테이지를 바꿔 준다.
 
 	//새로운 스테이지 객체를 생성하고, 초기화한다.
