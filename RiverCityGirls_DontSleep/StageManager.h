@@ -14,12 +14,12 @@ class StageManager
 	Player* _player;
 	Stage* _stage;
 	STAGETYPE _currentStage;
-
+	STAGETYPE _preStage;
 public:
 
 	virtual HRESULT init();
 	virtual void release();
-	virtual void update();	
+	virtual void update();
 	virtual void render();
 
 	/*====================================================================
@@ -33,6 +33,8 @@ public:
 	====================================================================*/
 	Stage* getStage() { return _stage; }
 	Player* getPlayer() { return _player; }
+	STAGETYPE getCurStage() { return _currentStage; }
+	STAGETYPE getPreStage() { return _preStage; }
 
 };
 
