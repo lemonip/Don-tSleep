@@ -27,7 +27,7 @@ void Stage::release()
 
 void Stage::update()
 {
-	//_enemyM->update();
+	_enemyM->update();
 	_objectM->update();
 
 }

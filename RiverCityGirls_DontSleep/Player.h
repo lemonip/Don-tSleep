@@ -1,9 +1,11 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE	0.5f			//중력수치
-#define JUMPPOWERVALUE  15.f			//점프파워수치
-#define FRAMEINTERVAL	0.1f				//프레임인터벌
+#define GRAVITYVALUE	0.5f			//중력 수치
+#define JUMPPOWERVALUE  15.f			//점프파워 수치
+#define FRAMEINTERVAL	0.1f			//프레임 인터벌
+#define ATTACKSIZE		480			//일반공격 사이트
+
 
 //전방선언
 class StageManager;
@@ -68,14 +70,22 @@ enum class FRAMETYPE : int
 	REVERSROOP
 };
 
-class Player: public gameNode
+class Player : public gameNode
 {
 private:
+	//공격 정보 구조체
+	struct tagAttackInfo
+	{
+		RECT  rc;				// 공격렉트
+		vector3 pos;			// 공격 좌표
+		float width, height;	//크기
+		image* img;				//이미지
+	};
 	//정보 구조체
 	struct tagInfo
 	{
 	public:
-		RECT  plAttackRc;			//플레이어 공격렉트
+		struct tagAttackInfo attackInfo;	//공격 정보
 		float jumpPower;			//점프파워
 		float speed;				//속도
 
@@ -84,6 +94,7 @@ private:
 		bool isControl;				//키입력 가능 유무
 		bool isConDest;				//방향전환 가능 유무
 		bool isSky;					//허공 유무
+		bool isAttack;				//공격 유무
 
 		MOVE_DIRECTION  moveDest;	//행동 방향
 		DIRECTION dest;				//인덱스 방향
@@ -158,20 +169,28 @@ public:
 									GETTER
 	====================================================================*/
 	GameObject getObj() { return _obj; }
-	tagInfo    getInfo() { return _info; }
+	tagInfo& getInfo() { return _info; }
 	GameObject* getPObj() { return &_obj; }
 	GameObject* getPlatform() { return _platform; }
+	EnemyManager* getEnemyM() {  return _enemyM; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
-	void setLinkColM(CollisionManager* colM) { _colM = colM; }
+	void setLinkColM(CollisionManager* colM) { _colM = colM;}
 	//조작 유무
 	void setIsControl(bool control) { _info.isControl = control; }
 	//상태 지정
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
+	//무기 상태 변경
+	void setWeaponType(WEAPON_TYPE wType) { _info.weaponType = wType; }
+	//공격 상태 변경
+	void SetIsAttack(bool isAttack) { _info.isAttack = isAttack; }
+	//같은줄 유무
+	bool isRange(GameObject obj);
+	bool isRange(GameObject obj, float value);
 	//충돌처리에 필요한 SETTER
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }
@@ -193,4 +212,6 @@ public:
 	void playFrame();
 	//좌표 이동
 	void movePos(float x, float z, float y);
+	//공격 렉트
+	void renewAttackRc();
 };

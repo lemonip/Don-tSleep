@@ -43,7 +43,6 @@ HRESULT Player::init()
 		플래이어의 오브젝트 초기화와 기본 설정을 합니다.
 	====================================================================*/
 	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wait"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
-	_obj.imgIndex = { 0,0 };	//아직 애니메이션이 만들어지지 않아 임시로 해두었습니다.
 
 	//기본 변수 초기화
 	{
@@ -54,6 +53,7 @@ HRESULT Player::init()
 		_info.isControl = true;
 		_info.isConDest = true;
 		_info.isSky = false;
+		_info.isAttack = false;
 		_info.hasMember = false;
 		_info.dest = DIRECTION::RIGHT;
 		_info.weaponType = WEAPON_TYPE::BAT;
@@ -107,6 +107,7 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
+
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 	//상태업데이트
@@ -133,6 +134,8 @@ void Player::update()
 		cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 	}
 
+	//공격렉트 갱신
+	renewAttackRc();
 }
 
 //렌더
@@ -144,6 +147,7 @@ void Player::render()
 
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 	Rectangle(getMapDC(), _obj.shadow.rc);
+	if(KEY_M->isToggleKey(VK_SHIFT)) Rectangle(getMapDC(), _info.attackInfo.rc);
 }
 
 //상태 지정
@@ -151,7 +155,6 @@ void Player::setState(PL_STATE state)
 {
 	if (_info.state == state)return; //같은 상태면 변경하지 않는다.
 	_info.state = state;
-
 	//상태를 빠져나온다
 	if (_IState != NULL)_IState->ExitState();
 
@@ -197,6 +200,27 @@ void Player::setState(PL_STATE state)
 	_IState->EnterState();
 }
 
+//같은 줄 유무
+bool Player::isRange(GameObject obj)
+{
+	//위치 차이가 3미만이면
+	if (abs(_obj.pos.z - obj.pos.z) < 15)
+	{
+		return true;
+	}
+	return false;
+}
+
+//같은 줄 유무
+bool Player::isRange(GameObject obj,float value)
+{
+	//위치 차이가 3미만이면
+	if (abs(_obj.pos.z - obj.pos.z) < value)
+	{
+		return true;
+	}
+	return false;
+}
 //스테이지가 바뀔 때마다 초기화시키는 함수
 void Player::stageInit()
 {
@@ -376,7 +400,6 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		break;
 	}
 
-	cout << _obj.imgIndex.x << endl;
 }
 
 //프레임 실행
@@ -412,12 +435,12 @@ void Player::playFrame()
 	case PL_STATE::COMBO1:	case PL_STATE::COMBO2:		
 	case PL_STATE::COMBO3:	case PL_STATE::SATTACK:
 	case PL_STATE::DASHSATTACK:
-	case PL_STATE::SATTACKDOWN: case PL_STATE::JUMPATTACK:
+	 case PL_STATE::JUMPATTACK:
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL);	
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
 	//반대 한번재생 (일반 속도)
-	case PL_STATE::DASHATTACK:
+	case PL_STATE::DASHATTACK:	case PL_STATE::SATTACKDOWN:
 		setFrame(FRAMETYPE::REVERSONCE, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
@@ -455,15 +478,53 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.update();
 }
 
+//공격렉트 갱신
+void Player::renewAttackRc()
+{
+	//무기에 따른 렉트 크기 설정
+	switch (_info.weaponType)
+	{
+	case WEAPON_TYPE::NONE:
+		_info.attackInfo.width = ATTACKSIZE *0.4; break;
+	case WEAPON_TYPE::BAT:	case WEAPON_TYPE::BASEBALL:
+		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth(); break;
+	}
+	//상황에 따른 렉트 크기 설정
+	//★ 커맨드공격의 경우 커져야함 가로가
+	_info.attackInfo.height = ATTACKSIZE;
+
+	//방향에따라 공격 렉트 위치 갱신
+	switch (_info.dest)
+	{
+	case DIRECTION::LEFT:
+		_info.attackInfo.pos.x = _obj.pos.x - (_obj.rc.right  - _obj.rc.left)/2;break;
+	case DIRECTION::RIGHT:
+		_info.attackInfo.pos.x = _obj.pos.x + (_obj.rc.right - _obj.rc.left) / 2;break;
+	}
+	//상황에 따른 렉트 위치 갱신
+	//★ 커맨드 공격의 경우 가운데여야함
+	_info.attackInfo.pos.y = (_obj.rc.bottom + _obj.rc.top)/2;
+
+	//렉트 갱신
+	_info.attackInfo.rc = RectMakeCenter(_info.attackInfo.pos.x, _info.attackInfo.pos.y, _info.attackInfo.width, _info.attackInfo.height);
+
+}
+
 //중력작용
 void Player::gravity()
 {
 	if (_info.isSky) _info.jumpPower -= GRAVITYVALUE;
 	if (_obj.pos.y >= 0 && _info.isSky == true)
 	{
-		//이전상태가 걷기나 뛰기일때만 이전상태 그대로 상태 세팅
-		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
-		else setState(PL_STATE::IDLE);
+		setState(PL_STATE::IDLE);
+		//걷거나 뛰고있었고, 키를 계속 누르고있으면 그 상태 그대로돌아오기
+		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)
+		{
+			if(_info.dest == DIRECTION::LEFT)
+				if(KEY_M->isStayKeyDown(VK_LEFT))setState(_info.preState); 
+			if (_info.dest == DIRECTION::RIGHT)
+				if (KEY_M->isStayKeyDown(VK_RIGHT))setState(_info.preState); 
+		}
 		_info.isSky = false;
 		_platform = nullptr;
 	}
@@ -474,6 +535,7 @@ void Player::gravity()
 //키입력
 void Player::keyInput()
 {
+
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl)return;
 
@@ -526,11 +588,12 @@ void Player::keyInput()
 		//바라보는 방향키+ ↓ + d 커맨드 공격
 		if (KEY_M->getKeyBuffer(0) == 'D' &&KEY_M->getKeyBuffer(1) == VK_DOWN
 			&& KEY_M->getKeyBuffer(2) == VK_RIGHT && _info.dest == DIRECTION::RIGHT)
-			cout << "공" << endl;
+			setState(PL_STATE::SATTACKDOWN);
 
 		if (KEY_M->getKeyBuffer(0) == 'D' &&KEY_M->getKeyBuffer(1) == VK_DOWN
 			&& KEY_M->getKeyBuffer(2) == VK_LEFT && _info.dest == DIRECTION::LEFT)
-			cout << "공" << endl;
+			setState(PL_STATE::SATTACKDOWN);
+
 	}
 }
 

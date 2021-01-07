@@ -34,10 +34,7 @@ void playerWalk::UpdateState()
 		&& !KEY_M->isStayKeyDown(VK_RIGHT)
 		&& !KEY_M->isStayKeyDown(VK_UP)
 		&& !KEY_M->isStayKeyDown(VK_DOWN))
-	{
-		KEY_M->clearVKey();
 		_thisPl->setState(PL_STATE::IDLE);
-	}
 
 	//ÀÌµ¿
 	lineMove(_thisPl->getInfo().speed / 2);

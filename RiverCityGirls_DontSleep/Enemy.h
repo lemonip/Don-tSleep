@@ -129,7 +129,7 @@ public:
 	float& getRunSpeed() { return _runSpeed; }
 	float& getWalkSpeed() { return _walkSpeed; }
 	GameObject* getObj() { return &_obj; }
-
+	GameObject& getRefObj() { return _obj; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
