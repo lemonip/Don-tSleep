@@ -132,6 +132,7 @@ void Player::update()
 		cout << "ÇÃ·§Æû Y: " << _platform->bottomPlane[0].getEnd().y << endl;
 		cout << "ÇÃ·§Æû Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 	}
+
 }
 
 //·»´õ

@@ -24,6 +24,7 @@ using namespace std;
 HRESULT playGround::init()
 {
 	gameNode::init(true);
+	AddFontResourceA("source/font/CookieRun Bold.otf");
 	addImage();							//이미지 세팅
 	addScene();							//씬 세팅
 	SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
@@ -47,7 +48,7 @@ void playGround::update()
 {
 	gameNode::update();					//게임 노드에서 매니저들을 업데이트한다.
 
-	if (EVENT_M->isMovie()) return;		//영상 재생 중에는 업데이트 하지 않는다.
+	if (EVENT_M->getIsMovie()) return;		//영상 재생 중에는 업데이트 하지 않는다.
 
 	CAMERA_M->update();					//카메라를 업데이트 한다.
 	UI_M->update();						//UI 업데이트
@@ -76,10 +77,10 @@ void playGround::render()
 	PatBlt(getBackDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);	//하얀 배경
 	
 	//================ 렌더 시작 =================
-	if (EVENT_M->isMovie()) return;	//영상 재생 중에는 렌더하지 않는다.
-	
+	if (EVENT_M->getIsMovie()) return;	//영상 재생 중에는 렌더하지 않는다.
 	SCENE_M->render();								//씬 렌더
 	CAMERA_M->render(getBackDC(),_mapBuffer);		//카메라 렌더
+	EVENT_M->render(getBackDC());
 
 	//================= 디버깅 용 =================
 	//FPS 확인
