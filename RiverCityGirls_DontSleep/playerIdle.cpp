@@ -19,6 +19,9 @@ void playerIdle::EnterState()
 
 	//타이머를 월드타이머로 맞춰서 초기화
 	_stateTimer = TIME_M->getWorldTime();
+
+	//키커맨더 벡터 비움
+	KEY_M->clearVKey();
 	
 }
 

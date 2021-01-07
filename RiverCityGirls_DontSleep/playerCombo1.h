@@ -6,7 +6,7 @@ class playerCombo1 : public IPlayerState
 {
 	//공격충돌용
 	RECT _temp;
-	bool _iscollision;
+	bool _isCollision;
 public:
 
 	virtual void EnterState();

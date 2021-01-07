@@ -106,6 +106,7 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
+
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 	//상태업데이트
@@ -121,8 +122,6 @@ void Player::update()
 	_info.ani->frameUpdate(TIME_M->getElapsedTime() * 10);
 	//프레임업뎃
 	playFrame();
-
-	if (_info.isAttack)cout << "공격" << endl;
 
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD0))
 	{
@@ -155,7 +154,6 @@ void Player::setState(PL_STATE state)
 {
 	if (_info.state == state)return; //같은 상태면 변경하지 않는다.
 	_info.state = state;
-
 	//상태를 빠져나온다
 	if (_IState != NULL)_IState->ExitState();
 
@@ -201,6 +199,27 @@ void Player::setState(PL_STATE state)
 	_IState->EnterState();
 }
 
+//같은 줄 유무
+bool Player::isRange(GameObject obj)
+{
+	//위치 차이가 3미만이면
+	if (abs(_obj.pos.z - obj.pos.z) < 15)
+	{
+		return true;
+	}
+	return false;
+}
+
+//같은 줄 유무
+bool Player::isRange(GameObject obj,float value)
+{
+	//위치 차이가 3미만이면
+	if (abs(_obj.pos.z - obj.pos.z) < value)
+	{
+		return true;
+	}
+	return false;
+}
 //스테이지가 바뀔 때마다 초기화시키는 함수
 void Player::stageInit()
 {
@@ -415,12 +434,12 @@ void Player::playFrame()
 	case PL_STATE::COMBO1:	case PL_STATE::COMBO2:		
 	case PL_STATE::COMBO3:	case PL_STATE::SATTACK:
 	case PL_STATE::DASHSATTACK:
-	case PL_STATE::SATTACKDOWN: case PL_STATE::JUMPATTACK:
+	 case PL_STATE::JUMPATTACK:
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL);	
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
 	//반대 한번재생 (일반 속도)
-	case PL_STATE::DASHATTACK:
+	case PL_STATE::DASHATTACK:	case PL_STATE::SATTACKDOWN:
 		setFrame(FRAMETYPE::REVERSONCE, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
@@ -458,9 +477,10 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.update();
 }
 
+//공격렉트 갱신
 void Player::renewAttackRc()
 {
-	//렉트 크기 설정
+	//무기에 따른 렉트 크기 설정
 	switch (_info.weaponType)
 	{
 	case WEAPON_TYPE::NONE:
@@ -468,6 +488,8 @@ void Player::renewAttackRc()
 	case WEAPON_TYPE::BAT:	case WEAPON_TYPE::BASEBALL:
 		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth(); break;
 	}
+	//상황에 따른 렉트 크기 설정
+	//★ 커맨드공격의 경우 커져야함 가로가
 	_info.attackInfo.height = ATTACKSIZE;
 
 	//방향에따라 공격 렉트 위치 갱신
@@ -478,6 +500,8 @@ void Player::renewAttackRc()
 	case DIRECTION::RIGHT:
 		_info.attackInfo.pos.x = _obj.pos.x + (_obj.rc.right - _obj.rc.left) / 2;break;
 	}
+	//상황에 따른 렉트 위치 갱신
+	//★ 커맨드 공격의 경우 가운데여야함
 	_info.attackInfo.pos.y = (_obj.rc.bottom + _obj.rc.top)/2;
 
 	//렉트 갱신
@@ -510,6 +534,7 @@ void Player::gravity()
 //키입력
 void Player::keyInput()
 {
+
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl)return;
 
@@ -562,11 +587,12 @@ void Player::keyInput()
 		//바라보는 방향키+ ↓ + d 커맨드 공격
 		if (KEY_M->getKeyBuffer(0) == 'D' &&KEY_M->getKeyBuffer(1) == VK_DOWN
 			&& KEY_M->getKeyBuffer(2) == VK_RIGHT && _info.dest == DIRECTION::RIGHT)
-			cout << "공" << endl;
+			setState(PL_STATE::SATTACKDOWN);
 
 		if (KEY_M->getKeyBuffer(0) == 'D' &&KEY_M->getKeyBuffer(1) == VK_DOWN
 			&& KEY_M->getKeyBuffer(2) == VK_LEFT && _info.dest == DIRECTION::LEFT)
-			cout << "공" << endl;
+			setState(PL_STATE::SATTACKDOWN);
+
 	}
 }
 

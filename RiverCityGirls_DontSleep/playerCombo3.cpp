@@ -6,19 +6,28 @@
 void playerCombo3::EnterState()
 {
 	_thisPl->changeImg("pl_comboAttack3", false);
+	_isCollision = false;
+
+	//공격여부
+	checkAttack();
 }
 
 void playerCombo3::UpdateState()
 {
-	//몹한테 첫충돌시
-	if (!_thisPl->getInfo().isAttack
-		&& IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
-			&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc)))
-	{
-		_thisPl->SetIsAttack(true);
-	}
+	_thisPl->SetIsAttack(false);
 
 	if (isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
+	
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+	//몹한테 첫충돌시
+	if (!_isCollision
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
+	{
+		_isCollision = true;
+	}
+	}
 
 	//걷기
 	walkPattern();

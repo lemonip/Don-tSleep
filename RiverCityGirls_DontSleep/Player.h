@@ -4,7 +4,7 @@
 #define GRAVITYVALUE	0.5f			//중력 수치
 #define JUMPPOWERVALUE  15.f			//점프파워 수치
 #define FRAMEINTERVAL	0.1f			//프레임 인터벌
-#define ATTACKSIZE		280			//일반공격 사이트
+#define ATTACKSIZE		480			//일반공격 사이트
 
 
 //전방선언
@@ -188,6 +188,9 @@ public:
 	void setWeaponType(WEAPON_TYPE wType) { _info.weaponType = wType; }
 	//공격 상태 변경
 	void SetIsAttack(bool isAttack) { _info.isAttack = isAttack; }
+	//같은줄 유무
+	bool isRange(GameObject obj);
+	bool isRange(GameObject obj, float value);
 	//충돌처리에 필요한 SETTER
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }

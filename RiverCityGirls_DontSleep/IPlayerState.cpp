@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "IPlayerState.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
 
 //업데이트 일시정지 유무 
 bool IPlayerState::pauseUpdate()
@@ -56,6 +58,19 @@ void IPlayerState::basePattern()
 	//약공격
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO1);
 
+}
+
+//공격상태면 공격으로 전환
+void IPlayerState::checkAttack()
+{
+	RECT temp;
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+		if (IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+			&& _thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj()))
+			_thisPl->SetIsAttack(true);
+	}
 }
 
 //상하이동
