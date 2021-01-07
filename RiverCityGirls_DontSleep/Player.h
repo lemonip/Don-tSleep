@@ -174,6 +174,7 @@ public:
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
 	//무기 상태 변경
 	void setWeaponType(WEAPON_TYPE wType) { _info.weaponType = wType; }
+	//충돌처리에 필요한 SETTER
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }
 	void setIsSky(bool is) { _info.isSky = is; }

@@ -113,7 +113,8 @@ void playGround::addImage()
 
 	//================= 오브젝트 =================
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
-
+	IMG_M->addImage("table", "source/image/object/table.bmp", 339, 162, true, MAGENTA, true);
+	IMG_M->addFrameImage("vendingMachine", "source/image/object/vendingMachine.bmp", 525, 260, 2, 1, true, MAGENTA, true);
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
 }
