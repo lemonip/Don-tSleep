@@ -19,7 +19,9 @@ class GameObject
 {
 public:
 	OBJECT_GROUP group;		//그룹
+	OBJECT_TYPE type;		//오브젝트 타입
 	DIRECTION dir;			//오브젝트 방향
+
 	image* img;				//이미지
 	POINT imgIndex;			//프레임 인덱스
 	animation* ani;			//애니메이션
