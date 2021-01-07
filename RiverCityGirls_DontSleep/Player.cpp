@@ -122,6 +122,15 @@ void Player::update()
 	//ÇÁ·¹ÀÓ¾÷µ«
 	playFrame();
 
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD0))
+	{
+		cout << "±×¸²ÀÚ LT X: " << _obj.shadow.LT.x << endl;
+		cout << "±×¸²ÀÚ LT Y: " << _obj.shadow.LT.y << endl;
+		cout << "±×¸²ÀÚ LT Z: " << _obj.shadow.LT.z << endl;
+		cout << "ÇÃ·§Æû X: " << _platform->bottomPlane[0].getEnd().x << endl;
+		cout << "ÇÃ·§Æû Y: " << _platform->bottomPlane[0].getEnd().y << endl;
+		cout << "ÇÃ·§Æû Z: " << _platform->bottomPlane[0].getEnd().z << endl;
+	}
 }
 
 //·»´õ
