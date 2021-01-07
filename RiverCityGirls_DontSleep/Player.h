@@ -111,7 +111,7 @@ private:
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	EnemyManager* _enemyM;		//에너미 매니저 링크
 	CollisionManager* _colM;
-
+	GameObject*		_platform;
 	//★맴버로 에너미를 가질 예정(동료로)
 
 private:
@@ -160,6 +160,7 @@ public:
 	GameObject getObj() { return _obj; }
 	tagInfo    getInfo() { return _info; }
 	GameObject* getPObj() { return &_obj; }
+	GameObject* getPlatform() { return _platform; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
@@ -171,7 +172,9 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
-	void setInfoJumpPower(float num) { _info.jumpPower = num; }
+	void setPlatform(GameObject* platform) { _platform = platform; }
+	void setJumpPower(float num) { _info.jumpPower = num;  }
+	void setIsSky(bool is) { _info.isSky = is; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/

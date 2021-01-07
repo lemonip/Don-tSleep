@@ -11,6 +11,31 @@ bool IPlayerState::pauseUpdate()
 	else return false;
 }
 
+//프레임 실행여부
+bool IPlayerState::isEndFrame(bool reverse)
+{
+	switch (_thisPl->getInfo().dest)
+	{
+	case DIRECTION::LEFT:
+	{
+		//현재 프레임번호가 끝번호면 프레임재생이 끝
+		if (reverse == false && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())
+			return true;
+		if (reverse == true && _thisPl->getObj().img->getFrameX() == 0)
+			return true;
+
+		return false;
+	}
+	case DIRECTION::RIGHT:
+	{
+		//현재 프레임번호가 0 번호면 프레임재생이 끝
+		if (reverse == false && _thisPl->getObj().img->getFrameX() == 0) return true;
+		if (reverse == true && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())return true;
+		return false;
+	}
+	}
+}
+
 void IPlayerState::walkPattern()
 {
 	//걷기

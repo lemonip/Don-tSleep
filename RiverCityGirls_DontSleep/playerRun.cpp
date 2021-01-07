@@ -3,6 +3,7 @@
 
 void playerRun::EnterState()
 {
+	//이미지 변경
 	_thisPl->changeImg("pl_run",true);
 }
 
