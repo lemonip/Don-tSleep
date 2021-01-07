@@ -30,7 +30,7 @@
 #include "EventManager.h"
 #include "UIManager.h"
 #include "soundManager.h"
-
+#include "DataManager.h"
 #include "Enums.h"
 
 using namespace std;
@@ -59,7 +59,7 @@ using namespace TFIVE_UTIL;
 #define EVENT_M EventManager::getSingleton()
 #define UI_M UIManager::getSingleton()
 #define SOUND_M soundManager::getSingleton()
-
+#define DATA_M DataManager::getSingleton()
 #define TXTDATA txtData::getSingleton()
 
 #define SAFE_DELETE(p) {if(p) {delete(p); (p)=NULL;}}

@@ -131,6 +131,7 @@ void Player::update()
 		cout << "플랫폼 Y: " << _platform->bottomPlane[0].getEnd().y << endl;
 		cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 	}
+
 }
 
 //렌더
@@ -201,6 +202,55 @@ void Player::stageInit()
 	/*====================================================================
 		스테이지가 바뀔 때마다 초기화시키는 함수입니다.
 	====================================================================*/
+	switch (_stageM->getCurStage()) // 현재 스테이지는?
+	{
+	case STAGETYPE::EASY: // 현재 스테이지가 이지면
+		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // 이전 스테이지가 노말이였으면
+		{
+			_obj.setPosX(1445);
+			_obj.setPosY(0);
+			_obj.setPosZ(420);
+		}
+		break;
+	case STAGETYPE::NORMAL:  // 현재 스테이지가 노말이면
+		if (_stageM->getPreStage() == STAGETYPE::EASY) // 이전 스테이지가 노말이였으면
+		{
+			_obj.setPosX(180);
+			_obj.setPosY(0);
+			_obj.setPosZ(700);
+		}
+		else if (_stageM->getPreStage() == STAGETYPE::HARD) // 이전 스테이지가 하드이였으면
+		{
+			_obj.setPosX(2645);
+			_obj.setPosY(0);
+			_obj.setPosZ(670);
+		}
+		break;
+	case STAGETYPE::HARD: // 현재 스테이지가 하드면
+		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // 이전 스테이지가 노말이였으면
+		{
+			_obj.setPosX(270);
+			_obj.setPosY(0); // 나중에 추가해야함
+			_obj.setPosZ(480);
+		}
+		else if (_stageM->getPreStage() == STAGETYPE::BOSS) // 이전 스테이지가 보스였으면
+		{
+			_obj.setPosX(2070);
+			_obj.setPosY(0);
+			_obj.setPosZ(1370);
+		}
+		break;
+	case STAGETYPE::BOSS: // 현재 스테이지가 보스면
+		if (_stageM->getPreStage() == STAGETYPE::HARD) // 이전 스테이지가 하드이였으면
+		{
+			_obj.setPosX(275);
+			_obj.setPosY(0);
+			_obj.setPosZ(605);
+		}
+		break;
+	default:
+		break;
+	}
 
 	/*====================================================================
 		링크 : 에너미매니저, 오브젝트 매니저와 링크합니다.
@@ -388,8 +438,6 @@ void Player::playFrame()
 //좌표이동
 void Player::movePos(float x, float z, float jumpPower)
 {
-	
-
 	_obj.pos.x += x;
 	_obj.pos.z += z;
 	_obj.pos.y -= jumpPower;
@@ -483,7 +531,5 @@ void Player::keyInput()
 			&& KEY_M->getKeyBuffer(2) == VK_LEFT && _info.dest == DIRECTION::LEFT)
 			cout << "공" << endl;
 	}
-
-
 }
 

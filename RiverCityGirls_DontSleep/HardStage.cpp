@@ -11,8 +11,20 @@ HRESULT HardStage::init()
 	CAMERA_M->SetMap(*this, backGround);
 
 	/*====================================================================
+		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
+	====================================================================*/
+	backWallInit(vector3(0, WINSIZEY, 0), vector3(1705, WINSIZEY, 0), vector3(1705, 0, 895), vector3(0, 0, 895));
+
+	leftWallInit(vector3(0, WINSIZEY, 0), vector3(0, WINSIZEY, 0), vector3(0, 0, 1428), vector3(0, 0, 1428));
+
+	rightWallInit(vector3(1705, WINSIZEY, 0), vector3(2235, WINSIZEY, 0), vector3(2235, 0, 1428), vector3(1705, 0, 895));
+
+	floorInit(vector3(0, 0, 895), vector3(2328, 0, 895), vector3(2328, 0, 1428), vector3(0, 0, 1428));
+
+	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
+	_objectM->pushObject(OBJECT_TYPE::LADDER, vector3(1555, 0, 930));
 
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.

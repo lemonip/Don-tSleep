@@ -87,9 +87,11 @@ enum class ENEMY_TYPE : int
 enum class OBJECT_TYPE : int
 {
 	DESK,
-	LEFTWALL,
-	BACKWALL,
-	RIGHTWALL,
+	TABLE,
+	VENDINGMACHINE,
+	LADDER,
+	HARDPLATFORM,
+	PILLAR,
 };
 
 
