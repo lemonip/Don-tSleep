@@ -3,14 +3,25 @@
 
 void playerIdle::EnterState()
 {
-	_thisPl->changeImg("pl_idle",true);
-	//키조작 가능한 상태로 변경
-	_thisPl->setIsControl(true);
+	//이미지 변경
+	switch (_thisPl->getInfo().weaponType)
+	{
+	case WEAPON_TYPE::NONE:	_thisPl->changeImg("pl_idle", true);	break;
+	case WEAPON_TYPE::BAT:	_thisPl->changeImg("pl_wBatIdle", true);	break;
+	case WEAPON_TYPE::BASEBALL:
+		break;
+	}
+
 	//방향조작이 가능한 상태로 변경
 	_thisPl->setIsConDest(true);
+	//공격 상태 아님
+	_thisPl->SetIsAttack(false);
 
 	//타이머를 월드타이머로 맞춰서 초기화
 	_stateTimer = TIME_M->getWorldTime();
+
+	//키커맨더 벡터 비움
+	KEY_M->clearVKey();
 	
 }
 

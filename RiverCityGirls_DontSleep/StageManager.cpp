@@ -2,6 +2,7 @@
 #include "StageManager.h"
 
 #include "Player.h"
+#include "Boss.h"
 
 #include "EasyStage.h"
 #include "NormalStage.h"
@@ -21,6 +22,12 @@ HRESULT StageManager::init()
 	_player->setLinkStageM(this);
 	EVENT_M->setLinkPlayer(_player);
 
+	//_boss = new Boss;
+	
+	
+	
+	
+
 
 	//첫 스테이지 세팅
 	setStage(STAGETYPE::EASY);
@@ -38,7 +45,10 @@ void StageManager::release()
 
 	_stage->release();
 	SAFE_DELETE(_stage);
-}
+
+	/*_boss->release();
+	SAFE_DELETE(_boss);*/
+}	
 
 /*====================================================================
 	Player와 Stage에 대한 걸 업데이트 하며,
@@ -48,8 +58,10 @@ void StageManager::update()
 {
 	_stage->update();
 	_player->update();
+	//_boss->update();
+	
 
-	if (!EVENT_M->isEvent()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
+	if (!EVENT_M->getIsCameraMove()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
 	// 디버그요오오오오옹(21.01.07 만두루루룸)
 	if (KEY_M->isOnceKeyDown(VK_F1)) setStage(STAGETYPE::EASY);
 	if (KEY_M->isOnceKeyDown(VK_F2)) setStage(STAGETYPE::NORMAL);

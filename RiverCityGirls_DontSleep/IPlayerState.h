@@ -23,6 +23,9 @@ public:
 	//기본동작 (걷기/약공/가드)
 	void basePattern();
 
+	//공격상태면 공격중으로 전환
+	void checkAttack();
+
 	//상하이동
 	void lineMove(float speed);
 	//좌우이동

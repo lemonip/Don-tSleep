@@ -78,7 +78,7 @@ void TitleScene::update()
 	/*====================================================================
 		엔터를 치면 타이틀 UI를 빼고 다음 씬으로 넘깁니다.
 	====================================================================*/
-	if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)) && !EVENT_M->isEvent())
+	if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)) && !EVENT_M->getIsEvent())
 	{
 		UI_M->findUI("title")->setActive(false);	//title UI 비활성화
 		UI_M->popUI("title");						//title UI 아예 삭제

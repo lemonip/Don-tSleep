@@ -8,8 +8,7 @@ class Boss;
 class bossStandAttack :public IBossState
 {
 private:
-	int _count;
-
+	float _enterTime;
 public:
 
 	virtual void EnterState();
