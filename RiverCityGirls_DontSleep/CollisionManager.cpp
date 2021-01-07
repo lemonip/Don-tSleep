@@ -25,7 +25,11 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			if (character->shadow.LT.z < obj->bottomPlane[0].getStart().z &&
 				obj->bottomPlane[0].getStart().z < character->shadow.LB.z) // 밑변이 오브젝트의 윗변을 넘어가면
 			{
-				character->pos.z = obj->bottomPlane[0].getStart().z - character->shadow.height / 2;
+				if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)
+				{
+					character->pos.z = obj->bottomPlane[0].getStart().z - character->shadow.height / 2;
+				}
+				
 			}
 		}
 		else if (obj->bottomPlane[3].getEnd().z < character->shadow.RB.z &&
@@ -49,7 +53,11 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			if (character->shadow.RT.z < obj->bottomPlane[2].getEnd().z &&
 				obj->bottomPlane[2].getEnd().z < character->shadow.RB.z) // 윗변이 오브젝트의 밑면을 넘어가면
 			{
-				character->pos.z = obj->bottomPlane[2].getEnd().z + character->shadow.height / 2;
+				if (character->preShadow.LT.z >= obj->bottomPlane[2].getStart().z)
+				{
+					character->pos.z = obj->bottomPlane[2].getEnd().z + character->shadow.height / 2;
+				}
+				
 			}
 		}
 		else if (obj->bottomPlane[3].getEnd().z < character->shadow.RB.z &&
@@ -128,7 +136,7 @@ void CollisionManager::objectCollision()
 					if (character->prePos.y < character->pos.y) // 낙하 중일 때
 					{
 						if (obj->topPlane[0].getStart().y - 5 < character->pos.y && 
-							character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
+							character->pos.y <= obj->topPlane[0].getStart().y) // 해당 범위에 들어가면
 						{
 							// y값 보정
 							character->pos.y = obj->topPlane[0].getStart().y;
@@ -138,7 +146,7 @@ void CollisionManager::objectCollision()
 							_stageM->getPlayer()->setJumpPower(0);
 							_stageM->getPlayer()->setIsSky(false);
 						}
-						else // 아니면 충돌처리
+						else if (character->pos.y > obj->topPlane[0].getStart().y) // 낙하 중 오브젝트 높이보다 낮을 때
 						{
 							LRUDCollision(character, obj);
 						}

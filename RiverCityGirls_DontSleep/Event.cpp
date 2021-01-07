@@ -117,6 +117,45 @@ void dialogue::exit()
 {
 }
 
+dialogue::dialogue(DIALOGUELIST chapter, float textSpeed)
+{
+	init(textSpeed);
+
+	_textSpeed = 1.0f / textSpeed;		//대화 출력 속도
+	_writeText.clear();					//
+}
+
+HRESULT dialogue::init(float textSpeed)
+{
+	ZeroMemory(&_skip, sizeof(_skip));
+
+
+
+	return S_OK;
+}
+
+void dialogue::render()
+{
+}
+
+void dialogue::startChapter(DIALOGUELIST chapter)
+{
+}
+
+bool dialogue::textUpdate(float elapsedTime)
+{
+	return false;
+}
+
+bool dialogue::findNameImg(string src, string name)
+{
+	return false;
+}
+
+void dialogue::keyReaction()
+{
+}
+
 /*====================================================================
 	second를 대기하는 이벤트
 ====================================================================*/

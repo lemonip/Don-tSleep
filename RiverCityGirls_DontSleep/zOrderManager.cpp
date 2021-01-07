@@ -28,13 +28,16 @@ void zOrderManager::render()
 	//벡터의 원소를 처음부터 끝까지 정렬한다.
 	sortVector(0, _vZorder.size() - 1);
 
-	//TAB 토글 키를 누르면 디버깅용 Rect를 그린다.
-	//if (KEY_M->isToggleKey(VK_TAB)) for (int i = 0; i < _vZorder.size(); i++) Rectangle(_vZorder[i].hdc, _vZorder[i].rc);
+	//SHIFT 토글 키를 누르면 디버깅용 Rect를 그린다.
+	if (KEY_M->isToggleKey(VK_SHIFT))
+	{
+		for (int i = 0; i < _vZorder.size(); i++) Rectangle(_vZorder[i].hdc, _vZorder[i].rc);
+	}
 
 	//그림자가 있으면 렌더한다.
 	for (int i = 0; i < _vZorder.size(); i++)
 	{
-		if (_vZorder[i].isShadow) IMG_M->findImage("shadow")->render(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.z, (int)(_vZorder[i].pos.y * 2 - 30));	//실제 비율 영향으로 바꾸기, stretch 해서 작아지는 거 추가하기
+		if (_vZorder[i].isShadow) IMG_M->findImage("shadow")->render(_vZorder[i].hdc, _vZorder[i].pos.x, _vZorder[i].pos.z, (((int)_vZorder[i].pos.y - 1) % 255));	//실제 비율 영향으로 바꾸기
 	}
 
 	//이미지를 렌더한다.

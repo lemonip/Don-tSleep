@@ -17,6 +17,7 @@ private:
 	SELECTTYPE _state;			//현재 선택 씬의 상태
 
 	Select* _loadSelect;		//로드할 파일 선택
+	Select* _charSelect;		//캐릭터 선택
 
 	vector3 loop;				//배경 루프
 
