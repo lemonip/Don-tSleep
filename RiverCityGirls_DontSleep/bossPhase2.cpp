@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "bossPhase2.h"
 #include "Boss.h"
+#include "Player.h"
 
 void bossPhase2::EnterState()
 {

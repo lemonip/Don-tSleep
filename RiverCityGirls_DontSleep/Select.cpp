@@ -1,18 +1,20 @@
 #include "stdafx.h"
 #include "Select.h"
 
-Button::Button(image* none, image * down, image * up, vector3 pos, CALLBACK_FUNCTION fp)
+Button::Button(image* none, image * down, image * up, vector3 pos, CALLBACKFUCN fp, int param)
 {
 	funcp = fp;
+	_param = param;
 	_none = none; _down = down; _up = up;
 	_pos = pos;
 
 	init();
 }
 
-Button::Button(image * down, image * up, vector3 pos, CALLBACK_FUNCTION fp)
+Button::Button(image * down, image * up, vector3 pos, CALLBACKFUCN fp, int param)
 {
 	funcp = fp;
+	_param = param;
 	_none = _down = down; _up = up;
 	_pos = pos;
 	init();
@@ -94,6 +96,7 @@ bool Select::update()
 			_vButton[_index]->_state = BUTTONSTATE::UP;
 			_selectTime = TIME_M->getWorldTime();
 			_vButton[_index]->_isSelect = true;
+			//if (_vButton[_index]->funcp) _vButton[_index]->funcp(_vButton[_index]->_param);
 			if (_vButton[_index]->funcp) _vButton[_index]->funcp();
 		}
 
@@ -128,6 +131,7 @@ bool Select::update()
 				_vButton[i]->_isSelect = true;
 				_selectTime = TIME_M->getWorldTime();
 				if (_vButton[i]->funcp) _vButton[i]->funcp();
+				//if (_vButton[i]->funcp) _vButton[i]->funcp(_vButton[_index]->_param);
 			}
 		}
 	}
