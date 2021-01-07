@@ -13,6 +13,23 @@ HRESULT NormalStage::init()
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
+	// LT, RT, RB, LB 순!!
+	backWallInit(vector3(260, WINSIZEY, 0), vector3(932, WINSIZEY, 0), vector3(932, 0, 500), vector3(260, 0, 500));
+	backWallInit(vector3(980, WINSIZEY, 0), vector3(1640, WINSIZEY, 0), vector3(1640, 0, 550), vector3(980, 0, 550));
+	backWallInit(vector3(1745, WINSIZEY, 0), vector3(2500, WINSIZEY, 0), vector3(2500, 0, 445), vector3(1745, 0, 445));
+
+	leftWallInit(vector3(0, WINSIZEY, 0), vector3(260, WINSIZEY, 0), vector3(260, 0, 500), vector3(0, 0, 760));
+	leftWallInit(vector3(1640, WINSIZEY, 0), vector3(1745, WINSIZEY, 0), vector3(1745, 0, 445), vector3(1640, 0, 550));
+	
+	rightWallInit(vector3(932, WINSIZEY, 0), vector3(980, WINSIZEY, 0), vector3(980, 0, 550), vector3(932, 0, 500));
+	rightWallInit(vector3(2500, WINSIZEY, 0), vector3(2865, WINSIZEY, 0), vector3(2865, 0, 795), vector3(2500, 0, 445));
+
+	floorInit(vector3(0, 0, 760), vector3(2865, 0, 795), vector3(2865, 0, 837), vector3(0, 0, 837));
+
+	
+
+
+
 
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
