@@ -49,6 +49,11 @@ void StageManager::update()
 	_stage->update();
 	_player->update();
 
+	if (KEY_M->isOnceKeyDown(VK_F1)) setStage(STAGETYPE::EASY);
+	if (KEY_M->isOnceKeyDown(VK_F2)) setStage(STAGETYPE::NORMAL);
+	if (KEY_M->isOnceKeyDown(VK_F3)) setStage(STAGETYPE::HARD);
+	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::BOSS);
+
 	if (!EVENT_M->isEvent()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
 }
 
