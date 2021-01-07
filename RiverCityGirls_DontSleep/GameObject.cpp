@@ -105,12 +105,6 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
 			dir = DIRECTION::LEFT;
 			break;
-		case OBJECT_TYPE::LEFTWALL:
-			break;
-		case OBJECT_TYPE::BACKWALL:
-			break;
-		case OBJECT_TYPE::RIGHTWALL:
-			break;
 		default:
 			break;
 		}
