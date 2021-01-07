@@ -14,7 +14,6 @@ private:
 	bitset<KEYMAX> _keyDown;
 	vector<int> _vKeyComendBuffer;			//키커맨드용버퍼
 	SHORT _KeyBuffer;						//실제 키 버퍼
-
 public:
 	keyManager();
 	~keyManager();

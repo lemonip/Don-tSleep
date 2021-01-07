@@ -172,7 +172,6 @@
     <ClInclude Include="cheerLeader.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
-    <ClInclude Include="DataManager.h" />
     <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="EasyStage.h" />
     <ClInclude Include="effect.h" />
@@ -309,7 +308,6 @@
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="cheerLeader.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="EasyStage.cpp" />
     <ClCompile Include="effect.cpp" />
