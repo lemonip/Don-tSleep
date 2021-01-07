@@ -1,11 +1,15 @@
 #pragma once
 #include"IBossState.h"
-#include"Player.h"
+
+class StageManager;
+class Player;
+class Boss;
 
 class bossIdle :public IBossState
 {
 protected:
-	Player* _player;
+	
+	int _count;
 
 public:
 

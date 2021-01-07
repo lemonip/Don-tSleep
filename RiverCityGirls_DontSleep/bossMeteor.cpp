@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "bossMeteor.h"
 #include "Boss.h"
+#include "Player.h"
 
 void bossMeteor::EnterState()
 {
@@ -13,7 +14,24 @@ void bossMeteor::UpdateState()
 {
 	if (_count % 8 == 0)
 	{
-		_thisBs->ChangeImg("Bs_meteor");
+		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
+			&& !_thisBs->getIsPhase() && _thisBs->getIsMeteor())
+		{
+			_thisBs->SetDest(BS_DEST::LEFT);
+			_thisBs->SetState(BS_STATE::METEOR);
+			_thisBs->ChangeImg("Bs_meteor");
+			_thisBs->getIsDash();
+		}
+
+		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
+			&& !_thisBs->getIsPhase() && _thisBs->getIsMeteor())
+		{
+			_thisBs->SetDest(BS_DEST::RIGHT);
+			_thisBs->SetState(BS_STATE::METEOR);
+			_thisBs->ChangeImg("Bs_meteor");
+			_thisBs->getIsDash();
+		}
+		
 	}
 }
 

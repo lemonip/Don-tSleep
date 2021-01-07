@@ -3,6 +3,7 @@
 
 
 class StageManager;
+class Player;
 class Boss;
 
 

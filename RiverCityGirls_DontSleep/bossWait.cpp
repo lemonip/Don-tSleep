@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "bossWait.h"
 #include "Boss.h"
+#include "Player.h"
 
 void bossWait::EnterState()
 {
 	_count = 0;
 	_count++;	
-	_isWait = false;
+	
 	_thisBs->ChangeImg("Bs_idle");
 	
 }
@@ -15,8 +16,15 @@ void bossWait::UpdateState()
 {
 	if (_count % 4 == 0)
 	{	
-		_isWait = true;
+		if (!_thisBs->getIsAttack() && !_thisBs->getIsMove() && !_thisBs->getIsPhase())
+
+		_thisBs->getIsWait();
 		_thisBs->ChangeImg("Bs_idle");
+	}
+
+	else
+	{
+		!_thisBs->getIsWait();
 	}
 
 	/*	1. slab attack 

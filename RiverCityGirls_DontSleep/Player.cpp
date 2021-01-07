@@ -121,15 +121,14 @@ void Player::update()
 	_info._ani->frameUpdate(TIME_M->getElapsedTime() * 10);
 	//프레임업뎃
 	playFrame();
-
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD0))
 	{
-		cout << "그림자 LT X: " << _obj.shadow.LT.x << endl;
-		cout << "그림자 LT Y: " << _obj.shadow.LT.y << endl;
-		cout << "그림자 LT Z: " << _obj.shadow.LT.z << endl;
-		cout << "플랫폼 X: " << _platform->bottomPlane[0].getEnd().x << endl;
-		cout << "플랫폼 Y: " << _platform->bottomPlane[0].getEnd().y << endl;
-		cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
+		cout << "캐릭터 X좌표: " << _obj.pos.x << endl;
+		cout << "캐릭터 Y좌표: " << _obj.pos.y << endl;
+		cout << "캐릭터 Z좌표: " << _obj.pos.z << endl;
+		if (_info.isSky) cout << "isSky == true" << endl;
+		cout << _info.jumpPower << endl;
+
 	}
 }
 
@@ -201,7 +200,12 @@ void Player::stageInit()
 	/*====================================================================
 		스테이지가 바뀔 때마다 초기화시키는 함수입니다.
 	====================================================================*/
-
+	_obj.pos.x = 180;
+	_obj.pos.y = 0;
+	_obj.pos.z = 700; 
+	cout << _obj.pos.x << endl;
+	cout << _obj.pos.y << endl;
+	cout << _obj.pos.z << endl;
 	/*====================================================================
 		링크 : 에너미매니저, 오브젝트 매니저와 링크합니다.
 	====================================================================*/

@@ -1,6 +1,11 @@
 #pragma once
 #include"IBossState.h"
 
+class StageManager;
+class Player;
+class Boss;
+
+
 class bossPhase2 :public IBossState
 {
 private:
