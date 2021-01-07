@@ -72,12 +72,12 @@ private:
 	ENEMY_TYPE _ENEMY_TYPE;
 	
 
-				//공통 구조체 (헤더파일)
+	/*			//공통 구조체 (헤더파일)
 	GameObject _obj;
 	StageManager* _stageM;
 	ObjectManager* _objectM;
 	Player* _player;
-	Enemy* _enemy;
+	Enemy* _enemy;*/
 	
 
 	RECT _rcAttack;

@@ -30,8 +30,10 @@
 HRESULT Boss::init()
 {
 	
-	_obj.init(OBJECT_GROUP::BOSS, IMG_M->findImage("Bs_idle"), _obj.pos);
-	_objectM = _stageM->getStage()->getObjectM();	
+	_player = _stageM->getPlayer();
+	_objectM = _stageM->getStage()->getObjectM();
+
+	_obj.init(OBJECT_GROUP::BOSS, IMG_M->findImage("Bs_idle"), _obj.pos);	
 	_obj.imgIndex = { 0,0 }; 
 	//상태패턴 등록
 	{
