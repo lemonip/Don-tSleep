@@ -172,6 +172,7 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
+	//충돌처리에 필요한 SETTER
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }
 	void setIsSky(bool is) { _info.isSky = is; }

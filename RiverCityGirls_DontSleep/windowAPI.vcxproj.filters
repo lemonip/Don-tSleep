@@ -501,6 +501,9 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>playGround\CollisionManager</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -892,6 +895,9 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>playGround\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
