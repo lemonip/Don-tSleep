@@ -43,13 +43,13 @@ public:
 	bool isShadow;			//그림자가 있는지
 
 	tagShadow shadow;		//그림자 구조체
-
+	tagShadow preShadow;
 public:
 	GameObject() {}
 	virtual ~GameObject() {}
 
 	virtual void init(OBJECT_GROUP _group, image* _img, vector3 _pos);				//초기화
-	virtual void init(OBJECT_GROUP _group, image* _img, vector3 _pos, float a);		//오브젝트 여백 초기화
+	virtual void init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vector3 _pos, float a);		//오브젝트 여백 초기화
 	virtual void release();
 	virtual void update();
 	virtual void render();

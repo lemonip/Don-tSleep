@@ -20,27 +20,35 @@ HRESULT SelectScene::init()
 		두 캐릭터 이미지를 선형 보간으로 이동시킵니다.
 	====================================================================*/
 	_illust = IMG_M->findImage("select_illust");
-	_illustPos = vector3(350.0f, WINSIZEY / 2 + 350.0f, 0.0f);
+	_illustPos = vector3(350.0f, WINSIZEY / 2 + 360.0f, 0.0f);
 	_illustInter = new Interpolation;
-	_illustInter->moveTo(&_illustPos, 450, WINSIZEY / 2 + 350, 0.2f);
-	_ratioOffset = 0.0f;
+	_illustInter->moveTo(&_illustPos, 450, WINSIZEY / 2 + 360, 0.5f);
+	_ratioOffset = 0.001f;
 
 	/*====================================================================
 		UI에 선택 이미지를 추가하고, 선택할 수 있도록 합니다.
 	====================================================================*/
 	//로드 파일 선택 버튼
 	_loadSelect = new Select;
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, 150, 0), load1));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, 350, 0), load2));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, 550, 0), load3));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 1, 0), std::bind(&SelectScene::load, this), 0));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 2, 0), std::bind(&SelectScene::load, this), 1));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 3, 0), std::bind(&SelectScene::load, this), 2));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 4, 0), std::bind(&SelectScene::load, this), 3));
 
-	//옵션 UI
+	//캐릭터 선택 버튼과 이미지
+	_charSelect = new Select;
+	_charSelect->addButton(Button(IMG_M->findImage("select_kyoko2"), IMG_M->findImage("select_kyoko"), vector3(WINSIZEX/2 + 100, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 0));
+	_charSelect->addButton(Button(IMG_M->findImage("select_misako2"), IMG_M->findImage("select_misako"), vector3(WINSIZEX/2 + 450, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 1));
 
 
-	//메뉴얼 UI
+	//옵션 UI와 버튼
+
+
+	//메뉴얼 UI와 버튼
+
 
 	/*====================================================================
-		상태를 로드로 설정합니다. LOAD - OPTION - MANUAL 후에 로딩씬으로 이어집니다.
+		첫 상태를 로드로 설정합니다. LOAD - OPTION - MANUAL 후에 로딩씬으로 이어집니다.
 	====================================================================*/
 	setState(SELECTTYPE::LOAD);
 
@@ -69,7 +77,7 @@ void SelectScene::update()
 	CAMERA_M->SetPos(WINSIZEX / 2, WINSIZEY / 2);
 
 	/*====================================================================
-		
+
 	====================================================================*/
 	switch (_state)
 	{
@@ -77,39 +85,36 @@ void SelectScene::update()
 			버튼을 선택하고, 선택이 된 후에는 캐릭터 선택으로 넘어갑니다.
 		====================================================================*/
 		case SELECTTYPE::LOAD:
-			if(_loadSelect->update()) setState(SELECTTYPE::CHARACTER);
+		if (_loadSelect->update()) setState(SELECTTYPE::CHARACTER);
 		break;
 
 		/*====================================================================
 			캐릭터를 선택하고, 옵션창으로 넘어갑니다.
 		====================================================================*/
 		case SELECTTYPE::CHARACTER:
-			if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
-			{
-				setState(SELECTTYPE::OPTION);
-			}
+		if(_charSelect->update()) setState(SELECTTYPE::OPTION);
 		break;
 		/*====================================================================
 			음량 조절 등 옵션 창을 띄우고, 다음으로 넘어갑니다.
 		====================================================================*/
 		case SELECTTYPE::OPTION:
-			if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
-			{
-				setState(SELECTTYPE::MANUAL);
-			}
+		if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
+		{
+			setState(SELECTTYPE::MANUAL);
+		}
 		break;
 
 		/*====================================================================
 			메뉴얼 UI를 띄우고, 씬을 로딩씬으로 변경합니다.
 		====================================================================*/
 		case SELECTTYPE::MANUAL:
-			if (!EVENT_M->isEvent())
+		if (!EVENT_M->isEvent())
+		{
+			if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
 			{
-				if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
-				{
-					SCENE_M->changeScene("loading");			//로딩 씬으로 변경
-				}
+				SCENE_M->changeScene("loading");			//로딩 씬으로 변경
 			}
+		}
 		break;
 		default:
 		break;
@@ -123,13 +128,18 @@ void SelectScene::render()
 	====================================================================*/
 	_background->loopRender(getMapDC(), &CAMERA_M->GetScreenRect(), loop.x, loop.y);
 	_background2->render(getMapDC());
-	IMG_M->findImage("start_frame")->render(getMapDC(), 800, 450, 1280 / 1600.0f , 720 / 900.0f);
-	_illust->render(getMapDC(), _illustPos.x, _illustPos.y, 0.7f + _ratioOffset, 0.7f + _ratioOffset);
+	IMG_M->findImage("start_frame")->render(getMapDC(), 800, 450, 1280 / 1600.0f, 720 / 900.0f);
+	_illust->render(getMapDC(), _illustPos.x - _illustPos.x*_ratioOffset, _illustPos.y - _illustPos.y *_ratioOffset, 0.7f + _ratioOffset, 0.7f + _ratioOffset);
 
 	switch (_state)
 	{
 		case SELECTTYPE::LOAD:
-			_loadSelect->render(getMapDC());
+		_loadSelect->render(getMapDC());
+		break;
+		case SELECTTYPE::CHARACTER:
+			IMG_M->findImage("select_kyoko_background")->render(getMapDC(), WINSIZEX / 2 + 100, WINSIZEY / 2);
+			IMG_M->findImage("select_misako_background")->render(getMapDC(), WINSIZEX / 2 + 450, WINSIZEY / 2);
+			_charSelect->render(getMapDC());
 		break;
 		case SELECTTYPE::OPTION:
 
@@ -146,24 +156,9 @@ void SelectScene::render()
 /*====================================================================
 	버튼 선택에 따라 세이브 파일을 로드합니다.
 ====================================================================*/
-void SelectScene::load0()
+void SelectScene::load()
 {
 	cout << "0" << endl;
-}
-
-void SelectScene::load1()
-{
-	cout << "1" << endl;
-}
-
-void SelectScene::load2()
-{
-	cout << "2" << endl;
-}
-
-void SelectScene::load3()
-{
-	cout << "3" << endl;
 }
 
 /*====================================================================
@@ -180,6 +175,7 @@ void SelectScene::setState(SELECTTYPE type)
 
 		break;
 		case SELECTTYPE::CHARACTER:
+			
 
 		break;
 		case SELECTTYPE::OPTION:

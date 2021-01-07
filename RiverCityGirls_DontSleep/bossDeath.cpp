@@ -5,12 +5,12 @@
 void bossDeath::EnterState()
 {
 	
-	_thisBs->ChangeImg("death");
+	_thisBs->ChangeImg("Bs_death");
 }
 
 void bossDeath::UpdateState()
 {
-	_thisBs->ChangeImg("death");
+	_thisBs->ChangeImg("Bs_death");
 }
 
 void bossDeath::ExitState()

@@ -104,13 +104,6 @@ private:
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
-	//임시?????맴버
-	RECT _shadowRc;			//그림자 렉트
-	vector3 _shadowLT, _shadowRT, _shadowRB, _shadowLB;	//그림자 지점
-	vector3 _shadowPos;		//그림자 위치
-	tagShadow _shadow;		//그림자
-	//========================================================================
-private:
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
 
@@ -118,7 +111,7 @@ private:
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	EnemyManager* _enemyM;		//에너미 매니저 링크
 	CollisionManager* _colM;
-
+	GameObject*		_platform;
 	//★맴버로 에너미를 가질 예정(동료로)
 
 private:
@@ -167,6 +160,7 @@ public:
 	GameObject getObj() { return _obj; }
 	tagInfo    getInfo() { return _info; }
 	GameObject* getPObj() { return &_obj; }
+	GameObject* getPlatform() { return _platform; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
@@ -178,7 +172,9 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
-	void setInfoJumpPower(float num) { _info.jumpPower = num; }
+	void setPlatform(GameObject* platform) { _platform = platform; }
+	void setJumpPower(float num) { _info.jumpPower = num;  }
+	void setIsSky(bool is) { _info.isSky = is; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/

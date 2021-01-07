@@ -43,6 +43,44 @@ void Stage::render()
 	wallRender();
 }
 
+void Stage::backWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
+{
+	tagWall temp;
+	temp.LT = lt;
+	temp.RT = rt;
+	temp.RB = rb;
+	temp.LB = lb;
+	_vBackWall.push_back(temp);
+}
+
+void Stage::leftWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
+{
+	tagWall temp;
+	temp.LT = lt;
+	temp.RT = rt;
+	temp.RB = rb;
+	temp.LB = lb;
+	_vLeftWall.push_back(temp);
+}
+
+void Stage::rightWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
+{
+	tagWall temp;
+	temp.LT = lt;
+	temp.RT = rt;
+	temp.RB = rb;
+	temp.LB = lb;
+	_vRightWall.push_back(temp);
+}
+
+void Stage::floorInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
+{
+	_floor.LT = lt;
+	_floor.RT = rt;
+	_floor.RB = rb;
+	_floor.LB = lb;
+}
+
 void Stage::polylineRender(vector3 A, vector3 B)
 {
 	POINT temp[2];
@@ -55,20 +93,29 @@ void Stage::wallRender()
 {
 	if (KEY_M->isToggleKey(VK_TAB))
 	{
-		polylineRender(_leftWall.LT, _leftWall.RT);
-		polylineRender(_leftWall.RT, _leftWall.RB);
-		polylineRender(_leftWall.RB, _leftWall.LB);
-		polylineRender(_leftWall.LB, _leftWall.LT);
+		for (int i = 0; i < _vBackWall.size(); ++i)
+		{
+			polylineRender(_vBackWall[i].LT, _vBackWall[i].RT);
+			polylineRender(_vBackWall[i].RT, _vBackWall[i].RB);
+			polylineRender(_vBackWall[i].RB, _vBackWall[i].LB);
+			polylineRender(_vBackWall[i].LB, _vBackWall[i].LT);
+		}
 
-		polylineRender(_backWall.LT, _backWall.RT);
-		polylineRender(_backWall.RT, _backWall.RB);
-		polylineRender(_backWall.RB, _backWall.LB);
-		polylineRender(_backWall.LB, _backWall.LT);
+		for (int i = 0; i < _vLeftWall.size(); ++i)
+		{
+			polylineRender(_vLeftWall[i].LT, _vLeftWall[i].RT);
+			polylineRender(_vLeftWall[i].RT, _vLeftWall[i].RB);
+			polylineRender(_vLeftWall[i].RB, _vLeftWall[i].LB);
+			polylineRender(_vLeftWall[i].LB, _vLeftWall[i].LT);
+		}
 
-		polylineRender(_rightWall.LT, _rightWall.RT);
-		polylineRender(_rightWall.RT, _rightWall.RB);
-		polylineRender(_rightWall.RB, _rightWall.LB);
-		polylineRender(_rightWall.LB, _rightWall.LT);
+		for (int i = 0; i < _vRightWall.size(); ++i)
+		{
+			polylineRender(_vRightWall[i].LT, _vRightWall[i].RT);
+			polylineRender(_vRightWall[i].RT, _vRightWall[i].RB);
+			polylineRender(_vRightWall[i].RB, _vRightWall[i].LB);
+			polylineRender(_vRightWall[i].LB, _vRightWall[i].LT);
+		}
 
 		polylineRender(_floor.LB, _floor.RB);
 	}	

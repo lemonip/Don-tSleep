@@ -52,6 +52,8 @@ bool Linear::segmentIntersect(Linear lB, vector3* vP)
 	float AtoB = (this->vStart.CounterClockWise(this->vEnd, lB.vStart)) * (this->vStart.CounterClockWise(this->vEnd, lB.vEnd));
 	float BtoA = lB.vStart.CounterClockWise(lB.vEnd, this->vStart) * lB.vStart.CounterClockWise(lB.vEnd, this->vEnd);
 
+	//cout << "AtoB: " << AtoB << endl;
+	//cout << "BtoA: " << BtoA << endl;
 	// 서로 같은 기울기를 가지는데 겹칠 때(한 점 겹침 또는 한 선분이 다른 선분을 일부 포함)
 	if (AtoB == 0 && BtoA == 0)
 	{
@@ -74,6 +76,7 @@ bool Linear::segmentIntersect(Linear lB, vector3* vP)
 
 	if (AtoB <= 0 && BtoA <= 0)
 	{
+		//cout << "this?" << endl;
 		if (this->a == 9999)
 		{
 			vP->x = this->getStart().x;

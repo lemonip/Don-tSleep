@@ -4,12 +4,14 @@
 
 void bossAttacked::EnterState()
 {
-	_thisBs->ChangeImg("attacked");
+	_thisBs->ChangeImg("Bs_attacked");
 }
 
 void bossAttacked::UpdateState()
 {
-	_thisBs->ChangeImg("attacked");
+		
+	_thisBs->ChangeImg("Bs_attacked");
+	
 }
 
 void bossAttacked::ExitState()

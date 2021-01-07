@@ -1,8 +1,16 @@
 #pragma once
 #include"IBossState.h"
 
+class StageManager;
+class Player;
+class Boss;
+
 class bossIdle :public IBossState
 {
+protected:
+	
+	int _count;
+
 public:
 
 	virtual void EnterState();

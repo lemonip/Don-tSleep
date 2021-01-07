@@ -6,14 +6,14 @@ void bossDown::EnterState()
 {
 	_count = 0;
 	_count++;
-	_thisBs->ChangeImg("down");
+	_thisBs->ChangeImg("Bs_down");
 }
 
 void bossDown::UpdateState()
 {
 	if (_count % 8 == 0)
 	{
-		_thisBs->ChangeImg("down");
+		_thisBs->ChangeImg("Bs_down");
 	}
 }
 

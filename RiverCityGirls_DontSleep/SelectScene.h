@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Select.h"
+#include <functional>
 
 enum class SELECTTYPE
 {
@@ -17,6 +18,7 @@ private:
 	SELECTTYPE _state;			//현재 선택 씬의 상태
 
 	Select* _loadSelect;		//로드할 파일 선택
+	Select* _charSelect;		//캐릭터 선택
 
 	vector3 loop;				//배경 루프
 
@@ -35,10 +37,8 @@ public:
 	virtual void update();
 	virtual void render();
 
-	static void load0();		//로드 버튼 콜백 함수
-	static void load1();
-	static void load2();
-	static void load3();
+	void load();		//로드 버튼 콜백 함수
+
 
 	void setState(SELECTTYPE type);
 };
