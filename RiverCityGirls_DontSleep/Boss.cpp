@@ -39,11 +39,11 @@ HRESULT Boss::init()
 		_wait = new bossWait;
 		_move = new bossMove;
 
-		_guard = new bossBlock;
+		_block = new bossBlock;
 		_attacked = new bossAttacked;
 		_groggy = new bossGroggy;
 		_down = new bossDown;
-		_dead = new bossDeath;
+		_death = new bossDeath;
 		_phase = new bossPhase2;
 
 		_howling = new bossHowling;
@@ -58,6 +58,18 @@ HRESULT Boss::init()
 
 	SetState(BS_STATE::IDLE);
 	
+	_isAttack = false;
+	_isDown = false;
+	_isBlock = false;
+	_isDead = false;
+	_isPhase = false;
+	_isWait = false;
+	_isMove = false;
+	_isElbow = false;
+	_isMeteor = false;
+	_isSmash = false;
+	_isHowling = false;
+	_isDash = false;
 	
 
 	return S_OK;
@@ -106,11 +118,11 @@ void Boss::SetState(BS_STATE state)
 	case BS_STATE::MOVE:	    _BState = _move;		 break;
 	
 		//가드 및 상태변화
-	case BS_STATE::GUARD:       _BState = _guard;		 break;
+	case BS_STATE::BLOCK:       _BState = _block;		 break;
 	case BS_STATE::ATTACKED:    _BState = _attacked;	 break;
 	case BS_STATE::GROGGY:      _BState = _groggy;		 break;	
 	case BS_STATE::DOWN:	    _BState = _down;		 break;
-	case BS_STATE::DEAD:	    _BState = _dead;		 break;
+	case BS_STATE::DEATH:	    _BState = _death;		 break;
 	case BS_STATE::PHASE:		_BState = _phase;	     break;
 
 		// 공격
@@ -156,8 +168,54 @@ void Boss::setImage()
 {
 	switch (_state)
 	{
-	case BS_STATE::IDLE:          if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_idle"); } break;
-
+	case BS_STATE::IDLE:
+	    if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_idle"); }
+		break;
+	case BS_STATE::WAIT:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_wait"); }
+		break;
+	case BS_STATE::MOVE:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_move"); }
+		break;
+	case BS_STATE::BLOCK:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_block"); }
+		break;
+	case BS_STATE::ATTACKED:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_attacked"); }
+		break;
+	case BS_STATE::GROGGY:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_groggy"); }
+		break;
+	case BS_STATE::PHASE:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_phase"); }
+		break;
+	case BS_STATE::DOWN:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_down"); }
+		break;
+	case BS_STATE::DEATH:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_death"); }
+		break;
+	case BS_STATE::HOWLING:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_howling"); }
+		break;
+	case BS_STATE::METEOR:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_meteor"); }
+		break;
+	case BS_STATE::DASH:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_dash"); }
+		break;
+	case BS_STATE::ELBOW:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_elbow"); }
+		break;
+	case BS_STATE::SLAP:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_slap"); }
+		break;
+	case BS_STATE::SMASH:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_smash"); }
+		break;
+	case BS_STATE::STANDATTACK:
+		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_standat"); }
+		break;	
 	}
 }
 

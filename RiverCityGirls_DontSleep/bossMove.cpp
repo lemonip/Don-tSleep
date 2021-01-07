@@ -34,22 +34,30 @@ void bossMove::UpdateState()
 
 	if (_count % 8 == 0)
 	{
-		_thisBs->ChangeImg("Bs_move");	
-	}	
 
-	if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x)
-	{
-		_thisBs->SetDest(BS_DEST::LEFT);
-	}
-	else
-	{
-		_thisBs->SetDest(BS_DEST::RIGHT);
+		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
+			&& abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.x) > 100 && abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.z) > 20)
+		{
+			_thisBs->SetDest(BS_DEST::LEFT);
+			_thisBs->SetState(BS_STATE::MOVE);
+			_thisBs->ChangeImg("Bs_move");
+			_thisBs->getIsMove();
+		}
+		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
+			&&abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.x) > 100 && abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.z) > 20)
+		{
+			_thisBs->SetDest(BS_DEST::RIGHT);
+			_thisBs->SetState(BS_STATE::MOVE);
+			_thisBs->ChangeImg("Bs_move");
+			_thisBs->getIsMove();
+		}
 	}
 
 	if (abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.x) < 100 && abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.z) < 20)
 	{
-		_thisBs->SetState(BS_STATE::SLAP);
+		_thisBs->getIsAttack();
 	}
+	
 	
 }
 
