@@ -85,7 +85,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pl_wBatJump", "source/image/character/player/wBatJump.bmp", 480, 640, 3, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatRun", "source/image/character/player/wBatRun.bmp", 6784, 560, 16, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatThrow", "source/image/character/player/wBatThrow.bmp", 1616, 600, 8, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("pl_wBatWalk", "source/image/character/player/wBatWalk.bmp", 1476, 402, 12, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_wBatWalk", "source/image/character/player/wBatWalk.bmp", 1476, 500, 12, 2, true, MAGENTA, true);
 
 	//================= ¿¡³Ê¹Ì =================
 	IMG_M->addFrameImage("schoolGirl", "source/image/character/enemy/schoolGirl/idle.bmp", 1170, 354, 10,2,true, MAGENTA, true);

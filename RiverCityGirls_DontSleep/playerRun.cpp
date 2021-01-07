@@ -3,7 +3,6 @@
 
 void playerRun::EnterState()
 {
-
 	//이미지 변경
 	switch (_thisPl->getInfo().weaponType)
 	{

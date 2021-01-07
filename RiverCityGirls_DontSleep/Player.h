@@ -172,6 +172,8 @@ public:
 	void setState(PL_STATE state);
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
+	//무기 상태 변경
+	void setWeaponType(WEAPON_TYPE wType) { _info.weaponType = wType; }
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }
 	void setIsSky(bool is) { _info.isSky = is; }
