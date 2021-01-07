@@ -42,7 +42,6 @@ HRESULT Player::init()
 		플래이어의 오브젝트 초기화와 기본 설정을 합니다.
 	====================================================================*/
 	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wait"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
-	_obj.imgIndex = { 0,0 };	//아직 애니메이션이 만들어지지 않아 임시로 해두었습니다.
 
 	//기본 변수 초기화
 	{
@@ -53,6 +52,7 @@ HRESULT Player::init()
 		_info.isControl = true;
 		_info.isConDest = true;
 		_info.isSky = false;
+		_info.isAttack = false;
 		_info.hasMember = false;
 		_info.dest = DIRECTION::RIGHT;
 		_info.weaponType = WEAPON_TYPE::BAT;
@@ -131,6 +131,9 @@ void Player::update()
 		cout << "플랫폼 Y: " << _platform->bottomPlane[0].getEnd().y << endl;
 		cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 	}
+
+	//공격렉트 갱신
+	renewAttackRc();
 }
 
 //렌더
@@ -142,6 +145,7 @@ void Player::render()
 
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 	Rectangle(getMapDC(), _obj.shadow.rc);
+	if(KEY_M->isToggleKey(VK_SHIFT)) Rectangle(getMapDC(), _info.attackInfo.rc);
 }
 
 //상태 지정
@@ -374,7 +378,6 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		break;
 	}
 
-	cout << _obj.imgIndex.x << endl;
 }
 
 //프레임 실행
@@ -453,15 +456,48 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.update();
 }
 
+void Player::renewAttackRc()
+{
+	//렉트 크기 설정
+	switch (_info.weaponType)
+	{
+	case WEAPON_TYPE::NONE:
+		_info.attackInfo.width = ATTACKSIZE *0.4; break;
+	case WEAPON_TYPE::BAT:	case WEAPON_TYPE::BASEBALL:
+		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth(); break;
+	}
+	_info.attackInfo.height = ATTACKSIZE;
+
+	//방향에따라 공격 렉트 위치 갱신
+	switch (_info.dest)
+	{
+	case DIRECTION::LEFT:
+		_info.attackInfo.pos.x = _obj.pos.x - (_obj.rc.right  - _obj.rc.left)/2;break;
+	case DIRECTION::RIGHT:
+		_info.attackInfo.pos.x = _obj.pos.x + (_obj.rc.right - _obj.rc.left) / 2;break;
+	}
+	_info.attackInfo.pos.y = (_obj.rc.bottom + _obj.rc.top)/2;
+
+	//렉트 갱신
+	_info.attackInfo.rc = RectMakeCenter(_info.attackInfo.pos.x, _info.attackInfo.pos.y, _info.attackInfo.width, _info.attackInfo.height);
+
+}
+
 //중력작용
 void Player::gravity()
 {
 	if (_info.isSky) _info.jumpPower -= GRAVITYVALUE;
 	if (_obj.pos.y >= 0 && _info.isSky == true)
 	{
-		//이전상태가 걷기나 뛰기일때만 이전상태 그대로 상태 세팅
-		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)setState(_info.preState);
-		else setState(PL_STATE::IDLE);
+		setState(PL_STATE::IDLE);
+		//걷거나 뛰고있었고, 키를 계속 누르고있으면 그 상태 그대로돌아오기
+		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)
+		{
+			if(_info.dest == DIRECTION::LEFT)
+				if(KEY_M->isStayKeyDown(VK_LEFT))setState(_info.preState); 
+			if (_info.dest == DIRECTION::RIGHT)
+				if (KEY_M->isStayKeyDown(VK_RIGHT))setState(_info.preState); 
+		}
 		_info.isSky = false;
 		_platform = nullptr;
 	}

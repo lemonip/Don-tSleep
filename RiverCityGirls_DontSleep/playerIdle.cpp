@@ -12,11 +12,10 @@ void playerIdle::EnterState()
 		break;
 	}
 
-
-	//키조작 가능한 상태로 변경
-	_thisPl->setIsControl(true);
 	//방향조작이 가능한 상태로 변경
 	_thisPl->setIsConDest(true);
+	//공격 상태 아님
+	_thisPl->SetIsAttack(false);
 
 	//타이머를 월드타이머로 맞춰서 초기화
 	_stateTimer = TIME_M->getWorldTime();

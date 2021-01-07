@@ -10,8 +10,8 @@ void playerCombo3::UpdateState()
 {
 	if (isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
 
-	//기본 동작
-	basePattern();
+	//걷기
+	walkPattern();
 }
 
 void playerCombo3::ExitState()

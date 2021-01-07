@@ -14,6 +14,7 @@ void playerGuard::UpdateState()
 	if (!KEY_M->isStayKeyDown('F'))
 	{
 		KEY_M->clearVKey();
+		_thisPl->setIsControl(true);
 		_thisPl->setState(PL_STATE::IDLE);
 	}
 

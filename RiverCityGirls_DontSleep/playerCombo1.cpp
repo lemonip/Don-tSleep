@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "playerCombo1.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
 
 void playerCombo1::EnterState()
 {
@@ -15,20 +17,43 @@ void playerCombo1::EnterState()
 
 void playerCombo1::UpdateState()
 {
-	if (isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
-	//프레임이 끝나면 공격렉트를 만들어서 충돌했는지 확인하고 데미지를 줌! 끝에하면될거같은느낌..
+	//허공에 공격할 경우 프레임이 돌면 기본상태로 돌아간다.
+	if (isEndFrame(false)
+		&& !IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+		&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc)))
+		_thisPl->setState(PL_STATE::IDLE);
 
-	//상태변경 - 공격키 누르면 2콤보 + ★몬스터와 충돌도 있어야할듯
-	if (KEY_M->isOnceKeyDownV('S'))
-	switch (_thisPl->getInfo().weaponType)
+	if (isEndFrame(false) && _thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)
+		_thisPl->setState(PL_STATE::IDLE);
+
+	//몹한테 첫충돌시
+	if(!_thisPl->getInfo().isAttack
+		&& IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc)))
 	{
-	case WEAPON_TYPE::NONE:	_thisPl->setState(PL_STATE::COMBO2);	break;
-	case WEAPON_TYPE::BAT:	break;
-	case WEAPON_TYPE::BASEBALL:
-		break;
+		_thisPl->SetIsAttack(true);
+		KEY_M->clearVKey();
 	}
 
+	//몹한테 공격할 경우
+	if (isEndFrame(false)
+		&& KEY_M->getVKeyBuffer().size() !=0
+		&& KEY_M->getKeyBuffer(0) == 'S'
+		&& IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc))
+		&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
+	{
+		_thisPl->setState(PL_STATE::COMBO2);
+		_thisPl->SetIsAttack(false); 
+	}
 	
+	//시간안에 몹한테 공격 못할 경우
+	if (isEndFrame(false)
+		&& IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc, &(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc))
+		&&(( KEY_M->getVKeyBuffer().size() != 0
+		&& KEY_M->getKeyBuffer(0) != 'S')|| KEY_M->getVKeyBuffer().size() == 0)
+		)
+		_thisPl->setState(PL_STATE::IDLE);
 	
 
 	//기본 동작
