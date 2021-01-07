@@ -297,9 +297,6 @@
     <ClInclude Include="bossPhase2.h">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
-    <ClInclude Include="bossSlabAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
-    </ClInclude>
     <ClInclude Include="bossSmashAttack.h">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
@@ -501,6 +498,12 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>playGround\CollisionManager</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="bossSlapAttack.h">
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -687,9 +690,6 @@
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossPhase2.cpp">
-      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="bossSlabAttack.cpp">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossSmashAttack.cpp">
@@ -892,6 +892,12 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>playGround\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="bossSlapAttack.cpp">
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

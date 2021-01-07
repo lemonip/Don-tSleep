@@ -18,7 +18,12 @@ void playerSAttack::UpdateState()
 {
 	//무기타입을 없음으로 변경
 	if(_thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)_thisPl->setWeaponType(WEAPON_TYPE::NONE);
-	if(isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
+	if (isEndFrame(false))
+	{
+		//키조작 가능한 상태로 변경
+		_thisPl->setIsControl(true);
+		_thisPl->setState(PL_STATE::IDLE);
+	}
 }
 
 void playerSAttack::ExitState()

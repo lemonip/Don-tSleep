@@ -5,35 +5,22 @@
 
 void bossStandAttack::EnterState()
 {
-	_count = 0;
-	_count++;
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_standat");
 }
 
 void bossStandAttack::UpdateState()
 {
-	if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-		&& _thisBs->getIsDown())
+	if (TIME_M->getWorldTime() - _enterTime > 2.0f)
 	{
-		_thisBs->SetDest(BS_DEST::LEFT);
-		_thisBs->SetState(BS_STATE::STANDATTACK);
-		_thisBs->getIsAttack();
+		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+		RECT _temp;
+		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
 	}
-
-	else if(_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-		&& _thisBs->getIsDown())
-	{
-		_thisBs->SetDest(BS_DEST::RIGHT);
-		_thisBs->SetState(BS_STATE::STANDATTACK);
-		_thisBs->getIsAttack();
-	}
-
-	else
-	{
-		!_thisBs->getIsAttack();
-	}	
 }
+
 
 void bossStandAttack::ExitState()
 {
+	_thisBs->SetState(BS_STATE::IDLE);
 }

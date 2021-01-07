@@ -12,22 +12,28 @@ HRESULT EasyStage::init()
 	CAMERA_M->SetMap(*this, backGround);
 
 	/*====================================================================
-		오브젝트와 에너미를 배치합니다.
+		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
 	====================================================================*/
 	backWallInit(vector3(350, WINSIZEY, 0), vector3(1635, WINSIZEY, 0), vector3(1635, 0, 385), vector3(350, 0, 385));
-	leftWallInit(vector3(57, WINSIZEY, 0), vector3(350, WINSIZEY, 0), vector3(350, 0, 385), vector3(57, 0, 678));
-	rightWallInit(vector3(1635, WINSIZEY, 0), vector3(1928, WINSIZEY, 0), vector3(1928, 0, 678), vector3(1635, 0, 385));
-	floorInit(vector3(0, 0, 650), vector3(2028, 0, 650), vector3(1928, 0, 650), vector3(57, 0, 650));
-	
 
+	leftWallInit(vector3(57, WINSIZEY, 0), vector3(350, WINSIZEY, 0), vector3(350, 0, 385), vector3(57, 0, 678));
+
+	rightWallInit(vector3(1635, WINSIZEY, 0), vector3(1928, WINSIZEY, 0), vector3(1928, 0, 678), vector3(1635, 0, 385));
+
+	floorInit(vector3(0, 0, 650), vector3(2028, 0, 650), vector3(1928, 0, 650), vector3(57, 0, 650));
+
+	/*====================================================================
+		오브젝트와 에너미를 배치합니다.
+	====================================================================*/
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(440, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(690, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(950, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(1210, 0, 545));
 	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
 
-	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 40));
-	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 - 100));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 50));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 280));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX *.7, 0, WINSIZEY / 2 + 260));
 
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
@@ -40,7 +46,8 @@ HRESULT EasyStage::init()
 	EVENT_M->addEvent(new waitForSec(0.5f));
 	EVENT_M->addEvent(new cameraMove(vector3(600, 100, 0), 8, 1.0, 0.1f));
 	EVENT_M->addEvent(new cameraMove(vector3(10, 10, 0), 8, 1.0, 0.1f));*/
-	
+	EVENT_M->addEvent(new dialogue(DIALOGLIST::EASY_START), false);
+
 	return S_OK;
 }
 

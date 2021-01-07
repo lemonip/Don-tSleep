@@ -47,6 +47,14 @@ enum class EN_STATE
 class Enemy : public gameNode
 {
 protected:
+
+	struct tagInfo
+	{
+		float speed;
+		float angle;
+		RECT attackRC;
+	};
+
 	GameObject _obj;
 
 	bool _isDead;
@@ -103,6 +111,8 @@ protected:
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	Player* _player;			//플래이어
 
+	tagInfo _info;			//보스,에너미 공용 구조체
+
 public:
 	virtual HRESULT init();
 	virtual void release();
@@ -119,7 +129,7 @@ public:
 	float& getRunSpeed() { return _runSpeed; }
 	float& getWalkSpeed() { return _walkSpeed; }
 	GameObject* getObj() { return &_obj; }
-
+	GameObject& getRefObj() { return _obj; }
 	/*====================================================================
 									SETTER
 	====================================================================*/

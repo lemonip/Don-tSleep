@@ -10,7 +10,7 @@ void bossDeath::EnterState()
 
 void bossDeath::UpdateState()
 {
-	_thisBs->ChangeImg("Bs_death");
+	
 }
 
 void bossDeath::ExitState()

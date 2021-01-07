@@ -12,9 +12,20 @@ HRESULT BossStage::init()
 	CAMERA_M->SetMap(*this, backGround);
 
 	/*====================================================================
+		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
+	====================================================================*/
+	backWallInit(vector3(430, WINSIZEY, 0), vector3(1655, WINSIZEY, 0), vector3(1655, 0, 355), vector3(430, 0, 355));
+
+	leftWallInit(vector3(0, WINSIZEY, 0), vector3(430, WINSIZEY, 0), vector3(430, 0, 355), vector3(0, 0, 790));
+
+	rightWallInit(vector3(1655, WINSIZEY, 0), vector3(2077, WINSIZEY, 0), vector3(2077, 0, 775), vector3(1655, 0, 355));
+
+	floorInit(vector3(0, 0, 790), vector3(2077, 0, 770), vector3(2077, 0, 810), vector3(0, 0, 810));
+
+	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
-	//_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 40));
+	_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX , 0, WINSIZEY));
 
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
