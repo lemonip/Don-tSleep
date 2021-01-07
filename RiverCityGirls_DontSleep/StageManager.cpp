@@ -23,7 +23,7 @@ HRESULT StageManager::init()
 
 	
 	//첫 스테이지 세팅
-	setStage(STAGETYPE::EASY);
+	setStage(STAGETYPE::NORMAL);
 
 	return S_OK;
 }
