@@ -69,15 +69,29 @@ public:
 ====================================================================*/
 class dialogue : public Event
 {
+	struct tagImg
+	{
+		image* _portrait;		//캐릭터 초상화
+		image* _name;			//캐릭터 이름
+		vector3 _pos;			//위치
+		vector3 _goal;			//목표 위치
+	};
+
 private:
+
+	bool			_isRender;		//그리는지
+	image*			_diaWindow;		//대사창
 	vector<string>	_vScript;		//스크립트
 	int				_scriptIndex;	//스크립트 인덱스
 
 	string			_txt;			//텍스트
 	int				_txtIndex;		//텍스트 인덱스
+	tagImg			_img;			//대화 이미지
 
-	DIALOGLIST		_list;		//대화 리스트
-	string			_file;		//텍스트 파일
+	DIALOGLIST		_list;			//대화 리스트
+	
+	float			_dialogTime;	//대사 시간
+	bool			_autoSkip;		//자동 넘김
 
 
 public:

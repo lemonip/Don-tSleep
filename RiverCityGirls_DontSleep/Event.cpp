@@ -134,25 +134,39 @@ void dialogue::enter(bool playerControl)
 
 	_txtIndex = 0;
 	_scriptIndex = 0;
+	_autoSkip = true;
+	_diaWindow = IMG_M->findImage("dialogWindow");
+	_isRender = true;
 }
 
 bool dialogue::update()
 {
 	_txt = _vScript[_scriptIndex];
-
-	if (_scriptIndex % 2 == 0) _txt = _vScript[++_scriptIndex];
 	
+	//자동 스킵
+	if (KEY_M->isOnceKeyDown(VK_LCONTROL)) { _autoSkip = !_autoSkip; }
+
+	//전체 스킵
+	if (KEY_M->isOnceKeyDown(VK_RETURN)) _scriptIndex = _vScript.size() - 1;
+
 	if (_txtIndex <= _txt.length()) _txtIndex++;
 
-	else if (_txtIndex >= _txt.length() && KEY_M->isOnceKeyDown(VK_SPACE))
+	//대사 스킵
+	else if (_txtIndex >= _txt.length())
 	{
-		_scriptIndex++;
-		_txtIndex = 0;
+		if (KEY_M->isOnceKeyDown(VK_SPACE) || (_autoSkip && TIME_M->getWorldTime() - _dialogTime > 2.0f))
+		{
+			_scriptIndex++;
+			_txtIndex = 0;
+			_dialogTime = TIME_M->getWorldTime();
+		}
 	}
 
+	//대사 바로 보이기
 	if (_txtIndex < _txt.length() && KEY_M->isOnceKeyDown(VK_SPACE)) _txtIndex = _txt.length();
 
-	if (_scriptIndex >= _vScript.size()) return true;
+	//대화 끝내기
+	if (_scriptIndex >= _vScript.size() - 1) return true;
 
 	return false;
 }
@@ -160,21 +174,29 @@ bool dialogue::update()
 void dialogue::exit()
 {
 	Event::exit();
+	_isRender = false;
 
 }
 
 void dialogue::render(HDC hdc)
 {
+	if (!_isRender) return;
+	
+	//대사창을 그린다.
+
+	_diaWindow->render(hdc, WINSIZEX/2, WINSIZEY-_diaWindow->getHeight()/2);
+	
+	//폰트에 대해 설정한다.
 	SetBkMode(hdc, TRANSPARENT);
-	SetTextColor(hdc, RGB(255, 255, 255));
-
+	SetTextColor(hdc, RGB(255, 220, 255));
 	HFONT font, oldFont;
-	RECT rcText = RectMake(200, WINSIZEY - 100, WINSIZEX - 200, 80);
-	font = CreateFont(35, 0, 0, 0, 400, false, false, false,
+	RECT rcText = RectMake(200, WINSIZEY - 135, WINSIZEX - 400, WINSIZEY);
+	font = CreateFont(50, 0, 0, 0, 0, false, false, false,
 		DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
-		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("고딕"));
-
+		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("CookieRunOTF Bold"));
 	oldFont = (HFONT)SelectObject(hdc, font);
+
+	//텍스트를 출력한다.
 	DrawText(hdc, TEXT(_txt.c_str()), _txtIndex, &rcText, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 
 	DeleteObject(font);
