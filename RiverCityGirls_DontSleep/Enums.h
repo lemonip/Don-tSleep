@@ -108,6 +108,7 @@ enum class ITEM_TYPE : int
 ====================================================================*/
 enum class WEAPON_TYPE : int
 {
-	TRASHCAN,
-	BASEBALL,
+	NONE,
+	BAT,
+	BASEBALL
 };

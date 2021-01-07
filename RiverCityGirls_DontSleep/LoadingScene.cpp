@@ -25,11 +25,11 @@ HRESULT LoadingScene::init()
 		//이거 애니메이션 재생 도대체 왜 안되지ㅠㅠㅋㅋ 내가 뭘 잘못하고 있는 건가...?
 	====================================================================*/
 	_sprite = IMG_M->findImage("loading_sprite");
-	_ani = new animation;
-	_ani->init(_sprite->getWidth(), _sprite->getHeight(), _sprite->getFrameWidth(), _sprite->getFrameHeight());
-	_ani->setDefPlayFrame(false, true);
-	_ani->setFPS(1);
-	_ani->start();
+	ani = new animation;
+	ani->init(_sprite->getWidth(), _sprite->getHeight(), _sprite->getFrameWidth(), _sprite->getFrameHeight());
+	ani->setDefPlayFrame(false, true);
+	ani->setFPS(1);
+	ani->start();
 
 	/*====================================================================
 		싱글 쓰레드를 사용한다.
@@ -54,7 +54,7 @@ void LoadingScene::update()
 {
 	CAMERA_M->SetPos(WINSIZEX / 2, WINSIZEY / 2);
 
-	_ani->frameUpdate(0.1f);
+	ani->frameUpdate(0.1f);
 
 	//로딩이 다 되면
 	if (_count == _max)
@@ -67,7 +67,7 @@ void LoadingScene::update()
 void LoadingScene::render()
 {
 	_background->render(getMapDC());
-	_sprite->aniRender(getMapDC(), WINSIZEX - 150, WINSIZEY - 220, _ani);
+	_sprite->aniRender(getMapDC(), WINSIZEX - 150, WINSIZEY - 220, ani);
 }
 
 DWORD CALLBACK threadFunction(LPVOID lpParameter)

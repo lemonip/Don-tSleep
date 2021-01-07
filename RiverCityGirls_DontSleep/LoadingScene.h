@@ -5,7 +5,7 @@ class LoadingScene : public Scene
 {
 private:
 	image* _sprite;
-	animation* _ani;
+	animation* ani;
 
 public:
 	LoadingScene() {}

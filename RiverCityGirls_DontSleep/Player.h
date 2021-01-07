@@ -98,9 +98,9 @@ private:
 		float  exp;					//경험치
 		int hitCount;				//피격 카운트 (3번맞으면 다운됨)
 
-		float _frameTimer;			//프레임시간 타이머
-		RENDERTYPE _rendType;		//렌더타입
-		animation* _ani;			//기본 애니메이션
+		float frameTimer;			//프레임시간 타이머
+		RENDERTYPE rendType;		//렌더타입
+		animation* ani;			//기본 애니메이션
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
