@@ -12,26 +12,19 @@ HRESULT EasyStage::init()
 	CAMERA_M->SetMap(*this, backGround);
 
 	/*====================================================================
+		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
+	====================================================================*/
+	backWallInit(vector3(350, WINSIZEY, 0), vector3(1635, WINSIZEY, 0), vector3(1635, 0, 385), vector3(350, 0, 385));
+
+	leftWallInit(vector3(57, WINSIZEY, 0), vector3(350, WINSIZEY, 0), vector3(350, 0, 385), vector3(57, 0, 678));
+
+	rightWallInit(vector3(1635, WINSIZEY, 0), vector3(1928, WINSIZEY, 0), vector3(1928, 0, 678), vector3(1635, 0, 385));
+
+	floorInit(vector3(0, 0, 650), vector3(2028, 0, 650), vector3(1928, 0, 650), vector3(57, 0, 650));
+
+	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
-	_leftWall.RT = vector3(350, WINSIZEY, 0);
-	_leftWall.RB = vector3(350, 0, 385);
-	_leftWall.LB = vector3(57, 0, 678);
-	_leftWall.LT = vector3(57, WINSIZEY, 0);
-
-	_backWall.LT = vector3(350, WINSIZEY, 0);
-	_backWall.LB = vector3(350, 0, 385);
-	_backWall.RT = vector3(1635, WINSIZEY, 0);
-	_backWall.RB = vector3(1635, 0, 385);
-
-	_rightWall.LT = vector3(1635, WINSIZEY, 0);
-	_rightWall.LB = vector3(1635, 0, 385);
-	_rightWall.RT = vector3(1928, WINSIZEY, 0);
-	_rightWall.RB = vector3(1928, 0, 678);
-
-	_floor.LB = vector3(57, 0, 650);
-	_floor.RB = vector3(1928, 0, 650);
-
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(440, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(690, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(950, 0, 545));
@@ -52,7 +45,7 @@ HRESULT EasyStage::init()
 	EVENT_M->addEvent(new waitForSec(0.5f));
 	EVENT_M->addEvent(new cameraMove(vector3(600, 100, 0), 8, 1.0, 0.1f));
 	EVENT_M->addEvent(new cameraMove(vector3(10, 10, 0), 8, 1.0, 0.1f));*/
-	
+
 	return S_OK;
 }
 
