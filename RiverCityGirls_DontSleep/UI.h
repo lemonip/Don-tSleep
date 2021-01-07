@@ -8,18 +8,24 @@ enum class UITYPE;
 class UI
 {
 public:
-	UITYPE type;
-	image* img;
-	vector3 pos;
-	vector3 goal;
-	float speed;
+	UITYPE _type;
+	image* _img;
 
-	void update();
-	void render(HDC hdc);
-	bool isActive;
-	bool isMove;
-	void move(vector3 point, float speed);
-	void setActive(bool active) { isActive = active; }
+	vector3* _pos;
+	vector3 _goal;
+	float _speed;
+	RECT _rc;
+
+	bool _isActive;
+	bool _isMove;
+
+public:
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render(HDC hdc);
+
+	void setActive(bool active) { _isActive = active; }
 };
 
 /*====================================================================
@@ -27,16 +33,41 @@ public:
 ====================================================================*/
 class Bar : public UI
 {
-	float ratio;
+private:
+	image* _back;
+	image* _front;
+	float _ratio;
+	int* _current, *_max;
+
 public:
-	void render(HDC hdc);
+	Bar(image* front, image* back, int* current, int* max);
+
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render(HDC hdc);
 };
 
 /*====================================================================
-						인 벤 토 리
+						O P T I O N
 ====================================================================*/
-class Inventory : public UI
+class Option : public UI
 {
 public:
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render(HDC hdc);
+};
+
+/*====================================================================
+						C A L L   P H O N E
+====================================================================*/
+class CallPhone : public UI
+{
+public:
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
 	void render(HDC hdc);
 };

@@ -8,7 +8,7 @@
 class Scene : public gameNode
 {
 protected:
-	image* backGround;
+	image* _background;
 
 public:
 	virtual HRESULT init();

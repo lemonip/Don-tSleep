@@ -2,7 +2,11 @@
 #include "gameNode.h"
 #include "GameObject.h"
 
+//전방선언
 class Player;
+class StageManager;
+class ObjectManager;
+
 class IEnemyState;                 // 전방선언
 
 enum class EN_STATE
@@ -86,7 +90,6 @@ protected:
 	IEnemyState* _ES_WWALK;
 
 	DIRECTION _dest;
-	Player* _Pl;
 	ENEMY_TYPE _ENEMY_TYPE;
 	EN_STATE _state;               //현재 상태 enum
 
@@ -96,29 +99,45 @@ protected:
 	float _walkSpeed;			   //걷는 이동 속도
 	float _jumpPower;              //점프력
 	
-	
+	StageManager* _stageM;		//스테이지 매니저 링크
+	ObjectManager* _objectM;	//오브젝트 매니저 링크
+	Player* _player;			//플래이어
+
 public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 	virtual void render();
-	virtual void xzyMove(int x,int z, int y);
-	void setPosition(vector3 pos) { _obj.pos = pos; }
 
-	void setDest(DIRECTION dest) { _dest = dest; }
-	void setGoRight(bool go) { _goRight = go; }
-	void setIsAttack(bool attack) { _isAttack = attack; }
-
-	Player* getPlayerAddress() { return _Pl; }
+	/*====================================================================
+									GETTER
+	====================================================================*/
+	Player* getPlayerAddress() { return _player; }
 	bool getIsDead() { return _isDead; }
 	bool getWeapon() { return _weapon; }
 	bool& getGoRight() { return _goRight; }
 	float& getRunSpeed() { return _runSpeed; }
 	float& getWalkSpeed() { return _walkSpeed; }
-
 	GameObject* getObj() { return &_obj; }
+
+	/*====================================================================
+									SETTER
+	====================================================================*/
+	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+
+	void setPosition(vector3 pos) { _obj.pos = pos; }
+	void setDest(DIRECTION dest) { _dest = dest; }
+	void setGoRight(bool go) { _goRight = go; }
+	void setIsAttack(bool attack) { _isAttack = attack; }
 	void SetState(EN_STATE state);
+
+	/*====================================================================
+									FUNCTION
+	====================================================================*/
+	virtual void xzyMove(int x,int z, int y);
+
 	void SetImage();
+
 	void imageRedraw();
 	void FramePlay(int count);
 };

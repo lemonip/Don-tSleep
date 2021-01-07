@@ -35,9 +35,6 @@ public:
 	//맵버퍼 접근자
 	HDC getMapDC() { return _mapBuffer->getMemDC(); }
 
-	int getMemDCWidth() { return _mapBuffer->getWidth(); }
-	int getMemDCHeight() { return _mapBuffer->getHeight(); }
-
 	LRESULT MainProc(HWND, UINT, WPARAM, LPARAM);
 };
 

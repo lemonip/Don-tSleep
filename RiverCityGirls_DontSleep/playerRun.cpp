@@ -1,16 +1,14 @@
 #include "stdafx.h"
 #include "playerRun.h"
-#include "player.h"
 
 void playerRun::EnterState()
 {
-	_thisPl->ChangeImg("pl_run");
+	//이미지 변경
+	_thisPl->changeImg("pl_run",true);
 }
 
 void playerRun::UpdateState()
 {
-	_thisPl->ChangeImg("pl_run");
-
 	//키를 안 누르면 기본상태
 	if (!KEY_M->isStayKeyDown(VK_LEFT)
 		&& !KEY_M->isStayKeyDown(VK_RIGHT)

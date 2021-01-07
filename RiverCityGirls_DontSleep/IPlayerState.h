@@ -1,12 +1,11 @@
 #pragma once
 #include "gameNode.h"
+#include "Player.h"
 
-class Player;
 class IPlayerState: public gameNode
 {
 protected:
 	Player* _thisPl;
-
 public:
 	IPlayerState() {}
 	~IPlayerState() {}
@@ -28,5 +27,10 @@ public:
 	void lineMove(float speed);
 	//좌우이동
 	void crossMove(float speed);
+
+	//업데이트 일시정지
+	bool pauseUpdate();
+	//프레임 재생 끝났는지 확인, 리버스 프레임이면 매개변수 true
+	bool isEndFrame(bool reverse);
 };
 

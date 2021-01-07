@@ -32,6 +32,7 @@ public:
 									GETTER
 	====================================================================*/
 	Stage* getStage() { return _stage; }
+	Player* getPlayer() { return _player; }
 
 };
 

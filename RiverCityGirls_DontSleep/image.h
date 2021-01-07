@@ -200,8 +200,10 @@ public:
 	inline int getFrameX() { return _imageInfo->currentFrameX; }
 	inline int getFrameY() { return _imageInfo->currentFrameY; }
 
-	inline int getFrameWidth() { return _imageInfo->frameWidth; }
-	inline int getFrameHeight() { return _imageInfo->frameHeight; }
+	inline int getFrameWidth() { if (_imageInfo->frameWidth == 0) return _imageInfo->width;
+								else return _imageInfo->frameWidth; }
 
+	inline int getFrameHeight() { if (_imageInfo->frameHeight == 0) return _imageInfo->height;
+								else return _imageInfo->frameHeight; }
 };
 

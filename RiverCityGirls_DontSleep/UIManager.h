@@ -32,10 +32,14 @@ public:
 	void setIsActive(bool active) { _isActive = active; }
 
 /*====================================================================
+							ADD UI
+====================================================================*/
+	void addImage(string, image* img, vector3 pos);						//단일 이미지 UI를 추가한다.
+	void addBar(string name, image * front, image * back, vector3 pos, int* current, int* max);		//프로그레스 바 UI를 추가한다.
+
+/*====================================================================
 							FUNCTION
 ====================================================================*/
-	void addImage(string, image* img, vector3 pos);		//단일 이미지 UI를 추가한다.
-	
 	void popUI(string name);		//UI를 제거한다.
 
 	UI* findUI(string name);		//UI를 찾는다.

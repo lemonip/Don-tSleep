@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "EnemyManager.h"
-
 #include "schoolGirl.h"
 #include "schoolBoy.h"
 #include "cheerLeader.h"
@@ -23,7 +22,6 @@ void EnemyManager::release()
 
 void EnemyManager::update()
 {
-
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
 		_vEnemy[i]->update();
@@ -56,7 +54,8 @@ void EnemyManager::pushEnemy(ENEMY_TYPE type, vector3 pos)
 		_enemy = new Boss;
 		break;
 	}
-
+	
+	_enemy->setLinkStageM(_stageM);
 	_enemy->setPosition(pos);
 	_enemy->init();
 	_vEnemy.push_back(_enemy);

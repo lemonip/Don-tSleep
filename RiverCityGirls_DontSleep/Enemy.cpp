@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Enemy.h"
+
 #include "Player.h"
+#include "Stage.h"
+#include "StageManager.h"
+#include "ObjectManager.h"
 
 #include "enemyAttack1.h"
 #include "enemyAttack2.h"
@@ -40,8 +44,8 @@ using namespace std;
 
 HRESULT Enemy::init()
 {
-	_Pl = new Player;
-
+	_player = _stageM->getPlayer();
+	_objectM = _stageM->getStage()->getObjectM();
 
 	_ES_IDLE = new enemyIdle;
 	_ES_WALK = new enemyWalk;
@@ -73,6 +77,7 @@ HRESULT Enemy::init()
 	_ES_WTHROW = new enemyWThrow;
 	_ES_WWALK = new enemyWWalk;
 	_EState = NULL;
+
 	return S_OK;
 }
 
@@ -84,9 +89,8 @@ void Enemy::update()
 {
 	_obj.update();
 	_EState->UpdateState();
-	if (KEY_M->isOnceKeyDown('A'))
+	if (KEY_M->isOnceKeyDown('P'))
 	{
-
 		SetState(EN_STATE::EN_IDLE);
 	}
 }
@@ -105,9 +109,12 @@ void Enemy::xzyMove(int x,int z, int y)
 
 void Enemy::SetState(EN_STATE state)
 {
-	 if (/*_state != EN_STATE::EN_IDLE &&*/ _state == state) return;
+	 if (_EState != NULL && _state == state) return;
+
 	_state = state;
+
 	if (_EState != NULL) _EState->ExitState();
+
 	switch (_state)
 	{
 	case EN_STATE::EN_IDLE:             _EState = _ES_IDLE;             break;

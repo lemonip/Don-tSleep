@@ -3,6 +3,7 @@
 
 HRESULT HardStage::init()
 {
+	Stage::init();
 	/*====================================================================
 		스테이지의 배경 이미지를 설정하고, 카메라에게 맵 사이즈를 알려 줍니다.
 	====================================================================*/
@@ -22,12 +23,15 @@ HRESULT HardStage::init()
 
 void HardStage::release()
 {
+	Stage::release();
 }
 
 void HardStage::update()
 {
+	Stage::update();
 }
 
 void HardStage::render()
 {
+	Stage::render();
 }

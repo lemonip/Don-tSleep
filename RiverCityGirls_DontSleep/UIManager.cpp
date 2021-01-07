@@ -25,7 +25,7 @@ void UIManager::update()
 
 	for (auto _miUI = _mUI.begin(); _miUI != _mUI.end(); ++_miUI)
 	{
-		if (!_miUI->second->isActive) continue;
+		if (!_miUI->second->_isActive) continue;
 		_miUI->second->update();
 	}
 }
@@ -40,7 +40,7 @@ void UIManager::render(HDC hdc)
 
 	for (auto _miUI = _mUI.begin(); _miUI != _mUI.end(); ++_miUI)
 	{
-		if (!_miUI->second->isActive) continue;
+		if (!_miUI->second->_isActive) continue;
 		_miUI->second->render(hdc);
 	}
 }
@@ -54,10 +54,24 @@ void UIManager::addImage(string name, image* img, vector3 pos)
 	if (_miUI != _mUI.end()) return;
 
 	UI* ui = new UI;
-	ui->type = UITYPE::UI;
-	ui->img = img;
-	ui->pos = pos;
-	ui->isActive = false;
+	ui->_type = UITYPE::UI;
+	ui->_img = img;
+	ui->_pos = new vector3(pos.x, pos.y, pos.z);
+	ui->_isActive = false;
+
+	_mUI.insert(make_pair(name, ui));
+}
+
+void UIManager::addBar(string name, image * front, image * back, vector3 pos, int* current, int* max)
+{
+	_miUI = _mUI.find(name);
+	if (_miUI != _mUI.end()) return;
+
+	UI* ui = new Bar(front, back, current, max);
+	ui->_pos = new vector3(pos.x, pos.y, pos.z);
+	ui->init();
+	ui->_type = UITYPE::BAR;
+	ui->_isActive = false;
 
 	_mUI.insert(make_pair(name, ui));
 }

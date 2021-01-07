@@ -1,6 +1,40 @@
 #include "stdafx.h"
 #include "IPlayerState.h"
-#include "Player.h"
+
+//업데이트 일시정지 유무 
+bool IPlayerState::pauseUpdate()
+{
+	//키조작이 불가능일경우 
+	if (!_thisPl->getInfo().isControl) return true;
+
+	//그외
+	else return false;
+}
+
+//프레임 실행여부
+bool IPlayerState::isEndFrame(bool reverse)
+{
+	switch (_thisPl->getInfo().dest)
+	{
+	case DIRECTION::LEFT:
+	{
+		//현재 프레임번호가 끝번호면 프레임재생이 끝
+		if (reverse == false && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())
+			return true;
+		if (reverse == true && _thisPl->getObj().img->getFrameX() == 0)
+			return true;
+
+		return false;
+	}
+	case DIRECTION::RIGHT:
+	{
+		//현재 프레임번호가 0 번호면 프레임재생이 끝
+		if (reverse == false && _thisPl->getObj().img->getFrameX() == 0) return true;
+		if (reverse == true && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())return true;
+		return false;
+	}
+	}
+}
 
 void IPlayerState::walkPattern()
 {
@@ -17,7 +51,7 @@ void IPlayerState::basePattern()
 	walkPattern();
 
 	//가드
-	if (KEY_M->isStayKeyDown(VK_SPACE))_thisPl->setState(PL_STATE::GUARD);
+	if (KEY_M->isStayKeyDown('F'))_thisPl->setState(PL_STATE::GUARD);
 
 	//약공격
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO1);
@@ -28,18 +62,18 @@ void IPlayerState::basePattern()
 void IPlayerState::lineMove(float speed)
 {	
 	if (KEY_M->isStayKeyDown(VK_UP))
-		_thisPl->MovePos(0, -speed, 0);
+		_thisPl->movePos(0, -speed, 0);
 
 	if (KEY_M->isStayKeyDown(VK_DOWN))
-		_thisPl->MovePos(0, speed, 0);
+		_thisPl->movePos(0, speed, 0);
 }
 
 //좌우이동
 void IPlayerState::crossMove(float speed)
 {
 	if (KEY_M->isStayKeyDown(VK_RIGHT))
-		_thisPl->MovePos(speed, 0, 0);
+		_thisPl->movePos(speed, 0, 0);
 
 	if (KEY_M->isStayKeyDown(VK_LEFT))
-		_thisPl->MovePos(-speed, 0, 0);
+		_thisPl->movePos(-speed, 0, 0);
 }

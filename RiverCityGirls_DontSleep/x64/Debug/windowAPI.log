@@ -1,16 +1,226 @@
-﻿  IPlayerState.cpp
-  playerDashAttack.cpp
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashattack.cpp(32): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashattack.cpp(33): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  playerDashSAttack.cpp
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashsattack.cpp(31): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerdashsattack.cpp(32): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  playerJump.cpp
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerjump.cpp(15): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  playerJumpAttack.cpp
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerjumpattack.cpp(15): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  playerRun.cpp
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerrun.cpp(25): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator.jy-201709111318\documents\don-tsleep\rivercitygirls_dontsleep\playerrun.cpp(26): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  stdafx.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.h(95): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  animation.cpp
+  Boss.cpp
+  bossAttacked.cpp
+  bossBlock.cpp
+  bossDashAttack.cpp
+  bossDeath.cpp
+  bossDown.cpp
+  bossElbowAttack.cpp
+  bossGroggy.cpp
+  bossHowling.cpp
+  bossIdle.cpp
+  bossMeteor.cpp
+  bossMove.cpp
+  bossPhase2.cpp
+  bossSlabAttack.cpp
+  bossSmashAttack.cpp
+  BossStage.cpp
+  bossStandAttack.cpp
+  bossWait.cpp
+  BrokenObj.cpp
   코드를 생성하고 있습니다...
-  windowAPI.vcxproj -> C:\Users\Administrator.JY-201709111318\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe
+  컴파일하고 있습니다...
+  CameraManager.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(50): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(49): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(113): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(114): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(115): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(156): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(157): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(158): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(159): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(160): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(169): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(170): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(171): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(172): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(173): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(202): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(261): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\cameramanager.cpp(262): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  cheerLeader.cpp
+  CollisionManager.cpp
+  DialogueManager.cpp
+  EasyStage.cpp
+  effect.cpp
+  effectManager.cpp
+  EndingScene.cpp
+  Enemy.cpp
+  enemyAttack1.cpp
+  enemyAttack2.cpp
+  enemyAttack3.cpp
+  enemyBegging.cpp
+  enemyDie.cpp
+  enemyDown.cpp
+  enemyFriend.cpp
+  enemyGuard.cpp
+  enemyHardAttack.cpp
+  enemyHeldHit.cpp
+  enemyHeldRelease.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  enemyHit.cpp
+  enemyIdle.cpp
+  enemyJump.cpp
+  enemyJumpAttack.cpp
+  enemyLadder.cpp
+  enemyLadderTransition.cpp
+  EnemyManager.cpp
+  enemyPatrol.cpp
+  enemyRun.cpp
+  enemyRunAttack.cpp
+  enemyStun.cpp
+  enemyWalk.cpp
+  enemyWAttack.cpp
+  enemyWeaponHit.cpp
+  enemyWIdle.cpp
+  enemyWPickup.cpp
+  enemyWRun.cpp
+  enemyWThrow.cpp
+  enemyWWalk.cpp
+  Event.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  EventManager.cpp
+  gameNode.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gamenode.cpp(99): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gamenode.cpp(100): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gamenode.cpp(94): warning C4101: 'hdc' :참조되지 않은 지역 변수입니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gamenode.cpp(93): warning C4101: 'ps' :참조되지 않은 지역 변수입니다.
+  GameObject.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gameobject.cpp(12): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gameobject.cpp(13): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gameobject.cpp(51): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gameobject.cpp(52): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gameobject.cpp(105): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gameobject.cpp(129): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\gameobject.cpp(144): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GameScene.cpp
+  HardStage.cpp
+  IBossState.cpp
+  image.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\image.cpp(72): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\image.cpp(129): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\image.cpp(185): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\image.cpp(408): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\image.cpp(407): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\image.cpp(424): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\image.cpp(423): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  imageManager.cpp
+  Interpolation.cpp
+  IPlayerState.cpp
+  ItemObj.cpp
+  keyManager.cpp
+  Linear.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\linear.cpp(38): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\linear.cpp(101): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\linear.cpp(102): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  LoadingScene.cpp
+  NormalStage.cpp
+  Object.cpp
+  ObjectManager.cpp
+  Player.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\player.cpp(338): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\player.cpp(365): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\player.cpp(422): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+  playerClimb.cpp
+  playerCombo1.cpp
+  코드를 생성하고 있습니다...
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\iplayerstate.cpp(37): warning C4715: 'IPlayerState::isEndFrame': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
+  playerCombo2.cpp
+  playerCombo3.cpp
+  playerDashAttack.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\playerdashattack.cpp(29): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\playerdashattack.cpp(30): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerDashSAttack.cpp
+  playerDead.cpp
+  playerDown.cpp
+  playerGrab.cpp
+  playerGuard.cpp
+  playerHit.cpp
+  playerIdle.cpp
+  playerJump.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\playerjump.cpp(12): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerJumpAttack.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\playerjumpattack.cpp(15): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerPick.cpp
+  playerRoll.cpp
+  playerRun.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\playerrun.cpp(23): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\playerrun.cpp(24): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playerSAttack.cpp
+  playerSAttackDown.cpp
+  playerStand.cpp
+  playerStick.cpp
+  playerStomp.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  playerStun.cpp
+  playerThrow.cpp
+  playerWait.cpp
+  playerWalk.cpp
+  playGround+setImage.cpp
+  playGround.cpp
+  SaveLoadManager.cpp
+  Scene.cpp
+  SceneManager.cpp
+  schoolBoy.cpp
+  schoolGirl.cpp
+  Select.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\select.cpp(23): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\select.cpp(23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\select.cpp(46): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\select.cpp(49): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\select.cpp(51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\select.cpp(110): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  SelectScene.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\selectscene.cpp(129): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\selectscene.cpp(132): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\selectscene.cpp(212): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+  ShopScene.cpp
+  soundManager.cpp
+  Stage.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\stage.cpp(49): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\stage.cpp(50): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  StageManager.cpp
+  StandingObj.cpp
+  timeManager.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\timemanager.cpp(46): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\timemanager.cpp(49): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\timemanager.cpp(52): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  timer.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  TitleScene.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\titlescene.cpp(45): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\titlescene.cpp(94): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\titlescene.cpp(96): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\titlescene.cpp(97): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  txtData.cpp
+  UI.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\ui.cpp(22): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\ui.cpp(39): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\ui.cpp(40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\ui.cpp(54): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\ui.cpp(55): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  UIManager.cpp
+  utils.cpp
+  vector3.cpp
+  Video.cpp
+  winMain.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\winmain.cpp(89): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  zOrderManager.cpp
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\zordermanager.cpp(29): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\zordermanager.cpp(40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\zordermanager.cpp(49): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\zordermanager.cpp(52): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\zordermanager.cpp(55): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+d:\팀포폴백업\rivercitygirls_dontsleep0107 09시 메인\txtdata.cpp(40): warning C4172: 지역 변수 또는 임시: str의 주소를 반환하고 있습니다.
+  windowAPI.vcxproj -> D:\팀포폴백업\RiverCityGirls_DontSleep0107 09시 메인\x64\Debug\windowAPI.exe

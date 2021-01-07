@@ -25,8 +25,11 @@ public:
 	//씬추가 함수
 	gameNode* addScene(string sceneName, gameNode* scene);
 
-	//씬 변경 함수
+	//릴리즈, 이닛하며 씬을 변경하는 함수
 	HRESULT changeScene(string sceneName);
+
+	//이닛하지 않고 씬만 변경하는 함수
+	HRESULT setScene(string sceneName);
 
 	SceneManager() {};
 	~SceneManager() {};

@@ -3,7 +3,6 @@
 #include "Video.h"
 #include "Player.h"
 
-
 /*====================================================================
 	카메라 이동과 배율 조정 이벤트
 ====================================================================*/
@@ -75,7 +74,7 @@ void moviePlay::enter()
 bool moviePlay::update()
 {
 	//엔터로 스킵
-	if (_video->getIsPlaying() && KEY_M->isOnceKeyDown(VK_RETURN)) _video->stop();
+	if (_video->getIsPlaying() && (KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE))) _video->stop();
 
 	//영상 재생이 끝났는지 확인
 	if (_video->getIsPlaying())
@@ -115,6 +114,45 @@ bool dialogue::update()
 }
 
 void dialogue::exit()
+{
+}
+
+dialogue::dialogue(DIALOGUELIST chapter, float textSpeed)
+{
+	init(textSpeed);
+
+	_textSpeed = 1.0f / textSpeed;		//대화 출력 속도
+	_writeText.clear();					//
+}
+
+HRESULT dialogue::init(float textSpeed)
+{
+	ZeroMemory(&_skip, sizeof(_skip));
+
+
+
+	return S_OK;
+}
+
+void dialogue::render()
+{
+}
+
+void dialogue::startChapter(DIALOGUELIST chapter)
+{
+}
+
+bool dialogue::textUpdate(float elapsedTime)
+{
+	return false;
+}
+
+bool dialogue::findNameImg(string src, string name)
+{
+	return false;
+}
+
+void dialogue::keyReaction()
 {
 }
 

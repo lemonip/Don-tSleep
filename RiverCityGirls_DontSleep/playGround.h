@@ -26,7 +26,8 @@ public:
 	virtual void update();		//연산 전용
 	virtual void render();		//그리기 전용
 
-	void setImage();	//게임 내 모든 이미지 설정
-	void setScene();	//게임 내 모든 씬 설정
+	void addImage();	//게임 내 모든 이미지 설정
+	void addScene();	//게임 내 모든 씬 설정
+
 };
 

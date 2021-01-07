@@ -2,6 +2,8 @@
 #include "playGround.h"
 
 #include "TitleScene.h"
+#include "SelectScene.h"
+#include "LoadingScene.h"
 #include "GameScene.h"
 #include "ShopScene.h"
 #include "EndingScene.h"
@@ -22,11 +24,10 @@ using namespace std;
 HRESULT playGround::init()
 {
 	gameNode::init(true);
-
-	setImage();						//이미지 세팅
-	setScene();						//씬 세팅
-	SCENE_M->changeScene("title");	//첫 시작씬 (title)
-
+	addImage();							//이미지 세팅
+	addScene();							//씬 세팅
+	SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
+	//SCENE_M->changeScene("title");		//첫 시작씬 (title)
 	return S_OK;
 }
 
@@ -51,6 +52,12 @@ void playGround::update()
 	CAMERA_M->update();					//카메라를 업데이트 한다.
 	UI_M->update();						//UI 업데이트
 	SCENE_M->update();					//씬 업데이트
+
+	if (KEY_M->isOnceKeyDown(VK_LBUTTON))
+	{
+		cout << "마우스 X좌표: " << _ptMouse.x << endl;
+		cout << "마우스 Y좌표: " << _ptMouse.y << endl;
+	}
 }
 
 /*====================================================================
@@ -88,11 +95,13 @@ void playGround::render()
 	씬끼리는 프로시져 자체를 막아 데이터 이동이 불가능합니다.
 
 ====================================================================*/
-void playGround::setScene()
+void playGround::addScene()
 {
-	SCENE_M->addScene("title", new TitleScene);		//타이틀 씬 추가
-	SCENE_M->addScene("game", new GameScene);		//게임 씬 추가
-	SCENE_M->addScene("shop", new ShopScene);		//상점 씬 추가
-	SCENE_M->addScene("ending", new EndingScene);	//엔딩 씬 추가
+	SCENE_M->addScene("title", new TitleScene);			//타이틀 씬 추가
+	SCENE_M->addScene("select", new SelectScene);		//선택 씬 추가
+	SCENE_M->addScene("loading", new LoadingScene);		//로딩 씬 추가
+	SCENE_M->addScene("game", new GameScene);			//게임 씬 추가
+	SCENE_M->addScene("shop", new ShopScene);			//상점 씬 추가
+	SCENE_M->addScene("ending", new EndingScene);		//엔딩 씬 추가
 }
 
