@@ -55,10 +55,11 @@ HRESULT Player::init()
 		_info.isSky = false;
 		_info.hasMember = false;
 		_info.dest = DIRECTION::RIGHT;
+		_info.weaponType = WEAPON_TYPE::BAT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
-		_info._rendType = RENDERTYPE::FRAME_RENDER;
-		_info._frameTimer = TIME_M->getWorldTime();
-		_info._ani = new animation;
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
+		_info.frameTimer = TIME_M->getWorldTime();
+		_info.ani = new animation;
 		_info.hitCount = 3;
 	}
 
@@ -95,7 +96,6 @@ HRESULT Player::init()
 		_SAttackDown = new playerSAttackDown;
 	}
 	setState(PL_STATE::WAIT);
-
 	return S_OK;
 }
 
@@ -117,8 +117,8 @@ void Player::update()
 	//오브젝트 업뎃
 	_obj.update();
 	//애니프레임 업뎃
-	if(_info._rendType == RENDERTYPE::ANI_RENDER)
-	_info._ani->frameUpdate(TIME_M->getElapsedTime() * 10);
+	if(_info.rendType == RENDERTYPE::ANI_RENDER)
+	_info.ani->frameUpdate(TIME_M->getElapsedTime() * 10);
 	//프레임업뎃
 	playFrame();
 
@@ -131,7 +131,7 @@ void Player::render()
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
 
-	ZORDER_M->renderObject(getMapDC(), &_obj, _info._rendType);
+	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 	Rectangle(getMapDC(), _obj.shadow.rc);
 }
 
@@ -206,7 +206,7 @@ void Player::changeImg(string imgName, bool reverse)
 	//이미지를 바꾼다.
 	_obj.img = IMG_M->findImage(imgName);
 	//프레임 시간 갱신하여 바로 프레임 변경
-	_info._frameTimer = TIME_M->getWorldTime();
+	_info.frameTimer = TIME_M->getWorldTime();
 	//방향과 리버스 여부 따른 프레임 x 인덱스 설정
 	switch (_info.dest)
 		{
@@ -243,18 +243,38 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 	//프레임 y 번호 세팅
 	_obj.img->setFrameY((int)_info.dest);
 
+	//프레임 실행 시간 설정
+	if (TIME_M->getWorldTime() - _info.frameTimer > frameInterval)
+	{
+		//시간 갱신
+		_info.frameTimer = TIME_M->getWorldTime();
+		switch (_info.dest)
+		{
+		case DIRECTION::LEFT:
+			if (frameType != FRAMETYPE::REVERSROOP && frameType != FRAMETYPE::REVERSONCE) ++_obj.imgIndex.x;
+			else --_obj.imgIndex.x;
+
+
+			break;
+		case DIRECTION::RIGHT:
+			if (frameType != FRAMETYPE::REVERSROOP&& frameType != FRAMETYPE::REVERSONCE) --_obj.imgIndex.x;
+			else  ++_obj.imgIndex.x;
+			break;
+		}
+	}
+
 	//프레임 x 번호 조절
 	switch (frameType)
 	{
 	case FRAMETYPE::ONCE://한 번 재생
 		{
 		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 고정
-		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = _obj.img->getMaxFrameX(); return;
 		}
 		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 고정
-		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x <= 0)
+		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
 		{
 			_obj.imgIndex.x = 0; return;
 		}
@@ -264,21 +284,21 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 	case FRAMETYPE::ROOP://무한 재생
 		{
 		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 0번으로 갱신
-		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
 
 		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 끝번호로 갱신
-		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x <= 0)
+		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		}
 		break;
 	case FRAMETYPE::REVERSONCE://반대 한번 재생
 		{
-		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = _obj.img->getMaxFrameX(); return;
 		}
-		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
 		{
 			_obj.imgIndex.x = 0; return;
 		}
@@ -286,41 +306,17 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		break;
 	case FRAMETYPE::REVERSROOP://반대 무한 재생
 		{
-		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
 
-		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		
 		}
 		break;
 	}
 
-
-	//프레임 x 번호 세팅
-	_obj.img->setFrameX(_obj.imgIndex.x);
-	
-
-
-	//프레임 실행 시간 설정
-	if (TIME_M->getWorldTime() - _info._frameTimer > frameInterval)
-	{
-		//시간 갱신
-		_info._frameTimer = TIME_M->getWorldTime();
-		switch (_info.dest)
-		{
-		case DIRECTION::LEFT:
-			if(frameType != FRAMETYPE::REVERSROOP && frameType != FRAMETYPE::REVERSONCE) ++_obj.imgIndex.x;
-			else --_obj.imgIndex.x;
-			
-			
-			break;
-		case DIRECTION::RIGHT:
-			if (frameType != FRAMETYPE::REVERSROOP&& frameType != FRAMETYPE::REVERSONCE) --_obj.imgIndex.x;
-			else  ++_obj.imgIndex.x;
-			break;
-		}
-	}
+	cout << _obj.imgIndex.x << endl;
 }
 
 //프레임 실행
@@ -331,7 +327,7 @@ void Player::playFrame()
 	//무한재생 (일반 속도)
 	case PL_STATE::WAIT:	case PL_STATE::STUN:
 		setFrame(FRAMETYPE::ROOP, FRAMEINTERVAL);
-		_info._rendType = RENDERTYPE::FRAME_RENDER;
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
 	//반대 무한재생 (빨리)
 	case PL_STATE::RUN:
@@ -355,20 +351,25 @@ void Player::playFrame()
 	case PL_STATE::THROW:	case PL_STATE::STOMP:
 	case PL_STATE::COMBO1:	case PL_STATE::COMBO2:		
 	case PL_STATE::COMBO3:	case PL_STATE::SATTACK:
-	case PL_STATE::DASHATTACK:	case PL_STATE::DASHSATTACK:
+	case PL_STATE::DASHSATTACK:
 	case PL_STATE::SATTACKDOWN: case PL_STATE::JUMPATTACK:
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL);	
-		_info._rendType = RENDERTYPE::FRAME_RENDER;
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
+		break;
+	//반대 한번재생 (일반 속도)
+	case PL_STATE::DASHATTACK:
+		setFrame(FRAMETYPE::REVERSONCE, FRAMEINTERVAL);
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
 	//반대 한번재생 (빨리)
 	case PL_STATE::GUARD:
 		setFrame(FRAMETYPE::REVERSONCE, FRAMEINTERVAL*0.4);
-		_info._rendType = RENDERTYPE::FRAME_RENDER;
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
 	//애니랜더
 	case PL_STATE::CLIMB:
-		_info._rendType = RENDERTYPE::ANI_RENDER;
-		_info._ani->init(_obj.img->getWidth(), _obj.img->getHeight(),
+		_info.rendType = RENDERTYPE::ANI_RENDER;
+		_info.ani->init(_obj.img->getWidth(), _obj.img->getHeight(),
 			_obj.img->getFrameWidth(), _obj.img->getFrameHeight());
 		break;
 	}

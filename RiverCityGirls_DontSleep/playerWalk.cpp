@@ -3,11 +3,20 @@
 
 void playerWalk::EnterState()
 {
-	//이미지변경
-	_thisPl->changeImg("pl_walk",true);
+	//이미지 변경
+	switch (_thisPl->getInfo().weaponType)
+	{
+	case WEAPON_TYPE::NONE:	_thisPl->changeImg("pl_walk", true);	break;
+	case WEAPON_TYPE::BAT:	_thisPl->changeImg("pl_wBatWalk", true);	break;
+	case WEAPON_TYPE::BASEBALL:
+		break;
+	}
+	
 	_startTime = TIME_M->getWorldTime();
 	//방향변경가능상태로 전환
 	_thisPl->setIsConDest(true);
+	//키조작 가능
+	_thisPl->setIsControl(true);
 }
 
 void playerWalk::UpdateState()

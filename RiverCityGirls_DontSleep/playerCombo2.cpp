@@ -11,8 +11,7 @@ void playerCombo2::EnterState()
 
 void playerCombo2::UpdateState()
 {
-	//임시타이머..원래는 프레임렌더 다돌아가면 변경할듯!
-	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
+	if (isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
 
 	//공격키 누르면 2콤보 + ★몬스터와 충돌도 있어야할듯
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO3);

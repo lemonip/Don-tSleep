@@ -5,14 +5,12 @@ void playerCombo1::EnterState()
 {
 	_thisPl->changeImg("pl_comboAttack1", false);
 	tempTime = TIME_M->getWorldTime();
-	//방향조작 못하는 상태로 변경
-	_thisPl->setIsConDest(false);
 }
 
 void playerCombo1::UpdateState()
 {
-	//임시타이머..원래는 프레임렌더 다돌아가면 변경할듯!
-	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
+	if (isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
+	//프레임이 끝나면 공격렉트를 만들어서 충돌했는지 확인하고 데미지를 줌! 끝에하면될거같은느낌..
 
 	//공격키 누르면 2콤보 + ★몬스터와 충돌도 있어야할듯
 	if(KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO2);

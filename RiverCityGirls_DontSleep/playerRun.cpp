@@ -3,8 +3,20 @@
 
 void playerRun::EnterState()
 {
+
 	//이미지 변경
-	_thisPl->changeImg("pl_run",true);
+	switch (_thisPl->getInfo().weaponType)
+	{
+	case WEAPON_TYPE::NONE:_thisPl->changeImg("pl_run", true);	break;
+	case WEAPON_TYPE::BAT:	_thisPl->changeImg("pl_wBatRun", true);	break;
+	case WEAPON_TYPE::BASEBALL:
+		break;
+	}
+	
+	//키조작 가능
+	_thisPl->setIsControl(true);
+	//방향전환 가능
+	_thisPl->setIsConDest(true);
 }
 
 void playerRun::UpdateState()

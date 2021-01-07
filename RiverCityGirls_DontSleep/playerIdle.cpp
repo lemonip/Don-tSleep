@@ -3,7 +3,16 @@
 
 void playerIdle::EnterState()
 {
-	_thisPl->changeImg("pl_idle",true);
+	//이미지 변경
+	switch (_thisPl->getInfo().weaponType)
+	{
+	case WEAPON_TYPE::NONE:	_thisPl->changeImg("pl_idle", true);	break;
+	case WEAPON_TYPE::BAT:	_thisPl->changeImg("pl_wBatIdle", true);	break;
+	case WEAPON_TYPE::BASEBALL:
+		break;
+	}
+
+
 	//키조작 가능한 상태로 변경
 	_thisPl->setIsControl(true);
 	//방향조작이 가능한 상태로 변경
