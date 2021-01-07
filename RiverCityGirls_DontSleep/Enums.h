@@ -89,6 +89,9 @@ enum class OBJECT_TYPE : int
 	DESK,
 	TABLE,
 	VENDINGMACHINE,
+	LADDER,
+	HARDPLATFORM,
+	PILLAR,
 };
 
 

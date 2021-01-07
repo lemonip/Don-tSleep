@@ -21,7 +21,7 @@ HRESULT StageManager::init()
 	_player->setLinkStageM(this);
 	EVENT_M->setLinkPlayer(_player);
 
-	
+
 	//첫 스테이지 세팅
 	setStage(STAGETYPE::EASY);
 
@@ -86,29 +86,29 @@ void StageManager::setStage(STAGETYPE current)
 	//새로운 스테이지 객체를 생성하고, 초기화한다.
 	switch (_currentStage)
 	{
-		case STAGETYPE::EASY:
-			_stage = new EasyStage;
-			_stage->setLinkStageM(this);
-			_stage->init();
+	case STAGETYPE::EASY:
+		_stage = new EasyStage;
+		_stage->setLinkStageM(this);
+		_stage->init();
 		break;
 
-		case STAGETYPE::NORMAL:
-			_stage = new NormalStage;
-			_stage->setLinkStageM(this);
-			_stage->init();
-			
+	case STAGETYPE::NORMAL:
+		_stage = new NormalStage;
+		_stage->setLinkStageM(this);
+		_stage->init();
+
 		break;
 
-		case STAGETYPE::HARD:
-			_stage = new HardStage;
-			_stage->setLinkStageM(this);
-			_stage->init();
+	case STAGETYPE::HARD:
+		_stage = new HardStage;
+		_stage->setLinkStageM(this);
+		_stage->init();
 		break;
 
-		case STAGETYPE::BOSS:
-			_stage = new BossStage;
-			_stage->setLinkStageM(this);
-			_stage->init();
+	case STAGETYPE::BOSS:
+		_stage = new BossStage;
+		_stage->setLinkStageM(this);
+		_stage->init();
 		break;
 	}
 

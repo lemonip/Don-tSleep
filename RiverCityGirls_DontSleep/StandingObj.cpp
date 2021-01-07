@@ -5,15 +5,23 @@ StandingObj::StandingObj(OBJECT_TYPE type, vector3 pos)
 {
 	switch (type)
 	{
-		case OBJECT_TYPE::DESK:
-			_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::DESK, IMG_M->findImage("desk"), pos, 70); //58
-			_type = type;
+	case OBJECT_TYPE::DESK:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::DESK, IMG_M->findImage("desk"), pos, 70); //58
+		_type = type;
 		break;
-		case OBJECT_TYPE::TABLE:
-			_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::TABLE, IMG_M->findImage("table"), pos, 50); //58
-			_type = type;
-			break;
-		default:
+	case OBJECT_TYPE::TABLE:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::TABLE, IMG_M->findImage("table"), pos, 50); //58
+		_type = type;
+		break;
+	case OBJECT_TYPE::LADDER:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::LADDER, nullptr, pos, 10);
+		_type = type;
+		break;
+	case OBJECT_TYPE::HARDPLATFORM:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::HARDPLATFORM, nullptr, pos, 0); //58
+		_type = type;
+		break;
+	default:
 		break;
 	}
 }

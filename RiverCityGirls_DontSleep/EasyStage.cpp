@@ -21,7 +21,7 @@ HRESULT EasyStage::init()
 	rightWallInit(vector3(1635, WINSIZEY, 0), vector3(1928, WINSIZEY, 0), vector3(1928, 0, 678), vector3(1635, 0, 385));
 
 	floorInit(vector3(0, 0, 650), vector3(2028, 0, 650), vector3(1928, 0, 650), vector3(57, 0, 650));
-	
+
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
@@ -45,7 +45,7 @@ HRESULT EasyStage::init()
 	EVENT_M->addEvent(new waitForSec(0.5f));
 	EVENT_M->addEvent(new cameraMove(vector3(600, 100, 0), 8, 1.0, 0.1f));
 	EVENT_M->addEvent(new cameraMove(vector3(10, 10, 0), 8, 1.0, 0.1f));*/
-	
+
 	return S_OK;
 }
 

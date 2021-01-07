@@ -131,6 +131,7 @@ void Player::update()
 		cout << "ÇÃ·§Æû Y: " << _platform->bottomPlane[0].getEnd().y << endl;
 		cout << "ÇÃ·§Æû Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 	}
+
 }
 
 //·»´õ
@@ -243,7 +244,7 @@ void Player::stageInit()
 		if (_stageM->getPreStage() == STAGETYPE::HARD) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ÇÏµåÀÌ¿´À¸¸é
 		{
 			_obj.setPosX(275);
-			_obj.setPosY(0); 
+			_obj.setPosY(0);
 			_obj.setPosZ(605);
 		}
 		break;
@@ -436,8 +437,6 @@ void Player::playFrame()
 //ÁÂÇ¥ÀÌµ¿
 void Player::movePos(float x, float z, float jumpPower)
 {
-	
-
 	_obj.pos.x += x;
 	_obj.pos.z += z;
 	_obj.pos.y -= jumpPower;
@@ -531,7 +530,5 @@ void Player::keyInput()
 			&& KEY_M->getKeyBuffer(2) == VK_LEFT && _info.dest == DIRECTION::LEFT)
 			cout << "°ø" << endl;
 	}
-
-
 }
 
