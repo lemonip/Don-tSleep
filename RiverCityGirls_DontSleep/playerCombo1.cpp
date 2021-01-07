@@ -13,13 +13,14 @@ void playerCombo1::EnterState()
 	case WEAPON_TYPE::BASEBALL:
 		break;
 	}
+	_iscollision = false;
 }
 
 void playerCombo1::UpdateState()
 {
 	//허공에 공격할 경우 프레임이 돌면 기본상태로 돌아간다.
 	if (isEndFrame(false)
-		&& !IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+		&& !IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
 		&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc)))
 		_thisPl->setState(PL_STATE::IDLE);
 
@@ -28,18 +29,19 @@ void playerCombo1::UpdateState()
 
 	//몹한테 첫충돌시
 	if(!_thisPl->getInfo().isAttack
-		&& IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc)))
 	{
 		_thisPl->SetIsAttack(true);
+		cout << "엥";
 		KEY_M->clearVKey();
 	}
-
+	
 	//몹한테 공격할 경우
 	if (isEndFrame(false)
 		&& KEY_M->getVKeyBuffer().size() !=0
 		&& KEY_M->getKeyBuffer(0) == 'S'
-		&& IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc))
 		&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
 	{
@@ -47,9 +49,10 @@ void playerCombo1::UpdateState()
 		_thisPl->SetIsAttack(false); 
 	}
 	
+	
 	//시간안에 몹한테 공격 못할 경우
 	if (isEndFrame(false)
-		&& IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc, &(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc))
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc, &(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc))
 		&&(( KEY_M->getVKeyBuffer().size() != 0
 		&& KEY_M->getKeyBuffer(0) != 'S')|| KEY_M->getVKeyBuffer().size() == 0)
 		)

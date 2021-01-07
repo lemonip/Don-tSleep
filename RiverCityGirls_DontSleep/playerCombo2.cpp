@@ -31,7 +31,11 @@ void playerCombo2::UpdateState()
 			&(_thisPl->getEnemyM()->getVEnemy()[0]->getRefObj().rc))
 		&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE
 		)
+	{
+		_thisPl->SetIsAttack(false);
 		_thisPl->setState(PL_STATE::COMBO3);
+	}
+		
 
 	//시간안에 몹한테 공격 못할 경우
 	if (isEndFrame(false)

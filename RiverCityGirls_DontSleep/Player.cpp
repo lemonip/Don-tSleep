@@ -122,6 +122,8 @@ void Player::update()
 	//프레임업뎃
 	playFrame();
 
+	if (_info.isAttack)cout << "공격" << endl;
+
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD0))
 	{
 		cout << "그림자 LT X: " << _obj.shadow.LT.x << endl;
