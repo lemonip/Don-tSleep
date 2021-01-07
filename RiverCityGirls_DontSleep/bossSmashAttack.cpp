@@ -5,42 +5,23 @@
 
 void bossSmashAttack::EnterState()
 {
-	_count = 0;
-	_count++;
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_smash");
 }
 
 void bossSmashAttack::UpdateState()
 {
-	if (_count % 8 == 0)
+	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x > _thisBs->getPlayerAddress()->getObj().pos.x)
 	{
-		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsPhase())
-		{
-			_thisBs->SetDest(BS_DEST::LEFT);
-			_thisBs->SetState(BS_STATE::SMASH);
-			_thisBs->ChangeImg("Bs_smash");
-			_thisBs->getIsAttack();
-		}
-
-		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsPhase())
-		{
-			_thisBs->SetDest(BS_DEST::RIGHT);
-			_thisBs->SetState(BS_STATE::SMASH);
-			_thisBs->ChangeImg("Bs_smash");
-			_thisBs->getIsAttack();
-		}
-
-		else
-		{
-			!_thisBs->getIsAttack();
-		}
-
-
+		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
+		RECT _temp;
+		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
+		//손바닥 어택보다 높은 대미지
 	}
 }
 
 void bossSmashAttack::ExitState()
 {
+	return;
+	_thisBs->SetState(BS_STATE::IDLE);
 }

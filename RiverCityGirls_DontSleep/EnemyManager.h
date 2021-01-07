@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 
+class Boss;
 class Enemy;
 class StageManager;
 /*====================================================================
@@ -11,6 +12,7 @@ class StageManager;
 class EnemyManager : public gameNode
 {
 private:
+	Boss* _boss;
 	vector<Enemy*> _vEnemy;
 	StageManager* _stageM;
 

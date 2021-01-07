@@ -2,6 +2,7 @@
 #include "IBossState.h"
 #include "Boss.h"
 
-void IBossState::move(float speed)
+void IBossState::BossMove()
 {
+	_thisBs->SetState(BS_STATE::MOVE);
 }

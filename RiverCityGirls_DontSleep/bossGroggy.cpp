@@ -4,19 +4,19 @@
 
 void bossGroggy::EnterState()
 {
-	_count = 0;
-	_count++;
-	_thisBs->ChangeImg("Bs_groggy");
+	_enterTime = TIME_M->getWorldTime();
+	_thisBs->ChangeImg("Bs_down");
 }
 
 void bossGroggy::UpdateState()
 {
-	if (_count % 8 == 0)
+	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
 	{
-		_thisBs->ChangeImg("Bs_groggy");
+		return;	// 저 시간동안 아무것도 안하겠다...(?)
 	}
 }
 
 void bossGroggy::ExitState()
 {
+	_thisBs->SetState(BS_STATE::IDLE);
 }

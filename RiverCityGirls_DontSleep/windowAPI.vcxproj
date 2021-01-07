@@ -162,7 +162,7 @@
     <ClInclude Include="bossMeteor.h" />
     <ClInclude Include="bossMove.h" />
     <ClInclude Include="bossPhase2.h" />
-    <ClInclude Include="bossSlabAttack.h" />
+    <ClInclude Include="bossSlapAttack.h" />
     <ClInclude Include="bossSmashAttack.h" />
     <ClInclude Include="BossStage.h" />
     <ClInclude Include="bossStandAttack.h" />
@@ -300,7 +300,7 @@
     <ClCompile Include="bossMeteor.cpp" />
     <ClCompile Include="bossMove.cpp" />
     <ClCompile Include="bossPhase2.cpp" />
-    <ClCompile Include="bossSlabAttack.cpp" />
+    <ClCompile Include="bossSlapAttack.cpp" />
     <ClCompile Include="bossSmashAttack.cpp" />
     <ClCompile Include="BossStage.cpp" />
     <ClCompile Include="bossStandAttack.cpp" />

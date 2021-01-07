@@ -1,6 +1,6 @@
 #pragma once
 #include"IBossState.h"
-
+#define PI 3.14159f
 
 class StageManager;
 class Player;
@@ -10,7 +10,9 @@ class Boss;
 class bossMove :public IBossState
 {
 private:
-	int _count;
+	float _enterTime;
+	float _angle;
+	float _speed;
 	
 	
 public:
