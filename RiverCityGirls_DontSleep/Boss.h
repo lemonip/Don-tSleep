@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "Enemy.h"
 
+#define PI 3.14159f
+
 class Enemy;
 class Player;
 class StageManager;
@@ -72,6 +74,8 @@ private:
 	ENEMY_TYPE _ENEMY_TYPE;
 	
 
+	
+
 	/*			//공통 구조체 (헤더파일)
 	GameObject _obj;
 	StageManager* _stageM;
@@ -106,6 +110,8 @@ public:
 	Player* getPlayerAddress() { return _player; }	
 	GameObject* getObj() { return &_obj; }
 	GameObject getobj() { return _obj; }
+	tagInfo getIsInfo() { return _info; }
+	BS_DEST getIsDest() { return _dest; }
 	bool getIsDown() { return _isDown; }
 	bool getIsWait() { return _isWait; }
 	bool getIsPhase() { return _isPhase; }
@@ -123,13 +129,13 @@ public:
 	void SetDest(BS_DEST dest);
 	void setPosition(vector3 pos) { _obj.pos = pos; }	
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	
 
 	//기능함수===================================================
 
-	void setImage();
-	void stageInit();
+	void setImage();	
 	void MovePos(float x, float z, float y);				//좌표 이동
 	void ChangeImg(string imgName);						//이미지변경
-
+	
 };
 

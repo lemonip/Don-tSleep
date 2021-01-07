@@ -35,29 +35,31 @@ HRESULT Boss::init()
 
 	_obj.init(OBJECT_GROUP::BOSS, IMG_M->findImage("Bs_idle"), _obj.pos);	
 	_obj.imgIndex = { 0,0 }; 
+	
+	_info.angle = PI / 2;
+	_info.speed = 3.0f;
+
 	//상태패턴 등록
-	{
 		_idle = new bossIdle;
-		_wait = new bossWait;
-		_move = new bossMove;
+	_wait = new bossWait;
+	_move = new bossMove;
 
-		_block = new bossBlock;
-		_attacked = new bossAttacked;
-		_groggy = new bossGroggy;
-		_down = new bossDown;
-		_death = new bossDeath;
-		_phase = new bossPhase2;
+	_block = new bossBlock;
+	_attacked = new bossAttacked;
+	_groggy = new bossGroggy;
+	_down = new bossDown;
+	_death = new bossDeath;
+	_phase = new bossPhase2;
 
-		_howling = new bossHowling;
-		_meteor = new bossMeteor;
-		_dash = new bossDashAttack;
-		_elbow = new bossElbowAttack;
-		_slap = new bossSlapAttack;
-		_smash = new bossSmashAttack;
-		_standattack = new bossStandAttack;
-	}
+	_howling = new bossHowling;
+	_meteor = new bossMeteor;
+	_dash = new bossDashAttack;
+	_elbow = new bossElbowAttack;
+	_slap = new bossSlapAttack;
+	_smash = new bossSmashAttack;
+	_standattack = new bossStandAttack;
+
 	_BState = NULL;
-
 	SetState(BS_STATE::IDLE);
 	
 	_isAttack = false;
@@ -84,6 +86,7 @@ void Boss::release()
 void Boss::update()
 {
 	_obj.update();
+	setImage();
 	_BState->UpdateState();	
 	
 	SetState(BS_STATE::IDLE);
@@ -94,9 +97,7 @@ void Boss::update()
 	else
 	{
 		SetDest(BS_DEST::RIGHT);
-	}
-
-	setImage();
+	}	
 }
 
 void Boss::render()
@@ -166,6 +167,8 @@ void Boss::SetDest(BS_DEST dest)
 
 }
 
+
+
 void Boss::setImage()
 {
 	switch (_state)
@@ -221,19 +224,20 @@ void Boss::setImage()
 	}
 }
 
-void Boss::stageInit()
-{
-	
-}
 
 void Boss::MovePos(float x, float z, float y)
 {
 	_obj.pos.x += x;	
 	_obj.pos.z -= z;
-	_obj.pos.y += y;		
+	_obj.pos.y += y;
+	
 }
 
 void Boss::ChangeImg(string imgName)
 {
 	_obj.img = IMG_M->findImage(imgName);	
 }
+
+
+
+

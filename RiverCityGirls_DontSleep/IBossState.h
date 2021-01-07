@@ -21,7 +21,9 @@ public:
 	virtual void UpdateState() = 0;
 	virtual void ExitState() = 0;
 
-	void move(float speed);
+	virtual void BossMove();
+
+	
 	
 };
 

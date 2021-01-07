@@ -9,6 +9,7 @@ class bossElbowAttack :public IBossState
 {
 private:
 	int _count;
+	float _enterTime;
 	
 public:
 
