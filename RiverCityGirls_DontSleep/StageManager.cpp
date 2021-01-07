@@ -49,12 +49,12 @@ void StageManager::update()
 	_stage->update();
 	_player->update();
 
+	if (!EVENT_M->isEvent()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
+	// 디버그요오오오오옹(21.01.07 만두루루룸)
 	if (KEY_M->isOnceKeyDown(VK_F1)) setStage(STAGETYPE::EASY);
 	if (KEY_M->isOnceKeyDown(VK_F2)) setStage(STAGETYPE::NORMAL);
-	if (KEY_M->isOnceKeyDown(VK_F3)) setStage(STAGETYPE::HARD);
-	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::BOSS);
-
-	if (!EVENT_M->isEvent()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
+	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::HARD);
+	if (KEY_M->isOnceKeyDown(VK_F5)) setStage(STAGETYPE::BOSS);
 }
 
 /*====================================================================
@@ -95,6 +95,7 @@ void StageManager::setStage(STAGETYPE current)
 			_stage = new NormalStage;
 			_stage->setLinkStageM(this);
 			_stage->init();
+			
 		break;
 
 		case STAGETYPE::HARD:
