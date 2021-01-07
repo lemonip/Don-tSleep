@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "bossHowling.h"
 #include "Boss.h"
+#include "Player.h"
 
 void bossHowling::EnterState()
 {
@@ -13,7 +14,26 @@ void bossHowling::UpdateState()
 {
 	if (_count % 8 == 0)
 	{
-		_thisBs->ChangeImg("Bs_howling");
+		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
+			&& _thisBs->getIsHowling())
+		{
+			_thisBs->SetDest(BS_DEST::LEFT);
+			_thisBs->SetState(BS_STATE::HOWLING);
+			_thisBs->ChangeImg("Bs_howling");
+			_thisBs->getIsMove();
+			
+		}
+
+		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
+			&& _thisBs->getIsHowling())
+		{
+			_thisBs->SetDest(BS_DEST::RIGHT);
+			_thisBs->SetState(BS_STATE::HOWLING);
+			_thisBs->ChangeImg("Bs_howling");
+			_thisBs->getIsMove();
+			
+		}
+		
 	}
 }
 
