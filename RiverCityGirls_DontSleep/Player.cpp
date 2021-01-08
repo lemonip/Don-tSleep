@@ -107,9 +107,13 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
+	if (KEY_M->isStayKeyDown(VK_NUMPAD1))
+	{
+		cout << "그림자 전 제트: " << _obj.preShadow.LT.z << endl;
+		cout << "그림자 후 제트: " << _obj.shadow.LT.z << endl;
+	}
 	//상태업데이트
 	_IState->UpdateState();
 	//중력작용

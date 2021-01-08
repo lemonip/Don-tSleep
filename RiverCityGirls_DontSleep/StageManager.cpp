@@ -65,8 +65,8 @@ void StageManager::update()
 	// 디버그요오오오오옹(21.01.07 만두루루룸)
 	if (KEY_M->isOnceKeyDown(VK_F1)) setStage(STAGETYPE::EASY);
 	if (KEY_M->isOnceKeyDown(VK_F2)) setStage(STAGETYPE::NORMAL);
-	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::HARD);
-	if (KEY_M->isOnceKeyDown(VK_F5)) setStage(STAGETYPE::BOSS);
+	if (KEY_M->isOnceKeyDown(VK_F3)) setStage(STAGETYPE::HARD);
+	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::BOSS);
 }
 
 /*====================================================================
