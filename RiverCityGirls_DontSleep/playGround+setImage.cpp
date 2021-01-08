@@ -105,7 +105,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolGirlJumpAttack", "source/image/character/enemy/schoolGirl/jumpAttack.bmp", 1197, 354, 7, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlHardAttack", "source/image/character/enemy/schoolGirl/comboAttack3.bmp", 2412, 414, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlAttack1", "source/image/character/enemy/schoolGirl/comboAttack1.bmp", 1239, 354, 7, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("schoolGirlAttack2", "source/image/character/enemy/schoolGirl/comboAttack2.bmp", 2208, 354, 8, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("schoolGirlAttack2", "source/image/character/enemy/schoolGirl/comboAttack2.bmp", 1197, 354, 7, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlAttack3", "source/image/character/enemy/schoolGirl/comboAttack3.bmp", 2412, 414, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlDown", "source/image/character/enemy/schoolGirl/backdown.bmp", 6939, 376, 27, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlHeldHit", "source/image/character/enemy/schoolGirl/HeldHit.bmp", 576, 336, 4, 2, true, MAGENTA, true);

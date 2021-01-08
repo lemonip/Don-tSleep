@@ -504,6 +504,9 @@
     <ClInclude Include="DataManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="IEnemyState.h">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -898,6 +901,9 @@
     </ClCompile>
     <ClCompile Include="DataManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemyState.cpp">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

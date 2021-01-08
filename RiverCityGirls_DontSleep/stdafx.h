@@ -41,7 +41,7 @@ using namespace TFIVE_UTIL;
 //==================================
 
 #define WINNAME (LPTSTR)(TEXT("River City Girls"))
-#define WINSTARTX 50		//윈도우 시작좌표 X지점
+#define WINSTARTX 2000		//윈도우 시작좌표 X지점
 #define WINSTARTY 50		//윈도우 시작좌표 Y지점
 #define WINSIZEX 1280		//윈도우 가로크기
 #define WINSIZEY 720		//윈도우 세로크기

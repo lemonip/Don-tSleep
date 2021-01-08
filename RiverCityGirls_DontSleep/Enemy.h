@@ -56,10 +56,13 @@ protected:
 	{
 	public:
 		RECT rcDamage;                //피격 범위 렉트 
-		RECT rcAttack;				   //공격 범위 렉트
+		RECT rcAttack;				   //공격 범위 렉트 
 
-		float runSpeed;               //뛰는 이동 속도 
-		float walkSpeed;			   //걷는 이동 속도
+		float gravity;               //중력
+		float angle;                 //각도
+		float attack;                 //공격력
+		float baseSpeed;              //최초 스피드
+		float speed;                  //이동속도
 		float jumpPower;              //점프력
 		float frameTimer;            //프레임시간 타이머
 		float hp;					//체력
@@ -68,7 +71,7 @@ protected:
 		bool weapon;              //무기들었니
 		bool goRight;              //오른쪽으로 가고있니
 		bool isAttack;				//공격했니
-
+		bool isSky;                 //공중에 있니
 	};
 	
 
@@ -118,7 +121,7 @@ protected:
 	Player* _player;			//플래이어
 
 public:
-	virtual HRESULT init();
+	virtual HRESULT init(); 
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -127,8 +130,9 @@ public:
 									GETTER
 	====================================================================*/
 	Player* getPlayerAddress() { return _player; }
-	tagInfo    getInfo() { return _info; }
+	tagInfo&    getInfo() { return _info; }
 	GameObject* getObj() { return &_obj; }
+	DIRECTION& getdest() { return _dest; }
 
 	/*====================================================================
 									SETTER
@@ -140,15 +144,15 @@ public:
 	virtual void setGoRight(bool go) { _info.goRight = go; }
 	virtual void setIsAttack(bool attack) { _info.isAttack = attack; }
 	virtual void SetState(EN_STATE state);
+	virtual void setSpeed(float speed) { _info.speed = speed; }
 
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
 	virtual void xzyMove(int x,int z, int y);
-
-	virtual void SetImage(string strKey);
-
+	virtual void SetImage();
 	virtual void setFrame(int count, float frameInterval);
 	virtual void playFrame();
+	//virtual void setBool();
 };
 
