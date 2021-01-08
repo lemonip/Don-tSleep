@@ -86,6 +86,7 @@ private:
 	bool _isWait;
 	bool _isPhase;
 	bool _isBlock;
+	bool _isDead;
 	bool _isMove;
 	bool _isElbow;
 	bool _isMeteor;
