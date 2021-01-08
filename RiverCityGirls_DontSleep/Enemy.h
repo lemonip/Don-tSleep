@@ -100,9 +100,7 @@ protected:
 	DIRECTION _dest;
 	ENEMY_TYPE _ENEMY_TYPE;
 	EN_STATE _state;               //현재 상태 enum
-
-	int _imageXIndex;			//이미지 가로 인덱스
-	int _imageYIndex;			//이미지 세로 인덱스
+		
 	float _runSpeed;               //뛰는 이동 속도 
 	float _walkSpeed;			   //걷는 이동 속도
 	float _jumpPower;              //점프력

@@ -11,18 +11,7 @@ void bossWait::EnterState()
 
 void bossWait::UpdateState()
 {
-	if (_count % 4 == 0)
-	{	
-		if (!_thisBs->getIsAttack() && !_thisBs->getIsMove() && !_thisBs->getIsPhase())
-
-		_thisBs->getIsWait();
-		_thisBs->ChangeImg("Bs_idle");
-	}
-
-	else
-	{
-		!_thisBs->getIsWait();
-	}
+	
 
 	/*	1. slab attack 
 		2. elbow attack

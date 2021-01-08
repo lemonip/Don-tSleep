@@ -52,21 +52,10 @@ private:
 	
 	DIRECTION _dest;
 	BS_STATE _state;
-	ENEMY_TYPE _ENEMY_TYPE;
-	
+	ENEMY_TYPE _ENEMY_TYPE;	
 
 	RECT _rcAttack;
-	bool _isAttack;
-	bool _isDown;
-	bool _isWait;
-	bool _isPhase;
-	bool _isBlock;
-	bool _isMove;
-	bool _isElbow;
-	bool _isMeteor;
-	bool _isSmash;
-	bool _isHowling;
-	bool _isDash;
+	float _frameTimer;
 
 	   
 public:
@@ -81,19 +70,9 @@ public:
 	Player* getPlayerAddress() { return _player; }	
 	GameObject* getObj() { return &_obj; }
 	GameObject getobj() { return _obj; }
-	tagInfo getIsInfo() { return _info; }
+	tagInfo getinfo() { return _info; }
 	DIRECTION getIsDest() { return _dest; }
-	bool getIsDown() { return _isDown; }
-	bool getIsWait() { return _isWait; }
-	bool getIsPhase() { return _isPhase; }
-	bool getIsBlock() { return _isBlock; }
-	bool getIsAttack() { return _isAttack; }
-	bool getIsMove() { return _isMove; }
-	bool getIsElbow() { return _isElbow; }
-	bool getIsMeteor() { return _isMeteor; }
-	bool getIsSmash() { return _isSmash; }
-	bool getIsHowling() { return _isHowling; }
-	bool getIsDash() { return _isDash; }
+	
 	
 	//지정자===================================================
 	void SetState(BS_STATE state);
@@ -103,7 +82,9 @@ public:
 	
 
 	//기능함수===================================================
-
+	void playFrame(int count);
+	void frameUpdate();
+	//void setFrame(FRAMETYPE _frametype);
 	void setImage();	
 	void MovePos(float x, float z, float y);				//좌표 이동
 	void ChangeImg(string imgName);						//이미지변경

@@ -11,7 +11,7 @@ void bossStandAttack::UpdateState()
 {
 	if (TIME_M->getWorldTime() - _enterTime > 2.0f)
 	{
-		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
 		RECT _temp;
 		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
 	}

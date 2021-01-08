@@ -20,7 +20,7 @@ void bossMeteor::UpdateState()
 		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
 		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
 
-		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
 		RECT _temp;
 		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
 		// 화면위로 올려서 그래비티를 받게 해서 바닥만 충돌을 일으키거나, 
