@@ -80,7 +80,7 @@ void playGround::render()
 	if (EVENT_M->getIsMovie()) return;	//영상 재생 중에는 렌더하지 않는다.
 	SCENE_M->render();								//씬 렌더
 	CAMERA_M->render(getBackDC(),_mapBuffer);		//카메라 렌더
-	EVENT_M->render(getBackDC());
+	EVENT_M->render(getBackDC());					//이벤트 렌더
 
 	//================= 디버깅 용 =================
 	//FPS 확인

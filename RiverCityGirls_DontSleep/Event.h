@@ -12,8 +12,7 @@ class Player;
 ====================================================================*/
 class Event
 {
-protected:
-	bool _isEnd;
+public:
 	bool _isMovie;
 	bool _isCameraMove;
 	Player* _player;
@@ -127,7 +126,6 @@ public:
 class waitForSec : public Event
 {
 private:
-	float _sec;
 	float _endTime;
 
 public:

@@ -40,12 +40,11 @@ HRESULT EasyStage::init()
 	====================================================================*/
 	//이벤트는 현재 테스트 용으로 아무거나 넣어 놨음! 피곤하면 모두 지우거나 주석처리 하세용.
 	/*
-	EVENT_M->addEvent(new cameraMove(vector3(500, 0, 0), 8, 1.0, 0.1f));
-	EVENT_M->addEvent(new waitForSec(0.3f));
-	EVENT_M->addEvent(new cameraMove(vector3(0, 100, 0), 8, 1.2, 0.01f));
-	EVENT_M->addEvent(new waitForSec(0.5f));
-	EVENT_M->addEvent(new cameraMove(vector3(600, 100, 0), 8, 1.0, 0.1f));
-	EVENT_M->addEvent(new cameraMove(vector3(10, 10, 0), 8, 1.0, 0.1f));*/
+	EVENT_M->addEvent(new cameraMove(vector3(50, 0, 0), 8, 1.3, 0.01f));
+	EVENT_M->addEvent(new waitForSec(1.5f));
+	EVENT_M->addEvent(new cameraMove(vector3(50, 0, 0), 8, 1.0, 0.1f));
+	EVENT_M->addEvent(new waitForSec(1.5f));
+	*/
 	EVENT_M->addEvent(new dialogue(DIALOGLIST::EASY_START), false);
 
 	return S_OK;

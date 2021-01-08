@@ -468,9 +468,6 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="DialogueManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SelectScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
@@ -793,9 +790,6 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>playGround\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogueManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="IPlayerState.cpp">
       <Filter>playGround\Player\playerState</Filter>

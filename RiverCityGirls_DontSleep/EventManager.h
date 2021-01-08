@@ -14,8 +14,6 @@ private:
 	queue<Event*> _qEvent;		//이벤트가 담긴 이벤트 큐
 
 	bool _playerControl;		//플래이어 컨트롤이 가능한지
-	bool _isMovie;				//영상 재생 중인지
-	bool _isCameraMove;			//카메라가 이동 중인지
 	Player* _player;			//플래이어 링크
 
 public:

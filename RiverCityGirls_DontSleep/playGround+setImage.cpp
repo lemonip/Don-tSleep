@@ -40,8 +40,6 @@ void playGround::addImage()
 	IMG_M->addImage("misuzu_1", "source/image/ui/scene/misuzu_1.bmp", 386, 460, true, MAGENTA);
 	IMG_M->addImage("misuzu_2", "source/image/ui/scene/misuzu_2.bmp", 386, 460, true, MAGENTA);
 	IMG_M->addImage("misuzu_3", "source/image/ui/scene/misuzu_3.bmp", 386, 460, true, MAGENTA);
-	IMG_M->addImage("kyoko_name", "source/image/ui/scene/kyoko_name.bmp", 200, 72, true, MAGENTA);
-	IMG_M->addImage("misuzu_name", "source/image/ui/scene/misuzu_name.bmp", 200, 72, true, MAGENTA);
 
 
 	//================= UI =================
