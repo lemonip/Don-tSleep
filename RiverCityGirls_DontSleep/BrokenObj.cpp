@@ -8,7 +8,22 @@ BrokenObj::BrokenObj(OBJECT_TYPE type, vector3 pos)
 	case OBJECT_TYPE::VENDINGMACHINE:
 		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::VENDINGMACHINE, IMG_M->findImage("vendingMachine"), pos, 60, false);
 		_type = type;
-		_frameIdx = 1;
+		break;
+	case OBJECT_TYPE::PILLAR_LEFT:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::PILLAR_LEFT, IMG_M->findImage("pillar"), pos, 68, false);
+		_type = type;
+		break;
+	case OBJECT_TYPE::PILLAR_RIGHT:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::PILLAR_RIGHT, IMG_M->findImage("pillar"), pos, 68, false);
+		_type = type;
+		break;
+	case OBJECT_TYPE::PILLAR_BIG_LEFT:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::PILLAR_BIG_LEFT, IMG_M->findImage("pillar_big"), pos, 68, false);
+		_type = type;
+		break;
+	case OBJECT_TYPE::PILLAR_BIG_RIGHT:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::PILLAR_BIG_RIGHT, IMG_M->findImage("pillar_big"), pos, 68, false);
+		_type = type;
 		break;
 	default:
 		break;
@@ -26,8 +41,6 @@ void BrokenObj::release()
 
 void BrokenObj::update()
 {
-	if (_obj.isBroken) _frameIdx = 0;
-	else _frameIdx = 1;
 }
 
 void BrokenObj::render()
@@ -37,7 +50,18 @@ void BrokenObj::render()
 	case OBJECT_TYPE::VENDINGMACHINE:
 		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER);
 		break;
-
+	case OBJECT_TYPE::PILLAR_LEFT:
+		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER);
+		break;
+	case OBJECT_TYPE::PILLAR_RIGHT:
+		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER);
+		break;
+	case OBJECT_TYPE::PILLAR_BIG_LEFT:
+		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER);
+		break;
+	case OBJECT_TYPE::PILLAR_BIG_RIGHT:
+		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::FRAME_RENDER);
+		break;
 	default:
 		break;
 	}

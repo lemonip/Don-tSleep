@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "IPlayerState.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
 
 //업데이트 일시정지 유무 
 bool IPlayerState::pauseUpdate()
@@ -19,9 +21,9 @@ bool IPlayerState::isEndFrame(bool reverse)
 	case DIRECTION::LEFT:
 	{
 		//현재 프레임번호가 끝번호면 프레임재생이 끝
-		if (reverse == false && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())
+		if (reverse == false && _thisPl->getObj().img->getFrameX() >= _thisPl->getObj().img->getMaxFrameX())
 			return true;
-		if (reverse == true && _thisPl->getObj().img->getFrameX() == 0)
+		if (reverse == true && _thisPl->getObj().img->getFrameX() <= 0)
 			return true;
 
 		return false;
@@ -29,8 +31,8 @@ bool IPlayerState::isEndFrame(bool reverse)
 	case DIRECTION::RIGHT:
 	{
 		//현재 프레임번호가 0 번호면 프레임재생이 끝
-		if (reverse == false && _thisPl->getObj().img->getFrameX() == 0) return true;
-		if (reverse == true && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())return true;
+		if (reverse == false && _thisPl->getObj().img->getFrameX() <= 0) return true;
+		if (reverse == true && _thisPl->getObj().img->getFrameX() >= _thisPl->getObj().img->getMaxFrameX())return true;
 		return false;
 	}
 	}
@@ -56,6 +58,34 @@ void IPlayerState::basePattern()
 	//약공격
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO1);
 
+}
+
+//공격상태면 공격으로 전환
+void IPlayerState::checkAttack()
+{
+	RECT temp;
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+		if (IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+			&& _thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj()))
+			_thisPl->SetIsAttack(true);
+	}
+}
+
+//강공격
+void IPlayerState::sAttack()
+{
+	if (KEY_M->isOnceKeyDownV('D'))
+	{
+		for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+		{
+			//if (_thisPl->getEnemyM()->getVEnemy()[i]);
+			_thisPl->setState(PL_STATE::SATTACK);
+			//★ 적상태가 쓰러진상태면 스톰프로 동작바꾸기
+			//if (_thisPl->getEnemyM()->getVEnemy()[i]);
+		}
+	}
 }
 
 //상하이동

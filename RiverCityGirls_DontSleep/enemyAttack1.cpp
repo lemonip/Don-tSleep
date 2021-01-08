@@ -9,6 +9,7 @@ void enemyAttack1::EnterState()
 
 void enemyAttack1::UpdateState()
 {
+
 	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::RIGHT);
 	else if (_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::LEFT);
 	if (_thisEn->getdest() == DIRECTION::RIGHT)
@@ -28,6 +29,7 @@ void enemyAttack1::UpdateState()
 	{
 		_thisEn->SetState(EN_STATE::EN_ATTACK2);
 	}
+
 
 }
 

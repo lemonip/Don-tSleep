@@ -18,7 +18,7 @@ void playerWait::UpdateState()
 	basePattern();
 
 	//°­°ø°Ý
-	if (KEY_M->isOnceKeyDownV('D'))_thisPl->setState(PL_STATE::SATTACK);
+	sAttack();
 
 }
 

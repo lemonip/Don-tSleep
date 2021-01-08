@@ -162,7 +162,7 @@
     <ClInclude Include="bossMeteor.h" />
     <ClInclude Include="bossMove.h" />
     <ClInclude Include="bossPhase2.h" />
-    <ClInclude Include="bossSlabAttack.h" />
+    <ClInclude Include="bossSlapAttack.h" />
     <ClInclude Include="bossSmashAttack.h" />
     <ClInclude Include="BossStage.h" />
     <ClInclude Include="bossStandAttack.h" />
@@ -231,6 +231,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerClimb.h" />
+    <ClInclude Include="playerClimbTop.h" />
     <ClInclude Include="playerCombo1.h" />
     <ClInclude Include="playerCombo2.h" />
     <ClInclude Include="playerCombo3.h" />
@@ -301,7 +302,7 @@
     <ClCompile Include="bossMeteor.cpp" />
     <ClCompile Include="bossMove.cpp" />
     <ClCompile Include="bossPhase2.cpp" />
-    <ClCompile Include="bossSlabAttack.cpp" />
+    <ClCompile Include="bossSlapAttack.cpp" />
     <ClCompile Include="bossSmashAttack.cpp" />
     <ClCompile Include="BossStage.cpp" />
     <ClCompile Include="bossStandAttack.cpp" />
@@ -368,6 +369,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerClimb.cpp" />
+    <ClCompile Include="playerClimbTop.cpp" />
     <ClCompile Include="playerCombo1.cpp" />
     <ClCompile Include="playerCombo2.cpp" />
     <ClCompile Include="playerCombo3.cpp" />

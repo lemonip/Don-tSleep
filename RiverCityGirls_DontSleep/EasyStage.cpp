@@ -31,10 +31,10 @@ HRESULT EasyStage::init()
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(1210, 0, 545));
 	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
 
+
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 40));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 100, 0, WINSIZEY / 2 + 40));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 200, 0, WINSIZEY / 2 + 40));
-
 
 
 	/*====================================================================
@@ -48,6 +48,7 @@ HRESULT EasyStage::init()
 	EVENT_M->addEvent(new waitForSec(0.5f));
 	EVENT_M->addEvent(new cameraMove(vector3(600, 100, 0), 8, 1.0, 0.1f));
 	EVENT_M->addEvent(new cameraMove(vector3(10, 10, 0), 8, 1.0, 0.1f));*/
+	EVENT_M->addEvent(new dialogue(DIALOGLIST::EASY_START), false);
 
 	return S_OK;
 }

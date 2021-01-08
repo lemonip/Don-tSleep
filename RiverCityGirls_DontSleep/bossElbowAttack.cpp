@@ -5,38 +5,28 @@
 
 void bossElbowAttack::EnterState()
 {
-	_count = 0;
-	_count++;
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_elbow");
 }
 
 void bossElbowAttack::UpdateState()
 {
-	if (_count % 8 == 0)
+	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x > _thisBs->getPlayerAddress()->getObj().pos.x)
 	{
-		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsElbow())
-		{
-			_thisBs->SetDest(BS_DEST::LEFT);
-			_thisBs->SetState(BS_STATE::ELBOW);
-			_thisBs->ChangeImg("Bs_elbow");
-			_thisBs->getIsMeteor();
-		}
-
-		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsElbow())
-		{
-			_thisBs->SetDest(BS_DEST::RIGHT);
-			_thisBs->SetState(BS_STATE::ELBOW);
-			_thisBs->ChangeImg("Bs_elbow");
-			_thisBs->getIsMeteor();
-		}
-		
+		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
+		RECT _temp;
+		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
 	}
 
-	
+	else if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x < _thisBs->getPlayerAddress()->getObj().pos.x)
+	{
+		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
+		RECT _temp;
+	}
 }
 
 void bossElbowAttack::ExitState()
 {
+	return;
+	_thisBs->SetState(BS_STATE::IDLE);
 }
