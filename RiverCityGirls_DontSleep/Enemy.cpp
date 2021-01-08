@@ -36,12 +36,6 @@
 #include "enemyWThrow.h"
 #include "enemyWWalk.h"
 
-
-//Å×½ºÆ®=======================================================================
-#include<iostream>
-#pragma comment (linker, "/entry:WinMainCRTStartup /subsystem:console")
-using namespace std;
-
 HRESULT Enemy::init()
 {
 	_player = _stageM->getPlayer();

@@ -15,7 +15,7 @@ void UIManager::release()
 ====================================================================*/
 void UIManager::update()
 {
-	if (KEY_M->isOnceKeyDown(VK_F3))
+	if (KEY_M->isOnceKeyDown(VK_F9))
 	{
 		_isActive = !_isActive;
 	}

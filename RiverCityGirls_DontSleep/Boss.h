@@ -1,16 +1,7 @@
 #pragma once
-#include "gameNode.h"
-#include "GameObject.h"
 #include "Enemy.h"
 
-#define PI 3.14159f
-
-class Enemy;
-class Player;
-class StageManager;
-class ObjectManager;
 class IBossState;
-
 
 enum class BS_STATE : int
 {
@@ -33,13 +24,6 @@ enum class BS_STATE : int
 	SMASH,			//스매시 어택
 	STANDATTACK		//기상 어택	
 	
-};
-
-//보스 방향
-enum class BS_DEST 
-{
-	RIGHT,
-	LEFT
 };
 
 class Boss : public Enemy
@@ -66,22 +50,9 @@ private:
 	IBossState*	_smash;			//스매시 어택
 	IBossState*	_standattack;	//기상 어택
 	
-	IBossState* _right;			//보스 방향
-	IBossState* _left;			//보스 방향
-
-	BS_DEST _dest;
+	DIRECTION _dest;
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;
-	
-
-	
-
-	/*			//공통 구조체 (헤더파일)
-	GameObject _obj;
-	StageManager* _stageM;
-	ObjectManager* _objectM;
-	Player* _player;
-	Enemy* _enemy;*/
 	
 
 	RECT _rcAttack;
@@ -111,7 +82,7 @@ public:
 	GameObject* getObj() { return &_obj; }
 	GameObject getobj() { return _obj; }
 	tagInfo getIsInfo() { return _info; }
-	BS_DEST getIsDest() { return _dest; }
+	DIRECTION getIsDest() { return _dest; }
 	bool getIsDown() { return _isDown; }
 	bool getIsWait() { return _isWait; }
 	bool getIsPhase() { return _isPhase; }
@@ -126,7 +97,7 @@ public:
 	
 	//지정자===================================================
 	void SetState(BS_STATE state);
-	void SetDest(BS_DEST dest);
+	void SetDest(DIRECTION dest);
 	void setPosition(vector3 pos) { _obj.pos = pos; }	
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	

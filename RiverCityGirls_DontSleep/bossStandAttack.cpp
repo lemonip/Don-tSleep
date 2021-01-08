@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "bossStandAttack.h"
-#include "Boss.h"
-#include "Player.h"
 
 void bossStandAttack::EnterState()
 {
