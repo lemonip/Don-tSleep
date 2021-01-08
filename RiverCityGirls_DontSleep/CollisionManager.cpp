@@ -73,7 +73,10 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			{
 				if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)	// 위에서 아래로 내려가면
 				{
+					cout << "전 : " << character->preShadow.LB.z << endl;
+					cout << "바텀 윗변" << obj->bottomPlane[0].getStart().z << endl;
 					character->pos.z = obj->bottomPlane[0].getStart().z - character->shadow.height / 2;
+					cout << "후 : " << character->preShadow.LB.z << endl;
 				}
 			}
 		}
@@ -132,8 +135,11 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						character->pos.x = obj->bottomPlane[1].getX(character->shadow.LT.z) + character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
 					}
 					else // 그림자 윗변이 오브젝트 윗변보다 위에 있을 경우
-					{
-						character->pos.x = obj->bottomPlane[1].getStart().x + character->shadow.width / 2;
+					{	
+						if (character->preShadow.LB.z > obj->bottomPlane[0].getEnd().z)
+						{
+							character->pos.x = obj->bottomPlane[1].getStart().x + character->shadow.width / 2;
+						}
 					}
 				}
 			}
@@ -157,7 +163,10 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					}
 					else // 그림자 밑변이 오브젝트 밑변보다 아래에 있을 경우
 					{
-						character->pos.x = obj->bottomPlane[1].getEnd().x + character->shadow.width / 2;
+						if (character->preShadow.LT.z < obj->bottomPlane[2].getStart().z)
+						{
+							character->pos.x = obj->bottomPlane[1].getEnd().x + character->shadow.width / 2;
+						}
 					}
 				}
 			}
@@ -188,7 +197,10 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					}
 					else // 그림자 밑변이 오브젝트 밑변보다 아래에 있을 경우
 					{
-						character->pos.x = obj->bottomPlane[3].getStart().x - character->shadow.width / 2;
+						if (character->preShadow.RT.z < obj->bottomPlane[2].getEnd().z)
+						{
+							character->pos.x = obj->bottomPlane[3].getStart().x - character->shadow.width / 2;
+						}
 					}
 				}
 			}
@@ -211,7 +223,10 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					}
 					else // 그림자 윗변이 오브젝트 윗변보다 위에 있을 경우
 					{
-						character->pos.x = obj->bottomPlane[3].getEnd().x - character->shadow.width / 2;
+						if (character->preShadow.RT.z > obj->bottomPlane[0].getStart().z)
+						{
+							character->pos.x = obj->bottomPlane[3].getEnd().x - character->shadow.width / 2;
+						}
 					}
 				}
 			}
