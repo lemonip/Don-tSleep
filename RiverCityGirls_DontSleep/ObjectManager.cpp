@@ -55,6 +55,9 @@ void ObjectManager::pushObject(OBJECT_TYPE type, vector3 pos)
 	case OBJECT_TYPE::LADDER:
 		_vObject.push_back(new StandingObj(type, pos));
 		break;
+	case OBJECT_TYPE::HARDPLATFORM:
+		_vObject.push_back(new StandingObj(type, pos));
+		break;
 	case OBJECT_TYPE::PILLAR_LEFT: case OBJECT_TYPE::PILLAR_BIG_LEFT:
 		_vObject.push_back(new BrokenObj(type, pos));
 		break;

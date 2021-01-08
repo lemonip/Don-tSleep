@@ -95,6 +95,7 @@ private:
 		bool isConDest;				//방향전환 가능 유무
 		bool isSky;					//허공 유무
 		bool isAttack;				//공격 유무
+		bool isClimb;				//사다리 가능 유무
 
 		MOVE_DIRECTION  moveDest;	//행동 방향
 		DIRECTION dest;				//인덱스 방향
@@ -195,6 +196,7 @@ public:
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }
 	void setIsSky(bool is) { _info.isSky = is; }
+	void setIsClimb(bool is) { _info.isClimb = is; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/

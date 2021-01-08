@@ -513,7 +513,7 @@ void Player::renewAttackRc()
 //중력작용
 void Player::gravity()
 {
-	if (_info.isSky) _info.jumpPower -= GRAVITYVALUE;
+	if (_info.isSky == true) _info.jumpPower -= GRAVITYVALUE;
 	if (_obj.pos.y >= 0 && _info.isSky == true)
 	{
 		setState(PL_STATE::IDLE);
@@ -529,7 +529,7 @@ void Player::gravity()
 		_platform = nullptr;
 	}
 	if (_obj.pos.y > 0) _info.jumpPower = 0;
-	movePos(0, 0, _info.jumpPower);
+	if (_info.isClimb == false) movePos(0, 0, _info.jumpPower);
 }
 
 //키입력
