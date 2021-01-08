@@ -3,6 +3,7 @@
 
 class playerStun :public IPlayerState
 {
+	float _stunTimer;
 public:
 
 	virtual void EnterState();

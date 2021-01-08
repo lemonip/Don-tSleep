@@ -33,7 +33,8 @@ HRESULT EasyStage::init()
 
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 50));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 4 + 80, 0, WINSIZEY / 2 + 280));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX *.7, 0, WINSIZEY / 2 + 260));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX *.7, 0, WINSIZEY / 2 + 250));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX *.7, 0, WINSIZEY / 2 + 250));
 
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
