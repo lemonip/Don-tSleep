@@ -216,4 +216,16 @@ void playGround::addImage()
 	IMG_M->addFrameImage("bat", "source/image/object/bat.bmp", 179, 104, 1, 2, true, MAGENTA, true);
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
+
+	//================= 이팩트 =================
+	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("ef_beg", "beg.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
+	EFFECT_M->addEffect("ef_blueAttack", "blueAttack.bmp", 720, 80, 80, 80, 1.f, 2.f, 50);
+	EFFECT_M->addEffect("ef_explosion", "explosion.bmp", 2701, 247, 385, 247, 1.f, 2.f, 50);
+	EFFECT_M->addEffect("ef_runL", "runL.bmp", 2544, 123, 212, 123, 1.f, 2.f, 20);
+	EFFECT_M->addEffect("ef_runR", "runR.bmp", 2544, 123, 212, 123, 1.f, 2.f, 20);
+	EFFECT_M->addEffect("ef_shake", "shake.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
+	EFFECT_M->addEffect("ef_spark", "spark.bmp", 512, 128, 128, 128, 1.f, 3.f, 20);	
+	EFFECT_M->addEffect("ef_star", "star.bmp", 1350, 90, 90, 90, 1.f, 3.f, 20);
+	EFFECT_M->addEffect("ef_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 3.f, 20);
 }

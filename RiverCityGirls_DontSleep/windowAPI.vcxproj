@@ -229,6 +229,7 @@
     <ClInclude Include="NormalStage.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="pet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerClimb.h" />
     <ClInclude Include="playerClimbTop.h" />
@@ -367,6 +368,7 @@
     <ClCompile Include="NormalStage.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="pet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerClimb.cpp" />
     <ClCompile Include="playerClimbTop.cpp" />

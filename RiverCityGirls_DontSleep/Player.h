@@ -5,7 +5,7 @@
 #define JUMPPOWERVALUE  15.f			//점프파워 수치
 #define FRAMEINTERVAL	0.1f			//프레임 인터벌
 #define ATTACKSIZE		480			//일반공격 사이트
-#define THROWSPEED		20			//일반무기 날리는 속도
+#define THROWSPEED		15			//일반무기 날리는 속도
 
 
 //전방선언
@@ -78,16 +78,18 @@ private:
 	//공격 정보 구조체
 	struct tagAttackInfo
 	{
+		GameObject _obj;
+		float width, height;	//크기
+		/*
 		RECT  rc;				// 공격렉트
 		vector3 pos;			// 공격 좌표
-		float width, height;	//크기
-		image* img;				//이미지
+		image* img;				//이미지*/
 	};
 	//정보 구조체
 	struct tagInfo
 	{
 	public:
-		struct tagAttackInfo attackInfo;	//공격 정보
+		tagAttackInfo attackInfo;	//공격 정보
 		float jumpPower;			//점프파워
 		float speed;				//속도
 

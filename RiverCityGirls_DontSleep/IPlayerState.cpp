@@ -66,7 +66,7 @@ void IPlayerState::checkAttack()
 	RECT temp;
 	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 	{
-		if (IntersectRect(&temp, &_thisPl->getInfo().attackInfo.rc,
+		if (IntersectRect(&temp, &_thisPl->getInfo().attackInfo._obj.rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 			&& _thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj()))
 			_thisPl->SetIsAttack(true);

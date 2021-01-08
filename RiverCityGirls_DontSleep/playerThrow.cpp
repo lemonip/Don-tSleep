@@ -19,7 +19,7 @@ void playerThrow::UpdateState()
 	{
 		if (!_isCollsion
 			&&_thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj(), 30)
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
 
@@ -33,7 +33,7 @@ void playerThrow::UpdateState()
 	if (isEndFrame(false))
 	{
 		//무기타입을 없음으로 변경
-		if (_thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)_thisPl->setWeaponType(WEAPON_TYPE::NONE);
+		//if (_thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)_thisPl->setWeaponType(WEAPON_TYPE::NONE);
 
 		//키조작 가능한 상태로 변경
 		_thisPl->setIsControl(true);
