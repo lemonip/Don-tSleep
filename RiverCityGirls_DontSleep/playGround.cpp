@@ -59,6 +59,7 @@ void playGround::update()
 		cout << "¸¶¿ì½º XÁÂÇ¥: " << _ptMouse.x << endl;
 		cout << "¸¶¿ì½º YÁÂÇ¥: " << _ptMouse.y << endl;
 	}
+	
 }
 
 /*====================================================================
@@ -79,9 +80,9 @@ void playGround::render()
 	//================ ·»´õ ½ÃÀÛ =================
 	if (EVENT_M->getIsMovie()) return;	//¿µ»ó Àç»ý Áß¿¡´Â ·»´õÇÏÁö ¾Ê´Â´Ù.
 	SCENE_M->render();								//¾À ·»´õ
+
 	CAMERA_M->render(getBackDC(),_mapBuffer);		//Ä«¸Þ¶ó ·»´õ
 	EVENT_M->render(getBackDC());
-
 	//================= µð¹ö±ë ¿ë =================
 	//FPS È®ÀÎ
 	if (KEY_M->isToggleKey(VK_TAB)) TIME_M->render(getBackDC());

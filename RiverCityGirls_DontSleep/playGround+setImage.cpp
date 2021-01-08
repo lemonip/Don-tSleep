@@ -47,8 +47,8 @@ void playGround::addImage()
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
 	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);
 	IMG_M->addImage("hardStage", "source/image/stage/hard.bmp", 2328, 1428, false, MAGENTA);
-	IMG_M->addImage("bossStage", "source/image/stage/boss1.bmp", 2077, 810, false, MAGENTA);
-	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 2077, 810, false, MAGENTA);
+	IMG_M->addImage("bossStage", "source/image/stage/boss1.bmp", 3116, 1215, false, MAGENTA);
+	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 3116, 1215, false, MAGENTA);
 
 	//================= 플래이어 =================
 	IMG_M->addFrameImage("pl_climb", "source/image/character/player/climb.bmp", 720, 237, 6, 1, true, MAGENTA, true);
@@ -119,7 +119,11 @@ void playGround::addImage()
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
 	IMG_M->addImage("table", "source/image/object/table.bmp", 339, 162, true, MAGENTA, true);
 	IMG_M->addFrameImage("vendingMachine", "source/image/object/vendingMachine.bmp", 525, 260, 2, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("pillar", "source/image/object/pillar.bmp", 390, 678, 2, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("pillar_big", "source/image/object/pillar_big.bmp", 390, 1000, 2, 1, true, MAGENTA, true);
+
 	IMG_M->addFrameImage("bat", "source/image/object/bat.bmp", 179, 104, 1, 2, true, MAGENTA, true);
+	
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
 }

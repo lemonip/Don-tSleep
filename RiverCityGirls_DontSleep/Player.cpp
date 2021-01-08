@@ -107,7 +107,6 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 	//상태업데이트
