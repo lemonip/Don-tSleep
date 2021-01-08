@@ -1,6 +1,5 @@
 #pragma once
 #include"IBossState.h"
-#define PI 3.14159f
 
 class StageManager;
 class Player;

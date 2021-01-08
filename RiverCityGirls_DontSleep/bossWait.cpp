@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "bossWait.h"
-#include "Boss.h"
-#include "Player.h"
 
 void bossWait::EnterState()
 {
@@ -9,7 +7,6 @@ void bossWait::EnterState()
 	_count++;	
 	
 	_thisBs->ChangeImg("Bs_idle");
-	
 }
 
 void bossWait::UpdateState()

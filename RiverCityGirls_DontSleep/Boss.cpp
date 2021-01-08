@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include "Boss.h"
 #include "bossMeteor.h"
 #include "bossAttacked.h"
@@ -23,13 +24,9 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Stage.h"
-#include "StageManager.h"
-
-
 
 HRESULT Boss::init()
 {
-	
 	_player = _stageM->getPlayer();
 	_objectM = _stageM->getStage()->getObjectM();
 
@@ -40,7 +37,7 @@ HRESULT Boss::init()
 	_info.speed = 3.0f;
 
 	//상태패턴 등록
-		_idle = new bossIdle;
+	_idle = new bossIdle;
 	_wait = new bossWait;
 	_move = new bossMove;
 
@@ -74,7 +71,6 @@ HRESULT Boss::init()
 	_isSmash = false;
 	_isHowling = false;
 	_isDash = false;
-	
 
 	return S_OK;
 }
@@ -88,15 +84,14 @@ void Boss::update()
 	_obj.update();
 	setImage();
 	_BState->UpdateState();	
-	
-	SetState(BS_STATE::IDLE);
+
 	if (_player->getObj().pos.x <= _obj.pos.x)
 	{
-		SetDest(BS_DEST::LEFT);
+		SetDest(DIRECTION::LEFT);
 	}
 	else
 	{
-		SetDest(BS_DEST::RIGHT);
+		SetDest(DIRECTION::RIGHT);
 	}	
 }
 
@@ -106,7 +101,7 @@ void Boss::render()
 
 void Boss::SetState(BS_STATE state)
 {
-	if (_BState != NULL && _state == state)return; //같은 상태면 변경하지 않는다.
+	if (_BState != NULL && _state == state) return; //같은 상태면 변경하지 않는다.
 	_state = state;
 
 	//상태를 빠져나온다
@@ -144,27 +139,10 @@ void Boss::SetState(BS_STATE state)
 	_BState->EnterState();
 }
 
-void Boss::SetDest(BS_DEST dest)
+void Boss::SetDest(DIRECTION dest)
 {
-	if (_BState != NULL && _dest == dest)return; //같은 상태면 변경하지 않는다.
+	if (_dest == dest)return; //같은 상태면 변경하지 않는다.
 	_dest = dest;
-
-	//상태를 빠져나온다
-	if (_BState != NULL)_BState->ExitState();
-
-	//상태를 변경한다
-	switch (_dest)
-	{
-		//기본방향
-	case BS_DEST::LEFT:	    _BState = _left;		break;
-	case BS_DEST::RIGHT:	_BState = _right;		break;
-	
-	default: break;
-	}
-	//상태 링크
-	_BState->LinkBSAddress(this);
-	_BState->EnterState();
-
 }
 
 
@@ -173,34 +151,34 @@ void Boss::setImage()
 {
 	switch (_state)
 	{
-	case BS_STATE::IDLE:
-	    if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_idle"); }
+		case BS_STATE::IDLE:
+		  _obj.img = IMG_M->findImage("Bs_idle");
 		break;
-	case BS_STATE::WAIT:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_wait"); }
+		case BS_STATE::WAIT:
+			_obj.img = IMG_M->findImage("Bs_wait");
 		break;
-	case BS_STATE::MOVE:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_move"); }
+		case BS_STATE::MOVE:
+			_obj.img = IMG_M->findImage("Bs_move");
 		break;
-	case BS_STATE::BLOCK:
+		case BS_STATE::BLOCK:
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_block"); }
 		break;
-	case BS_STATE::ATTACKED:
+		case BS_STATE::ATTACKED:
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_attacked"); }
 		break;
-	case BS_STATE::GROGGY:
+		case BS_STATE::GROGGY:
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_groggy"); }
 		break;
-	case BS_STATE::PHASE:
+		case BS_STATE::PHASE:
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_phase"); }
 		break;
-	case BS_STATE::DOWN:
+		case BS_STATE::DOWN:
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_down"); }
 		break;
-	case BS_STATE::DEATH:
+		case BS_STATE::DEATH:
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_death"); }
 		break;
-	case BS_STATE::HOWLING:
+		case BS_STATE::HOWLING:
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_howling"); }
 		break;
 	case BS_STATE::METEOR:
@@ -222,6 +200,8 @@ void Boss::setImage()
 		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_standat"); }
 		break;	
 	}
+
+
 }
 
 
@@ -237,7 +217,4 @@ void Boss::ChangeImg(string imgName)
 {
 	_obj.img = IMG_M->findImage(imgName);	
 }
-
-
-
 
