@@ -1,6 +1,8 @@
 #pragma once
 
+
 class Player;
+class Boss;
 class Stage;
 
 /*====================================================================
@@ -12,6 +14,7 @@ class Stage;
 class StageManager
 {
 	Player* _player;
+	Boss* _boss;
 	Stage* _stage;
 	STAGETYPE _currentStage;
 	STAGETYPE _preStage;
@@ -33,6 +36,7 @@ public:
 	====================================================================*/
 	Stage* getStage() { return _stage; }
 	Player* getPlayer() { return _player; }
+	Boss* getBoss() { return _boss; }
 	STAGETYPE getCurStage() { return _currentStage; }
 	STAGETYPE getPreStage() { return _preStage; }
 

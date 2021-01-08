@@ -46,6 +46,7 @@ HRESULT EasyStage::init()
 	EVENT_M->addEvent(new waitForSec(0.5f));
 	EVENT_M->addEvent(new cameraMove(vector3(600, 100, 0), 8, 1.0, 0.1f));
 	EVENT_M->addEvent(new cameraMove(vector3(10, 10, 0), 8, 1.0, 0.1f));*/
+	EVENT_M->addEvent(new dialogue(DIALOGLIST::EASY_START), false);
 
 	return S_OK;
 }

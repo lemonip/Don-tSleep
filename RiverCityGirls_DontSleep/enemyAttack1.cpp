@@ -8,6 +8,7 @@ void enemyAttack1::EnterState()
 
 void enemyAttack1::UpdateState()
 {
+
 }
 
 void enemyAttack1::ExitState()

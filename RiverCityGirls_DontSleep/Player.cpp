@@ -7,6 +7,7 @@
 #include "EnemyManager.h"
 #include "CollisionManager.h"
 //상태
+//상태
 #include "IPlayerState.h"
 #include "playerIdle.h"
 #include "playerWait.h"
