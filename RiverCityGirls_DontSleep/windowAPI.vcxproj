@@ -230,6 +230,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerClimb.h" />
+    <ClInclude Include="playerClimbTop.h" />
     <ClInclude Include="playerCombo1.h" />
     <ClInclude Include="playerCombo2.h" />
     <ClInclude Include="playerCombo3.h" />
@@ -366,6 +367,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerClimb.cpp" />
+    <ClCompile Include="playerClimbTop.cpp" />
     <ClCompile Include="playerCombo1.cpp" />
     <ClCompile Include="playerCombo2.cpp" />
     <ClCompile Include="playerCombo3.cpp" />

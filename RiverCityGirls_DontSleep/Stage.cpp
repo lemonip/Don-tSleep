@@ -124,12 +124,12 @@ void Stage::wallRender()
 			polylineRender(_vRightWall[i].RB, _vRightWall[i].LB);
 			polylineRender(_vRightWall[i].LB, _vRightWall[i].LT);
 		}
-		
+
 		polylineRender(_pool.LT, _pool.RT);
 		polylineRender(_pool.RT, _pool.RB);
 		polylineRender(_pool.RB, _pool.LB);
 		polylineRender(_pool.LB, _pool.LT);
-		
+
 		polylineRender(_floor.LB, _floor.RB);
 	}	
 }

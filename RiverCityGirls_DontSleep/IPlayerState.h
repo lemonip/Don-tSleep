@@ -25,6 +25,8 @@ public:
 
 	//공격상태면 공격중으로 전환
 	void checkAttack();
+	//강공격
+	void sAttack();
 
 	//상하이동
 	void lineMove(float speed);
