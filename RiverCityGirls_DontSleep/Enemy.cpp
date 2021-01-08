@@ -93,10 +93,7 @@ void Enemy::update()
 	{
 		SetState(EN_STATE::EN_IDLE);
 	}
-	//공격받았는지 여부를 알수있음!
-	if (_player->getInfo().isAttack)cout << "공격받음"<<endl;
-	//공격받은 처리후에는 공격중이지 않다고 바꿔주기★
-	_player->SetIsAttack(false);
+	
 }
 
 void Enemy::render()
