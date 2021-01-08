@@ -31,6 +31,7 @@ HRESULT BossStage::init()
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
 	EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
+	EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_START), false);
 
 	return S_OK;
 }

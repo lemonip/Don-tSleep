@@ -9,7 +9,7 @@
 void playGround::addImage()
 {
 	//================= ¾À ÀÌ¹ÌÁö =================
-	
+
 	//·Îµù ¾À
 	IMG_M->addImage("load_background", "source/image/ui/scene/LoadingScene_Background.bmp", 1280, 720, true, MAGENTA);
 	IMG_M->addFrameImage("loading_sprite", "source/image/ui/scene/loadingSprite.bmp", 1152, 227, 4, 1, false, MAGENTA);
@@ -34,6 +34,14 @@ void playGround::addImage()
 
 	//°ÔÀÓ ¾À
 	IMG_M->addImage("dialogWindow", "source/image/ui/scene/dialogWindow.bmp", 1280, 150, true, MAGENTA);
+	IMG_M->addImage("kyoko_1", "source/image/ui/scene/kyoko_1.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("kyoko_2", "source/image/ui/scene/kyoko_2.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("kyoko_3", "source/image/ui/scene/kyoko_3.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("misuzu_1", "source/image/ui/scene/misuzu_1.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("misuzu_2", "source/image/ui/scene/misuzu_2.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("misuzu_3", "source/image/ui/scene/misuzu_3.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("kyoko_name", "source/image/ui/scene/kyoko_name.bmp", 200, 72, true, MAGENTA);
+	IMG_M->addImage("misuzu_name", "source/image/ui/scene/misuzu_name.bmp", 200, 72, true, MAGENTA);
 
 
 	//================= UI =================
@@ -42,7 +50,6 @@ void playGround::addImage()
 	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
-
 	//================= ½ºÅ×ÀÌÁö =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
 	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);
