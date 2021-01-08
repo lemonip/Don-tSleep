@@ -81,6 +81,14 @@ void Stage::floorInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
 	_floor.LB = lb;
 }
 
+void Stage::poolInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
+{
+	_pool.LT = lt;
+	_pool.RT = rt;
+	_pool.RB = rb;
+	_pool.LB = lb;
+}
+
 void Stage::polylineRender(vector3 A, vector3 B)
 {
 	POINT temp[2];
@@ -116,6 +124,11 @@ void Stage::wallRender()
 			polylineRender(_vRightWall[i].RB, _vRightWall[i].LB);
 			polylineRender(_vRightWall[i].LB, _vRightWall[i].LT);
 		}
+
+		polylineRender(_pool.LT, _pool.RT);
+		polylineRender(_pool.RT, _pool.RB);
+		polylineRender(_pool.RB, _pool.LB);
+		polylineRender(_pool.LB, _pool.LT);
 
 		polylineRender(_floor.LB, _floor.RB);
 	}	

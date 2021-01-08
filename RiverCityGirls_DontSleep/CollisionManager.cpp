@@ -31,6 +31,14 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			{
 				if (character->preShadow.LT.z >= obj->bottomPlane[2].getStart().z) // 밑에서 위로 올라간거면
 				{
+					if (obj->type == OBJECT_TYPE::LADDER)
+					{
+						if (obj->bottomPlane[2].getEnd().x < character->pos.x &&
+							character->pos.x < obj->bottomPlane[2].getStart().x)
+						{
+							_stageM->getPlayer()->setIsClimb(true);
+						}
+					}
 					character->pos.z = obj->bottomPlane[2].getEnd().z + character->shadow.height / 2;
 				}
 			}
@@ -73,10 +81,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			{
 				if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)	// 위에서 아래로 내려가면
 				{
-					cout << "전 : " << character->preShadow.LB.z << endl;
-					cout << "바텀 윗변" << obj->bottomPlane[0].getStart().z << endl;
 					character->pos.z = obj->bottomPlane[0].getStart().z - character->shadow.height / 2;
-					cout << "후 : " << character->preShadow.LB.z << endl;
 				}
 			}
 		}
@@ -324,7 +329,7 @@ void CollisionManager::wallCollsion()
 	vector<tagWall> vRightWall = _stageM->getStage()->getRightWall();
 	vector<tagWall> vBackWall = _stageM->getStage()->getBackWall();
 	tagWall floor = _stageM->getStage()->getFloor();
-
+	
 	vector3 interVector;
 	for (int i = 0; i < vBackWall.size(); ++i) // 플레이어 위쪽 최대치 (뒷 벽 충돌)
 	{
@@ -374,4 +379,25 @@ void CollisionManager::wallCollsion()
 		character->pos.x = floor.RT.x - character->shadow.width / 2;
 	}
 
+	// 수영장과 충돌
+	if (_stageM->getCurStage() == STAGETYPE::HARD)
+	{
+		vector3 temp;
+		tagWall pool = _stageM->getStage()->getPool();
+		if (pool.LT.x < character->shadow.RB.x && 
+			character->shadow.LB.x < pool.RT.x)  // 플레이어 아래쪽 최대치 (수영장 충돌)
+		{
+			if (character->shadow.LB.z > pool.RT.z)
+			{
+				character->pos.z = pool.RT.z - character->shadow.height / 2;
+			}
+		}
+		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // 수영장의 오른쪽과 충돌 시
+		{
+			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
+		}
+
+		
+	}
+	
 }
