@@ -28,14 +28,12 @@ void EventManager::update()
 
 		if (!_qEvent.empty()) _qEvent.front()->enter(_playerControl);		//다음 이벤트가 있으면 시작 처리 함수를 실행한다.
 	}
-
 }
 
 void EventManager::render(HDC hdc)
 {
 	if (_qEvent.empty()) return;					//이벤트 큐가 비어있으면 리턴한다.
 	_qEvent.front()->render(hdc);
-
 }
 
 /*====================================================================

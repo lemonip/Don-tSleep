@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE	0.511f			//중력 수치
+#define GRAVITYVALUE	0.5f			//중력 수치
 #define JUMPPOWERVALUE  15.f			//점프파워 수치
 #define FRAMEINTERVAL	0.1f			//프레임 인터벌
 #define ATTACKSIZE		480			//일반공격 사이트

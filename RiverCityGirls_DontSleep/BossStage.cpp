@@ -25,17 +25,19 @@ HRESULT BossStage::init()
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
-	_objectM->pushObject(OBJECT_TYPE::PILLAR_LEFT, vector3(900, 0, 700));
+	_objectM->pushObject(OBJECT_TYPE::PILLAR_LEFT, vector3(1000, 0, 700));
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_BIG_LEFT, vector3(700, 0, 1000));
-	_objectM->pushObject(OBJECT_TYPE::PILLAR_RIGHT, vector3(2216, 0, 700));
+	_objectM->pushObject(OBJECT_TYPE::PILLAR_RIGHT, vector3(2100, 0, 700));
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_BIG_RIGHT, vector3(2416, 0, 1000));
 
-	//_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX , 0, WINSIZEY));
+	_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX , 0, WINSIZEY));
 
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
-	//EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
+	EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
+	EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_START), false);
+	//EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_END), false);
 
 	return S_OK;
 }
