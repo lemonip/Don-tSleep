@@ -32,6 +32,7 @@ HRESULT BossStage::init()
 	====================================================================*/
 	EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
 	EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_START), false);
+	//EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_END), false);
 
 	return S_OK;
 }

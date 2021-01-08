@@ -106,6 +106,7 @@ private:
 
 	float			_txtTime;		//텍스트 시간
 	float			_txtInterval;	//텍스트인터벌
+	int				_txtPos;		//텍스트 위치
 
 public:
 

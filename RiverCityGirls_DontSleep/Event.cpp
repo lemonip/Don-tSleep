@@ -157,12 +157,14 @@ bool dialogue::update()
 	{
 		case dialogue::DIALOGSTATE::ENTER:
 		{	
+			_dialogTime = TIME_M->getWorldTime();
+
 			//현재 텍스트를 결정한다.
 			_txt = _vScript[_scriptIndex];
 
 			//이미지와 메시지를 결정한다.
-			char imgfile[128];
-			strncpy_s(imgfile, 128, _txt.c_str(), 126);
+			char imgfile[512];
+			strncpy_s(imgfile, 512, _txt.c_str(), 510);
 			char* _temp;
 			strtok_s(imgfile, "@", &_temp);
 			_txt = _temp;	//텍스트
@@ -172,14 +174,11 @@ bool dialogue::update()
 
 			switch (_img._dest)		//이미지 방향
 			{
-				case DIRECTION::LEFT:	 _img._pos.x = 100; _img._pos.y = 500;				break;
-				case DIRECTION::RIGHT:	 _img._pos.x = WINSIZEX - 100; _img._pos.y = 500;	break;
+				case DIRECTION::LEFT:	 _img._pos.x = 100; _img._pos.y = 500;	_txtPos = 280;			break;
+				case DIRECTION::RIGHT:	 _img._pos.x = WINSIZEX - 100; _img._pos.y = 500;	_txtPos = 80;  break;
 			}
 			_img._portrait = IMG_M->findImage(imgfile);		//초상화 이미지
-
-			strtok_s(imgfile, "_", &_temp);
-			strncat_s(imgfile, "_name", strlen(imgfile));
-			_img._name = IMG_M->findImage(imgfile);
+			//이미지를 선형 보간으로 이동시킨다.
 			_img._inter.moveTo(&_img._pos, _img._pos.x + cosf(getAngle(_img._pos.x, _img._pos.y, WINSIZEX / 2, _img._pos.y)) * 30, _img._pos.y, 0.3f);
 
 			_state = DIALOGSTATE::UPDATE;
@@ -212,11 +211,10 @@ bool dialogue::update()
 		break;
 		case dialogue::DIALOGSTATE::EXIT:
 		{
-			if (KEY_M->isOnceKeyDown(VK_SPACE) || (_autoSkip && TIME_M->getWorldTime() - _dialogTime > strlen(_txt.c_str()) * 0.08f))
+			if (KEY_M->isOnceKeyDown(VK_SPACE) || (_autoSkip && TIME_M->getWorldTime() - _dialogTime > strlen(_txt.c_str()) * 0.05f + 0.6f))
 			{
 				_scriptIndex++;
 				_txtIndex = 0;
-				_dialogTime = TIME_M->getWorldTime();
 				_state = DIALOGSTATE::ENTER;
 			}
 		}
@@ -242,7 +240,7 @@ void dialogue::render(HDC hdc)
 	SetBkMode(hdc, TRANSPARENT);
 	SetTextColor(hdc, RGB(255, 220, 255));
 	HFONT font, oldFont;
-	RECT rcText = { 280, WINSIZEY - 135, WINSIZEX - 320, WINSIZEY };
+	RECT rcText = RectMake(_txtPos, WINSIZEY - 135,  WINSIZEX-400, 320);
 	font = CreateFont(50, 0, 0, 0, 0, false, false, false,
 		DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("CookieRunOTF Bold"));
@@ -253,7 +251,8 @@ void dialogue::render(HDC hdc)
 
 	//이미지를 출력한다.
 	if (_img._portrait && _state != DIALOGSTATE::ENTER) _img._portrait->render(hdc, _img._pos.x, _img._pos.y);
-	if (_img._name && _state != DIALOGSTATE::ENTER) _img._name->render(hdc, 200, WINSIZEY-150);
+
+	//폰트를 삭제한다.
 	DeleteObject(font);
 }
 
