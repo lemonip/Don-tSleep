@@ -51,13 +51,6 @@ class Enemy : public gameNode
 {
 protected:
 
-	struct tagInfo
-	{
-		float speed;
-		float angle;
-		RECT attackRC;
-	};
-
 	GameObject _obj;
 
 	struct tagInfo
@@ -83,7 +76,7 @@ protected:
 	};
 	
 
-	tagInfo _info;                  //에너미 정보
+	//tagInfo _info;                  //에너미 정보
 
 	IEnemyState* _EState;
 	IEnemyState* _ES_IDLE;
