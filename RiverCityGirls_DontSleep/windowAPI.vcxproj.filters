@@ -91,6 +91,9 @@
     <Filter Include="playGround\CollisionManager">
       <UniqueIdentifier>{0be01191-66bd-434e-b3fc-678fc5879341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Pet">
+      <UniqueIdentifier>{1ec7dc27-0589-4594-9271-4557528ca23c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -507,6 +510,9 @@
     <ClInclude Include="playerClimbTop.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
+    <ClInclude Include="pet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -904,6 +910,9 @@
     </ClCompile>
     <ClCompile Include="playerClimbTop.cpp">
       <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="pet.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

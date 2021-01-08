@@ -44,6 +44,7 @@ HRESULT Player::init()
 		플래이어의 오브젝트 초기화와 기본 설정을 합니다.
 	====================================================================*/
 	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wait"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
+	_info.attackInfo._obj.init(OBJECT_GROUP::OBJECT, IMG_M->findImage("bat"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
 
 	//기본 변수 초기화
 	{
@@ -63,6 +64,8 @@ HRESULT Player::init()
 		_info.frameTimer = TIME_M->getWorldTime();
 		_obj.ani = new animation;
 		_info.hitCount = 3;
+		_info.attackInfo._obj.alpha = 255;
+		
 	}
 
 	//상태패턴 등록
@@ -120,6 +123,7 @@ void Player::update()
 	keyInput();
 	//오브젝트 업뎃
 	_obj.update();
+	_info.attackInfo._obj.update();
 	//애니프레임 업뎃
 	if(_info.rendType == RENDERTYPE::ANI_RENDER)
 	_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 7);
@@ -149,11 +153,30 @@ void Player::render()
 
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 	Rectangle(getMapDC(), _obj.shadow.rc);
-	if(KEY_M->isToggleKey(VK_SHIFT)) Rectangle(getMapDC(), _info.attackInfo.rc);
-	if (_info.state == PL_STATE::THROW && _info.dest ==DIRECTION::LEFT)
-		_info.attackInfo.img->frameRender(getMapDC(), _info.attackInfo.pos.x, _info.attackInfo.pos.y, 0, 0);
-	if (_info.state == PL_STATE::THROW && _info.dest ==DIRECTION::RIGHT)
-		_info.attackInfo.img->frameRender(getMapDC(), _info.attackInfo.pos.x, _info.attackInfo.pos.y, 0, 1);
+	if(KEY_M->isToggleKey(VK_SHIFT)) Rectangle(getMapDC(), _info.attackInfo._obj.rc);
+
+
+	//걍 계속렌더해도안됨
+	ZORDER_M->renderObject(getMapDC(), &_info.attackInfo._obj, RENDERTYPE::FRAME_RENDER);
+
+
+
+
+	if (_info.state == PL_STATE::THROW && _info.dest ==DIRECTION::LEFT
+		&& _obj.imgIndex.x >= 3)
+		ZORDER_M->renderObject(getMapDC(), &_info.attackInfo._obj,RENDERTYPE::FRAME_RENDER);
+
+	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::RIGHT
+		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX() - 2)
+		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 1);
+	
+	//_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
+
+	/*
+		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
+	if (_info.state == PL_STATE::THROW && _info.dest ==DIRECTION::RIGHT
+		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX()-2)
+		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 1);*/
 }
 
 //상태 지정
@@ -174,7 +197,6 @@ void Player::setState(PL_STATE state)
 	case PL_STATE::WALK:	    _IState = _walk;		 break;
 	case PL_STATE::RUN:		    _IState = _run;			 break;
 	case PL_STATE::JUMP:	  
-		_info.jumpPower = JUMPPOWERVALUE; 
 		_IState = _jump;		 break;
 	case PL_STATE::STICK:	    _IState = _stick;		 break;
 	case PL_STATE::CLIMB:      _IState = _climb;		 break;
@@ -497,13 +519,17 @@ void Player::movePos(float x, float z, float jumpPower)
 //공격렉트 갱신
 void Player::renewAttackRc()
 {
+	_info.attackInfo._obj.pos.z = _obj.pos.z;
+
+	cout <<"무기z" <<_info.attackInfo._obj.pos.z << endl;
+	cout <<"플레z" <<_obj.pos.z << endl;
 	//무기에 따른 렉트 크기 설정
 	switch (_info.weaponType)
 	{
 	case WEAPON_TYPE::NONE:
 		_info.attackInfo.width = ATTACKSIZE *0.4; break;
 	case WEAPON_TYPE::BAT:	case WEAPON_TYPE::BASEBALL:
-		_info.attackInfo.img = IMG_M->findImage("bat");
+		_info.attackInfo._obj.img = IMG_M->findImage("bat");
 		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth(); break;
 	}
 	 
@@ -527,25 +553,28 @@ void Player::renewAttackRc()
 		switch (_info.dest)
 		{
 		case DIRECTION::LEFT:
-			_info.attackInfo.pos.x = _obj.pos.x - (_obj.rc.right  - _obj.rc.left)/2;break;
+			_info.attackInfo._obj.pos.x = _obj.pos.x - (_obj.rc.right  - _obj.rc.left)/2;
+			_info.attackInfo._obj.imgIndex.x = 0;
+			_info.attackInfo._obj.imgIndex.y = 1;
+			break;
 		case DIRECTION::RIGHT:
-			_info.attackInfo.pos.x = _obj.pos.x + (_obj.rc.right - _obj.rc.left) / 2;break;
+			_info.attackInfo._obj.pos.x = _obj.pos.x + (_obj.rc.right - _obj.rc.left) / 2;break;
 		}
 		//상황에 따른 렉트 위치 갱신
 		//★ 커맨드 공격의 경우 가운데여야함
-		_info.attackInfo.pos.y = (_obj.rc.bottom + _obj.rc.top)/2;
+		_info.attackInfo._obj.pos.y = (_obj.rc.bottom + _obj.rc.top)/2;
 
 		switch (_info.state)
 		{
-		case PL_STATE::SATTACKDOWN:_info.attackInfo.pos.x = _obj.pos.x ; break;
+		case PL_STATE::SATTACKDOWN:_info.attackInfo._obj.pos.x = _obj.pos.x ; break;
 		}
 	}
 	//무기를 날릴 경우
-	else if(_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT)_info.attackInfo.pos.x -= THROWSPEED;
-	else if(_info.state == PL_STATE::THROW&& _info.dest == DIRECTION::RIGHT)_info.attackInfo.pos.x += THROWSPEED;
+	else if(_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT)_info.attackInfo._obj.pos.x -= THROWSPEED;
+	else if(_info.state == PL_STATE::THROW&& _info.dest == DIRECTION::RIGHT)_info.attackInfo._obj.pos.x += THROWSPEED;
 
 	//렉트 갱신
-	_info.attackInfo.rc = RectMakeCenter(_info.attackInfo.pos.x, _info.attackInfo.pos.y, _info.attackInfo.width, _info.attackInfo.height);
+	_info.attackInfo._obj.rc = RectMakeCenter(_info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, _info.attackInfo.width, _info.attackInfo.height);
 
 }
 
