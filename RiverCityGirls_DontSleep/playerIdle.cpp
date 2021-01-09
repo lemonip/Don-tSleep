@@ -32,6 +32,7 @@ void playerIdle::UpdateState()
 	//업데이트 정지 유무
 	if (pauseUpdate())return;
 
+	
 	//기본 동작
 	basePattern();
 	
