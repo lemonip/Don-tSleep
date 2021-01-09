@@ -222,6 +222,8 @@ public:
 	void playFrame();
 	//좌표 이동
 	void movePos(float x, float z, float y);
+	//좌표 고정
+	void changePos(float x, float z, float y);
 	//공격 렉트
 	void renewAttackRc();
 };

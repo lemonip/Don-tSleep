@@ -517,6 +517,24 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.update();
 }
 
+void Player::changePos(float x, float z, float y)
+{
+	_obj.pos.x = x;
+	_obj.pos.z = z;
+	_obj.pos.y = y;
+
+	//그림자만 일단 한번 업데이트 (충돌처리를 위한거! 건드리면 안됨!)
+	_obj.shadowUpdate();
+	//충돌처리 
+	_colM->playerObjectCollision();
+
+	//그림자 아래로 안 떨어지도록 예외처리
+	if (_obj.pos.y > 0)_obj.pos.y = 0;
+
+	//최종 렉트 갱신
+	_obj.update();
+}
+
 //공격렉트 갱신
 void Player::renewAttackRc()
 {
@@ -607,6 +625,15 @@ void Player::keyInput()
 
 	//공격키받기(커맨드를위해)
 	if (KEY_M->isOnceKeyDownV('D'));
+
+	//사다리오르기
+	if (_info.isClimb && KEY_M->isOnceKeyDownV(VK_UP))
+	{
+		setState(PL_STATE::CLIMB);
+	}
+
+
+
 
 	//점프
 	if (KEY_M->isOnceKeyDownV('A') && !_info.isSky)
