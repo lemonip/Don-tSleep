@@ -22,7 +22,7 @@ void playerCombo3::UpdateState()
 	{
 	//몹한테 첫충돌시
 	if (!_isCollision
-		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 	{
 		_isCollision = true;

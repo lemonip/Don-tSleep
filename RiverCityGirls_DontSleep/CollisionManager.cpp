@@ -29,11 +29,18 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			if (character->shadow.RT.z < obj->bottomPlane[2].getEnd().z &&
 				obj->bottomPlane[2].getEnd().z < character->shadow.RB.z) // 윗변이 오브젝트의 밑면을 넘어가면
 			{
-				cout << "그림자LT z: " << character->preShadow.LT.z << endl;
 				if (character->preShadow.LT.z >= obj->bottomPlane[2].getStart().z) // 밑에서 위로 올라간거면
 				{
+					if (obj->type == OBJECT_TYPE::LADDER)
+					{
+						if (obj->bottomPlane[2].getEnd().x < character->pos.x &&
+							character->pos.x < obj->bottomPlane[2].getStart().x)
+						{
+							_stageM->getPlayer()->setIsClimb(true);
+						}
+					}
 					character->pos.z = obj->bottomPlane[2].getEnd().z + character->shadow.height / 2;
-				}				
+				}
 			}
 		}
 		else if (obj->bottomPlane[3].getEnd().z < character->shadow.RB.z &&
@@ -42,7 +49,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			if (obj->dir == DIRECTION::LEFT)
 			{
 				if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[1], &interVector) ||
-					Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[1], &interVector)) // 윗변 선분이 교차하면
+					Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[1], &interVector)) // 윗변,밑변 선분이 우측 선분과 교차하면
 				{
 					if (character->shadow.LT.x < interVector.x)
 					{
@@ -53,7 +60,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			else if (obj->dir == DIRECTION::RIGHT)
 			{
 				if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[3], &interVector) ||
-					Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector)) // 윗변 선분이 교차하면
+					Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector)) // 윗변, 밑변 선분이 좌측 선분과 교차하면
 				{
 					if (character->shadow.RT.x > interVector.x)
 					{
@@ -72,7 +79,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			if (character->shadow.LT.z < obj->bottomPlane[0].getStart().z &&
 				obj->bottomPlane[0].getStart().z < character->shadow.LB.z) // 밑변이 오브젝트의 윗변을 넘어가면
 			{
-				if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)
+				if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)	// 위에서 아래로 내려가면
 				{
 					character->pos.z = obj->bottomPlane[0].getStart().z - character->shadow.height / 2;
 				}
@@ -97,7 +104,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 				if (Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[1], &interVector) ||
 					Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[1], &interVector)) // 밑변 선분이 좌측변이랑 교차하면
 				{
-					if (interVector.x > character->shadow.LB.x)
+					if (character->shadow.LB.x < interVector.x)
 					{
 						character->pos.x = interVector.x + character->shadow.width / 2; // 교차 점에서 오른쪽으로 보정
 					}
@@ -111,36 +118,47 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 	//==================================좌==================================//
 	if (character->prePos.x > character->pos.x) // 플레이어가 왼쪽으로 움직였을 때
 	{
-		if (obj->bottomPlane[1].getStart().z < character->shadow.LB.z &&
-			character->shadow.LT.z < obj->bottomPlane[1].getEnd().z) // Object의 z 범위 안에 있을 때 (왼쪽 오른쪽)
+		if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&
+			character->shadow.LT.z < obj->bottomPlane[2].getEnd().z) // Object의 z 범위 안에 있을 때 (왼쪽 오른쪽)
 		{
 			if (obj->dir == DIRECTION::LEFT)
 			{
-				vector3 tempV;
-				if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &tempV)) // 좌측변이 밑변과 겹쳤을 때(1차 보정)
+				if (character->preShadow.LT.z < obj->bottomPlane[2].getStart().z)
 				{
-					character->pos.x = obj->bottomPlane[2].getStart().x + character->shadow.width / 2;
+					vector3 tempV;
+					if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &tempV)) // 좌측변이 밑변과 겹쳤을 때(1차 보정)
+					{
+						character->pos.x = obj->bottomPlane[2].getStart().x + character->shadow.width / 2;
+					}
 				}
+
 				if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[1], &interVector) ||  // 좌측 선분이 우측변이랑 교차하면
 					Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &interVector))	   // 좌측 선분이 윗변이랑 교차하면 
 				{
-					if (obj->bottomPlane[1].getStart().z < character->shadow.LT.z) // 그림자 윗변이 오브젝트 윗변보다 아래에 있을 경우
+					if (obj->bottomPlane[0].getEnd().z < character->shadow.LT.z) // 그림자 윗변이 오브젝트 윗변보다 아래에 있을 경우
 					{
 						character->pos.x = obj->bottomPlane[1].getX(character->shadow.LT.z) + character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
 					}
 					else // 그림자 윗변이 오브젝트 윗변보다 위에 있을 경우
-					{
-						character->pos.x = obj->bottomPlane[1].getStart().x + character->shadow.width / 2;
+					{	
+						if (character->preShadow.LB.z > obj->bottomPlane[0].getEnd().z)
+						{
+							character->pos.x = obj->bottomPlane[1].getStart().x + character->shadow.width / 2;
+						}
 					}
 				}
 			}
 			else if (obj->dir == DIRECTION::RIGHT)
 			{
-				vector3 tempV;
-				if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &tempV)) // 좌측변이 윗변과 겹쳤을 때(1차 보정)
+				if (character->preShadow.LB.z > obj->bottomPlane[0].getStart().z)
 				{
-					character->pos.x = obj->bottomPlane[0].getEnd().x + character->shadow.width / 2;
+					vector3 tempV;
+					if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &tempV)) // 좌측변이 윗변과 겹쳤을 때(1차 보정)
+					{
+						character->pos.x = obj->bottomPlane[0].getEnd().x + character->shadow.width / 2;
+					}
 				}
+
 				if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[1], &interVector) ||  // 좌측 선분이 우측변이랑 교차하면
 					Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &interVector))	   // 좌측 선분이 밑변이랑 교차하면 
 				{
@@ -150,7 +168,10 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					}
 					else // 그림자 밑변이 오브젝트 밑변보다 아래에 있을 경우
 					{
-						character->pos.x = obj->bottomPlane[1].getEnd().x + character->shadow.width / 2;
+						if (character->preShadow.LT.z < obj->bottomPlane[2].getStart().z)
+						{
+							character->pos.x = obj->bottomPlane[1].getEnd().x + character->shadow.width / 2;
+						}
 					}
 				}
 			}
@@ -164,7 +185,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 		{
 			if (obj->dir == DIRECTION::LEFT)
 			{
-				if (character->preShadow.LT.z > obj->bottomPlane[0].getEnd().z)
+				if (character->preShadow.RB.z > obj->bottomPlane[0].getStart().z)
 				{
 					vector3 tempV;
 					if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[0], &tempV)) // 우측 선분이 오브젝트의 윗변과 겹치면(1차보정)
@@ -172,17 +193,19 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						character->pos.x = obj->bottomPlane[0].getStart().x - character->shadow.width / 2;
 					}
 				}
-				if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) || // 우측 선분이 좌측변이랑 교차하면
+				if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) ||	// 우측 선분이 좌측변이랑 교차하면
 					Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &interVector))		// 우측 선분이 밑변이랑 교차하면
 				{
-
 					if (character->shadow.RB.z < obj->bottomPlane[2].getEnd().z) // 그림자 밑변이 오브젝트 밑변보다 위에 있을 경우
 					{
 						character->pos.x = obj->bottomPlane[3].getX(character->shadow.RB.z) - character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
 					}
 					else // 그림자 밑변이 오브젝트 밑변보다 아래에 있을 경우
 					{
-						character->pos.x = obj->bottomPlane[3].getStart().x - character->shadow.width / 2;
+						if (character->preShadow.RT.z < obj->bottomPlane[2].getEnd().z)
+						{
+							character->pos.x = obj->bottomPlane[3].getStart().x - character->shadow.width / 2;
+						}
 					}
 				}
 			}
@@ -205,7 +228,10 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					}
 					else // 그림자 윗변이 오브젝트 윗변보다 위에 있을 경우
 					{
-						character->pos.x = obj->bottomPlane[3].getEnd().x - character->shadow.width / 2;
+						if (character->preShadow.RT.z > obj->bottomPlane[0].getStart().z)
+						{
+							character->pos.x = obj->bottomPlane[3].getEnd().x - character->shadow.width / 2;
+						}
 					}
 				}
 			}
@@ -227,37 +253,48 @@ void CollisionManager::objectCollision()
 		{
 			if (_stageM->getPlayer()->getInfo().isSky) // 공중에 있을 때
 			{
-				// 오브젝트와 겹치면
-				if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// 캐릭터의 z값이 윗변보다 밑에 있고
-					character->shadow.LT.z < obj->bottomPlane[2].getStart().z &&					// 캐릭터의 z값이 밑변보다 위에 있고
-					obj->bottomPlane[3].getX(character->shadow.RB.z) < character->shadow.RB.x &&	// 캐릭터의 x값이 좌측변보다 우측에 있고
-					character->shadow.LT.x < obj->bottomPlane[1].getX(character->shadow.LT.z))		// 캐릭터의 x값이 우측변보다 좌측에 있고
+				if (obj->dir == DIRECTION::LEFT)
 				{
-					if (character->prePos.y < character->pos.y) // 낙하 중일 때
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// 캐릭터의 z값이 윗변보다 밑에 있고
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// 캐릭터의 z값이 밑변보다 위에 있고
 					{
-						if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
-							character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
+						float tempMaxUz = obj->bottomPlane[1].getX(character->shadow.LT.z);				// 오브젝트 위의 최대값
+						if (obj->bottomPlane[1].getStart().x < tempMaxUz) tempMaxUz = obj->bottomPlane[1].getStart().x;
+						float tempMaxDz = obj->bottomPlane[3].getX(character->shadow.RB.z);
+						if (tempMaxDz < obj->bottomPlane[3].getStart().x) tempMaxDz = obj->bottomPlane[3].getStart().x;
+
+						if (tempMaxDz < character->shadow.RB.x &&
+							character->shadow.LT.x < tempMaxUz)											// 맥스값들보다 사이에 있으면
 						{
-							// y값 보정
-							character->pos.y = obj->topPlane[0].getStart().y;
-							// 상태보정
-							_stageM->getPlayer()->setPlatform(obj);
-							_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
-							_stageM->getPlayer()->setJumpPower(0);
-							_stageM->getPlayer()->setIsSky(false);
-						}
-						else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
-						{
-							if (obj->type == OBJECT_TYPE::LADDER)
+							if (character->prePos.y < character->pos.y) // 낙하 중일 때
 							{
-								cout << "사다리: " << obj->bottomPlane[2].getStart().z << endl;
+								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
+								{
+									// y값 보정
+									character->pos.y = obj->topPlane[0].getStart().y;
+									// 상태보정
+									_stageM->getPlayer()->setPlatform(obj);
+									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setJumpPower(0);
+									_stageM->getPlayer()->setIsSky(false);
+								}
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
+								{
+									LRUDCollision(character, obj);
+								}
 							}
-							cout << "전: " << character->pos.z << endl;
-							LRUDCollision(character, obj);
-							cout << "후: " << character->pos.z << endl;
+							else if (character->pos.y < character->prePos.y) // 점프 중일 때 
+							{
+								if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+								{
+									LRUDCollision(character, obj);
+								}
+							}
 						}
 					}
-					else if (character->pos.y < character->prePos.y) // 점프 중일 때 
+					// 오브젝트와 안겹쳤을때 (필요한가?)
+					else
 					{
 						if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
 						{
@@ -265,12 +302,53 @@ void CollisionManager::objectCollision()
 						}
 					}
 				}
-				// 오브젝트와 안겹쳤을때 (필요한가?)
-				else
+				else if (obj->dir == DIRECTION::RIGHT)
 				{
-					if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// 캐릭터의 z값이 윗변보다 밑에 있고
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// 캐릭터의 z값이 밑변보다 위에 있고
 					{
-						LRUDCollision(character, obj);
+						float tempMaxUz = obj->bottomPlane[3].getX(character->shadow.RT.z);				// 오브젝트 위의 최대값
+						if (tempMaxUz < obj->bottomPlane[3].getEnd().x) tempMaxUz = obj->bottomPlane[3].getEnd().x;
+						float tempMaxDz = obj->bottomPlane[1].getX(character->shadow.LB.z);
+						if (obj->bottomPlane[1].getEnd().x < tempMaxDz) tempMaxDz = obj->bottomPlane[1].getEnd().x;
+
+						if (character->shadow.LB.x < tempMaxDz &&
+							tempMaxUz < character->shadow.RT.x)
+						{
+							if (character->prePos.y < character->pos.y) // 낙하 중일 때
+							{
+								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
+								{
+									// y값 보정
+									character->pos.y = obj->topPlane[0].getStart().y;
+									// 상태보정
+									_stageM->getPlayer()->setPlatform(obj);
+									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setJumpPower(0);
+									_stageM->getPlayer()->setIsSky(false);
+								}
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
+								{
+									LRUDCollision(character, obj);
+								}
+							}
+							else if (character->pos.y < character->prePos.y) // 점프 중일 때 
+							{
+								if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+								{
+									LRUDCollision(character, obj);
+								}
+							}
+						}
+					}
+					// 오브젝트와 안겹쳤을때 (필요한가?)
+					else
+					{
+						if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+						{
+							LRUDCollision(character, obj);
+						}
 					}
 				}
 			}
@@ -282,7 +360,6 @@ void CollisionManager::objectCollision()
 				}
 				else // 지면이 아닐 때(오브젝트 위일 때)
 				{
-
 					if (_stageM->getPlayer()->getPlatform() != nullptr)
 					{
 						if (_stageM->getPlayer()->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// 벗어나면
@@ -294,7 +371,7 @@ void CollisionManager::objectCollision()
 						{
 							_stageM->getPlayer()->setState(PL_STATE::JUMP);
 							_stageM->getPlayer()->setIsSky(true);
-
+							_stageM->getPlayer()->setJumpPower(0);
 						}
 					}
 				}
@@ -310,7 +387,7 @@ void CollisionManager::wallCollsion()
 	vector<tagWall> vRightWall = _stageM->getStage()->getRightWall();
 	vector<tagWall> vBackWall = _stageM->getStage()->getBackWall();
 	tagWall floor = _stageM->getStage()->getFloor();
-
+	
 	vector3 interVector;
 	for (int i = 0; i < vBackWall.size(); ++i) // 플레이어 위쪽 최대치 (뒷 벽 충돌)
 	{
@@ -360,4 +437,23 @@ void CollisionManager::wallCollsion()
 		character->pos.x = floor.RT.x - character->shadow.width / 2;
 	}
 
+	// 수영장과 충돌
+	if (_stageM->getCurStage() == STAGETYPE::HARD)
+	{
+		vector3 temp;
+		tagWall pool = _stageM->getStage()->getPool();
+		if (pool.LT.x < character->shadow.RB.x && 
+			character->shadow.LB.x < pool.RT.x)  // 플레이어 아래쪽 최대치 (수영장 충돌)
+		{
+			if (character->shadow.LB.z > pool.RT.z)
+			{
+				character->pos.z = pool.RT.z - character->shadow.height / 2;
+			}
+		}
+		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // 수영장의 오른쪽과 충돌 시
+		{
+			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
+		}
+	}
+	
 }

@@ -20,7 +20,11 @@ void bossMeteor::UpdateState()
 		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
 		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
 
+<<<<<<< HEAD
 		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+=======
+		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+>>>>>>> origin/ìˆ˜í˜„ìž‘ì—…
 		RECT _temp;
 		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) Ãæµ¹Ã³¸® ÇÊ¿ä, ÇÃ·¹ÀÌ¾î ·ºÆ®? 
 		// È­¸éÀ§·Î ¿Ã·Á¼­ ±×·¡ºñÆ¼¸¦ ¹Þ°Ô ÇØ¼­ ¹Ù´Ú¸¸ Ãæµ¹À» ÀÏÀ¸Å°°Å³ª, 

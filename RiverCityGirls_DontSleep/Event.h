@@ -4,6 +4,7 @@ class Video;
 enum class VIDEOTYPE;
 
 enum class DIALOGLIST;
+enum class DIRECTION;
 class Player;
 
 /*====================================================================
@@ -69,21 +70,31 @@ public:
 ====================================================================*/
 class dialogue : public Event
 {
+	enum class DIALOGSTATE
+	{
+		ENTER,
+		UPDATE,
+		EXIT,
+	};
+
 	struct tagImg
 	{
 		image* _portrait;		//캐릭터 초상화
 		image* _name;			//캐릭터 이름
 		vector3 _pos;			//위치
 		vector3 _goal;			//목표 위치
+		DIRECTION _dest;		//방향
+		Interpolation _inter;	//선형 보간
 	};
 
 private:
+	DIALOGSTATE		_state;			//상태
 
 	bool			_isRender;		//그리는지
 	image*			_diaWindow;		//대사창
 	vector<string>	_vScript;		//스크립트
 	int				_scriptIndex;	//스크립트 인덱스
-
+	
 	string			_txt;			//텍스트
 	int				_txtIndex;		//텍스트 인덱스
 	tagImg			_img;			//대화 이미지
@@ -93,6 +104,9 @@ private:
 	float			_dialogTime;	//대사 시간
 	bool			_autoSkip;		//자동 넘김
 
+	float			_txtTime;		//텍스트 시간
+	float			_txtInterval;	//텍스트인터벌
+	int				_txtPos;		//텍스트 위치
 
 public:
 

@@ -39,10 +39,10 @@ HRESULT image::init(int width, int height, bool alpha)
 		_blendImage->loadType = LOAD_EMPTY;
 		_blendImage->resID = 0;
 		_blendImage->hMemDC = CreateCompatibleDC(hdc);
-		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
+		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX * 2, WINSIZEY * 2);
 		_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-		_blendImage->width = WINSIZEX;
-		_blendImage->height = WINSIZEY;
+		_blendImage->width = WINSIZEX * 2;
+		_blendImage->height = WINSIZEY * 2;
 	}
 	
 	if (_imageInfo == NULL)
@@ -88,10 +88,10 @@ HRESULT image::init(const char * fileName, int width, int height, BOOL trans, CO
 		_blendImage->loadType = LOAD_EMPTY;
 		_blendImage->resID = 0;
 		_blendImage->hMemDC = CreateCompatibleDC(hdc);
-		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
+		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX * 2, WINSIZEY * 2);
 		_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-		_blendImage->width = WINSIZEX;
-		_blendImage->height = WINSIZEY;
+		_blendImage->width = WINSIZEX * 2;
+		_blendImage->height = WINSIZEY * 2;
 	}
 
 	if (_imageInfo->hBit == NULL)
@@ -145,10 +145,10 @@ HRESULT image::init(const char * fileName, float x, float y, int width, int heig
 		_blendImage->loadType = LOAD_EMPTY;
 		_blendImage->resID = 0;
 		_blendImage->hMemDC = CreateCompatibleDC(hdc);
-		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
+		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX * 2, WINSIZEY * 2);
 		_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-		_blendImage->width = WINSIZEX;
-		_blendImage->height = WINSIZEY;
+		_blendImage->width = WINSIZEX * 2;
+		_blendImage->height = WINSIZEY * 2;
 	}
 
 	if (_imageInfo->hBit == NULL)
@@ -202,10 +202,10 @@ HRESULT image::init(const char * fileName, int width, int height, int frameX, in
 		_blendImage->loadType = LOAD_EMPTY;
 		_blendImage->resID = 0;
 		_blendImage->hMemDC = CreateCompatibleDC(hdc);
-		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
+		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX * 2, WINSIZEY * 2);
 		_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-		_blendImage->width = WINSIZEX;
-		_blendImage->height = WINSIZEY;
+		_blendImage->width = WINSIZEX * 2;
+		_blendImage->height = WINSIZEY * 2;
 	}
 
 	if (_imageInfo->hBit == NULL)

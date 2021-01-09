@@ -2,6 +2,7 @@
 #include "IEnemyState.h"
 class enemyWalk : public IEnemyState
 {
+	
 public:
 
 	virtual void EnterState();

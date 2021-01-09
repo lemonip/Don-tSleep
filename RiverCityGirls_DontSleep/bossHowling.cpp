@@ -13,7 +13,11 @@ void bossHowling::UpdateState()
 {
 	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
 	{
+<<<<<<< HEAD
 		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+=======
+		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+>>>>>>> origin/靾橅槃鞛戩梾
 		RECT _temp;
 		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 面倒贸府 鞘夸, 敲饭捞绢 泛飘? 
 		// 瘤加 贸府 鞘夸

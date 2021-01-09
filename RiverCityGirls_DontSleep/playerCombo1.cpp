@@ -32,14 +32,14 @@ void playerCombo1::UpdateState()
 	{
 		//허공에 공격할 경우 프레임이 돌면 기본상태로 돌아간다.
 		if (isEndFrame(false)
-			&& !IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+			&& !IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 			_thisPl->setState(PL_STATE::IDLE);
 
 	//몹한테 첫충돌시
 	
 	if (!_isCollision
-		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 	{
 		_isCollision = true;
@@ -52,16 +52,17 @@ void playerCombo1::UpdateState()
 	if (isEndFrame(false)
 		&& KEY_M->getVKeyBuffer().size() != 0
 		&& KEY_M->getKeyBuffer(0) == 'S'
-		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 		&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
 	{
 		_thisPl->setState(PL_STATE::COMBO2);
+		EFFECT_M->play("ef_attack", _thisPl->getInfo().attackInfo._obj.pos.x, _thisPl->getInfo().attackInfo._obj.pos.y);
 	}
 	
 	//시간안에 몹한테 공격 못할 경우
 	if (isEndFrame(false)
-		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc, &(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc, &(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 		&& ((KEY_M->getVKeyBuffer().size() != 0
 			&& KEY_M->getKeyBuffer(0) != 'S') || KEY_M->getVKeyBuffer().size() == 0)
 		)

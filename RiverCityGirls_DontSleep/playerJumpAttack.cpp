@@ -22,7 +22,7 @@ void playerJumpAttack::UpdateState()
 	{
 		if (!_isCollsion
 			&&_thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj(), 30)
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
 
@@ -34,6 +34,7 @@ void playerJumpAttack::UpdateState()
 		}
 	}
 
+	
 	//ÀÌµ¿
 	crossMove(_thisPl->getInfo().speed*1.2);
 	lineMove(_thisPl->getInfo().speed / 2);

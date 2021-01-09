@@ -1,10 +1,11 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE	0.5f			//중력 수치
+#define GRAVITYVALUE	0.501f			//중력 수치
 #define JUMPPOWERVALUE  15.f			//점프파워 수치
 #define FRAMEINTERVAL	0.1f			//프레임 인터벌
 #define ATTACKSIZE		480			//일반공격 사이트
+#define THROWSPEED		15			//일반무기 날리는 속도
 
 
 //전방선언
@@ -28,6 +29,7 @@ enum class PL_STATE : int
 	JUMP,			//점프
 	STICK,			//벽잡기
 	CLIMB,			//오르기
+	CLIMBTOP,		//오르기끝(사다리위)
 	PICK,			//줍기
 
 	GRAB,			//잡기
@@ -65,9 +67,9 @@ enum class MOVE_DIRECTION : int
 enum class FRAMETYPE : int
 {
 	ONCE,
-	ROOP,
-	REVERSONCE,
-	REVERSROOP
+	LOOP,
+	REVERSEONCE,
+	REVERSEROOP
 };
 
 class Player : public gameNode
@@ -76,16 +78,18 @@ private:
 	//공격 정보 구조체
 	struct tagAttackInfo
 	{
+		GameObject _obj;
+		float width, height;	//크기
+		/*
 		RECT  rc;				// 공격렉트
 		vector3 pos;			// 공격 좌표
-		float width, height;	//크기
-		image* img;				//이미지
+		image* img;				//이미지*/
 	};
 	//정보 구조체
 	struct tagInfo
 	{
 	public:
-		struct tagAttackInfo attackInfo;	//공격 정보
+		tagAttackInfo attackInfo;	//공격 정보
 		float jumpPower;			//점프파워
 		float speed;				//속도
 
@@ -95,6 +99,7 @@ private:
 		bool isConDest;				//방향전환 가능 유무
 		bool isSky;					//허공 유무
 		bool isAttack;				//공격 유무
+		bool isClimb;				//사다리 가능 유무
 
 		MOVE_DIRECTION  moveDest;	//행동 방향
 		DIRECTION dest;				//인덱스 방향
@@ -111,12 +116,12 @@ private:
 
 		float frameTimer;			//프레임시간 타이머
 		RENDERTYPE rendType;		//렌더타입
-		animation* ani;			//기본 애니메이션
 		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
+	RECT _temp;					//충돌용
 
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
@@ -135,6 +140,7 @@ private:
 	IPlayerState*	_jump;			//점프
 	IPlayerState*	_stick;			//벽잡기
 	IPlayerState*	_climb;			//오르기
+	IPlayerState*	_climbTop;		//오르기 끝(사다리끝)
 	IPlayerState*	_pick;			//줍기
 
 	IPlayerState*	_grab;			//잡기
@@ -169,6 +175,7 @@ public:
 									GETTER
 	====================================================================*/
 	GameObject getObj() { return _obj; }
+	GameObject& getRefObj() { return _obj; }
 	tagInfo& getInfo() { return _info; }
 	GameObject* getPObj() { return &_obj; }
 	GameObject* getPlatform() { return _platform; }
@@ -178,23 +185,28 @@ public:
 	====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	void setLinkColM(CollisionManager* colM) { _colM = colM;}
+	//사망 여부
+	void setIsDead(bool dead) { _info.isDead = dead; }
 	//조작 유무
 	void setIsControl(bool control) { _info.isControl = control; }
 	//상태 지정
 	void setState(PL_STATE state);
+	//좌우 방향 지정
+	void setDest(DIRECTION dest) { _info.dest = dest; }
 	//방향 전환 유무
 	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
 	//무기 상태 변경
 	void setWeaponType(WEAPON_TYPE wType) { _info.weaponType = wType; }
 	//공격 상태 변경
 	void SetIsAttack(bool isAttack) { _info.isAttack = isAttack; }
-	//같은줄 유무
+	//같은줄 유무 범위값설정 버전도 있음
 	bool isRange(GameObject obj);
 	bool isRange(GameObject obj, float value);
 	//충돌처리에 필요한 SETTER
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }
 	void setIsSky(bool is) { _info.isSky = is; }
+	void setIsClimb(bool is) { _info.isClimb = is; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/

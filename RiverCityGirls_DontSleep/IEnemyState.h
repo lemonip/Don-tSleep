@@ -1,5 +1,7 @@
 #pragma once
 #include "gameNode.h"
+#include "Enemy.h"
+#include "Player.h"
 
 class Enemy;
 
@@ -7,6 +9,7 @@ class IEnemyState abstract
 {
 protected:
 	Enemy* _thisEn;
+	float _stateTimer;
 public:
 	IEnemyState() {}
 	~IEnemyState() {}

@@ -55,7 +55,22 @@ private:
 	ENEMY_TYPE _ENEMY_TYPE;	
 
 	RECT _rcAttack;
+<<<<<<< HEAD
 	float _frameTimer;
+=======
+	bool _isAttack;
+	bool _isDown;
+	bool _isWait;
+	bool _isPhase;
+	bool _isBlock;
+	bool _isDead;
+	bool _isMove;
+	bool _isElbow;
+	bool _isMeteor;
+	bool _isSmash;
+	bool _isHowling;
+	bool _isDash;
+>>>>>>> origin/수현작업
 
 	   
 public:

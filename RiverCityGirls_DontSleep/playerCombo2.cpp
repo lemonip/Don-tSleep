@@ -23,7 +23,7 @@ void playerCombo2::UpdateState()
 	{
 		//몹한테 첫충돌시
 		if (!_isCollision
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
 			_isCollision = true;
@@ -34,14 +34,14 @@ void playerCombo2::UpdateState()
 			&& KEY_M->getVKeyBuffer().size() >= 2
 			&& KEY_M->getKeyBuffer(0) == 'S'
 			&& KEY_M->getKeyBuffer(1) == 'S'
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc,
+			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 			&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
 			_thisPl->setState(PL_STATE::COMBO3);
 
 		//시간안에 몹한테 공격 못할 경우
 		if (isEndFrame(false)
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo.rc, &(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc, &(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 			&& ((KEY_M->getVKeyBuffer().size() != 0
 				&& KEY_M->getKeyBuffer(0) != 'S') || KEY_M->getVKeyBuffer().size() <= 1)
 			)
