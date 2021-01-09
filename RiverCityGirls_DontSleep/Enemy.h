@@ -50,6 +50,7 @@ enum class EN_STATE
 class Enemy : public gameNode
 {
 protected:
+
 	GameObject _obj;
 
 	struct tagInfo
@@ -75,7 +76,7 @@ protected:
 	};
 	
 
-	tagInfo _info;                  //에너미 정보
+	//tagInfo _info;                  //에너미 정보
 
 	IEnemyState* _EState;
 	IEnemyState* _ES_IDLE;
@@ -120,6 +121,8 @@ protected:
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	Player* _player;			//플래이어
 
+	tagInfo _info;			//보스,에너미 공용 구조체
+
 public:
 	virtual HRESULT init(); 
 	virtual void release();
@@ -132,7 +135,10 @@ public:
 	Player* getPlayerAddress() { return _player; }
 	tagInfo&    getInfo() { return _info; }
 	GameObject* getObj() { return &_obj; }
+
 	DIRECTION& getdest() { return _dest; }
+
+	GameObject& getRefObj() { return _obj; }
 
 	/*====================================================================
 									SETTER

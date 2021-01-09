@@ -2,6 +2,9 @@
 
 class Video;
 enum class VIDEOTYPE;
+
+enum class DIALOGLIST;
+enum class DIRECTION;
 class Player;
 
 /*====================================================================
@@ -12,13 +15,14 @@ class Event
 protected:
 	bool _isEnd;
 	bool _isMovie;
+	bool _isCameraMove;
 	Player* _player;
 
 public:
-	virtual void enter() { _isEnd = false; _isMovie = false; }
+	virtual void enter(bool playerControl);
 	virtual bool update() = 0;
-	virtual void exit() = 0;
-	virtual void render() {}
+	virtual void exit();
+	virtual void render(HDC hdc) {}
 
 	bool isMovie() { return _isMovie; }
 	void setLinkPlyaer(Player* player) { _player = player; }
@@ -39,7 +43,7 @@ public:
 	cameraMove(vector3 goal, float moveSpeed, float mag, float magSpeed);
 	~cameraMove() {}
 
-	virtual void enter();
+	virtual void enter(bool playerControl);
 	virtual bool update();
 	virtual void exit();
 };
@@ -56,7 +60,7 @@ class moviePlay : public Event
 public:
 	moviePlay(VIDEOTYPE fileName);
 
-	virtual void enter();
+	virtual void enter(bool playerControl);
 	virtual bool update();
 	virtual void exit();
 };
@@ -66,69 +70,54 @@ public:
 ====================================================================*/
 class dialogue : public Event
 {
+	enum class DIALOGSTATE
+	{
+		ENTER,
+		UPDATE,
+		EXIT,
+	};
+
+	struct tagImg
+	{
+		image* _portrait;		//캐릭터 초상화
+		image* _name;			//캐릭터 이름
+		vector3 _pos;			//위치
+		vector3 _goal;			//목표 위치
+		DIRECTION _dest;		//방향
+		Interpolation _inter;	//선형 보간
+	};
+
 private:
-	struct tagInfo
-	{
-		image* portrait;		//캐릭터 초상화
-		image* name;			//캐릭터 이름
-		vector3 pos;			//위치
-		vector3 goal;			//목표 지점
-	};
+	DIALOGSTATE		_state;			//상태
 
-	struct tagSkip
-	{
-		//UI* bar;				//스킵 프로그레스 바
-		float curGauge;			//현재 게이지
-		float maxGauge;			//최대 게이지
-		bool isStayDown;		//누르는 중
-	};
+	bool			_isRender;		//그리는지
+	image*			_diaWindow;		//대사창
+	vector<string>	_vScript;		//스크립트
+	int				_scriptIndex;	//스크립트 인덱스
+	
+	string			_txt;			//텍스트
+	int				_txtIndex;		//텍스트 인덱스
+	tagImg			_img;			//대화 이미지
 
-	enum class curDialogue
-	{
-		ENTER,	//이미지를 화면으로 가져오기
-		WRITE,	//대사를 출력 하기
-		EXIT,	//이미지를 화면 밖으로 빼기
-	};
+	DIALOGLIST		_list;			//대화 리스트
+	
+	float			_dialogTime;	//대사 시간
+	bool			_autoSkip;		//자동 넘김
 
-	enum class DIALOGUELIST
-	{
-		INTRO,
-		BOSS_BEFORE,
-		BOSS_AFTER,
-	};
-
-	queue<string>	_qMsg;		//대사
-	queue<tagInfo>	_qInfo;		//정보
-	tagSkip			_skip;		//스킵
-	string			_writeText;	//최종 출력
-	curDialogue		_curDia;	//
-
-	bool			_isPlay;	//현재 진행 중
-	float			_imgSpeed;	//이미지 속도
-	float			_textSpeed;	//텍스트 속도
-	float			_elpaSec;	//시간 계산
-	int				_stringNum;	//출력할 글자 위치
-	float			_textTerm;	//텍스트 출력 후 화면 넘어가는 텀
-	float			_textY;		//텍스트 개행 시 Y축 위치 조절
+	float			_txtTime;		//텍스트 시간
+	float			_txtInterval;	//텍스트인터벌
+	int				_txtPos;		//텍스트 위치
 
 public:
 
-	virtual void enter();
+	virtual void enter(bool playerControl);
 	virtual bool update();
 	virtual void exit();
 
-	dialogue(DIALOGUELIST chapter, float textSpeed);
+	dialogue(DIALOGLIST file);
 	~dialogue() {}
 
-	HRESULT init(float textSpeed);
-	void render();
-
-	void startChapter(DIALOGUELIST chapter);
-	bool getIsPlay() { return _isPlay; }
-
-	bool textUpdate(float elapsedTime);
-	bool findNameImg(string src, string name);
-	void keyReaction();
+	void render(HDC hdc);
 };
 
 
@@ -144,7 +133,7 @@ private:
 public:
 	waitForSec(float sec);
 
-	virtual void enter();
+	virtual void enter(bool playerControl);
 	virtual bool update();
 	virtual void exit();
 };

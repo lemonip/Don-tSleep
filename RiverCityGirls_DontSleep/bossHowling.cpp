@@ -4,39 +4,25 @@
 #include "Player.h"
 
 void bossHowling::EnterState()
-{
-	_count = 0;
-	_count++;
+{	
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
 }
 
 void bossHowling::UpdateState()
 {
-	if (_count % 8 == 0)
+	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
 	{
-		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsHowling())
-		{
-			_thisBs->SetDest(BS_DEST::LEFT);
-			_thisBs->SetState(BS_STATE::HOWLING);
-			_thisBs->ChangeImg("Bs_howling");
-			_thisBs->getIsMove();
-			
-		}
-
-		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsHowling())
-		{
-			_thisBs->SetDest(BS_DEST::RIGHT);
-			_thisBs->SetState(BS_STATE::HOWLING);
-			_thisBs->ChangeImg("Bs_howling");
-			_thisBs->getIsMove();
-			
-		}
-		
-	}
+		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
+		RECT _temp;
+		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
+		// 지속 처리 필요
+	}	
 }
 
 void bossHowling::ExitState()
 {
+	return;
+
+	_thisBs->SetState(BS_STATE::IDLE);
 }

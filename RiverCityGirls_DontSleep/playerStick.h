@@ -3,6 +3,7 @@
 
 class playerStick :public IPlayerState
 {
+	float _stickTimer;
 public:
 
 	virtual void EnterState();

@@ -9,7 +9,7 @@
 void playGround::addImage()
 {
 	//================= 씬 이미지 =================
-	
+
 	//로딩 씬
 	IMG_M->addImage("load_background", "source/image/ui/scene/LoadingScene_Background.bmp", 1280, 720, true, MAGENTA);
 	IMG_M->addFrameImage("loading_sprite", "source/image/ui/scene/loadingSprite.bmp", 1152, 227, 4, 1, false, MAGENTA);
@@ -32,23 +32,33 @@ void playGround::addImage()
 	IMG_M->addImage("select_kyoko_background", "source/image/ui/scene/SelectScene_kyoko_background.bmp", 360, 563, true, MAGENTA);
 	IMG_M->addImage("select_misako_background", "source/image/ui/scene/SelectScene_misako_background.bmp", 360, 563, true, MAGENTA);
 
+	//게임 씬
+	IMG_M->addImage("dialogWindow", "source/image/ui/scene/dialogWindow.bmp", 1280, 150, true, MAGENTA);
+	IMG_M->addImage("kyoko_1", "source/image/ui/scene/kyoko_1.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("kyoko_2", "source/image/ui/scene/kyoko_2.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("kyoko_3", "source/image/ui/scene/kyoko_3.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("misuzu_1", "source/image/ui/scene/misuzu_1.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("misuzu_2", "source/image/ui/scene/misuzu_2.bmp", 386, 460, true, MAGENTA);
+	IMG_M->addImage("misuzu_3", "source/image/ui/scene/misuzu_3.bmp", 386, 460, true, MAGENTA);
+
+
 	//================= UI =================
 	IMG_M->addImage("shadow", "source/image/character/shadow.bmp", 128, 38, true, MAGENTA, true);
 	IMG_M->addImage("bossHPBack", "source/image/ui/battle/boss_HP_back.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
-
 	//================= 스테이지 =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
 	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);
 	IMG_M->addImage("hardStage", "source/image/stage/hard.bmp", 2328, 1428, false, MAGENTA);
-	IMG_M->addImage("bossStage", "source/image/stage/boss1.bmp", 2077, 810, false, MAGENTA);
-	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 2077, 810, false, MAGENTA);
+	IMG_M->addImage("bossStage", "source/image/stage/boss1.bmp", 3116, 1215, false, MAGENTA);
+	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 3116, 1215, false, MAGENTA);
 
 	//================= 플래이어 =================
 	IMG_M->addFrameImage("pl_climb", "source/image/character/player/climb.bmp", 720, 237, 6, 1, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_climbTop", "source/image/character/player/climbTop.bmp", 288, 192, 3, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_climbTopDown", "source/image/character/player/climbTopDown.bmp", 288, 234, 3, 1, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_comboAttack1", "source/image/character/player/comboAttack1.bmp", 1548, 390, 6, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_comboAttack2", "source/image/character/player/comboAttack2.bmp", 1869, 402, 7, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_comboAttack3", "source/image/character/player/comboAttack3.bmp", 2970, 462, 9, 2, true, MAGENTA, true);
@@ -83,8 +93,9 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pl_wBatAttack", "source/image/character/player/wBatAttack.bmp", 1700, 700, 5, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatIdle", "source/image/character/player/wBatIdle.bmp", 1440, 560, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatJump", "source/image/character/player/wBatJump.bmp", 480, 640, 3, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("pl_wBatRun", "source/image/character/player/wBatRun.bmp", 2736, 560, 16, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_wBatRun", "source/image/character/player/wBatRun.bmp", 6784, 560, 16, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatThrow", "source/image/character/player/wBatThrow.bmp", 1616, 600, 8, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pl_wBatWalk", "source/image/character/player/wBatWalk.bmp", 1476, 500, 12, 2, true, MAGENTA, true);
 
 	//================= 에너미 =================
 	//===============여자학생==========================
@@ -178,8 +189,8 @@ void playGround::addImage()
 
 
 	//================= 보스 ====================
-	IMG_M->addFrameImage("Bs_move", "source/image/character/enemy/boss/move.bmp", 2110, 588, 10, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_idle", "source/image/character/enemy/boss/idle.bmp", 3180, 634, 12, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_move", "source/image/character/enemy/boss/move.bmp", 2110, 588, 10, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_block", "source/image/character/enemy/boss/block.bmp", 1688, 576, 8, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_attacked", "source/image/character/enemy/boss/attacked.bmp", 2214, 594, 9, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_groggy", "source/image/character/enemy/boss/groggy.bmp", 1024, 434, 4, 2, true, MAGENTA, true);
@@ -199,6 +210,22 @@ void playGround::addImage()
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
 	IMG_M->addImage("table", "source/image/object/table.bmp", 339, 162, true, MAGENTA, true);
 	IMG_M->addFrameImage("vendingMachine", "source/image/object/vendingMachine.bmp", 525, 260, 2, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("pillar", "source/image/object/pillar.bmp", 390, 678, 2, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("pillar_big", "source/image/object/pillar_big.bmp", 390, 957, 2, 1, true, MAGENTA, true);
+
+	IMG_M->addFrameImage("bat", "source/image/object/bat.bmp", 179, 104, 1, 2, true, MAGENTA, true);
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
+
+	//================= 이팩트 =================
+	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("ef_beg", "beg.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
+	EFFECT_M->addEffect("ef_blueAttack", "blueAttack.bmp", 720, 80, 80, 80, 1.f, 2.f, 50);
+	EFFECT_M->addEffect("ef_explosion", "explosion.bmp", 2701, 247, 385, 247, 1.f, 2.f, 50);
+	EFFECT_M->addEffect("ef_runL", "runL.bmp", 2544, 123, 212, 123, 1.f, 2.f, 20);
+	EFFECT_M->addEffect("ef_runR", "runR.bmp", 2544, 123, 212, 123, 1.f, 2.f, 20);
+	EFFECT_M->addEffect("ef_shake", "shake.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
+	EFFECT_M->addEffect("ef_spark", "spark.bmp", 512, 128, 128, 128, 1.f, 3.f, 20);	
+	EFFECT_M->addEffect("ef_star", "star.bmp", 1350, 90, 90, 90, 1.f, 3.f, 20);
+	EFFECT_M->addEffect("ef_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 3.f, 20);
 }

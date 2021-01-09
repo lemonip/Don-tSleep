@@ -108,7 +108,7 @@ void SelectScene::update()
 			메뉴얼 UI를 띄우고, 씬을 로딩씬으로 변경합니다.
 		====================================================================*/
 		case SELECTTYPE::MANUAL:
-		if (!EVENT_M->isEvent())
+		if (!EVENT_M->getIsEvent())
 		{
 			if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
 			{

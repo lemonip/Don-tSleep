@@ -3,7 +3,6 @@
 class BrokenObj : public Object
 {
 private:
-	int _frameIdx;
 
 public:
 	BrokenObj(OBJECT_TYPE type, vector3 pos);

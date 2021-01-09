@@ -13,7 +13,7 @@ void playerGuard::UpdateState()
 	//키를 안 누르면 기본상태
 	if (!KEY_M->isStayKeyDown('F'))
 	{
-		KEY_M->clearVKey();
+		_thisPl->setIsControl(true);
 		_thisPl->setState(PL_STATE::IDLE);
 	}
 

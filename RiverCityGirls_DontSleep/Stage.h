@@ -26,6 +26,7 @@ protected:
 	vector<tagWall> _vLeftWall;
 	vector<tagWall> _vRightWall;
 	tagWall _floor;
+	tagWall _pool;
 
 	float _zAngle;
 public:
@@ -38,7 +39,7 @@ public:
 	virtual void leftWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	virtual void rightWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	virtual void floorInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
-
+	virtual void poolInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	/*====================================================================
 									GETTER
 	====================================================================*/
@@ -48,7 +49,7 @@ public:
 	vector<tagWall> getBackWall() { return _vBackWall; }
 	vector<tagWall> getRightWall() { return _vRightWall; }
 	tagWall getFloor() { return _floor; }
-
+	tagWall getPool() { return _pool; }
 	/*====================================================================
 									SETTER
 	====================================================================*/

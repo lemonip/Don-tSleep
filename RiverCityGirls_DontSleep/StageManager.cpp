@@ -8,7 +8,6 @@
 #include "HardStage.h"
 #include "BossStage.h"
 
-
 /*====================================================================
 	초기화에서 플래이어를 만들어 주며, 첫 스테이지를 설정합니다.
 	기본 값은 EASY이며, 실험하고 싶은 스테이지로 설정하면 해당 스테이지로 세팅됩니다.
@@ -20,7 +19,6 @@ HRESULT StageManager::init()
 	_player->init();
 	_player->setLinkStageM(this);
 	EVENT_M->setLinkPlayer(_player);
-
 
 	//첫 스테이지 세팅
 	setStage(STAGETYPE::EASY);
@@ -38,7 +36,7 @@ void StageManager::release()
 
 	_stage->release();
 	SAFE_DELETE(_stage);
-}
+}	
 
 /*====================================================================
 	Player와 Stage에 대한 걸 업데이트 하며,
@@ -49,12 +47,12 @@ void StageManager::update()
 	_stage->update();
 	_player->update();
 
-	if (!EVENT_M->isEvent()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
+	if (!EVENT_M->getIsCameraMove()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
 	// 디버그요오오오오옹(21.01.07 만두루루룸)
 	if (KEY_M->isOnceKeyDown(VK_F1)) setStage(STAGETYPE::EASY);
 	if (KEY_M->isOnceKeyDown(VK_F2)) setStage(STAGETYPE::NORMAL);
-	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::HARD);
-	if (KEY_M->isOnceKeyDown(VK_F5)) setStage(STAGETYPE::BOSS);
+	if (KEY_M->isOnceKeyDown(VK_F3)) setStage(STAGETYPE::HARD);
+	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::BOSS);
 }
 
 /*====================================================================
@@ -114,7 +112,4 @@ void StageManager::setStage(STAGETYPE current)
 
 	//플래이어가 스테이지 초기화를 한다.
 	_player->stageInit();
-
 }
-
-
