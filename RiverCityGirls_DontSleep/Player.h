@@ -1,9 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE	0.501f			//중력 수치
-#define JUMPPOWERVALUE  15.f			//점프파워 수치
-#define FRAMEINTERVAL	0.1f			//프레임 인터벌
+
 #define ATTACKSIZE		480			//일반공격 사이트
 #define THROWSPEED		15			//일반무기 날리는 속도
 
@@ -224,6 +222,8 @@ public:
 	void playFrame();
 	//좌표 이동
 	void movePos(float x, float z, float y);
+	//좌표 고정
+	void changePos(float x, float z, float y);
 	//공격 렉트
 	void renewAttackRc();
 };

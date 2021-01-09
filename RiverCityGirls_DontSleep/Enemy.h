@@ -1,14 +1,12 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE 0.5f;       //중력수치
-#define JUMPPOWERVALUE 15.f		 //점프파워수치
-#define FRAMEINTERVAL 0.1f		 //프레임인터벌
 
 //전방선언
 class Player;
 class StageManager;
 class ObjectManager;
+
 
 class IEnemyState;                 // 전방선언
 

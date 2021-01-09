@@ -4,6 +4,7 @@
 #include "StageManager.h"
 #include "Stage.h"
 #include "Player.h"
+#include "Enemy.h"
 
 HRESULT CollisionManager::init()
 {
@@ -140,7 +141,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						character->pos.x = obj->bottomPlane[1].getX(character->shadow.LT.z) + character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
 					}
 					else // 그림자 윗변이 오브젝트 윗변보다 위에 있을 경우
-					{	
+					{
 						if (character->preShadow.LB.z > obj->bottomPlane[0].getEnd().z)
 						{
 							character->pos.x = obj->bottomPlane[1].getStart().x + character->shadow.width / 2;
@@ -239,9 +240,165 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 	}
 }
 
-void CollisionManager::objectCollision()
+void CollisionManager::playerWallCollsion()
 {
-	wallCollsion();
+	GameObject* character = _stageM->getPlayer()->getPObj();
+	vector<tagWall> vLeftWall = _stageM->getStage()->getLeftWall();
+	vector<tagWall> vRightWall = _stageM->getStage()->getRightWall();
+	vector<tagWall> vBackWall = _stageM->getStage()->getBackWall();
+	tagWall floor = _stageM->getStage()->getFloor();
+
+	vector3 interVector;
+	for (int i = 0; i < vBackWall.size(); ++i) // 플레이어 위쪽 최대치 (뒷 벽 충돌)
+	{
+		if (character->shadow.LT.z < vBackWall[i].LB.z)
+		{
+			if (character->shadow.RT.x > vBackWall[i].LB.x &&
+				character->shadow.LT.x < vBackWall[i].RB.x)
+			{
+				character->pos.z = vBackWall[i].LB.z + character->shadow.height / 2;
+			}
+		}
+	}
+
+	for (int i = 0; i < vLeftWall.size(); ++i)
+	{
+		if (character->preShadow.LT.z < vLeftWall[i].LB.z)
+		{
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vLeftWall[i].RB, vLeftWall[i].LB), &interVector))  // 그림자 윗변이 왼쪽 벽이랑 교차하면
+			{
+				character->pos.x = interVector.x + character->shadow.width / 2;
+			}
+		}
+	}
+
+	for (int i = 0; i < vRightWall.size(); ++i)
+	{
+		if (character->preShadow.RT.z < vRightWall[i].RB.z)
+		{
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vRightWall[i].LB, vRightWall[i].RB), &interVector))  // 그림자 윗변이 오른쪽 벽이랑 교차하면
+			{
+				character->pos.x = interVector.x - character->shadow.width / 2;
+			}
+		}
+	}
+
+	// 바닥과 충돌
+	if (character->shadow.LB.z > floor.LB.z) // 플레이어 아래쪽 최대치 (바닥 충돌)
+	{
+		character->pos.z = floor.LB.z - character->shadow.height / 2;
+	}
+	if (character->shadow.LB.x < floor.LT.x) // 바닥 왼쪽
+	{
+		character->pos.x = floor.LT.x + character->shadow.width / 2;
+	}
+	if (character->shadow.RB.x > floor.RT.x) // 바닥 오른쪽
+	{
+		character->pos.x = floor.RT.x - character->shadow.width / 2;
+	}
+
+	// 수영장과 충돌
+	if (_stageM->getCurStage() == STAGETYPE::HARD)
+	{
+		vector3 temp;
+		tagWall pool = _stageM->getStage()->getPool();
+		if (pool.LT.x < character->shadow.RB.x &&
+			character->shadow.LB.x < pool.RT.x)  // 플레이어 아래쪽 최대치 (수영장 충돌)
+		{
+			if (character->shadow.LB.z > pool.RT.z)
+			{
+				character->pos.z = pool.RT.z - character->shadow.height / 2;
+			}
+		}
+		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // 수영장의 오른쪽과 충돌 시
+		{
+			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
+		}
+	}
+
+}
+
+void CollisionManager::enemyWallColiision(GameObject* character)
+{
+	vector<tagWall> vLeftWall = _stageM->getStage()->getLeftWall();
+	vector<tagWall> vRightWall = _stageM->getStage()->getRightWall();
+	vector<tagWall> vBackWall = _stageM->getStage()->getBackWall();
+	tagWall floor = _stageM->getStage()->getFloor();
+
+	vector3 interVector;
+	for (int i = 0; i < vBackWall.size(); ++i) // 플레이어 위쪽 최대치 (뒷 벽 충돌)
+	{
+		if (character->shadow.LT.z < vBackWall[i].LB.z)
+		{
+			if (character->shadow.RT.x > vBackWall[i].LB.x &&
+				character->shadow.LT.x < vBackWall[i].RB.x)
+			{
+				character->pos.z = vBackWall[i].LB.z + character->shadow.height / 2;
+			}
+		}
+	}
+
+	for (int i = 0; i < vLeftWall.size(); ++i)
+	{
+		if (character->preShadow.LT.z < vLeftWall[i].LB.z)
+		{
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vLeftWall[i].RB, vLeftWall[i].LB), &interVector))  // 그림자 윗변이 왼쪽 벽이랑 교차하면
+			{
+				character->pos.x = interVector.x + character->shadow.width / 2;
+			}
+		}
+	}
+
+	for (int i = 0; i < vRightWall.size(); ++i)
+	{
+		if (character->preShadow.RT.z < vRightWall[i].RB.z)
+		{
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vRightWall[i].LB, vRightWall[i].RB), &interVector))  // 그림자 윗변이 오른쪽 벽이랑 교차하면
+			{
+				character->pos.x = interVector.x - character->shadow.width / 2;
+			}
+		}
+	}
+
+	// 바닥과 충돌
+	if (character->shadow.LB.z > floor.LB.z) // 플레이어 아래쪽 최대치 (바닥 충돌)
+	{
+		character->pos.z = floor.LB.z - character->shadow.height / 2;
+	}
+	if (character->shadow.LB.x < floor.LT.x) // 바닥 왼쪽
+	{
+		character->pos.x = floor.LT.x + character->shadow.width / 2;
+	}
+	if (character->shadow.RB.x > floor.RT.x) // 바닥 오른쪽
+	{
+		character->pos.x = floor.RT.x - character->shadow.width / 2;
+	}
+
+	// 수영장과 충돌
+	if (_stageM->getCurStage() == STAGETYPE::HARD)
+	{
+		vector3 temp;
+		tagWall pool = _stageM->getStage()->getPool();
+		if (pool.LT.x < character->shadow.RB.x &&
+			character->shadow.LB.x < pool.RT.x)  // 플레이어 아래쪽 최대치 (수영장 충돌)
+		{
+			if (character->shadow.LB.z > pool.RT.z)
+			{
+				character->pos.z = pool.RT.z - character->shadow.height / 2;
+			}
+		}
+		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // 수영장의 오른쪽과 충돌 시
+		{
+			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
+		}
+	}
+
+}
+
+
+void CollisionManager::playerObjectCollision()
+{
+	playerWallCollsion();
 	GameObject* character = _stageM->getPlayer()->getPObj();
 	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
 	if (character->pos.y > 0) character->pos.y = 0;
@@ -281,6 +438,7 @@ void CollisionManager::objectCollision()
 								}
 								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
 								{
+									cout << character->pos.y << endl;
 									LRUDCollision(character, obj);
 								}
 							}
@@ -380,80 +538,147 @@ void CollisionManager::objectCollision()
 	}
 }
 
-void CollisionManager::wallCollsion()
+void CollisionManager::enemyObjectCollision(GameObject* character)
 {
-	GameObject* character = _stageM->getPlayer()->getPObj();
-	vector<tagWall> vLeftWall = _stageM->getStage()->getLeftWall();
-	vector<tagWall> vRightWall = _stageM->getStage()->getRightWall();
-	vector<tagWall> vBackWall = _stageM->getStage()->getBackWall();
-	tagWall floor = _stageM->getStage()->getFloor();
-	
-	vector3 interVector;
-	for (int i = 0; i < vBackWall.size(); ++i) // 플레이어 위쪽 최대치 (뒷 벽 충돌)
+	enemyWallColiision(character);
+	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
+
+
+
+	if (character->pos.y > 0) character->pos.y = 0;
+	for (int i = 0; i < vObj.size(); ++i)
 	{
-		if (character->shadow.LT.z < vBackWall[i].LB.z)
+		GameObject* obj = vObj[i]->getObj();
+
+		if (obj->group == OBJECT_GROUP::OBJECT)
 		{
-			if (character->shadow.RT.x > vBackWall[i].LB.x &&
-				character->shadow.LT.x < vBackWall[i].RB.x)
+			if (_stageM->getPlayer()->getInfo().isSky) // 공중에 있을 때
 			{
-				character->pos.z = vBackWall[i].LB.z + character->shadow.height / 2;
+				if (obj->dir == DIRECTION::LEFT)
+				{
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// 캐릭터의 z값이 윗변보다 밑에 있고
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// 캐릭터의 z값이 밑변보다 위에 있고
+					{
+						float tempMaxUz = obj->bottomPlane[1].getX(character->shadow.LT.z);				// 오브젝트 위의 최대값
+						if (obj->bottomPlane[1].getStart().x < tempMaxUz) tempMaxUz = obj->bottomPlane[1].getStart().x;
+						float tempMaxDz = obj->bottomPlane[3].getX(character->shadow.RB.z);
+						if (tempMaxDz < obj->bottomPlane[3].getStart().x) tempMaxDz = obj->bottomPlane[3].getStart().x;
+
+						if (tempMaxDz < character->shadow.RB.x &&
+							character->shadow.LT.x < tempMaxUz)											// 맥스값들보다 사이에 있으면
+						{
+							if (character->prePos.y < character->pos.y) // 낙하 중일 때
+							{
+								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
+								{
+									// y값 보정
+									character->pos.y = obj->topPlane[0].getStart().y;
+									// 상태보정
+									_stageM->getPlayer()->setPlatform(obj);
+									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setJumpPower(0);
+									_stageM->getPlayer()->setIsSky(false);
+								}
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
+								{
+									cout << character->pos.y << endl;
+									LRUDCollision(character, obj);
+								}
+							}
+							else if (character->pos.y < character->prePos.y) // 점프 중일 때 
+							{
+								if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+								{
+									LRUDCollision(character, obj);
+								}
+							}
+						}
+					}
+					// 오브젝트와 안겹쳤을때 (필요한가?)
+					else
+					{
+						if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+						{
+							LRUDCollision(character, obj);
+						}
+					}
+				}
+				else if (obj->dir == DIRECTION::RIGHT)
+				{
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// 캐릭터의 z값이 윗변보다 밑에 있고
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// 캐릭터의 z값이 밑변보다 위에 있고
+					{
+						float tempMaxUz = obj->bottomPlane[3].getX(character->shadow.RT.z);				// 오브젝트 위의 최대값
+						if (tempMaxUz < obj->bottomPlane[3].getEnd().x) tempMaxUz = obj->bottomPlane[3].getEnd().x;
+						float tempMaxDz = obj->bottomPlane[1].getX(character->shadow.LB.z);
+						if (obj->bottomPlane[1].getEnd().x < tempMaxDz) tempMaxDz = obj->bottomPlane[1].getEnd().x;
+
+						if (character->shadow.LB.x < tempMaxDz &&
+							tempMaxUz < character->shadow.RT.x)
+						{
+							if (character->prePos.y < character->pos.y) // 낙하 중일 때
+							{
+								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
+								{
+									// y값 보정
+									character->pos.y = obj->topPlane[0].getStart().y;
+									// 상태보정
+									_stageM->getPlayer()->setPlatform(obj);
+									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setJumpPower(0);
+									_stageM->getPlayer()->setIsSky(false);
+								}
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
+								{
+									LRUDCollision(character, obj);
+								}
+							}
+							else if (character->pos.y < character->prePos.y) // 점프 중일 때 
+							{
+								if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+								{
+									LRUDCollision(character, obj);
+								}
+							}
+						}
+					}
+					// 오브젝트와 안겹쳤을때 (필요한가?)
+					else
+					{
+						if (obj->topPlane[0].getStart().y < character->pos.y) // 오브젝트 높이보다 낮으면 충돌처리
+						{
+							LRUDCollision(character, obj);
+						}
+					}
+				}
+			}
+			else // 공중이 아닐 때(isSky == false)
+			{
+				if (character->pos.y == 0) // 지면일 때
+				{
+					LRUDCollision(character, obj);
+				}
+				else // 지면이 아닐 때(오브젝트 위일 때)
+				{
+					if (_stageM->getPlayer()->getPlatform() != nullptr)
+					{
+						if (_stageM->getPlayer()->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// 벗어나면
+							character->shadow.LT.z > _stageM->getPlayer()->getPlatform()->bottomPlane[2].getStart().z ||					// 벗어나면
+							_stageM->getPlayer()->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// 벗어나면
+							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// 벗어나면
+							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[0].getEnd().x ||						// 벗어나면
+							character->shadow.RB.x < _stageM->getPlayer()->getPlatform()->bottomPlane[2].getEnd().x)						// 벗어나면
+						{
+							_stageM->getPlayer()->setState(PL_STATE::JUMP);
+							_stageM->getPlayer()->setIsSky(true);
+							_stageM->getPlayer()->setJumpPower(0);
+						}
+					}
+				}
 			}
 		}
 	}
-
-	for (int i = 0; i < vLeftWall.size(); ++i)
-	{
-		if (character->preShadow.LT.z < vLeftWall[i].LB.z)
-		{
-			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vLeftWall[i].RB, vLeftWall[i].LB), &interVector))  // 그림자 윗변이 왼쪽 벽이랑 교차하면
-			{
-				character->pos.x = interVector.x + character->shadow.width / 2;
-			}
-		}
-	}
-
-	for (int i = 0; i < vRightWall.size(); ++i)
-	{
-		if (character->preShadow.RT.z < vRightWall[i].RB.z)
-		{
-			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vRightWall[i].LB, vRightWall[i].RB), &interVector))  // 그림자 윗변이 오른쪽 벽이랑 교차하면
-			{
-				character->pos.x = interVector.x - character->shadow.width / 2;
-			}
-		}
-	}
-
-	// 바닥과 충돌
-	if (character->shadow.LB.z > floor.LB.z) // 플레이어 아래쪽 최대치 (바닥 충돌)
-	{
-		character->pos.z = floor.LB.z - character->shadow.height / 2;
-	}
-	if (character->shadow.LB.x < floor.LT.x) // 바닥 왼쪽
-	{
-		character->pos.x = floor.LT.x + character->shadow.width / 2;
-	}
-	if (character->shadow.RB.x > floor.RT.x) // 바닥 오른쪽
-	{
-		character->pos.x = floor.RT.x - character->shadow.width / 2;
-	}
-
-	// 수영장과 충돌
-	if (_stageM->getCurStage() == STAGETYPE::HARD)
-	{
-		vector3 temp;
-		tagWall pool = _stageM->getStage()->getPool();
-		if (pool.LT.x < character->shadow.RB.x && 
-			character->shadow.LB.x < pool.RT.x)  // 플레이어 아래쪽 최대치 (수영장 충돌)
-		{
-			if (character->shadow.LB.z > pool.RT.z)
-			{
-				character->pos.z = pool.RT.z - character->shadow.height / 2;
-			}
-		}
-		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // 수영장의 오른쪽과 충돌 시
-		{
-			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
-		}
-	}
-	
 }
+
