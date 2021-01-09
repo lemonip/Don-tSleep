@@ -86,9 +86,8 @@ void playGround::render()
 	SCENE_M->render();								//¾À ·»´õ
 	EFFECT_M->render();								//ÀÌÆÑÆ® ·»´õ
 	CAMERA_M->render(getBackDC(),_mapBuffer);		//Ä«¸Þ¶ó ·»´õ
-	EVENT_M->render(getBackDC());
-	
-	
+	EVENT_M->render(getBackDC());					//ÀÌº¥Æ® ·»´õ
+
 	//================= µð¹ö±ë ¿ë =================
 	//FPS È®ÀÎ
 	if (KEY_M->isToggleKey(VK_TAB)) TIME_M->render(getBackDC());

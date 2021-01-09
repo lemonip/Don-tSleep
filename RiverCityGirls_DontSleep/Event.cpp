@@ -8,8 +8,6 @@
 ====================================================================*/
 cameraMove::cameraMove(vector3 goal, float moveSpeed, float mag, float magSpeed)
 {
-	_isCameraMove = true;
-
 	_goal = goal;
 
 	_goal.x += WINSIZEX / 2;
@@ -22,6 +20,7 @@ cameraMove::cameraMove(vector3 goal, float moveSpeed, float mag, float magSpeed)
 void cameraMove::enter(bool playerControl)
 {
 	Event::enter(playerControl);
+	_isCameraMove = true;
 }
 
 bool cameraMove::update()
@@ -29,7 +28,8 @@ bool cameraMove::update()
 	CAMERA_M->SetPos(_goal.x, _goal.y, 0, 0, _moveSpeed);
 	CAMERA_M->SetMagnification(_mag, _magSpeed);
 
-	if (getDistance(CAMERA_M->GetX(), CAMERA_M->GetY(), _goal.x, _goal.y) < 10)
+	if (getDistance(CAMERA_M->GetX(), CAMERA_M->GetY(), _goal.x, _goal.y) < 50
+		&& CAMERA_M->GetMagnificiation() == _mag)
 	{
 		CAMERA_M->SetPos(_goal.x, _goal.y);
 		return true;
@@ -261,17 +261,13 @@ void dialogue::render(HDC hdc)
 ====================================================================*/
 waitForSec::waitForSec(float sec)
 {
-	_isCameraMove = true;
-
-	_sec = sec;
+	_endTime = TIME_M->getWorldTime() + sec;
 }
 
 void waitForSec::enter(bool playerControl)
 {
 	Event::enter(playerControl);
-	if (_player) _player->setIsControl(false);
-
-	_endTime = TIME_M->getWorldTime() + _sec;
+	_isCameraMove = true;
 }
 
 bool waitForSec::update()
@@ -287,11 +283,12 @@ void waitForSec::exit()
 
 void Event::enter(bool playerControl)
 {
-	_isEnd = _isMovie = _isCameraMove = false;
+	_isMovie = _isCameraMove = false;
 	_player->setIsConDest(playerControl);
 }
 
 void Event::exit()
 {
+	_isMovie = _isCameraMove = false;
 	_player->setIsControl(true);
 }
