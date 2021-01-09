@@ -1,12 +1,2 @@
-﻿  playGround+setImage.cpp
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(221): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(222): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(223): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(224): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(225): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(226): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(227): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(228): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(229): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\wls62\documents\don-tsleep\rivercitygirls_dontsleep\playground+setimage.cpp(230): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  StageManager.cpp
   windowAPI.vcxproj -> C:\Users\wls62\Documents\Don-tSleep\RiverCityGirls_DontSleep\x64\Debug\windowAPI.exe

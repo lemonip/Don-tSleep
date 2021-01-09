@@ -513,6 +513,9 @@
     <ClInclude Include="pet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="IEnemyState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -640,9 +643,6 @@
     </ClCompile>
     <ClCompile Include="ShopScene.cpp">
       <Filter>playGround\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="playGround+setImage.cpp">
-      <Filter>playGround</Filter>
     </ClCompile>
     <ClCompile Include="NormalStage.cpp">
       <Filter>playGround\StageManager\Stage</Filter>
@@ -913,6 +913,12 @@
     </ClCompile>
     <ClCompile Include="pet.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemyState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="playGround+setImage.cpp">
+      <Filter>playGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
