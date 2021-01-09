@@ -29,7 +29,7 @@ void playerRun::UpdateState()
 
 	//이동
 	lineMove(_thisPl->getInfo().speed / 1.5);
-	crossMove(_thisPl->getInfo().speed*1.7);
+	crossMove(_thisPl->getInfo().speed*1.5);
 
 	//약공격
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::DASHATTACK);

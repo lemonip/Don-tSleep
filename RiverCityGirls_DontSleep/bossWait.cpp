@@ -3,26 +3,51 @@
 
 void bossWait::EnterState()
 {
-	_count = 0;
-	_count++;	
-	
+
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_idle");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossWait::UpdateState()
 {
-	
-
-	/*	1. slab attack 
-		2. elbow attack
-		3. meteor attack
-		4. dash attack
-		5. smash attack
-		6. bsss block
-		으로 상태 행동 변화전 단계*/
-		
+	if (TIME_M->getWorldTime() - _enterTime > 0.7f && fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 180 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 50)
+	{	
+		_thisBs->SetState(BS_STATE::GROGGY);
+		/*switch (RND->getInt(3))
+		{
+		case 0:
+			_thisBs->SetState(BS_STATE::SLAP);
+			_thisBs->getInfo().isAttack = true;
+			break;
+		case 1:
+			_thisBs->SetState(BS_STATE::ELBOW);
+			_thisBs->getInfo().isAttack = true;
+			break;
+		case 2:
+			_thisBs->SetState(BS_STATE::BLOCK);
+			_thisBs->getInfo().isAttack = true;
+			break;		
+		}*/
+	}	
+	else if (fabs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 && fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30)
+	{
+		_thisBs->SetState(BS_STATE::MOVE);
+	}
 }
 
 void bossWait::ExitState()
 {
+	
 }

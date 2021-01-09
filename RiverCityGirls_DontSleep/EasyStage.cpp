@@ -31,6 +31,7 @@ HRESULT EasyStage::init()
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(1210, 0, 545));
 	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
 
+
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 40));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 100, 0, WINSIZEY / 2 + 40));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 200, 0, WINSIZEY / 2 + 40));

@@ -2,7 +2,6 @@
 #include "StageManager.h"
 
 #include "Player.h"
-#include "CollisionManager.h"
 
 #include "EasyStage.h"
 #include "NormalStage.h"
@@ -21,9 +20,8 @@ HRESULT StageManager::init()
 	_player->setLinkStageM(this);
 	EVENT_M->setLinkPlayer(_player);
 
-	
 	//첫 스테이지 세팅
-	setStage(STAGETYPE::EASY);
+	setStage(STAGETYPE::BOSS);
 
 	return S_OK;
 }

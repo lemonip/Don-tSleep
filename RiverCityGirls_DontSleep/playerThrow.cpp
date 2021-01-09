@@ -14,7 +14,6 @@ void playerThrow::EnterState()
 
 void playerThrow::UpdateState()
 {
-	
 	//공격 판정
 	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 	{

@@ -9,30 +9,41 @@ void bossMeteor::EnterState()
 	_speed = 8.0f;
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_meteor");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossMeteor::UpdateState()
 {
+	
+
 	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 10.0f)
 	{
-		_angle = getAngle(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z,
+		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
 		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
 		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
 
-<<<<<<< HEAD
-		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
-=======
-		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
->>>>>>> origin/ìˆ˜í˜„ìž‘ì—…
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 100, 100);
 		RECT _temp;
 		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) Ãæµ¹Ã³¸® ÇÊ¿ä, ÇÃ·¹ÀÌ¾î ·ºÆ®? 
 		// È­¸éÀ§·Î ¿Ã·Á¼­ ±×·¡ºñÆ¼¸¦ ¹Þ°Ô ÇØ¼­ ¹Ù´Ú¸¸ Ãæµ¹À» ÀÏÀ¸Å°°Å³ª, 
 		// ÀÌ¹ÌÁö Ã³¸®·Î Ãæµ¹...(?)
-		// Áö¼Ó Ã³¸® ÇÊ¿ä
+		// Áö¼Ó Ã³¸® ÇÊ¿ä, ÁÂÇ¥ Ã³¸®(?)
 	}
 }
 
 void bossMeteor::ExitState()
 {
+	_thisBs->getInfo().isAttack = false;
 }

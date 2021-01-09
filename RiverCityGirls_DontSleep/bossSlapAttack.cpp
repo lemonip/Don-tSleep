@@ -7,36 +7,41 @@ void bossSlapAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_slap");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossSlapAttack::UpdateState()
-{
-	
-		
-	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x > _thisBs->getPlayerAddress()->getObj().pos.x)
+{	
+	if ( _thisBs->getdest() == DIRECTION::LEFT)
 	{
-<<<<<<< HEAD
-		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
-=======
-		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
->>>>>>> origin/ìˆ˜í˜„ìž‘ì—…
-		RECT _temp;
-		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) Ãæµ¹Ã³¸® ÇÊ¿ä, ÇÃ·¹ÀÌ¾î ·ºÆ®? 
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 50, _thisBs->getObj()->pos.z, 200, 100);
+	
+		/*if (IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getObj().rc))
+		{
+
+		}*/
 	}
 
-	else if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x < _thisBs->getPlayerAddress()->getObj().pos.x)
+	else if (_thisBs->getdest() == DIRECTION::RIGHT)
 	{
-<<<<<<< HEAD
-		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
-=======
-		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
->>>>>>> origin/ìˆ˜í˜„ìž‘ì—…
-		RECT _temp;		
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z, 200, 100);
+			
 	}	
 }
 
 void bossSlapAttack::ExitState()
 {
-	return;
 	_thisBs->SetState(BS_STATE::IDLE);
+	_thisBs->getInfo().isAttack = false;
 }

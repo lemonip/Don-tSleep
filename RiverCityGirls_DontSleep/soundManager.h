@@ -2,8 +2,8 @@
 #include "singletonBase.h"
 #include <map>
 
-#include "Plugins/inc/fmod.hpp"
-#pragma comment(lib, "Plugins/lib/fmodex64_vc.lib")
+#include "inc/fmod.hpp"
+#pragma comment(lib, "lib/fmodex64_vc.lib")
 
 using namespace FMOD;
 

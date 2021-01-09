@@ -31,7 +31,7 @@ HRESULT Boss::init()
 	_objectM = _stageM->getStage()->getObjectM();
 
 	_obj.init(OBJECT_GROUP::BOSS, IMG_M->findImage("Bs_idle"), _obj.pos);	
-	_obj.imgIndex = { 0,0 }; 
+	_obj.imgIndex = { 0,0 };
 	
 	_frameTimer = TIME_M->getWorldTime();
 
@@ -55,6 +55,8 @@ HRESULT Boss::init()
 	_smash = new bossSmashAttack;
 	_standattack = new bossStandAttack;
 
+	_info.isAttack = false;
+
 	_BState = NULL;
 	SetState(BS_STATE::IDLE);
 		
@@ -67,22 +69,37 @@ void Boss::release()
 
 void Boss::update()
 {
-	_obj.update();
-	setImage();
-	_BState->UpdateState();	
-	frameUpdate();
+
+	cout << static_cast<int>(_dest) << endl;
 	if (_player->getObj().pos.x < _obj.pos.x)
 	{
 		SetDest(DIRECTION::LEFT);
 	}
-	else if(_player->getObj().pos.x < _obj.pos.x)
+	else if (_player->getObj().pos.x > _obj.pos.x)
 	{
-		SetDest(DIRECTION::RIGHT);
-	}	
+		
+		SetDest(DIRECTION::RIGHT);				
+	}
+
+	_obj.update();
+	//setImage();
+	_BState->UpdateState();	
+	frameUpdate();
+
+	/*if (_dest == DIRECTION::LEFT)
+	{
+		cout << "left" << endl;
+	}
+
+	else if (_dest == DIRECTION::RIGHT)
+	{
+		cout << "right" << endl;
+	}*/
 }
 
 void Boss::render()
-{
+{	
+	if(_info.isAttack)Rectangle(getMapDC(), _info.rcAttack);
 }
 
 void Boss::SetState(BS_STATE state)
@@ -142,14 +159,17 @@ void Boss::frameUpdate()
 		case BS_STATE::IDLE:		
 		case BS_STATE::DEATH:
 		case BS_STATE::MOVE:
+		case BS_STATE::WAIT:
+		case BS_STATE::GROGGY:
 		playFrame(0);
 		break;
 		
 		case BS_STATE::METEOR:
-		case BS_STATE::DASH:
+		case BS_STATE::DASH:		
 		playFrame(1);
 		break;
 
+		case BS_STATE::BLOCK:
 		case BS_STATE::SMASH:
 		case BS_STATE::SLAP:
 		case BS_STATE::ELBOW:
@@ -171,32 +191,43 @@ void Boss::playFrame(int count)
 	switch (count)
 	{
 	case -1:	//한 번 재생 후 기본
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX()) SetState(BS_STATE::IDLE);
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0) SetState(BS_STATE::IDLE);
+				
+		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
+		{
+			_obj.imgIndex.x = 0;
+			SetState(BS_STATE::IDLE);			
+		}
+		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
+		{
+			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+			SetState(BS_STATE::IDLE);			
+		}
 		break;
 	case 1:		//한 번만 재생
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX()) _obj.imgIndex.x = _obj.img->getMaxFrameX();
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0) _obj.imgIndex.x = 0;
+	
+		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = 0;
 		break;
 	case 0:		//무한 재생
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+		
+		
+		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;
+		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 		break;
 	}
 
-	if (_obj.imgIndex.x < 0) _obj.imgIndex.x = 0;
-	else if (_obj.imgIndex.x > _obj.img->getMaxFrameX()) _obj.imgIndex.x = _obj.img->getMaxFrameX();
-		
+	/*if (_obj.imgIndex.x < 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+	else if (_obj.imgIndex.x > _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;*/
 	switch (_dest)
 	{
-	case DIRECTION::RIGHT: 
-		++_obj.imgIndex.x;
-		_obj.imgIndex.y = 1;
-		break;
-		
 	case DIRECTION::LEFT: 
 		--_obj.imgIndex.x;
 		_obj.imgIndex.y = 0;
+		break;
+		
+	case DIRECTION::RIGHT: 
+		++_obj.imgIndex.x;
+		_obj.imgIndex.y = 1;
 		break;
 	}
 }
@@ -287,60 +318,7 @@ void Boss::playFrame(int count)
 	}
 }*/
 
-void Boss::setImage()
-{
-	switch (_state)
-	{
-	case BS_STATE::IDLE:
-		_obj.img = IMG_M->findImage("Bs_idle");
-	break;
-	case BS_STATE::WAIT:
-		_obj.img = IMG_M->findImage("Bs_wait");
-	break;
-	case BS_STATE::MOVE:
-		_obj.img = IMG_M->findImage("Bs_move");
-	break;
-	case BS_STATE::BLOCK:
-		_obj.img = IMG_M->findImage("Bs_block");
-	break;
-	case BS_STATE::ATTACKED:
-		_obj.img = IMG_M->findImage("Bs_attacked"); 
-	break;
-	case BS_STATE::GROGGY:
-		_obj.img = IMG_M->findImage("Bs_groggy"); 
-	break;
-	case BS_STATE::PHASE:
-		_obj.img = IMG_M->findImage("Bs_phase"); 
-	break;
-	case BS_STATE::DOWN:
-		_obj.img =  IMG_M->findImage("Bs_down"); 
-	break;
-	case BS_STATE::DEATH:
-		_obj.img = IMG_M->findImage("Bs_death"); 
-	break;
-	case BS_STATE::HOWLING:
-		_obj.img = IMG_M->findImage("Bs_howling"); 
-	break;
-	case BS_STATE::METEOR:
-		_obj.img = IMG_M->findImage("Bs_meteor"); 
-	break;
-	case BS_STATE::DASH:
-		_obj.img = IMG_M->findImage("Bs_dash"); 
-	break;
-	case BS_STATE::ELBOW:
-		_obj.img = IMG_M->findImage("Bs_elbow"); 
-	break;
-	case BS_STATE::SLAP:
-		_obj.img = IMG_M->findImage("Bs_slap"); 
-	break;
-	case BS_STATE::SMASH:
-		_obj.img = IMG_M->findImage("Bs_smash"); 
-	break;
-	case BS_STATE::STANDATTACK:
-		_obj.img = IMG_M->findImage("Bs_standat");
-	break;	
-	}
-}
+
 
 void Boss::MovePos(float x, float z, float y)
 {
@@ -348,7 +326,6 @@ void Boss::MovePos(float x, float z, float y)
 	_obj.pos.z -= z;
 	_obj.pos.y += y;
 	
-
 }
 
 void Boss::ChangeImg(string imgName)

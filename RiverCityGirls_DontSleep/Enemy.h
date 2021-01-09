@@ -1,12 +1,14 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
+#define GRAVITYVALUE 0.5f;       //Áß·Â¼öÄ¡
+#define JUMPPOWERVALUE 15.f		 //Á¡ÇÁÆÄ¿ö¼öÄ¡
+#define FRAMEINTERVAL 0.1f		 //ÇÁ·¹ÀÓÀÎÅÍ¹ú
 
 //Àü¹æ¼±¾ğ
 class Player;
 class StageManager;
 class ObjectManager;
-
 
 class IEnemyState;                 // Àü¹æ¼±¾ğ
 
@@ -110,16 +112,9 @@ protected:
 	DIRECTION _dest;
 	ENEMY_TYPE _ENEMY_TYPE;
 	EN_STATE _state;               //ÇöÀç »óÅÂ enum
-<<<<<<< HEAD
-		
-	float _runSpeed;               //¶Ù´Â ÀÌµ¿ ¼Óµµ 
-	float _walkSpeed;			   //°È´Â ÀÌµ¿ ¼Óµµ
-	float _jumpPower;              //Á¡ÇÁ·Â
-=======
 
 	//int _imageXIndex;			//ÀÌ¹ÌÁö °¡·Î ÀÎµ¦½º
 	//int _imageYIndex;			//ÀÌ¹ÌÁö ¼¼·Î ÀÎµ¦½º
->>>>>>> origin/ìˆ˜í˜„ì‘ì—…
 	
 
 	StageManager* _stageM;		//½ºÅ×ÀÌÁö ¸Å´ÏÀú ¸µÅ©

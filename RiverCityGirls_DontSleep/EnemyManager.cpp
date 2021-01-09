@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "EnemyManager.h"
 
-#include "StageManager.h"
 #include "schoolGirl.h"
 #include "schoolBoy.h"
 #include "cheerLeader.h"
@@ -39,12 +38,9 @@ void EnemyManager::render()
 		{
 			Rectangle(getMapDC(), _vEnemy[i]->getInfo().rcAttack);
 		}
-		if (KEY_M->isToggleKey(VK_TAB))
-		{
-			Rectangle(getMapDC(), _vEnemy[i]->getObj()->shadow.rc);
-		}
-	}
-	
+
+		_vEnemy[i]->render();
+	}	
 }
 
 void EnemyManager::pushEnemy(ENEMY_TYPE type, vector3 pos)
@@ -65,10 +61,9 @@ void EnemyManager::pushEnemy(ENEMY_TYPE type, vector3 pos)
 		_enemy = new Boss;
 		break;
 	}
+	
 	_enemy->setLinkStageM(_stageM);
 	_enemy->setPosition(pos);
 	_enemy->init();
-
-
 	_vEnemy.push_back(_enemy);
 }

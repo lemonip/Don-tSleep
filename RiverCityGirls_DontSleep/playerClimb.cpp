@@ -10,8 +10,6 @@ void playerClimb::EnterState()
 	_thisPl->getObj().ani->setDefPlayFrame(false, true);
 
 	_thisPl->getObj().ani->start();
-
-	_thisPl->changePos(1555, _thisPl->getObj().pos.z, _thisPl->getObj().pos.y);
 	
 }
 
@@ -41,21 +39,7 @@ void playerClimb::UpdateState()
 	if (KEY_M->isOnceKeyDown('J'))
 		_thisPl->setState(PL_STATE::CLIMBTOP);
 
-	//위아래 움직임
-	lineMove(_thisPl->getInfo().speed);
-
 	//렉트템프로 사다리 내려가면 바로 상태변경
-	if (KEY_M->isOnceKeyDown(VK_DOWN)
-		&& _thisPl->getObj().pos.z>=930)
-		_thisPl->setState(PL_STATE::IDLE);
-
-	//렉트템프로 사다리 위로 올라가면 바로 상태변경
-	if (KEY_M->isOnceKeyDown(VK_DOWN)
-		&& _thisPl->getObj().pos.z <= 430)
-		_thisPl->setState(PL_STATE::CLIMBTOP);
-
-
-
 	//_thisPl->setState(PL_STATE::IDLE);
 }
 

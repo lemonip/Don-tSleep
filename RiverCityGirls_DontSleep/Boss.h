@@ -50,27 +50,10 @@ private:
 	IBossState*	_smash;			//½º¸Å½Ã ¾îÅÃ
 	IBossState*	_standattack;	//±â»ó ¾îÅÃ
 	
-	DIRECTION _dest;
+	
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;	
-
-	RECT _rcAttack;
-<<<<<<< HEAD
 	float _frameTimer;
-=======
-	bool _isAttack;
-	bool _isDown;
-	bool _isWait;
-	bool _isPhase;
-	bool _isBlock;
-	bool _isDead;
-	bool _isMove;
-	bool _isElbow;
-	bool _isMeteor;
-	bool _isSmash;
-	bool _isHowling;
-	bool _isDash;
->>>>>>> origin/ìˆ˜í˜„ìž‘ì—…
 
 	   
 public:
@@ -82,13 +65,6 @@ public:
 	virtual void render();			//·»´õ
 
 	//Á¢±ÙÀÚ===================================================
-	Player* getPlayerAddress() { return _player; }	
-	GameObject* getObj() { return &_obj; }
-	GameObject getobj() { return _obj; }
-	tagInfo getinfo() { return _info; }
-	DIRECTION getIsDest() { return _dest; }
-	
-	
 	//ÁöÁ¤ÀÚ===================================================
 	void SetState(BS_STATE state);
 	void SetDest(DIRECTION dest);
@@ -100,7 +76,6 @@ public:
 	void playFrame(int count);
 	void frameUpdate();
 	//void setFrame(FRAMETYPE _frametype);
-	void setImage();	
 	void MovePos(float x, float z, float y);				//ÁÂÇ¥ ÀÌµ¿
 	void ChangeImg(string imgName);						//ÀÌ¹ÌÁöº¯°æ
 	

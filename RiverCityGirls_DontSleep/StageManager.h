@@ -4,7 +4,6 @@
 class Player;
 class Boss;
 class Stage;
-class CollisionManager;
 
 /*====================================================================
 	StageManager는, 플래이어와 스테이지를 멤버로 가지며,
@@ -19,7 +18,6 @@ class StageManager
 	Stage* _stage;
 	STAGETYPE _currentStage;
 	STAGETYPE _preStage;
-	CollisionManager* _colM;
 public:
 
 	virtual HRESULT init();
@@ -31,7 +29,7 @@ public:
 									SETTER
 	====================================================================*/
 	virtual void setStage(STAGETYPE current);
-	virtual void setLinkColM(CollisionManager* col) { _colM = col; }
+
 
 	/*====================================================================
 									GETTER
@@ -41,6 +39,6 @@ public:
 	Boss* getBoss() { return _boss; }
 	STAGETYPE getCurStage() { return _currentStage; }
 	STAGETYPE getPreStage() { return _preStage; }
-	CollisionManager* getColM() { return _colM; }
+
 };
 

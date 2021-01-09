@@ -22,7 +22,6 @@ void playerClimbTop::UpdateState()
 		_thisPl->setIsControl(true);
 		_thisPl->setState(PL_STATE::CLIMB);
 		}
-
 	if (_thisPl->getInfo().moveDest == MOVE_DIRECTION::UP
 		&& isEndFrame(false))
 		{

@@ -47,14 +47,6 @@ using namespace TFIVE_UTIL;
 #define WINSIZEY 720		//윈도우 세로크기
 #define WINSTYLE WS_CAPTION | WS_SYSMENU
 
-/*===============================================================
-					게임 내에서 사용할 상수 값
-================================================================*/
-#define GRAVITYVALUE	0.501f			//중력 수치
-#define JUMPPOWERVALUE  15.f			//점프파워 수치
-#define FRAMEINTERVAL	0.1f			//프레임 인터벌
-
-
 #define RND randomFunction::getSingleton()
 #define KEY_M keyManager::getSingleton()
 #define IMG_M imageManager::getSingleton()

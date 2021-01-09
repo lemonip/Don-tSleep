@@ -5,16 +5,30 @@
 
 void bossDashAttack::EnterState()
 {
-	_angle = PI / 2;
-	_speed = 8.0f;
+	_speed = 0;
 	_thisBs->ChangeImg("Bs_dash");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossDashAttack::UpdateState()
 {
-	if (abs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getobj().pos.x) > 50 && abs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getobj().pos.z) > 20)
+	_speed = 8.0f;
+
+	
+	if (abs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 && abs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 20)
 	{
-		_angle = getAngle(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z,
+		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
 		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
 		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
@@ -25,4 +39,5 @@ void bossDashAttack::UpdateState()
 void bossDashAttack::ExitState()
 {
 	_thisBs->SetState(BS_STATE::HOWLING);
+	_thisBs->getInfo().isAttack = true;
 }

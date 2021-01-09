@@ -5,17 +5,25 @@ void bossStandAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_standat");
+
+	if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
 }
 
 void bossStandAttack::UpdateState()
 {
 	if (TIME_M->getWorldTime() - _enterTime > 2.0f)
 	{
-<<<<<<< HEAD
-		_thisBs->getinfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
-=======
-		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
->>>>>>> origin/ìˆ˜í˜„ìž‘ì—…
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 200, 200);
 		RECT _temp;
 		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) Ãæµ¹Ã³¸® ÇÊ¿ä, ÇÃ·¹ÀÌ¾î ·ºÆ®? 
 	}
@@ -24,5 +32,6 @@ void bossStandAttack::UpdateState()
 
 void bossStandAttack::ExitState()
 {
+	
 	_thisBs->SetState(BS_STATE::IDLE);
 }

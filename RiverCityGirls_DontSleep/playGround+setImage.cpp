@@ -201,10 +201,10 @@ void playGround::addImage()
 	IMG_M->addFrameImage("Bs_meteor", "source/image/character/enemy/boss/meteor_J.bmp", 1888, 672, 8, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_dash", "source/image/character/enemy/boss/tackle_L.bmp", 2882, 576, 11, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_elbow", "source/image/character/enemy/boss/elbow.bmp", 2915, 652, 11, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("Bs_slap", "source/image/character/enemy/boss/slap.bmp", 5278, 582, 14, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("Bs_slap", "source/image/character/enemy/boss/slab.bmp", 5278, 582, 14, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_smash", "source/image/character/enemy/boss/smash.bmp", 11880, 594, 27, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_standat", "source/image/character/enemy/boss/standattack2.bmp", 3735, 580, 15, 2, true, MAGENTA, true);
-
+	IMG_M->addFrameImage("Bs_meteordown", "source/image/charcarter/enemy/boss/meteor.bmp", 480, 460, 2, 2, true, MAGENTA, true);
 
 	//================= 오브젝트 =================
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
@@ -218,17 +218,14 @@ void playGround::addImage()
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
 
 	//================= 이팩트 =================
-	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, .2f, 50);
+	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
 	EFFECT_M->addEffect("ef_beg", "beg.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
-	EFFECT_M->addEffect("ef_blueAttack", "blueAttack.bmp", 720, 80, 80, 80, 1.f, 1.f, 50);
-	//EFFECT_M->addEffect("ef_explosion", "explosion.bmp", 2701, 247, 385, 247, 1.f, 1.f, 50);
-	EFFECT_M->addEffect("explosion", "explosion.bmp", 832, 62, 32, 62, 1.0f, 1.f, 1000);
-
-	EFFECT_M->addEffect("ef_explosion", "explosion.bmp", 2701, 247, 385, 247, 1.f, 1.f, 50);
+	EFFECT_M->addEffect("ef_blueAttack", "blueAttack.bmp", 720, 80, 80, 80, 1.f, 2.f, 50);
+	EFFECT_M->addEffect("ef_explosion", "explosion.bmp", 2701, 247, 385, 247, 1.f, 2.f, 50);
 	EFFECT_M->addEffect("ef_runL", "runL.bmp", 2544, 123, 212, 123, 1.f, 2.f, 20);
 	EFFECT_M->addEffect("ef_runR", "runR.bmp", 2544, 123, 212, 123, 1.f, 2.f, 20);
 	EFFECT_M->addEffect("ef_shake", "shake.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
 	EFFECT_M->addEffect("ef_spark", "spark.bmp", 512, 128, 128, 128, 1.f, 3.f, 20);	
-	EFFECT_M->addEffect("ef_star", "star.bmp", 1350, 90, 90, 90, 1.f, 1.f, 20);
-	EFFECT_M->addEffect("ef_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 1.f, 20);
+	EFFECT_M->addEffect("ef_star", "star.bmp", 1350, 90, 90, 90, 1.f, 3.f, 20);
+	EFFECT_M->addEffect("ef_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 3.f, 20);
 }
