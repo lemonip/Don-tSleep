@@ -37,6 +37,21 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos)
 		break;
 	}
 
+	/*====================================================================
+						그림자 등 충돌 처리에 관련 해 설정합니다.
+	====================================================================*/
+	if (isShadow)
+	{
+		shadow.pos = vector3(pos.x, pos.y, pos.z);
+		shadow.width = 120;
+		shadow.height = 20;
+		shadow.LT = vector3(pos.x - shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+		shadow.RT = vector3(pos.x + shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+		shadow.RB = vector3(pos.x + shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+		shadow.LB = vector3(pos.x - shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+		shadow.rc = RectMakeCenter(pos.x, pos.z, shadow.width, shadow.height);
+	}
+
 	isActive = true;
 }
 
@@ -158,20 +173,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 		break;
 	}
 
-	/*====================================================================
-						그림자 등 충돌 처리에 관련 해 설정합니다.
-	====================================================================*/
-	if (isShadow)
-	{
-		shadow.pos = vector3(pos.x, pos.y, pos.z);
-		shadow.width = 120;
-		shadow.height = 20;
-		shadow.LT = vector3(pos.x - shadow.width / 2, pos.y, pos.z - shadow.height / 2);
-		shadow.RT = vector3(pos.x + shadow.width / 2, pos.y, pos.z - shadow.height / 2);
-		shadow.RB = vector3(pos.x + shadow.width / 2, pos.y, pos.z + shadow.height / 2);
-		shadow.LB = vector3(pos.x - shadow.width / 2, pos.y, pos.z + shadow.height / 2);
-		shadow.rc = RectMakeCenter(pos.x, pos.z, shadow.width, shadow.height);
-	}
+	
 
 	isActive = true;
 }
@@ -276,7 +278,6 @@ void GameObject::release()
 void GameObject::update()
 {
 	RectRenew();
-	shadowUpdate();
 }
 
 void GameObject::render()

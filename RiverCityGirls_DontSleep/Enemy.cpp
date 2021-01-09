@@ -5,6 +5,7 @@
 #include "Stage.h"
 #include "StageManager.h"
 #include "ObjectManager.h"
+#include "CollisionManager.h"
 
 #include "enemyAttack1.h"
 #include "enemyAttack2.h"
@@ -84,12 +85,15 @@ void Enemy::release()
 
 void Enemy::update()
 {
-	_obj.update();
-	_EState->UpdateState();
-	playFrame();
+	_obj.prePos = _obj.pos;
+	_obj.preShadow = _obj.shadow;
 
-	
-	
+	_EState->UpdateState();
+
+	_obj.update();
+	_obj.shadowUpdate();
+
+	playFrame();
 }
 
 void Enemy::render()
@@ -101,6 +105,12 @@ void Enemy::xzyMove(int x,int z, int y)
 	_obj.pos.x += x;
 	_obj.pos.z += z;
 	_obj.pos.y += y;
+
+	_obj.shadowUpdate();
+
+	_stageM->getColM()->enemyObjectCollision(&_obj);
+
+	_obj.update();
 }
 
 

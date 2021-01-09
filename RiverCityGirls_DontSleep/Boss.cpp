@@ -211,6 +211,7 @@ void Boss::MovePos(float x, float z, float y)
 	_obj.pos.z -= z;
 	_obj.pos.y += y;
 	
+
 }
 
 void Boss::ChangeImg(string imgName)

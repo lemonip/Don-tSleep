@@ -513,6 +513,9 @@
     <ClInclude Include="pet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="IEnemyState.h">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -913,6 +916,9 @@
     </ClCompile>
     <ClCompile Include="pet.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemyState.cpp">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
