@@ -519,9 +519,10 @@ void Player::movePos(float x, float z, float jumpPower)
 void Player::renewAttackRc()
 {
 	_info.attackInfo._obj.pos.z = _obj.pos.z;
+	_info.attackInfo._obj.pos.y = (_obj.rc.bottom + _obj.rc.top) / 2;
 
-	cout <<"무기z" <<_info.attackInfo._obj.pos.z << endl;
-	cout <<"플레z" <<_obj.pos.z << endl;
+	//cout <<"무기z" <<_info.attackInfo._obj.pos.z << endl;
+	//cout <<"플레z" <<_obj.pos.z << endl;
 	//무기에 따른 렉트 크기 설정
 	switch (_info.weaponType)
 	{
@@ -561,7 +562,7 @@ void Player::renewAttackRc()
 		}
 		//상황에 따른 렉트 위치 갱신
 		//★ 커맨드 공격의 경우 가운데여야함
-		_info.attackInfo._obj.pos.y = (_obj.rc.bottom + _obj.rc.top)/2;
+		//_info.attackInfo._obj.pos.y = (_obj.rc.bottom + _obj.rc.top)/2;
 
 		switch (_info.state)
 		{

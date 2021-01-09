@@ -22,8 +22,18 @@ void playerCombo1::EnterState()
 
 void playerCombo1::UpdateState()
 {
+	if (_thisPl->getInfo().isAttack)
+	{
+		EFFECT_M->play("ef_attack",(_thisPl->getInfo().attackInfo._obj.rc.right + _thisPl->getInfo().attackInfo._obj.rc.left)/2,
+			_thisPl->getInfo().attackInfo._obj.pos.z);
+
+		cout <<" 오"<< _thisPl->getInfo().attackInfo._obj.rc.right<< endl;
+		cout <<" 왼"<<_thisPl->getInfo().attackInfo._obj.rc.left << endl;
+		cout <<" 중"<<( _thisPl->getInfo().attackInfo._obj.rc.right + _thisPl->getInfo().attackInfo._obj.rc.left) / 2 << endl;
+	}
 	_thisPl->SetIsAttack(false);
 
+	
 
 	if (isEndFrame(false) && _thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)
 		_thisPl->setState(PL_STATE::IDLE);
@@ -55,11 +65,7 @@ void playerCombo1::UpdateState()
 		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 		&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
-	{
-		EFFECT_M->play("ef_attack", 10, 10);
-			//_thisPl->getInfo().attackInfo._obj.pos.x, _thisPl->getInfo().attackInfo._obj.pos.y);
 		_thisPl->setState(PL_STATE::COMBO2);
-	}
 	
 	//시간안에 몹한테 공격 못할 경우
 	if (isEndFrame(false)

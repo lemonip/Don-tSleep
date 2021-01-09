@@ -29,7 +29,7 @@ HRESULT playGround::init()
 	addScene();							//씬 세팅
 	SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
 	//SCENE_M->changeScene("title");		//첫 시작씬 (title)
-	EFFECT_M->addEffect("explosion", "explosion.bmp", 832, 62, 32, 62, 1.0f, .1f, 100);
+	
 
 	return S_OK;
 }
@@ -51,7 +51,7 @@ void playGround::update()
 	gameNode::update();					//게임 노드에서 매니저들을 업데이트한다.
 
 	if (EVENT_M->getIsMovie()) return;		//영상 재생 중에는 업데이트 하지 않는다.
-
+	EFFECT_M->update();					//이팩트매니저 업데이트
 	CAMERA_M->update();					//카메라를 업데이트 한다.
 	UI_M->update();						//UI 업데이트
 	SCENE_M->update();					//씬 업데이트
@@ -61,10 +61,9 @@ void playGround::update()
 	{
 		cout << "마우스 X좌표: " << _ptMouse.x << endl;
 		cout << "마우스 Y좌표: " << _ptMouse.y << endl;
-		EFFECT_M->play("explosion", _ptMouse.x, _ptMouse.y);
 	}
 
-	EFFECT_M->update();
+	
 }
 
 /*====================================================================
@@ -85,10 +84,11 @@ void playGround::render()
 	//================ 렌더 시작 =================
 	if (EVENT_M->getIsMovie()) return;	//영상 재생 중에는 렌더하지 않는다.
 	SCENE_M->render();								//씬 렌더
+	EFFECT_M->render();								//이팩트 렌더
 	CAMERA_M->render(getBackDC(),_mapBuffer);		//카메라 렌더
 	EVENT_M->render(getBackDC());
 	
-	EFFECT_M->render();
+	
 	//================= 디버깅 용 =================
 	//FPS 확인
 	if (KEY_M->isToggleKey(VK_TAB)) TIME_M->render(getBackDC());
