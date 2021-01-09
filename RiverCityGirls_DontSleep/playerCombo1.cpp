@@ -56,8 +56,9 @@ void playerCombo1::UpdateState()
 			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 		&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
 	{
+		EFFECT_M->play("ef_attack", 10, 10);
+			//_thisPl->getInfo().attackInfo._obj.pos.x, _thisPl->getInfo().attackInfo._obj.pos.y);
 		_thisPl->setState(PL_STATE::COMBO2);
-		EFFECT_M->play("ef_attack", _thisPl->getInfo().attackInfo._obj.pos.x, _thisPl->getInfo().attackInfo._obj.pos.y);
 	}
 	
 	//시간안에 몹한테 공격 못할 경우

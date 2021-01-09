@@ -29,6 +29,8 @@ HRESULT playGround::init()
 	addScene();							//¾À ¼¼ÆÃ
 	SCENE_M->changeScene("game");		//¿øÈ°ÇÑ µð¹ö±ëÀ» À§ÇØ game ¾ÀÀ¸·Î ½ÃÀÛ.
 	//SCENE_M->changeScene("title");		//Ã¹ ½ÃÀÛ¾À (title)
+	EFFECT_M->addEffect("explosion", "explosion.bmp", 832, 62, 32, 62, 1.0f, .1f, 100);
+
 	return S_OK;
 }
 
@@ -54,11 +56,15 @@ void playGround::update()
 	UI_M->update();						//UI ¾÷µ¥ÀÌÆ®
 	SCENE_M->update();					//¾À ¾÷µ¥ÀÌÆ®
 
+
 	if (KEY_M->isOnceKeyDown(VK_LBUTTON))
 	{
 		cout << "¸¶¿ì½º XÁÂÇ¥: " << _ptMouse.x << endl;
 		cout << "¸¶¿ì½º YÁÂÇ¥: " << _ptMouse.y << endl;
+		EFFECT_M->play("explosion", _ptMouse.x, _ptMouse.y);
 	}
+
+	EFFECT_M->update();
 }
 
 /*====================================================================
@@ -81,7 +87,8 @@ void playGround::render()
 	SCENE_M->render();								//¾À ·»´õ
 	CAMERA_M->render(getBackDC(),_mapBuffer);		//Ä«¸Þ¶ó ·»´õ
 	EVENT_M->render(getBackDC());
-
+	
+	EFFECT_M->render();
 	//================= µð¹ö±ë ¿ë =================
 	//FPS È®ÀÎ
 	if (KEY_M->isToggleKey(VK_TAB)) TIME_M->render(getBackDC());
