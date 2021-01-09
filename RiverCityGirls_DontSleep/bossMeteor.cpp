@@ -6,9 +6,12 @@
 void bossMeteor::EnterState()
 {
 	_angle = PI / 2;
-	_speed = 8.0f;
+	_speed = 25.0f;
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_meteor");
+	_thisBs->getInfo().jumpPower = 20.0f;
+	_thisBs->getInfo().isSky = false;
+	_thisBs->getInfo().gravity = 5.0f;
 
 	if (_thisBs->getdest() == DIRECTION::RIGHT)
 	{
@@ -26,24 +29,43 @@ void bossMeteor::EnterState()
 void bossMeteor::UpdateState()
 {
 	
-
-	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 10.0f)
+	
+	if (TIME_M->getWorldTime() - _enterTime > 0.5f)
 	{
+		if (_thisBs->getInfo().isSky)
+		{			
+			_thisBs->getObj()->pos.y = -300;
+			_thisBs->getObj()->pos.y -= _thisBs->getInfo().jumpPower;
+
+			
+		}
+	}
+	if (TIME_M->getWorldTime() - _enterTime > 3.0f)
+	{
+		_thisBs->getInfo().isSky = false;
+
 		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
-			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
+		_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
 		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
 		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
+		_thisBs->getObj()->pos.y -= tanf(_angle) * _speed * 3;
 
-		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 100, 100);
-		RECT _temp;
-		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
-		// 화면위로 올려서 그래비티를 받게 해서 바닥만 충돌을 일으키거나, 
-		// 이미지 처리로 충돌...(?)
-		// 지속 처리 필요, 좌표 처리(?)
+		_thisBs->ChangeImg("Bs_meteordown");
+
+		if (_thisBs->getObj()->pos.y > _thisBs->getPlayerAddress()->getPObj()->pos.y)
+		{
+			_thisBs->getObj()->pos.y = 0;
+		}
+
+		if (TIME_M->getWorldTime() - _enterTime > 5.0f)
+		{
+			_thisBs->SetState(BS_STATE::STANDATTACK);
+		}
 	}
+	
 }
 
 void bossMeteor::ExitState()
 {
-	_thisBs->getInfo().isAttack = false;
+	_thisBs->ChangeImg("Bs_meteor");
 }

@@ -17,7 +17,8 @@ enum class BS_STATE : int
 	DEATH,			//사망
 
 	HOWLING,		//하울링 어택
-	METEOR,			//메테오 어택
+	METEOR,	
+	METEORDOWN,		//메테오 어택
 	DASH,			//대쉬 어택
 	ELBOW,			//엘보우 어택
 	SLAP,			//손바닥 어택
@@ -49,6 +50,7 @@ private:
 	IBossState*	_slap;			//손바닥 어택
 	IBossState*	_smash;			//스매시 어택
 	IBossState*	_standattack;	//기상 어택
+	IBossState* _meteordown;
 	
 	
 	BS_STATE _state;

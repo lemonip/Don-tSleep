@@ -54,6 +54,7 @@ HRESULT Boss::init()
 	_slap = new bossSlapAttack;
 	_smash = new bossSmashAttack;
 	_standattack = new bossStandAttack;
+	
 
 	_info.isAttack = false;
 
@@ -161,13 +162,9 @@ void Boss::frameUpdate()
 		case BS_STATE::MOVE:
 		case BS_STATE::WAIT:
 		case BS_STATE::GROGGY:
-		playFrame(0);
-		break;
-		
+
 		case BS_STATE::METEOR:
-		case BS_STATE::DASH:		
-		playFrame(1);
-		break;
+		case BS_STATE::DASH:
 
 		case BS_STATE::BLOCK:
 		case BS_STATE::SMASH:
@@ -175,8 +172,17 @@ void Boss::frameUpdate()
 		case BS_STATE::ELBOW:
 		case BS_STATE::PHASE:
 		case BS_STATE::HOWLING:
-		case BS_STATE::ATTACKED:		
+		case BS_STATE::ATTACKED:
 		case BS_STATE::STANDATTACK:
+		case BS_STATE::METEORDOWN:
+		playFrame(0);
+		break;
+		
+				
+		playFrame(1);
+		break;
+
+		
 		playFrame(-1);
 		break;
 

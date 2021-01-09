@@ -23,11 +23,12 @@ void bossHowling::EnterState()
 
 void bossHowling::UpdateState()
 {
+		
 	if (_thisBs->getInfo().isAttack)
 	{
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 200, 200);
 	}
-
+	
 	if (TIME_M->getWorldTime() - _enterTime > 5.0f)
 	{
 		_thisBs->SetState(BS_STATE::IDLE);

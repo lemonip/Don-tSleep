@@ -22,9 +22,11 @@ void bossWait::EnterState()
 
 void bossWait::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 0.7f && fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 180 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 50)
+	if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 100 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30
+		&& TIME_M->getWorldTime() - _enterTime > 0.7f)
 	{	
-		_thisBs->SetState(BS_STATE::GROGGY);
+		_thisBs->SetState(BS_STATE::METEOR);
+		_thisBs->getInfo().isSky = true;
 		/*switch (RND->getInt(3))
 		{
 		case 0:
