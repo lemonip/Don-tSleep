@@ -4,6 +4,7 @@
 
 void enemyBegging::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyBegging::UpdateState()

@@ -164,10 +164,10 @@ void Enemy::SetImage()
 	case EN_STATE::EN_PATROL:      if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) { _obj.img = IMG_M->findImage("schoolGirlPatrol"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyPatrol"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderPatrol"); }               break;
 	case EN_STATE::EN_STUN:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlStun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyStun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerStun"); }               break;
 	case EN_STATE::EN_BEGGING:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlBegging"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyBegging"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerBegging"); }               break;
-	case EN_STATE::EN_DIE:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerDie"); }               break;
+	//case EN_STATE::EN_DIE:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerDie"); }               break;
 	case EN_STATE::EN_GUARD:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlGuard"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyGuard"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerGuard"); }               break;
 	case EN_STATE::EN_HELDRELEASE:	if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlHeldRelease"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyHeldRelease"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerHeldRelease"); }               break;
-	case EN_STATE::EN_FRIEND:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlFriend"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyFriend"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerFriend"); }               break;
+	//case EN_STATE::EN_FRIEND:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlFriend"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyFriend"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerFriend"); }               break;
 	case EN_STATE::EN_RUNATTACK:	if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlRunAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyRunAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerRunAttack"); }               break;
 	case EN_STATE::EN_JUMPATTACK:	if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlJumpAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) {_obj.img = IMG_M->findImage("schoolBoyJumpAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img =IMG_M->findImage("schoolCheerJumpAttack"); }               break;
 	case EN_STATE::EN_HARDATTACK:	if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlHardAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) {_obj.img = IMG_M->findImage("schoolBoyHardAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img =IMG_M->findImage("schoolCheerHardAttack"); }               break;
@@ -180,7 +180,7 @@ void Enemy::SetImage()
 	case EN_STATE::EN_WEAPONHIT:	if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWeaponHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWeaponHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerWeaponHit"); }               break;
 	case EN_STATE::EN_WATTACK:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWAttack"); }                break;
 	case EN_STATE::EN_WIDLE:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWIdle"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWIdle"); }                break;
-	case EN_STATE::EN_WPICKUP:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWPickup"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWPickup"); }         break;
+	//case EN_STATE::EN_WPICKUP:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWPickup"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWPickup"); }         break;
 	case EN_STATE::EN_WTHROW:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWThrow"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWThrow"); }               break;
 	case EN_STATE::EN_WWALK:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWWalk"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWWalk"); }             break;
 	default:																						            break;
@@ -196,6 +196,7 @@ void Enemy::SetImage()
 
 void Enemy::setFrame(int count, float frameInterval)
 {
+
 	switch (_dest)
 	{
 	case DIRECTION::LEFT:
@@ -206,6 +207,21 @@ void Enemy::setFrame(int count, float frameInterval)
 		break;
 	}
 
+	if (TIME_M->getWorldTime() - _info.frameTimer > frameInterval)
+	{
+		_info.frameTimer = TIME_M->getWorldTime();
+		switch (_dest)
+		{
+		case DIRECTION::RIGHT:
+			++_obj.imgIndex.x;
+			break;
+		case DIRECTION::LEFT:
+			--_obj.imgIndex.x;
+			break;
+		case DIRECTION::NONE:
+			++_obj.imgIndex.x;
+		}
+	}
 	
 
 	switch (count)
@@ -244,58 +260,86 @@ void Enemy::setFrame(int count, float frameInterval)
 		}
 	}
 	break;
+	case 3:         //좌우 상관없이 계속 재생
+	{
+		if (_dest == DIRECTION::NONE && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		{
+			_obj.imgIndex.x = 0;
+		}
+	}
 	}
 
 	
 
-	if (TIME_M->getWorldTime() - _info.frameTimer > frameInterval)
-	{
-		_info.frameTimer = TIME_M->getWorldTime();
-		switch (_dest)
-		{
-		case DIRECTION::RIGHT:
-			++_obj.imgIndex.x;
-			break;
-		case DIRECTION::LEFT:
-			--_obj.imgIndex.x;
-			break;
-		}
-	}
 }
 
 void Enemy::playFrame()
 {
 	switch (_state)
 	{
-     //계속 재생(기본속도)
+		
+		//계속 재생(기본속도)
 	case EN_STATE::EN_IDLE:  case EN_STATE::EN_STUN:
 	case EN_STATE::EN_WALK:  case EN_STATE::EN_LADDER:
 	case EN_STATE::EN_PATROL: case EN_STATE::EN_WIDLE:
-	case EN_STATE::EN_WWALK: 
+	case EN_STATE::EN_WWALK:
 		setFrame(2, FRAMEINTERVAL);
 		break;
-    //계속 재생(속도 빠름)
+		//계속 재생(속도 빠름)
 	case EN_STATE::EN_RUN:    case EN_STATE::EN_WRUN:
-		setFrame(2, FRAMEINTERVAL * 0.5);
+		setFrame(2, FRAMEINTERVAL * 1.2);
 		break;
-	//한번 재생(기본속도)
-	case EN_STATE::EN_JUMP:   case EN_STATE::EN_LADDERTRANSITION:
+		//한번 재생(기본속도)
+	case EN_STATE::EN_JUMP:  
+	case EN_STATE::EN_ATTACK1: case EN_STATE::EN_ATTACK2:
+	//case EN_STATE::EN_LADDERTRANSITION:
+	//case EN_STATE::EN_BEGGING: case EN_STATE::EN_GUARD:
+	//case EN_STATE::EN_HELDRELEASE: 
+	//case EN_STATE::EN_JUMPATTACK:
+	//case EN_STATE::EN_HARDATTACK:
+	//case EN_STATE::EN_DOWN:
+	//case EN_STATE::EN_HELDHIT: case EN_STATE::EN_HIT:
+	//case EN_STATE::EN_WEAPONHIT:
+		setFrame(1, FRAMEINTERVAL);
+		break;
+		//한번 재생(느린속도)
+	case EN_STATE::EN_LADDERTRANSITION:
 	case EN_STATE::EN_BEGGING: case EN_STATE::EN_GUARD:
-	case EN_STATE::EN_HELDRELEASE: case EN_STATE::EN_RUNATTACK:
+	case EN_STATE::EN_HELDRELEASE:
 	case EN_STATE::EN_JUMPATTACK: case EN_STATE::EN_HARDATTACK:
 	case EN_STATE::EN_DOWN:
 	case EN_STATE::EN_HELDHIT: case EN_STATE::EN_HIT:
 	case EN_STATE::EN_WEAPONHIT:
-		setFrame(1, FRAMEINTERVAL);                                    
+		setFrame(1, FRAMEINTERVAL*0.2);
 		break;
-	//재생 후 기본 상태
-	case EN_STATE::EN_ATTACK1: case EN_STATE::EN_ATTACK2:
+		//재생 후 기본 상태
+	
 	case EN_STATE::EN_ATTACK3:  case EN_STATE::EN_WATTACK:
-	case EN_STATE::EN_WTHROW:
+	case EN_STATE::EN_WTHROW:   case EN_STATE::EN_RUNATTACK:
 		setFrame(0, FRAMEINTERVAL);
 		break;
-
 	}
+	/*
+	case EN_STATE::EN_IDLE:  case EN_STATE::EN_STUN:
+	case EN_STATE::EN_WALK: 
+	case EN_STATE::EN_PATROL: case EN_STATE::EN_WIDLE:
+	case EN_STATE::EN_WWALK:
+	case EN_STATE::EN_RUN:    case EN_STATE::EN_WRUN:
+	case EN_STATE::EN_JUMP: 
+	case EN_STATE::EN_BEGGING: case EN_STATE::EN_GUARD:
+	case EN_STATE::EN_HELDRELEASE:
+	case EN_STATE::EN_JUMPATTACK: case EN_STATE::EN_HARDATTACK:
+	case EN_STATE::EN_DOWN:
+	case EN_STATE::EN_HELDHIT: case EN_STATE::EN_HIT:
+	case EN_STATE::EN_WEAPONHIT:
+	case EN_STATE::EN_ATTACK3:  case EN_STATE::EN_WATTACK:
+	case EN_STATE::EN_WTHROW:   case EN_STATE::EN_RUNATTACK:
+		setFrame(2, FRAMEINTERVAL*1.2);
+		break;
+	case EN_STATE::EN_LADDER:    case EN_STATE::EN_LADDERTRANSITION:
+		setFrame(3, FRAMEINTERVAL*1.2);
+	}
+	*/
 }
 /*
 void Enemy::setBool()

@@ -14,24 +14,24 @@ void enemyIdle::EnterState()
 
 void enemyIdle::UpdateState()
 {
-	
 	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::RIGHT);
 	else if(_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::LEFT);
 	
-	
-	if (TIME_M->getWorldTime() - _stateTimer > 2.f)
+
+	if (TIME_M->getWorldTime() - _stateTimer > 5.f)
 	{
-		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 50
-			&& _thisEn->getObj()->pos.z >= _thisEn->getPlayerAddress()->getObj().shadow.RT.z && _thisEn->getObj()->pos.z <= _thisEn->getPlayerAddress()->getObj().shadow.RB.z)
+		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
 		{
 			_thisEn->SetState(EN_STATE::EN_ATTACK1);
 		}
 		else _thisEn->SetState(EN_STATE::EN_PATROL);
 	}
-	
-		
-	
-	
+	/*
+	if (TIME_M->getWorldTime() - _stateTimer > 5.f)
+	{
+		_thisEn->SetState(EN_STATE::EN_WRUN);
+	}
+	*/
 }
 
 void enemyIdle::ExitState()

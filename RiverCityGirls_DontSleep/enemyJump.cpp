@@ -11,6 +11,7 @@ void enemyJump::EnterState()
 
 void enemyJump::UpdateState()
 {
+	
 	_thisEn->getObj()->pos.y -= _thisEn->getInfo().jumpPower;
 	_thisEn->getInfo().jumpPower -= GRAVITYVALUE;
 	if (_thisEn->getObj()->pos.y > 0)

@@ -4,6 +4,7 @@
 
 void enemyWeaponHit::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyWeaponHit::UpdateState()

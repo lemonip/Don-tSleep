@@ -50,7 +50,7 @@ private:
 	IBossState*	_smash;			//스매시 어택
 	IBossState*	_standattack;	//기상 어택
 	
-	DIRECTION _dest;
+	//DIRECTION _dest;
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;
 	

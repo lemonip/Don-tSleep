@@ -110,13 +110,13 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolGirlBegging", "source/image/character/enemy/schoolGirl/begging.bmp", 378, 336, 3, 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolGirlDie", "source/image/character/enemy/schoolGirl/.bmp", , , , 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlGuard", "source/image/character/enemy/schoolGirl/block.bmp", 351, 337, 3, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("schoolGirlHeldRelease", "source/image/character/enemy/schoolGirl/HeldRlease.bmp", 528, 360, 4, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("schoolGirlHeldRelease", "source/image/character/enemy/schoolGirl/HeldRelease.bmp", 528, 360, 4, 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolGirlFriend", "source/image/character/enemy/schoolGirl/.bmp", , , , 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolGirlRunAttack", "source/image/character/enemy/schoolGirl/attack1.bmp", , , , 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlJumpAttack", "source/image/character/enemy/schoolGirl/jumpAttack.bmp", 1197, 354, 7, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlHardAttack", "source/image/character/enemy/schoolGirl/comboAttack3.bmp", 2412, 414, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlAttack1", "source/image/character/enemy/schoolGirl/comboAttack1.bmp", 1239, 354, 7, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("schoolGirlAttack2", "source/image/character/enemy/schoolGirl/comboAttack2.bmp", 1197, 354, 7, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("schoolGirlAttack2", "source/image/character/enemy/schoolGirl/comboAttack2.bmp", 2208, 354, 8, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlAttack3", "source/image/character/enemy/schoolGirl/comboAttack3.bmp", 2412, 414, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlDown", "source/image/character/enemy/schoolGirl/backdown.bmp", 6939, 376, 27, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlHeldHit", "source/image/character/enemy/schoolGirl/HeldHit.bmp", 576, 336, 4, 2, true, MAGENTA, true);
@@ -142,9 +142,9 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolBoyBegging", "source/image/character/enemy/schoolBoy/begging.bmp", 216, 354, 2, 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolBoyDie", "source/image/character/enemy/schoolBoy/.bmp", , , , 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolBoyGuard", "source/image/character/enemy/schoolBoy/block.bmp", 459, 438, 3, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("schoolBoyHeldRelease", "source/image/character/enemy/schoolBoy/HeldRlease.bmp", 660, 480, 4, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("schoolBoyHeldRelease", "source/image/character/enemy/schoolBoy/HeldRelease.bmp", 660, 480, 4, 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolBoyFriend", "source/image/character/enemy/schoolBoy/.bmp", , , , 2, true, MAGENTA, true);
-	//IMG_M->addFrameImage("schoolBoyRunAttack", "source/image/character/enemy/schoolBoy/attack1.bmp", , , , 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("schoolBoyRunAttack", "source/image/character/enemy/schoolBoy/attack1.bmp", 1920, 390, 10, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolBoyJumpAttack", "source/image/character/enemy/schoolBoy/jumpAttack.bmp", 1224, 468, 6, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolBoyHardAttack", "source/image/character/enemy/schoolBoy/comboAttack3.bmp", 1890, 558, 9, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolBoyAttack1", "source/image/character/enemy/schoolBoy/comboAttack1.bmp", 2352, 426, 7, 2, true, MAGENTA, true);
@@ -174,7 +174,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolCheerBegging", "source/image/character/enemy/cheerLeader/begging.bmp", 513, 372, 3, 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolCheerDie", "source/image/character/enemy/cheerLeader/.bmp", , , , 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolCheerGuard", "source/image/character/enemy/cheerLeader/block.bmp", 489, 428, 3, 2, true, MAGENTA, true);
-	IMG_M->addFrameImage("schoolCheerHeldRelease", "source/image/character/enemy/cheerLeader/HeldRlease.bmp", 840, 456, 4, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("schoolCheerHeldRelease", "source/image/character/enemy/cheerLeader/HeldRelease.bmp", 840, 456, 4, 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolCheerFriend", "source/image/character/enemy/cheerLeader/.bmp", , , , 2, true, MAGENTA, true);
 	//IMG_M->addFrameImage("schoolCheerRunAttack", "source/image/character/enemy/cheerLeader/attack1.bmp", , , , 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolCheerJumpAttack", "source/image/character/enemy/cheerLeader/jumpAttack.bmp", 1491, 654, 7, 2, true, MAGENTA, true);
