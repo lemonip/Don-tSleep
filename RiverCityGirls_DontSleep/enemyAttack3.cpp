@@ -20,17 +20,6 @@ void enemyAttack3::UpdateState()
 	{
 		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.left, _thisEn->getObj()->rc.top, -50, 50);
 	}
-	
-	/*
-	if (_thisEn->getdest() == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x > _thisEn->getObj()->img->getMaxFrameX())
-	{
-		_thisEn->SetState(EN_STATE::EN_IDLE);
-	}
-	else if (_thisEn->getdest() == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x < 0)
-	{
-		_thisEn->SetState(EN_STATE::EN_IDLE);
-	}
-	*/
 }
 
 void enemyAttack3::ExitState()

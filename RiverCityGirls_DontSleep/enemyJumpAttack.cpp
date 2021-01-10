@@ -5,11 +5,14 @@
 void enemyJumpAttack::EnterState()
 {
 	_thisEn->SetImage();
+	_thisEn->getInfo().jumpPower = JUMPPOWERVALUE;
+	_thisEn->getInfo().isSky = true;
 }
 
 void enemyJumpAttack::UpdateState()
 {
-	
+	_thisEn->getObj()->pos.y -= _thisEn->getInfo().jumpPower;
+	_thisEn->getInfo().jumpPower -= GRAVITYVALUE;
 	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::RIGHT);
 	else if (_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::LEFT);
 	if (_thisEn->getdest() == DIRECTION::RIGHT)
@@ -33,4 +36,6 @@ void enemyJumpAttack::UpdateState()
 
 void enemyJumpAttack::ExitState()
 {
+	_thisEn->getInfo().jumpPower = 0;
+	_thisEn->getInfo().isSky = false;
 }

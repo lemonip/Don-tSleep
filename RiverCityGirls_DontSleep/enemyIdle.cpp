@@ -17,21 +17,38 @@ void enemyIdle::UpdateState()
 	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::RIGHT);
 	else if(_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::LEFT);
 	
-
-	if (TIME_M->getWorldTime() - _stateTimer > 5.f)
+	if (_thisEn->getPlayerAddress()->getObj().pos.y < _thisEn->getObj()->pos.y && !_thisEn->getPlayerAddress()->getInfo().isSky)
 	{
 		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
 		{
-			_thisEn->SetState(EN_STATE::EN_ATTACK1);
+			_thisEn->SetState(EN_STATE::EN_JUMP);
+		}
+	}
+
+	if (TIME_M->getWorldTime() - _stateTimer > 2.f)
+	{
+		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
+		{
+			switch (RND->getInt(4))
+			{
+			case 0:
+				_thisEn->SetState(EN_STATE::EN_ATTACK1);
+				break;
+			case 1:
+				_thisEn->SetState(EN_STATE::EN_ATTACK1);
+				break;
+			case 2:
+				_thisEn->SetState(EN_STATE::EN_ATTACK1);
+				break;
+			case 3:
+				_thisEn->SetState(EN_STATE::EN_JUMP);
+				break;
+			}
 		}
 		else _thisEn->SetState(EN_STATE::EN_PATROL);
 	}
-	/*
-	if (TIME_M->getWorldTime() - _stateTimer > 5.f)
-	{
-		_thisEn->SetState(EN_STATE::EN_WRUN);
-	}
-	*/
+
+	
 }
 
 void enemyIdle::ExitState()

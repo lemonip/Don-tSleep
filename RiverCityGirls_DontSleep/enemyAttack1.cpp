@@ -20,15 +20,29 @@ void enemyAttack1::UpdateState()
 	{
 		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.left-100, _thisEn->getObj()->rc.top, 100, 200);
 	}
+	if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) >= 100)
+	{
+		if (_thisEn->getdest() == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
+		{
+			_thisEn->SetState(EN_STATE::EN_PATROL);
+		}
+		else if (_thisEn->getdest() == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x <= 0)
+		{
+			_thisEn->SetState(EN_STATE::EN_PATROL);
+		}
+	}
+	else
+	{
+		if (_thisEn->getdest() == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
+		{
+			_thisEn->SetState(EN_STATE::EN_ATTACK2);
+		}
+		else if (_thisEn->getdest() == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x <= 0)
+		{
+			_thisEn->SetState(EN_STATE::EN_ATTACK2);
+		}
+	}
 	
-	if (_thisEn->getdest() == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
-	{
-		_thisEn->SetState(EN_STATE::EN_ATTACK2);
-	}
-	else if (_thisEn->getdest() == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x <= 0)
-	{
-		_thisEn->SetState(EN_STATE::EN_ATTACK2);
-	}
 	
 
 }
