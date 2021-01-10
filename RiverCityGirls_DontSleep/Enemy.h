@@ -1,6 +1,9 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
+#define GRAVITYVALUE 0.5f;       //중력수치
+#define JUMPPOWERVALUE 15.f		 //점프파워수치
+#define FRAMEINTERVAL 0.1f		 //프레임인터벌
 
 //전방선언
 class Player;
@@ -47,16 +50,33 @@ enum class EN_STATE
 class Enemy : public gameNode
 {
 protected:
+
 	GameObject _obj;
 
-	bool _isDead;
-	bool _weapon;
-	bool _goRight;
-	bool _isAttack;				//공격했니
+	struct tagInfo
+	{
+	public:
+		RECT rcDamage;                //피격 범위 렉트 
+		RECT rcAttack;				   //공격 범위 렉트 
 
-	RECT _rcDamage;      //피격 범위 렉트
-	RECT _rcAttack;		 //공격 범위 렉트
+		float gravity;               //중력
+		float angle;                 //각도
+		float attack;                 //공격력
+		float baseSpeed;              //최초 스피드
+		float speed;                  //이동속도
+		float jumpPower;              //점프력
+		float frameTimer;            //프레임시간 타이머
+		float hp;					//체력
+
+		bool isDead;               //죽었니
+		bool weapon;              //무기들었니
+		bool goRight;              //오른쪽으로 가고있니
+		bool isAttack;				//공격했니
+		bool isSky;                 //공중에 있니
+	};
 	
+
+	//tagInfo _info;                  //에너미 정보
 
 	IEnemyState* _EState;
 	IEnemyState* _ES_IDLE;
@@ -93,18 +113,18 @@ protected:
 	ENEMY_TYPE _ENEMY_TYPE;
 	EN_STATE _state;               //현재 상태 enum
 
-	int _imageXIndex;			//이미지 가로 인덱스
-	int _imageYIndex;			//이미지 세로 인덱스
-	float _runSpeed;               //뛰는 이동 속도 
-	float _walkSpeed;			   //걷는 이동 속도
-	float _jumpPower;              //점프력
+	//int _imageXIndex;			//이미지 가로 인덱스
+	//int _imageYIndex;			//이미지 세로 인덱스
 	
+
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	Player* _player;			//플래이어
 
+	tagInfo _info;			//보스,에너미 공용 구조체
+
 public:
-	virtual HRESULT init();
+	virtual HRESULT init(); 
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -113,32 +133,32 @@ public:
 									GETTER
 	====================================================================*/
 	Player* getPlayerAddress() { return _player; }
-	bool getIsDead() { return _isDead; }
-	bool getWeapon() { return _weapon; }
-	bool& getGoRight() { return _goRight; }
-	float& getRunSpeed() { return _runSpeed; }
-	float& getWalkSpeed() { return _walkSpeed; }
+	tagInfo&    getInfo() { return _info; }
 	GameObject* getObj() { return &_obj; }
+
+	DIRECTION& getdest() { return _dest; }
+
+	GameObject& getRefObj() { return _obj; }
 
 	/*====================================================================
 									SETTER
 	====================================================================*/
-	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	virtual void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 
-	void setPosition(vector3 pos) { _obj.pos = pos; }
-	void setDest(DIRECTION dest) { _dest = dest; }
-	void setGoRight(bool go) { _goRight = go; }
-	void setIsAttack(bool attack) { _isAttack = attack; }
-	void SetState(EN_STATE state);
+	virtual void setPosition(vector3 pos) { _obj.pos = pos; }
+	virtual void setDest(DIRECTION dest) { _dest = dest; }
+	virtual void setGoRight(bool go) { _info.goRight = go; }
+	virtual void setIsAttack(bool attack) { _info.isAttack = attack; }
+	virtual void SetState(EN_STATE state);
+	virtual void setSpeed(float speed) { _info.speed = speed; }
 
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
 	virtual void xzyMove(int x,int z, int y);
-
-	void SetImage();
-
-	void imageRedraw();
-	void FramePlay(int count);
+	virtual void SetImage();
+	virtual void setFrame(int count, float frameInterval);
+	virtual void playFrame();
+	//virtual void setBool();
 };
 

@@ -11,9 +11,29 @@ HRESULT HardStage::init()
 	CAMERA_M->SetMap(*this, backGround);
 
 	/*====================================================================
+		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
+	====================================================================*/
+	backWallInit(vector3(0, WINSIZEY, 0), vector3(1705, WINSIZEY, 0), vector3(1705, 0, 895), vector3(0, 0, 895));
+
+	leftWallInit(vector3(0, WINSIZEY, 0), vector3(0, WINSIZEY, 0), vector3(0, 0, 1428), vector3(0, 0, 1428));
+
+	rightWallInit(vector3(1705, WINSIZEY, 0), vector3(2235, WINSIZEY, 0), vector3(2235, 0, 1428), vector3(1705, 0, 895));
+
+	floorInit(vector3(0, 0, 895), vector3(2328, 0, 895), vector3(2328, 0, 1428), vector3(0, 0, 1428));
+
+	poolInit(vector3(0, 0, 1150), vector3(1480, 0, 1150), vector3(1760, 0, 1428), vector3(0, 0, 1428));
+	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
+	_objectM->pushObject(OBJECT_TYPE::LADDER, vector3(1555, 0, 930));
+	_objectM->pushObject(OBJECT_TYPE::HARDPLATFORM, vector3(850, 0, 600));
 
+
+
+	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
+	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 250));
+
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 40));
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/

@@ -91,6 +91,12 @@
     <Filter Include="playGround\CollisionManager">
       <UniqueIdentifier>{0be01191-66bd-434e-b3fc-678fc5879341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\ObjectManager\Weapon">
+      <UniqueIdentifier>{8106a9de-02b8-4895-b7f4-715efda0c1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Player\Pet">
+      <UniqueIdentifier>{1ec7dc27-0589-4594-9271-4557528ca23c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -297,9 +303,6 @@
     <ClInclude Include="bossPhase2.h">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
-    <ClInclude Include="bossSlabAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
-    </ClInclude>
     <ClInclude Include="bossSmashAttack.h">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
@@ -471,9 +474,6 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="DialogueManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SelectScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
@@ -500,6 +500,24 @@
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>playGround\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="bossSlapAttack.h">
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerClimbTop.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemyState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>playGround\ObjectManager\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="pet.h">
+      <Filter>playGround\Player\Pet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -629,9 +647,6 @@
     <ClCompile Include="ShopScene.cpp">
       <Filter>playGround\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="playGround+setImage.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
     <ClCompile Include="NormalStage.cpp">
       <Filter>playGround\StageManager\Stage</Filter>
     </ClCompile>
@@ -687,9 +702,6 @@
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossPhase2.cpp">
-      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="bossSlabAttack.cpp">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossSmashAttack.cpp">
@@ -794,9 +806,6 @@
     <ClCompile Include="LoadingScene.cpp">
       <Filter>playGround\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="DialogueManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="IPlayerState.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
@@ -892,6 +901,27 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>playGround\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="bossSlapAttack.cpp">
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerClimbTop.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemyState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="playGround+setImage.cpp">
+      <Filter>playGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>playGround\ObjectManager\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="pet.cpp">
+      <Filter>playGround\Player\Pet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

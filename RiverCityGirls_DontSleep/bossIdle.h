@@ -9,7 +9,7 @@ class bossIdle :public IBossState
 {
 protected:
 	
-	int _count;
+	float _enterTime;
 
 public:
 

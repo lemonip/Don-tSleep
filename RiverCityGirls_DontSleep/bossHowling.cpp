@@ -4,39 +4,38 @@
 #include "Player.h"
 
 void bossHowling::EnterState()
-{
-	_count = 0;
-	_count++;
+{	
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossHowling::UpdateState()
 {
-	if (_count % 8 == 0)
-	{
-		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsHowling())
-		{
-			_thisBs->SetDest(BS_DEST::LEFT);
-			_thisBs->SetState(BS_STATE::HOWLING);
-			_thisBs->ChangeImg("Bs_howling");
-			_thisBs->getIsMove();
-			
-		}
-
-		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsHowling())
-		{
-			_thisBs->SetDest(BS_DEST::RIGHT);
-			_thisBs->SetState(BS_STATE::HOWLING);
-			_thisBs->ChangeImg("Bs_howling");
-			_thisBs->getIsMove();
-			
-		}
 		
+	if (_thisBs->getInfo().isAttack)
+	{
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 200, 200);
 	}
+	
+	if (TIME_M->getWorldTime() - _enterTime > 5.0f)
+	{
+		_thisBs->SetState(BS_STATE::IDLE);
+	}	
 }
 
 void bossHowling::ExitState()
 {
+	_thisBs->getInfo().isAttack = false;
 }

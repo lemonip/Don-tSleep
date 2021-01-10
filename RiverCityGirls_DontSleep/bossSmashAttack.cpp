@@ -5,42 +5,44 @@
 
 void bossSmashAttack::EnterState()
 {
-	_count = 0;
-	_count++;
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_smash");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossSmashAttack::UpdateState()
 {
-	if (_count % 8 == 0)
+
+	
+
+	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getdest() == DIRECTION ::LEFT)
 	{
-		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsPhase())
-		{
-			_thisBs->SetDest(BS_DEST::LEFT);
-			_thisBs->SetState(BS_STATE::SMASH);
-			_thisBs->ChangeImg("Bs_smash");
-			_thisBs->getIsAttack();
-		}
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 50, _thisBs->getObj()->pos.z, 50, 50);
+		RECT _temp;
+		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
+		//손바닥 어택보다 높은 대미지
+	}
 
-		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& _thisBs->getIsPhase())
-		{
-			_thisBs->SetDest(BS_DEST::RIGHT);
-			_thisBs->SetState(BS_STATE::SMASH);
-			_thisBs->ChangeImg("Bs_smash");
-			_thisBs->getIsAttack();
-		}
-
-		else
-		{
-			!_thisBs->getIsAttack();
-		}
-
-
+	else if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z, 50, 50);
+		RECT _temp;
 	}
 }
 
 void bossSmashAttack::ExitState()
 {
+	_thisBs->SetState(BS_STATE::IDLE);
+	_thisBs->getInfo().isAttack = false;
 }

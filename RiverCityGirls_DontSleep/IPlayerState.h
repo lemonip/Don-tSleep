@@ -6,6 +6,10 @@ class IPlayerState: public gameNode
 {
 protected:
 	Player* _thisPl;
+
+	bool _isCollision;	//에너미와 충돌했는지
+	float _stateTimer;	//상태가 변경되는 타이머
+
 public:
 	IPlayerState() {}
 	~IPlayerState() {}
@@ -23,6 +27,15 @@ public:
 	//기본동작 (걷기/약공/가드)
 	void basePattern();
 
+	//오브젝트가 있는지 확인
+	bool checkWeapon();
+
+	//에너미가 있는지 확인
+	bool checkEnemy();
+
+	//강공격
+	void sAttack();
+
 	//상하이동
 	void lineMove(float speed);
 	//좌우이동
@@ -32,5 +45,7 @@ public:
 	bool pauseUpdate();
 	//프레임 재생 끝났는지 확인, 리버스 프레임이면 매개변수 true
 	bool isEndFrame(bool reverse);
+
+	void dropWeapon();
 };
 

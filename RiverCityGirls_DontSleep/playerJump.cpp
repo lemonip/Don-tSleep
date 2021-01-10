@@ -3,7 +3,22 @@
 
 void playerJump::EnterState()
 {
-	_thisPl->changeImg("pl_jump",false);
+	//이미지 변경
+	if (_thisPl->getInfo().attackObj)
+	{
+		switch (_thisPl->getInfo().attackObj->weaponType)
+		{
+		case WEAPON_TYPE::BAT:
+			_thisPl->changeImg("pl_wBatJump", true);
+			break;
+		case WEAPON_TYPE::BASEBALL:
+			//_thisPl->changeImg("pl_wBatWalk", true);
+			break;
+		}
+	}
+	else _thisPl->changeImg("pl_jump", true);
+
+	
 }
 
 void playerJump::UpdateState()

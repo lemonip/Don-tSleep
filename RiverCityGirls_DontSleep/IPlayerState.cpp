@@ -1,5 +1,10 @@
 #include "stdafx.h"
 #include "IPlayerState.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
+#include "ObjectManager.h"
+#include "Object.h"
+#include "Weapon.h"
 
 //업데이트 일시정지 유무 
 bool IPlayerState::pauseUpdate()
@@ -19,9 +24,9 @@ bool IPlayerState::isEndFrame(bool reverse)
 	case DIRECTION::LEFT:
 	{
 		//현재 프레임번호가 끝번호면 프레임재생이 끝
-		if (reverse == false && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())
+		if (reverse == false && _thisPl->getObj().img->getFrameX() >= _thisPl->getObj().img->getMaxFrameX())
 			return true;
-		if (reverse == true && _thisPl->getObj().img->getFrameX() == 0)
+		if (reverse == true && _thisPl->getObj().img->getFrameX() <= 0)
 			return true;
 
 		return false;
@@ -29,11 +34,19 @@ bool IPlayerState::isEndFrame(bool reverse)
 	case DIRECTION::RIGHT:
 	{
 		//현재 프레임번호가 0 번호면 프레임재생이 끝
-		if (reverse == false && _thisPl->getObj().img->getFrameX() == 0) return true;
-		if (reverse == true && _thisPl->getObj().img->getFrameX() == _thisPl->getObj().img->getMaxFrameX())return true;
+		if (reverse == false && _thisPl->getObj().img->getFrameX() <= 0) return true;
+		if (reverse == true && _thisPl->getObj().img->getFrameX() >= _thisPl->getObj().img->getMaxFrameX())return true;
 		return false;
 	}
 	}
+}
+
+void IPlayerState::dropWeapon()
+{
+	if (!_thisPl->getInfo().attackObj) return;
+
+	_thisPl->getInfo().attackObj = NULL;
+
 }
 
 void IPlayerState::walkPattern()
@@ -56,6 +69,60 @@ void IPlayerState::basePattern()
 	//약공격
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO1);
 
+}
+
+bool IPlayerState::checkWeapon()
+{
+	RECT temp;
+	for (int i = 0; i != _thisPl->getObjectM()->getVObject().size(); i++)
+	{
+		if (_thisPl->getObjectM()->getVObject()[i]->getObj()->group != OBJECT_GROUP::WEAPON) continue;
+
+		if (!_thisPl->getObjectM()->getVObject()[i]->getObj()->isRender) continue;
+
+		if (IntersectRect(&temp, &_thisPl->getRefObj().rc,
+			&(_thisPl->getObjectM()->getVObject()[i]->getObj()->rc))
+			&& _thisPl->isRange(*_thisPl->getObjectM()->getVObject()[i]->getObj()))
+		{
+			_thisPl->getObjectM()->popObject(i);
+			Object* weapon = new Weapon(WEAPON_TYPE::BAT, vector3(0,0,0));
+			_thisPl->getInfo().attackObj = weapon->getObj();
+			_thisPl->getInfo().attackObj->isRender = false;
+			return true;
+		}
+	}
+	return false;
+}
+
+//공격상태면 공격으로 전환
+bool IPlayerState::checkEnemy()
+{
+	RECT temp;
+	//인터섹트렉트랑 / isrange함수로 같은 줄. 비슷한 범위의 z값에있는지 확인함.
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+		if (IntersectRect(&temp, &_thisPl->getInfo().attackRc,
+			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+			&& _thisPl->isRange(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj()))
+			_thisPl->getInfo().isAttack = true;
+			return _thisPl->getInfo().isAttack;
+	}
+	return false;
+}
+
+//강공격
+void IPlayerState::sAttack()
+{
+	if (KEY_M->isOnceKeyDownV('D')) _thisPl->setState(PL_STATE::SATTACK);
+	{
+		//for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+		//{
+		//	//if (_thisPl->getEnemyM()->getVEnemy()[i]);
+		//	_thisPl->setState(PL_STATE::SATTACK);
+		//	//★ 적상태가 쓰러진상태면 스톰프로 동작바꾸기
+		//	//if (_thisPl->getEnemyM()->getVEnemy()[i]);
+		//}
+	}
 }
 
 //상하이동

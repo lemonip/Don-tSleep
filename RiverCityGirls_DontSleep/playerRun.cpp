@@ -4,7 +4,25 @@
 void playerRun::EnterState()
 {
 	//이미지 변경
-	_thisPl->changeImg("pl_run",true);
+	if (_thisPl->getInfo().attackObj)
+	{
+		switch (_thisPl->getInfo().attackObj->weaponType)
+		{
+		case WEAPON_TYPE::BAT:
+			_thisPl->changeImg("pl_wBatRun", true);
+			break;
+		case WEAPON_TYPE::BASEBALL:
+			//_thisPl->changeImg("pl_wBatWalk", true);
+			break;
+		}
+	}
+	else _thisPl->changeImg("pl_run", true);
+
+	
+	//키조작 가능
+	_thisPl->setIsControl(true);
+	//방향전환 가능
+	_thisPl->getInfo().isConDest = true;
 }
 
 void playerRun::UpdateState()
@@ -14,10 +32,7 @@ void playerRun::UpdateState()
 		&& !KEY_M->isStayKeyDown(VK_RIGHT)
 		&& !KEY_M->isStayKeyDown(VK_UP)
 		&& !KEY_M->isStayKeyDown(VK_DOWN))
-	{
-		KEY_M->clearVKey();
 		_thisPl->setState(PL_STATE::IDLE);
-	}
 
 	//이동
 	lineMove(_thisPl->getInfo().speed / 1.5);

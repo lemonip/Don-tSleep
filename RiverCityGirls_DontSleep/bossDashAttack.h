@@ -9,6 +9,8 @@ class bossDashAttack :public IBossState
 {
 private:
 	int _count;
+	float _angle;
+	float _speed;
 public:
 
 	virtual void EnterState();

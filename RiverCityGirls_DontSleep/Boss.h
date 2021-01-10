@@ -1,14 +1,7 @@
 #pragma once
-#include "gameNode.h"
-#include "GameObject.h"
 #include "Enemy.h"
 
-class Enemy;
-class Player;
-class StageManager;
-class ObjectManager;
 class IBossState;
-
 
 enum class BS_STATE : int
 {
@@ -24,20 +17,14 @@ enum class BS_STATE : int
 	DEATH,			//사망
 
 	HOWLING,		//하울링 어택
-	METEOR,			//메테오 어택
+	METEOR,	
+	METEORDOWN,		//메테오 어택
 	DASH,			//대쉬 어택
 	ELBOW,			//엘보우 어택
 	SLAP,			//손바닥 어택
 	SMASH,			//스매시 어택
 	STANDATTACK		//기상 어택	
 	
-};
-
-//보스 방향
-enum class BS_DEST 
-{
-	RIGHT,
-	LEFT
 };
 
 class Boss : public Enemy
@@ -63,35 +50,12 @@ private:
 	IBossState*	_slap;			//손바닥 어택
 	IBossState*	_smash;			//스매시 어택
 	IBossState*	_standattack;	//기상 어택
+	IBossState* _meteordown;
 	
-	IBossState* _right;			//보스 방향
-	IBossState* _left;			//보스 방향
-
-	BS_DEST _dest;
+	
 	BS_STATE _state;
-	ENEMY_TYPE _ENEMY_TYPE;
-	
-
-				//공통 구조체 (헤더파일)
-	GameObject _obj;
-	StageManager* _stageM;
-	ObjectManager* _objectM;
-	Player* _player;
-	Enemy* _enemy;
-	
-
-	RECT _rcAttack;
-	bool _isAttack;
-	bool _isDown;
-	bool _isWait;
-	bool _isPhase;
-	bool _isBlock;
-	bool _isMove;
-	bool _isElbow;
-	bool _isMeteor;
-	bool _isSmash;
-	bool _isHowling;
-	bool _isDash;
+	ENEMY_TYPE _ENEMY_TYPE;	
+	float _frameTimer;
 
 	   
 public:
@@ -103,33 +67,19 @@ public:
 	virtual void render();			//렌더
 
 	//접근자===================================================
-	Player* getPlayerAddress() { return _player; }	
-	GameObject* getObj() { return &_obj; }
-	GameObject getobj() { return _obj; }
-	bool getIsDown() { return _isDown; }
-	bool getIsWait() { return _isWait; }
-	bool getIsPhase() { return _isPhase; }
-	bool getIsBlock() { return _isBlock; }
-	bool getIsAttack() { return _isAttack; }
-	bool getIsMove() { return _isMove; }
-	bool getIsElbow() { return _isElbow; }
-	bool getIsMeteor() { return _isMeteor; }
-	bool getIsSmash() { return _isSmash; }
-	bool getIsHowling() { return _isHowling; }
-	bool getIsDash() { return _isDash; }
-	
 	//지정자===================================================
 	void SetState(BS_STATE state);
-	void SetDest(BS_DEST dest);
+	void SetDest(DIRECTION dest);
 	void setPosition(vector3 pos) { _obj.pos = pos; }	
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	
 
 	//기능함수===================================================
-
-	void setImage();
-	void stageInit();
+	void playFrame(int count);
+	void frameUpdate();
+	//void setFrame(FRAMETYPE _frametype);
 	void MovePos(float x, float z, float y);				//좌표 이동
 	void ChangeImg(string imgName);						//이미지변경
-
+	
 };
 
