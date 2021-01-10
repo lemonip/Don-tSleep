@@ -4,6 +4,7 @@ class BrokenObj : public Object
 {
 private:
 
+
 public:
 	BrokenObj(OBJECT_TYPE type, vector3 pos);
 
@@ -12,4 +13,5 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
 };

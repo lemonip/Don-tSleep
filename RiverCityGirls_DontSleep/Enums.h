@@ -117,6 +117,13 @@ enum class OBJECT_TYPE : int
 	PILLAR_BIG_RIGHT,
 };
 
+enum class OBJECT_DESTRUCTION : int
+{
+	INDESTRUCTIBLE,
+	BEFOREDESTRUCTION,
+	DESTRUCTION,
+};
+
 
 /*====================================================================
 	아이템 종류입니다.

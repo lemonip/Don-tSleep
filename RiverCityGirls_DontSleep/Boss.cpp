@@ -55,7 +55,6 @@ HRESULT Boss::init()
 	_smash = new bossSmashAttack;
 	_standattack = new bossStandAttack;
 	
-
 	_info.isAttack = false;
 
 	_BState = NULL;
@@ -70,6 +69,8 @@ void Boss::release()
 
 void Boss::update()
 {
+	_obj.prePos = _obj.pos;
+	_obj.preShadow = _obj.shadow;
 
 	cout << static_cast<int>(_dest) << endl;
 	if (_player->getObj().pos.x < _obj.pos.x)
@@ -82,9 +83,13 @@ void Boss::update()
 		SetDest(DIRECTION::RIGHT);				
 	}
 
-	_obj.update();
+
 	//setImage();
 	_BState->UpdateState();	
+
+	_obj.update();
+	_obj.shadowUpdate();
+
 	frameUpdate();
 
 	/*if (_dest == DIRECTION::LEFT)
@@ -96,6 +101,8 @@ void Boss::update()
 	{
 		cout << "right" << endl;
 	}*/
+
+
 }
 
 void Boss::render()
@@ -325,14 +332,6 @@ void Boss::playFrame(int count)
 }*/
 
 
-
-void Boss::MovePos(float x, float z, float y)
-{
-	_obj.pos.x += x;	
-	_obj.pos.z -= z;
-	_obj.pos.y += y;
-	
-}
 
 void Boss::ChangeImg(string imgName)
 {

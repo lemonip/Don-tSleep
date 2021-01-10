@@ -31,5 +31,7 @@ public:
 
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	void setLinkPlayer(Player* player) { _player = player; }
+
+	void destructObject();
 };
 
