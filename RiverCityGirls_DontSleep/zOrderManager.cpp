@@ -31,7 +31,7 @@ void zOrderManager::render()
 	//SHIFT 토글 키를 누르면 디버깅용 Rect를 그린다.
 	if (KEY_M->isToggleKey(VK_SHIFT))
 	{
-		for (int i = 0; i < _vZorder.size(); i++) Rectangle(_vZorder[i].hdc, _vZorder[i].rc);
+		for (int i = 0; i < _vZorder.size(); i++)Rectangle(_vZorder[i].hdc, _vZorder[i].rc);
 	}
 
 	//그림자가 있으면 렌더한다.

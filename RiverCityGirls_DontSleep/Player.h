@@ -52,13 +52,12 @@ enum class PL_STATE : int
 	SATTACKDOWN		//바라보는방향키 + ↓ + 강공격 (커맨드입력)
 };
 
-//플레이어 방향 이넘
-enum class MOVE_DIRECTION : int
+//무기의 골인 위치
+enum class GOALPOS
 {
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN
+	PLAYER,
+	WINOUT,
+	FLOOR
 };
 
 //프레임 실행 타입 이넘
@@ -67,45 +66,41 @@ enum class FRAMETYPE : int
 	ONCE,
 	LOOP,
 	REVERSEONCE,
-	REVERSEROOP
+	REVERSELOOP
 };
 
 class Player : public gameNode
 {
 private:
-	//공격 정보 구조체
-	struct tagAttackInfo
-	{
-		GameObject _obj;
-		float width, height;	//크기
-		/*
-		RECT  rc;				// 공격렉트
-		vector3 pos;			// 공격 좌표
-		image* img;				//이미지*/
-	};
 	//정보 구조체
 	struct tagInfo
 	{
 	public:
-		tagAttackInfo attackInfo;	//공격 정보
+		GameObject* attackObj;		//공격 오브젝트 연결
+		vector3 attackGoal;			//공격 오브젝트의 목표
+		RECT attackRc;				//공격용 렉트
+
 		float jumpPower;			//점프파워
 		float speed;				//속도
 
 		bool hasMember;				//맴버소유 유무
+		bool isThrow;				//던짐 유무
+		bool isAttack;				//공격 유무
 		bool isDead;				//사망유무
 		bool isControl;				//키입력 가능 유무
 		bool isConDest;				//방향전환 가능 유무
 		bool isSky;					//허공 유무
-		bool isAttack;				//공격 유무
 		bool isClimb;				//사다리 가능 유무
 
-		MOVE_DIRECTION  moveDest;	//행동 방향
+		MOVE_DIRECTION moveDest;	//행동 방향
 		DIRECTION dest;				//인덱스 방향
 		PL_STATE state;				//플레이어 상태
 		PL_STATE preState;			//플레이어 이전상태
+		GOALPOS goalState;			//골 상태
 
 		WEAPON_TYPE weaponType;		//무기종류
 		float hp;					//체력
+		float maxHP;				//최대 체력
 		float force;				//공격력
 		float coin;					//소지금
 		int	   LV;					//레벨
@@ -124,8 +119,8 @@ private:
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	EnemyManager* _enemyM;		//에너미 매니저 링크
-	CollisionManager* _colM;
-	GameObject*		_platform;
+	CollisionManager* _colM;	//충돌 매니저 링크
+	GameObject*		_platform;	//플랫폼 링크
 	//★맴버로 에너미를 가질 예정(동료로)
 
 private:
@@ -161,6 +156,7 @@ private:
 	IPlayerState*	_dashSAttack;   //대쉬 강공격
 	IPlayerState*	_jumpAttack;    //점프공격
 	IPlayerState*	_SAttackDown;   //바라보는방향키 + ↓ + 강공격 (커맨드입력)
+
 public:
 	Player() {};
 	~Player() {};
@@ -174,32 +170,23 @@ public:
 	====================================================================*/
 	GameObject getObj() { return _obj; }
 	GameObject& getRefObj() { return _obj; }
-	tagInfo& getInfo() { return _info; }
 	GameObject* getPObj() { return &_obj; }
+
+	tagInfo& getInfo() { return _info; }
 	GameObject* getPlatform() { return _platform; }
 	EnemyManager* getEnemyM() {  return _enemyM; }
+	ObjectManager* getObjectM() {  return _objectM; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	void setLinkColM(CollisionManager* colM) { _colM = colM;}
-	//사망 여부
-	void setIsDead(bool dead) { _info.isDead = dead; }
+
 	//조작 유무
 	void setIsControl(bool control) { _info.isControl = control; }
 	//상태 지정
 	void setState(PL_STATE state);
-	//좌우 방향 지정
-	void setDest(DIRECTION dest) { _info.dest = dest; }
-	//방향 전환 유무
-	void setIsConDest(bool isConDest) { _info.isConDest = isConDest; }
-	//무기 상태 변경
-	void setWeaponType(WEAPON_TYPE wType) { _info.weaponType = wType; }
-	//공격 상태 변경
-	void SetIsAttack(bool isAttack) { _info.isAttack = isAttack; }
-	//같은줄 유무 범위값설정 버전도 있음
-	bool isRange(GameObject obj);
-	bool isRange(GameObject obj, float value);
+	
 	//충돌처리에 필요한 SETTER
 	void setPlatform(GameObject* platform) { _platform = platform; }
 	void setJumpPower(float num) { _info.jumpPower = num;  }
@@ -210,6 +197,12 @@ public:
 	====================================================================*/
 	void stageInit();
 
+	//같은 줄 유무 범위값 설정 버전도 있음
+	bool isRange(GameObject obj);
+	bool isRange(GameObject obj, float value);
+
+	//무기업데이트
+	void weaponUpdate();
 	//중력작용
 	void gravity();
 	//키 입력
@@ -224,6 +217,8 @@ public:
 	void movePos(float x, float z, float y);
 	//좌표 고정
 	void changePos(float x, float z, float y);
-	//공격 렉트
-	void renewAttackRc();
+
+	//어택 오브젝트를 골까지 움직임
+	bool moveAttackObj();
+
 };

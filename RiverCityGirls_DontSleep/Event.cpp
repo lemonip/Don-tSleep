@@ -284,11 +284,11 @@ void waitForSec::exit()
 void Event::enter(bool playerControl)
 {
 	_isMovie = _isCameraMove = false;
-	_player->setIsConDest(playerControl);
+	if(_player) _player->setIsControl(playerControl);
 }
 
 void Event::exit()
 {
 	_isMovie = _isCameraMove = false;
-	_player->setIsControl(true);
+	if (_player) _player->setIsControl(true);
 }

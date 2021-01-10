@@ -91,7 +91,10 @@
     <Filter Include="playGround\CollisionManager">
       <UniqueIdentifier>{0be01191-66bd-434e-b3fc-678fc5879341}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\Pet">
+    <Filter Include="playGround\ObjectManager\Weapon">
+      <UniqueIdentifier>{8106a9de-02b8-4895-b7f4-715efda0c1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Player\Pet">
       <UniqueIdentifier>{1ec7dc27-0589-4594-9271-4557528ca23c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -507,11 +510,14 @@
     <ClInclude Include="playerClimbTop.h">
       <Filter>playGround\Player\playerState</Filter>
     </ClInclude>
-    <ClInclude Include="pet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="IEnemyState.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>playGround\ObjectManager\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="pet.h">
+      <Filter>playGround\Player\Pet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -908,11 +914,14 @@
     <ClCompile Include="playerClimbTop.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
-    <ClCompile Include="pet.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="IEnemyState.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>playGround\ObjectManager\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="pet.cpp">
+      <Filter>playGround\Player\Pet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

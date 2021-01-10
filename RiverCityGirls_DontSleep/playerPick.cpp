@@ -3,6 +3,10 @@
 
 void playerPick::EnterState()
 {
+	if (!checkWeapon()) { _thisPl->setState(PL_STATE::IDLE); return; }
+
+	_thisPl->getInfo().attackObj->isRender = false;
+
 	//이미지변경
 	_thisPl->changeImg("pl_pick", false);
 }

@@ -10,15 +10,14 @@ void playerSAttackDown::EnterState()
 	_thisPl->setIsControl(false);
 
 	//무기타입을 없음으로 변경
-	if (_thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)_thisPl->setWeaponType(WEAPON_TYPE::NONE);
-
+	dropWeapon();
 
 }
 
 void playerSAttackDown::UpdateState()
 {
 	//공격여부 체크
-	checkAttack();
+	checkEnemy();
 
 	if (isEndFrame(true))
 	{

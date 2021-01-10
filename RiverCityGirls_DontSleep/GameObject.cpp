@@ -13,6 +13,7 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos)
 	size.z = img->getFrameHeight();
 
 	alpha = 255;
+	isRender = true;
 
 	RectRenew();
 
@@ -52,7 +53,7 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos)
 		shadow.rc = RectMakeCenter(pos.x, pos.z, shadow.width, shadow.height);
 	}
 
-	isActive = true;
+	isRender = true;
 }
 
 void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vector3 _pos, float a)
@@ -175,7 +176,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 
 	
 
-	isActive = true;
+	isRender = true;
 }
 
 void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image * _img, vector3 _pos, float a, bool broken)
@@ -267,7 +268,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image * _img, vect
 		break;
 	}
 
-	isActive = true;
+	isRender = true;
 }
 
 void GameObject::release()

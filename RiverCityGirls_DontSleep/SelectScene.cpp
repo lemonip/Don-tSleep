@@ -194,7 +194,7 @@ void SelectScene::setState(SELECTTYPE type)
 	EVENT_M->addEvent(new waitForSec(0.3f));
 	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.0, 0.005f));
 	EVENT_M->addEvent(new waitForSec(0.1f));
-	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.8, 0.005f));
+	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.05, 0.005f));
 	EVENT_M->addEvent(new waitForSec(0.2f));
 	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.0, 0.005f));
 }

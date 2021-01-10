@@ -20,6 +20,9 @@ class GameObject
 public:
 	OBJECT_GROUP group;		//그룹
 	OBJECT_TYPE type;		//오브젝트 타입
+	WEAPON_TYPE weaponType;	//무기 타입
+	ITEM_TYPE itemType;		//아이템 타입
+
 	DIRECTION dir;			//오브젝트 방향
 
 	image* img;				//이미지
@@ -42,6 +45,7 @@ public:
 	float margin;			//z여백
 
 	bool isActive;			//활성화 여부
+	bool isRender;			//렌더 여부
 	bool isShadow;			//그림자가 있는지
 	bool isBroken;			//오브젝트 파괴여부
 
@@ -62,6 +66,7 @@ public:
 	void RectRenew();		//렉트 갱신
 	void shadowUpdate();
 	void PolyLineRender(HDC hdc);	//디버깅용 선 렌더
+
 
 /*====================================================================
 								SETTER

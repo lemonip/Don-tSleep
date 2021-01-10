@@ -284,6 +284,7 @@
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector3.h" />
     <ClInclude Include="Video.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="windowAPI.h" />
     <ClInclude Include="zOrderManager.h" />
   </ItemGroup>
@@ -424,6 +425,7 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="Video.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="winMain.cpp" />
     <ClCompile Include="zOrderManager.cpp" />
   </ItemGroup>

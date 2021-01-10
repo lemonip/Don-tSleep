@@ -19,10 +19,9 @@ void ObjectManager::release()
 
 void ObjectManager::update()
 {
-
 	for (int i = 0; i < _vObject.size(); i++)
 	{
-		_vObject[i]->update();
+		if (_vObject[i]->getObj()->isRender) _vObject[i]->update();
 	}
 }
 
@@ -30,12 +29,8 @@ void ObjectManager::render()
 {
 	for (int i = 0; i < _vObject.size(); i++)
 	{
-		_vObject[i]->render();
-	}
-
-	for (int i = 0; i < _vObject.size(); i++)
-	{
-		_vObject[i]->getObj()->PolyLineRender(getMapDC());
+		if (_vObject[i]->getObj()->isRender) _vObject[i]->render();
+		if (_vObject[i]->getObj()->isRender) _vObject[i]->getObj()->PolyLineRender(getMapDC());
 	}
 }
 
@@ -71,30 +66,24 @@ void ObjectManager::pushObject(OBJECT_TYPE type, vector3 pos)
 
 void ObjectManager::pushItem(ITEM_TYPE type, vector3 pos)
 {
-	switch (type)
-	{
-	case ITEM_TYPE::MONEY:
-		break;
-	case ITEM_TYPE::COIN:
-		break;
-	case ITEM_TYPE::MEAT:
-		_vObject.push_back(new ItemObj(type, pos));
-		break;
-	default:
-		break;
-	}
+	_vObject.push_back(new ItemObj(type, pos));
 }
 
 void ObjectManager::pushWeapon(WEAPON_TYPE type, vector3 pos)
 {
-	switch (type)
+	_vObject.push_back(new Weapon(type, pos));
+
+}
+
+void ObjectManager::popObject(int index)
+{
+	for (int i = 0; i < _vObject.size();)
 	{
-	case WEAPON_TYPE::NONE:
-		break;
-	case WEAPON_TYPE::BAT:
-		break;
-	default:
-		break;
+		if (i == index)
+		{
+			_vObject.erase(_vObject.begin() + i);
+		}
+		else  i++;
 	}
 }
 

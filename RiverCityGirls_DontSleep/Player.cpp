@@ -37,6 +37,7 @@
 #include "playerJumpAttack.h"
 #include "playerSAttackDown.h"
 
+#include "Weapon.h"
 //초기화
 HRESULT Player::init()
 {
@@ -44,29 +45,29 @@ HRESULT Player::init()
 		플래이어의 오브젝트 초기화와 기본 설정을 합니다.
 	====================================================================*/
 	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wait"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
-	_info.attackInfo._obj.init(OBJECT_GROUP::OBJECT, IMG_M->findImage("bat"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
 
 	//기본 변수 초기화
 	{
+		_obj.ani = new animation;
+		_info.hp = _info.maxHP = 100;
 		_info.jumpPower = 0;
 		_info.speed = 4.f;
-		_info.hasMember = false;
+
 		_info.isDead = false;
 		_info.isControl = true;
 		_info.isConDest = true;
 		_info.isSky = false;
 		_info.isAttack = false;
 		_info.isClimb = false;
+		_info.isThrow = false;
 		_info.hasMember = false;
+
 		_info.dest = DIRECTION::RIGHT;
-		_info.weaponType = WEAPON_TYPE::BAT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		_info.frameTimer = TIME_M->getWorldTime();
-		_obj.ani = new animation;
 		_info.hitCount = 3;
-		_info.attackInfo._obj.alpha = 255;
-
+		_info.goalState = GOALPOS::PLAYER;
 	}
 
 	//상태패턴 등록
@@ -113,21 +114,30 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
+	//cout << (int)_info.state<< endl;
+
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
+
 	//상태업데이트
 	_IState->UpdateState();
+
 	//중력작용
 	gravity();
+
 	//키입력
 	keyInput();
+	
+	//무기 업뎃
+	if (_info.attackObj!=NULL)weaponUpdate();
+
 	//오브젝트 업뎃
 	_obj.update();
 	_obj.shadowUpdate();
-	_info.attackInfo._obj.update();
-	//애니프레임 업뎃
-	if (_info.rendType == RENDERTYPE::ANI_RENDER)
-		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 7);
+	
+	//애니 프레임 업뎃
+	if (_info.rendType == RENDERTYPE::ANI_RENDER) _obj.ani->frameUpdate(TIME_M->getElapsedTime() * 7);
+
 	//프레임업뎃
 	playFrame();
 
@@ -140,9 +150,6 @@ void Player::update()
 		cout << "플랫폼 Y: " << _platform->bottomPlane[0].getEnd().y << endl;
 		cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 	}
-
-	//공격렉트 갱신
-	renewAttackRc();
 }
 
 //렌더
@@ -152,24 +159,31 @@ void Player::render()
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
 
+	//플래이어 오브젝트 렌더
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
-	Rectangle(getMapDC(), _obj.shadow.rc);
-	if (KEY_M->isToggleKey(VK_SHIFT)) Rectangle(getMapDC(), _info.attackInfo._obj.rc);
 
+	if(_info.attackObj)
+	{ 
+		if(_info.attackObj->isRender)
+		ZORDER_M->renderObject(getMapDC(), _info.attackObj, RENDERTYPE::FRAME_RENDER);
+	}
 
-	//걍 계속렌더해도안됨
-	ZORDER_M->renderObject(getMapDC(), &_info.attackInfo._obj, RENDERTYPE::FRAME_RENDER);
-
-
-
-
+	//디버깅 시 렉트 렌더
+	if (KEY_M->isToggleKey(VK_SHIFT))
+	{
+		Rectangle(getMapDC(), _obj.shadow.rc);
+		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
+	}
+	
+	/*
 	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT
 		&& _obj.imgIndex.x >= 3)
-		ZORDER_M->renderObject(getMapDC(), &_info.attackInfo._obj, RENDERTYPE::FRAME_RENDER);
+		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
 
 	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::RIGHT
 		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX() - 2)
-		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 1);
+		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
+	*/
 
 	//_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
 
@@ -183,11 +197,13 @@ void Player::render()
 //상태 지정
 void Player::setState(PL_STATE state)
 {
-	_info.preState = _info.state; //아마 쓸데 없는데서 따로저장한코드있을거임 나중에 코드정리할때즤워야함
-	if (_info.state == state)return; //같은 상태면 변경하지 않는다.
-	_info.state = state;
+	if (_info.state == state)return;	//같은 상태면 변경하지 않는다.
+	_info.preState = _info.state;		//변경 전 현재 상태를 저장한다.
+	_info.state = state;				//현재 상태를 변경한다.
+
+	cout << "현재상태" << (int)_info.state << endl;
 	//상태를 빠져나온다
-	if (_IState != NULL)_IState->ExitState();
+	if (_IState != NULL) _IState->ExitState();
 
 	//상태를 변경한다
 	switch (_info.state)
@@ -197,8 +213,7 @@ void Player::setState(PL_STATE state)
 	case PL_STATE::WAIT:	    _IState = _wait;		 break;
 	case PL_STATE::WALK:	    _IState = _walk;		 break;
 	case PL_STATE::RUN:		    _IState = _run;			 break;
-	case PL_STATE::JUMP:
-		_IState = _jump;		 break;
+	case PL_STATE::JUMP:		_IState = _jump;		 break;
 	case PL_STATE::STICK:	    _IState = _stick;		 break;
 	case PL_STATE::CLIMB:      _IState = _climb;		 break;
 	case PL_STATE::CLIMBTOP:   _IState = _climbTop;		 break;
@@ -228,7 +243,7 @@ void Player::setState(PL_STATE state)
 	default: break;
 	}
 
-	//상태 링크
+	//상태에 링크하고 진입한다.
 	_IState->LinkPlAddress(this);
 	_IState->EnterState();
 }
@@ -236,20 +251,90 @@ void Player::setState(PL_STATE state)
 //같은 줄 유무
 bool Player::isRange(GameObject obj)
 {
-	//위치 차이가 3미만이면
-	if (abs(_obj.pos.z - obj.pos.z) < 15)
-	{
-		return true;
-	}
+	//위치 차이가 15미만이면
+	if (abs(_obj.pos.z - obj.pos.z) < 15) return true;
 	return false;
 }
 
 //같은 줄 유무
 bool Player::isRange(GameObject obj, float value)
 {
-	//위치 차이가 3미만이면
-	if (abs(_obj.pos.z - obj.pos.z) < value)
+	//위치 차이가 값 미만이면
+	if (abs(_obj.pos.z - obj.pos.z) < value) return true;
+	return false;
+}
+
+
+void Player::weaponUpdate()
+{
+	if (!_info.attackObj) return;
+
+	//플레이어가 던지면 골상태를 화면밖으로 바꿈
+	if (_info.isThrow)
 	{
+		_info.isThrow = false;
+
+		//방향에 따른 x값설정
+		if (_info.dest == DIRECTION::RIGHT)
+		{
+			_info.attackGoal.x = _obj.pos.x + WINSIZEX / 2;
+			if (_info.attackGoal.x > CAMERA_M->GetMapXSize())_info.attackGoal.x = CAMERA_M->GetMapXSize();
+		}
+
+		if (_info.dest == DIRECTION::LEFT)
+		{
+			_info.attackGoal.x = _obj.pos.x - WINSIZEX / 2;
+			if (_info.attackGoal.x < 0)_info.attackGoal.x = 0;
+		}
+		_info.attackObj->pos.y = _obj.pos.y - 100;
+
+		_info.attackGoal.z = _obj.pos.z;
+		_info.attackGoal.y = _obj.pos.y - 100;
+		_info.goalState = GOALPOS::WINOUT;
+	}
+
+	switch (_info.goalState)
+	{
+	case GOALPOS::PLAYER:
+		break;
+	case GOALPOS::WINOUT:
+		//골로 이동하다가 화면골에 가면 골상태를 바닥으로 변경
+		if (moveAttackObj())
+		{
+			if (_info.dest == DIRECTION::RIGHT) _info.attackGoal.x -= 30;
+			if (_info.dest == DIRECTION::LEFT) _info.attackGoal.x += 30;
+			//_info.attackGoal.z = _info.attackGoal.z;
+			_info.attackGoal.y = 0;
+			_info.goalState = GOALPOS::FLOOR;
+		}
+		break;
+	case GOALPOS::FLOOR:
+		if (moveAttackObj())
+		{
+			_info.attackObj->isActive = true;
+			_info.attackObj->isRender = true;
+			_info.goalState = GOALPOS::PLAYER;
+			_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(_info.attackGoal.x, _info.attackGoal.y, _info.attackGoal.z));
+			_info.attackObj = NULL;
+		}
+		break;
+	}
+}
+
+bool Player::moveAttackObj()
+{
+	_info.attackObj->pos.x += cosf(getAngle(_info.attackObj->pos.x, 0,  _info.attackGoal.x, 0)) * 6.0f;
+	
+	_info.attackObj->pos.z -= sinf(getAngle( 0 ,_info.attackObj->pos.z, 0 , _info.attackGoal.z)) * 6.0f;
+
+	_info.attackObj->pos.y -= sinf(getAngle(0, _info.attackObj->pos.y, 0, _info.attackGoal.y)) * 6.0f;
+	
+	if (getDistance(_info.attackObj->pos.x, _info.attackObj->pos.z + _info.attackObj->pos.y,
+		_info.attackGoal.x, _info.attackGoal.z + _info.attackGoal.y) < 5)
+	{
+		_info.attackObj->pos.x = _info.attackGoal.x;
+		_info.attackObj->pos.y = _info.attackGoal.y;
+		_info.attackObj->pos.z = _info.attackGoal.z;
 		return true;
 	}
 	return false;
@@ -323,8 +408,7 @@ void Player::changeImg(string imgName, bool reverse)
 {
 	//이미지를 바꾼다.
 	_obj.img = IMG_M->findImage(imgName);
-	//프레임 시간 갱신하여 바로 프레임 변경
-	_info.frameTimer = TIME_M->getWorldTime();
+
 	//방향과 리버스 여부 따른 프레임 x 인덱스 설정
 	switch (_info.dest)
 	{
@@ -340,6 +424,9 @@ void Player::changeImg(string imgName, bool reverse)
 		_obj.imgIndex.y = 1;
 		break;
 	}
+
+	//프레임 시간 갱신하여 바로 프레임 변경
+	_info.frameTimer = TIME_M->getWorldTime();
 
 }
 
@@ -369,13 +456,13 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		switch (_info.dest)
 		{
 		case DIRECTION::LEFT:
-			if (frameType != FRAMETYPE::REVERSEROOP && frameType != FRAMETYPE::REVERSEONCE) ++_obj.imgIndex.x;
+			if (frameType != FRAMETYPE::REVERSELOOP && frameType != FRAMETYPE::REVERSEONCE) ++_obj.imgIndex.x;
 			else --_obj.imgIndex.x;
 
 
 			break;
 		case DIRECTION::RIGHT:
-			if (frameType != FRAMETYPE::REVERSEROOP&& frameType != FRAMETYPE::REVERSEONCE) --_obj.imgIndex.x;
+			if (frameType != FRAMETYPE::REVERSELOOP&& frameType != FRAMETYPE::REVERSEONCE) --_obj.imgIndex.x;
 			else  ++_obj.imgIndex.x;
 			break;
 		}
@@ -422,7 +509,7 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		}
 	}
 	break;
-	case FRAMETYPE::REVERSEROOP://반대 무한 재생
+	case FRAMETYPE::REVERSELOOP://반대 무한 재생
 	{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
@@ -443,18 +530,17 @@ void Player::playFrame()
 	{
 		//무한재생 (일반 속도)
 	case PL_STATE::WAIT:
-
 		setFrame(FRAMETYPE::LOOP, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
 		//반대 무한재생 (빨리)
 	case PL_STATE::RUN:
-		setFrame(FRAMETYPE::REVERSEROOP, FRAMEINTERVAL*0.35);
+		setFrame(FRAMETYPE::REVERSELOOP, FRAMEINTERVAL*0.35);
 		break;
 		//반대 무한재생
 	case PL_STATE::STUN:
 	case PL_STATE::IDLE:	case PL_STATE::WALK:
-		setFrame(FRAMETYPE::REVERSEROOP, FRAMEINTERVAL);
+		setFrame(FRAMETYPE::REVERSELOOP, FRAMEINTERVAL);
 		break;
 
 		//한번 (천천히)
@@ -505,8 +591,9 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.pos.z += z;
 	_obj.pos.y -= jumpPower;
 
-	//그림자만 일단 한번 업데이트 (충돌처리를 위한거! 건드리면 안됨!)
+	//그림자만 일단 한번 업데이트 (충돌처리를 위한 거! 건드리면 안됨!)
 	_obj.shadowUpdate();
+
 	//충돌처리 
 	_colM->playerObjectCollision();
 
@@ -525,6 +612,7 @@ void Player::changePos(float x, float z, float y)
 
 	//그림자만 일단 한번 업데이트 (충돌처리를 위한거! 건드리면 안됨!)
 	_obj.shadowUpdate();
+
 	//충돌처리 
 	_colM->playerObjectCollision();
 
@@ -535,6 +623,8 @@ void Player::changePos(float x, float z, float y)
 	_obj.update();
 }
 
+
+/*
 //공격렉트 갱신
 void Player::renewAttackRc()
 {
@@ -593,21 +683,20 @@ void Player::renewAttackRc()
 	_info.attackInfo._obj.rc = RectMakeCenter(_info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, _info.attackInfo.width, _info.attackInfo.height);
 
 }
+*/
 
 //중력작용
 void Player::gravity()
 {
 	if (_info.isSky) _info.jumpPower -= GRAVITYVALUE;
-	if (_obj.pos.y >= 0 && _info.isSky == true)
+	if (_obj.pos.y >= 0 && _info.isSky)
 	{
 		setState(PL_STATE::IDLE);
 		//걷거나 뛰고있었고, 키를 계속 누르고있으면 그 상태 그대로돌아오기
 		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)
 		{
-			if (_info.dest == DIRECTION::LEFT)
-				if (KEY_M->isStayKeyDown(VK_LEFT))setState(_info.preState);
-			if (_info.dest == DIRECTION::RIGHT)
-				if (KEY_M->isStayKeyDown(VK_RIGHT))setState(_info.preState);
+			if (_info.dest == DIRECTION::LEFT && KEY_M->isStayKeyDown(VK_LEFT))setState(_info.preState);
+			if (_info.dest == DIRECTION::RIGHT && KEY_M->isStayKeyDown(VK_RIGHT))setState(_info.preState);
 		}
 		_info.isSky = false;
 		_platform = nullptr;
@@ -619,21 +708,14 @@ void Player::gravity()
 //키입력
 void Player::keyInput()
 {
-
 	//키조작을 못하는 상태라면 리턴
-	if (!_info.isControl)return;
+	if (!_info.isControl) return;
 
 	//공격키받기(커맨드를위해)
 	if (KEY_M->isOnceKeyDownV('D'));
 
 	//사다리오르기
-	if (_info.isClimb && KEY_M->isOnceKeyDownV(VK_UP))
-	{
-		setState(PL_STATE::CLIMB);
-	}
-
-
-
+	if (_info.isClimb && KEY_M->isOnceKeyDownV(VK_UP)) setState(PL_STATE::CLIMB);
 
 	//점프
 	if (KEY_M->isOnceKeyDownV('A') && !_info.isSky)
@@ -655,7 +737,7 @@ void Player::keyInput()
 	}
 
 	//방향조작을 못하는 상태라면 리턴
-	if (!_info.isConDest)return;
+	if (!_info.isConDest) return;
 
 	//왼
 	if (KEY_M->isOnceKeyDownV(VK_LEFT) || KEY_M->isStayKeyDown(VK_LEFT))
@@ -689,4 +771,3 @@ void Player::keyInput()
 
 	}
 }
-
