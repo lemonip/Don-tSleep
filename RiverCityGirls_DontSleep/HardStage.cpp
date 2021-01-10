@@ -26,7 +26,7 @@ HRESULT HardStage::init()
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
 	_objectM->pushObject(OBJECT_TYPE::LADDER, vector3(1555, 0, 930));
-	_objectM->pushObject(OBJECT_TYPE::HARDPLATFORM, vector3(850, 0, 600));
+	_objectM->pushObject(OBJECT_TYPE::HARDPLATFORM, vector3(850, 0, 950));
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/

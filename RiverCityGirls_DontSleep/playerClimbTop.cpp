@@ -10,7 +10,7 @@ void playerClimbTop::EnterState()
 	 if (_thisPl->getInfo().moveDest == MOVE_DIRECTION::UP)
 	_thisPl->changeImg("pl_climbTop", false);
 
-	 _thisPl->setDest(DIRECTION::LEFT);
+	 _thisPl->getInfo().dest = DIRECTION::LEFT;
 	
 }
 
@@ -32,4 +32,5 @@ void playerClimbTop::UpdateState()
 
 void playerClimbTop::ExitState()
 {
+
 }

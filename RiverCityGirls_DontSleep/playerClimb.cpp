@@ -39,6 +39,28 @@ void playerClimb::UpdateState()
 	if (KEY_M->isOnceKeyDown('J'))
 		_thisPl->setState(PL_STATE::CLIMBTOP);
 
+	ladderMove(_thisPl->getInfo().speed);
+
+	//렉트템프로 사다리 내려가면 바로 상태변경
+	if ((GetAsyncKeyState(VK_DOWN) & 0x8000) &&
+		_thisPl->getInfo().isClimb &&
+		_thisPl->getObj().pos.y >= 0)
+	{
+		_thisPl->setState(PL_STATE::IDLE);
+		_thisPl->getInfo().isClimb = false;
+		_thisPl->getPObj()->pos = vector3(1560, 0, 950);
+	}
+
+	//렉트템프로 사다리 위로 올라가면 바로 상태변경
+	if ((GetAsyncKeyState(VK_UP) & 0x8000) &&
+		_thisPl->getInfo().isClimb &&
+		_thisPl->getObj().pos.y <= -440)
+	{
+		_thisPl->setState(PL_STATE::CLIMBTOP);
+		_thisPl->setPlatform(_thisPl->getStageM()->getStage()->getObjectM()->findHardPlatform()->getObj());
+		_thisPl->getInfo().isClimb = false;
+	}
+
 	//렉트템프로 사다리 내려가면 바로 상태변경
 	//_thisPl->setState(PL_STATE::IDLE);
 }

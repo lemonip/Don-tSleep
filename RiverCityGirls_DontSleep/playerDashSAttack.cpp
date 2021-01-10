@@ -10,30 +10,31 @@ void playerDashSAttack::EnterState()
 	//키조작 불가
 	_thisPl->setIsControl(false);
 
-	_isCollsion = false;
+	_isCollision = false;
 }
 
 void playerDashSAttack::UpdateState()
 {
+	RECT _temp;
 	//공격 판정
 	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 	{
-		if (!_isCollsion
+		if (!_isCollision
 			&&_thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj(),30)
-			&&IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
+			&&IntersectRect(&_temp, &_thisPl->getInfo().attackObj->rc,
 			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
 
 			if (!_thisPl->getInfo().isAttack)
 			{
-				_thisPl->SetIsAttack(true);
-				_isCollsion = true;
+				_thisPl->getInfo().isAttack = true;
+				_isCollision = true;
 			}
 		}
 	}
 
-	//무기타입을 없음으로 변경
-	if (_thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)_thisPl->setWeaponType(WEAPON_TYPE::NONE);
+	//무기를 떨어뜨림.
+	dropWeapon();
 
 	//프레임이 다 돌면 원래 상태로 돌아가기
 	if (isEndFrame(false)

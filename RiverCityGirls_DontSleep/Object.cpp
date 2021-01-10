@@ -12,8 +12,10 @@ void Object::release()
 
 void Object::update()
 {
+	_obj.update();
 }
 
 void Object::render()
 {
 }
+

@@ -69,6 +69,7 @@ enum class OBJECT_GROUP : int
 	BOSS,
 	OBJECT,
 	ITEM,
+	WEAPON,
 };
 
 /*====================================================================
@@ -77,7 +78,16 @@ enum class OBJECT_GROUP : int
 enum class DIRECTION : int
 {
 	LEFT,
-	RIGHT
+	RIGHT,
+	NONE
+};
+
+enum class MOVE_DIRECTION : int
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
 };
 
 /*====================================================================
@@ -107,6 +117,13 @@ enum class OBJECT_TYPE : int
 	PILLAR_BIG_RIGHT,
 };
 
+enum class OBJECT_DESTRUCTION : int
+{
+	INDESTRUCTIBLE,
+	BEFOREDESTRUCTION,
+	DESTRUCTION,
+};
+
 
 /*====================================================================
 	아이템 종류입니다.
@@ -123,7 +140,6 @@ enum class ITEM_TYPE : int
 ====================================================================*/
 enum class WEAPON_TYPE : int
 {
-	NONE,
 	BAT,
 	BASEBALL
 };

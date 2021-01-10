@@ -17,6 +17,8 @@ public:
 	virtual void update();
 	virtual void render();
 
+	Object* findHardPlatform();
+
 /*====================================================================
 								GETTER
 ====================================================================*/
@@ -28,5 +30,7 @@ public:
 	void pushObject(OBJECT_TYPE type, vector3 pos);		//오브젝트를 넣는다.
 	void pushItem(ITEM_TYPE type, vector3 pos);			//아이템을 넣는다.
 	void pushWeapon(WEAPON_TYPE type, vector3 pos);		//무기를 넣는다.
+
+	void popObject(int index);						//오브젝트를 삭제한다.
 };
 
