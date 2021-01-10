@@ -62,6 +62,7 @@ HRESULT Player::init()
 
 		_info.isThrow = false;
 		_info.hasMember = false;
+		_info.hasWeapon = false;
 
 		_info.dest = DIRECTION::RIGHT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
@@ -180,7 +181,8 @@ void Player::render()
 	//플래이어 오브젝트 렌더
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 
-	if(_info.attackObj)
+	//무기를 가지고 있을 때
+	//if(_info.hasWeapon)
 	{ 
 		if(_info.attackObj->isRender)
 		ZORDER_M->renderObject(getMapDC(), _info.attackObj, RENDERTYPE::FRAME_RENDER);
@@ -192,25 +194,8 @@ void Player::render()
 		Rectangle(getMapDC(), _obj.shadow.rc);
 		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
 	}
-	
-	/*
-	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT
-		&& _obj.imgIndex.x >= 3)
-		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
 
-	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::RIGHT
-		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX() - 2)
-		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
-	*/
-
-	//_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
-
-	/*
-		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
-	if (_info.state == PL_STATE::THROW && _info.dest ==DIRECTION::RIGHT
-		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX()-2)
-		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 1);*/
-}
+	}
 
 //상태 지정
 void Player::setState(PL_STATE state)
@@ -270,7 +255,7 @@ void Player::setState(PL_STATE state)
 bool Player::isRange(GameObject obj)
 {
 	//위치 차이가 15미만이면
-	if (abs(_obj.pos.z - obj.pos.z) < 15) return true;
+	if (abs(_obj.pos.z - obj.pos.z) < 30) return true;
 	return false;
 }
 
@@ -622,7 +607,8 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.update();
 }
 
-void Player::changePos(float x, float z, float y)
+//좌표설정
+void Player::setPos(float x, float z, float y)
 {
 	_obj.pos.x = x;
 	_obj.pos.z = z;

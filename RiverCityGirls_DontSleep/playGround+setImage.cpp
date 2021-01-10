@@ -218,7 +218,7 @@ void playGround::addImage()
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
 
 	//================= ÀÌÆÑÆ® =================
-	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, .15f, 50);
 	EFFECT_M->addEffect("ef_beg", "beg.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
 	EFFECT_M->addEffect("ef_blueAttack", "blueAttack.bmp", 720, 80, 80, 80, 1.f, 2.f, 50);
 	EFFECT_M->addEffect("ef_explosion", "explosion.bmp", 2701, 247, 385, 247, 1.f, 2.f, 50);

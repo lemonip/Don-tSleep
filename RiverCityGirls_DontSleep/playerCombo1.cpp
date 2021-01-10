@@ -41,11 +41,19 @@ void playerCombo1::EnterState()
 	//공격여부: 에너미가 있는지 확인하고 있으면 isAttack을 true로 바꿈
 	if (checkEnemy())
 	{
-		//때린 상태면 이펙트를 보여줌
-		EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
-			(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
-		//타격에 성공했는지 확인
-		_isCollision = true;
+		if ( _thisPl->getInfo().attackObj != NULL || _thisPl->getInfo().attackObj->weaponType == WEAPON_TYPE::BAT )
+		{
+			//타격에 성공했는지 확인
+			_isCollision = true;
+		}
+		//맨손으로 때린 상태면 이펙트를 보여줌
+		else if (_thisPl->getInfo().attackObj != NULL)
+		{
+			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
+				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
+			//타격에 성공했는지 확인
+			_isCollision = true;
+		}
 	}
 
 	//키 벡터를 지운다.
@@ -58,6 +66,33 @@ void playerCombo1::UpdateState()
 	
 	//공격판정 1번만 되도록
 	_thisPl->getInfo().isAttack = false;
+
+	//맞은 적이 있고, 프레임 인덱스가 타이밍에 맞고 손에 무기를 들고 있으면
+	if (_thisPl->getInfo().attackObj != NULL)
+	{
+		switch (_thisPl->getInfo().dest)
+		{
+		case DIRECTION::LEFT:
+			if (_thisPl->getInfo().dest == DIRECTION::LEFT
+				&&_isCollision && _thisPl->getObj().imgIndex.x >= 2)
+			{
+				EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
+					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
+				_isCollision = false;
+			}
+			break;
+		case DIRECTION::RIGHT:
+			if (_thisPl->getInfo().dest == DIRECTION::RIGHT
+				&&_isCollision && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
+			{
+				EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
+					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
+				_isCollision = false;
+			}
+			break;
+		}
+	}
+
 
 	//프레임이 다 돌았다.
 	if (isEndFrame(false))

@@ -13,7 +13,11 @@ void playerPick::EnterState()
 
 void playerPick::UpdateState()
 {
-	if (isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
+	if (isEndFrame(false))
+	{
+		_thisPl->setState(PL_STATE::IDLE);
+		_thisPl->getInfo().hasWeapon = true;
+	}
 }
 
 void playerPick::ExitState()

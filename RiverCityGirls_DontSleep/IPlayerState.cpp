@@ -114,6 +114,7 @@ bool IPlayerState::checkEnemy()
 void IPlayerState::sAttack()
 {
 	if (KEY_M->isOnceKeyDownV('D')) _thisPl->setState(PL_STATE::SATTACK);
+	//_thisPl->setState(PL_STATE::STOMP);
 	{
 		//for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 		//{
