@@ -34,7 +34,7 @@ void bossMeteor::UpdateState()
 	{
 		if (_thisBs->getInfo().isSky)
 		{			
-			_thisBs->getObj()->pos.y = -300;
+			_thisBs->getObj()->pos.y = -400;
 			_thisBs->getObj()->pos.y -= _thisBs->getInfo().jumpPower;
 
 			
@@ -55,9 +55,9 @@ void bossMeteor::UpdateState()
 			_thisBs->getObj()->pos.y = 0;
 		}
 
-		if (TIME_M->getWorldTime() - _enterTime > 5.0f)
+		if (TIME_M->getWorldTime() - _enterTime > 3.5f)
 		{
-			_thisBs->SetState(BS_STATE::STANDATTACK);
+			_thisBs->SetState(BS_STATE::DOWN);
 		}
 	}
 	
@@ -66,4 +66,5 @@ void bossMeteor::UpdateState()
 void bossMeteor::ExitState()
 {
 	_thisBs->ChangeImg("Bs_meteor");
+	_thisBs->SetState(BS_STATE::DOWN);
 }

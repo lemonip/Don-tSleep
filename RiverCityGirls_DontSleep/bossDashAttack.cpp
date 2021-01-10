@@ -5,8 +5,10 @@
 
 void bossDashAttack::EnterState()
 {
+	_enterTime = TIME_M->getWorldTime();
 	_speed = 0;
-	_thisBs->ChangeImg("Bs_dash");
+	_thisBs->ChangeImg("Bs_idle");
+	
 
 	if (_thisBs->getdest() == DIRECTION::RIGHT)
 	{
@@ -18,26 +20,37 @@ void bossDashAttack::EnterState()
 	{
 		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
 		_thisBs->getObj()->imgIndex.y = 0;
-	}
+	}	
 }
 
 void bossDashAttack::UpdateState()
 {
-	_speed = 8.0f;
+		
+	_speed = 4.0f;
 
+	_thisBs->ChangeImg("Bs_dash2");
+
+	_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
+		_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
+	_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
+	_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
 	
-	if (abs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 && abs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 20)
+	
+
+	/*if (_thisBs->getObj()->imgIndex.x == _thisBs->getObj()->img->getMaxFrameX() && _thisBs->getdest() == DIRECTION::LEFT)
 	{
-		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
-			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
-		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
-		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
+		//_thisBs->getInfo().isAttack = false;
 	}
-	// 3번 공격 필요		
+
+	if (_thisBs->getObj()->imgIndex.x == 0 && _thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		//_thisBs->getInfo().isAttack = false;
+	}
+	// 3번 공격 필요		*/
 }
 
 void bossDashAttack::ExitState()
 {
-	_thisBs->SetState(BS_STATE::HOWLING);
-	_thisBs->getInfo().isAttack = true;
+	//_thisBs->SetState(BS_STATE::HOWLING);
+	//_thisBs->getInfo().isAttack = true;
 }

@@ -269,7 +269,7 @@ void CollisionManager::playerWallCollsion()
 			{
 				character->pos.z = vBackWall[i].LB.z + character->shadow.height / 2;
 			}
-		}	
+		}
 	}
 
 	for (int i = 0; i < vLeftWall.size(); ++i)
@@ -326,7 +326,6 @@ void CollisionManager::playerWallCollsion()
 			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
 		}
 	}
-
 }
 
 void CollisionManager::enemyWallColiision(GameObject* character)
@@ -403,7 +402,6 @@ void CollisionManager::enemyWallColiision(GameObject* character)
 			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
 		}
 	}
-
 }
 
 
@@ -551,8 +549,9 @@ void CollisionManager::playerObjectCollision()
 	}
 }
 
-void CollisionManager::enemyObjectCollision(GameObject* character)
+void CollisionManager::enemyObjectCollision(Enemy* enemy)
 {
+	GameObject* character = enemy->getObj();
 	enemyWallColiision(character);
 	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
 
@@ -560,10 +559,9 @@ void CollisionManager::enemyObjectCollision(GameObject* character)
 	for (int i = 0; i < vObj.size(); ++i)
 	{
 		GameObject* obj = vObj[i]->getObj();
-
 		if (obj->group == OBJECT_GROUP::OBJECT)
 		{
-			if (_stageM->getPlayer()->getInfo().isSky) // 공중에 있을 때
+			if (enemy->getInfo().isSky) // 공중에 있을 때
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
@@ -700,25 +698,47 @@ void CollisionManager::destructObject()
 	{
 		for (int i = 0; i < vObj.size(); ++i)
 		{
-			if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
+			if (vObj[i]->getObj()->type == OBJECT_TYPE::VENDINGMACHINE)
 			{
-				RECT temp;
-				if (IntersectRect(&temp, &_player->getInfo().attackRc, &vObj[i]->getObj()->rc))
+				if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
 				{
-					vObj[i]->getObj()->destructionCount -= 1;
-				}
+					RECT temp;
+					if (IntersectRect(&temp, &_player->getInfo().attackRc, &vObj[i]->getObj()->rc))
+					{
+						vObj[i]->getObj()->destructionCount -= 1;
+					}
 
-				if (vObj[i]->getObj()->destructionCount <= 0)
-				{
-					vObj[i]->getObj()->des = OBJECT_DESTRUCTION::DESTRUCTION;
+					if (vObj[i]->getObj()->destructionCount <= 0)
+					{
+						vObj[i]->getObj()->des = OBJECT_DESTRUCTION::DESTRUCTION;
+					}
 				}
+			}
 
-				if (vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_LEFT ||
-					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_RIGHT ||
-					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_LEFT ||
-					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_RIGHT)
+			
+		}
+	}
+}
+
+void CollisionManager::bossDestructObject(Enemy* enemy)
+{
+	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
+	if (vObj.empty() == false)
+	{
+		for (int i = 0; i < vObj.size(); ++i)
+		{
+			if (vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_LEFT ||
+				vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_RIGHT ||
+				vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_LEFT ||
+				vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_RIGHT)
+			{
+				if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
 				{
-					_stageM->getStage()->getObjectM()->popObject(i);
+					RECT temp2;
+					if (IntersectRect(&temp2, &enemy->getInfo().rcAttack, &vObj[i]->getObj()->rc))
+					{
+						_stageM->getStage()->getObjectM()->popObject(i);
+					}
 				}
 			}
 		}

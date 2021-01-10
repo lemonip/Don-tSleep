@@ -56,7 +56,7 @@ void effect::render()
 void effect::startEffect(int x, int y)
 {
 	if (!_effectImage || !_effectAnimation) return;
-
+	//_x=x; _y=y로 되있어야함
 	_x = x;
 	_y = y;
 

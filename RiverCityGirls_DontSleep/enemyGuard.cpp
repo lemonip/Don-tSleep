@@ -4,10 +4,12 @@
 
 void enemyGuard::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyGuard::UpdateState()
 {
+
 }
 
 void enemyGuard::ExitState()

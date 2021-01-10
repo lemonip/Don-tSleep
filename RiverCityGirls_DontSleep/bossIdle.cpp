@@ -28,4 +28,5 @@ void bossIdle::UpdateState()
 
 void bossIdle::ExitState()
 {
+
 }

@@ -22,7 +22,10 @@ void bossGroggy::EnterState()
 
 void bossGroggy::UpdateState()
 {
-	
+	if (TIME_M->getWorldTime() - _enterTime > 3.5f)
+	{
+		_thisBs->SetState(BS_STATE::IDLE);
+	}
 }
 
 void bossGroggy::ExitState()

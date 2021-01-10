@@ -4,6 +4,7 @@
 
 void enemyWThrow::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyWThrow::UpdateState()

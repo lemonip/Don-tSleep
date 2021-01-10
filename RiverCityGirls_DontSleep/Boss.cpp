@@ -168,11 +168,17 @@ void Boss::frameUpdate()
 		case BS_STATE::DEATH:
 		case BS_STATE::MOVE:
 		case BS_STATE::WAIT:
-		case BS_STATE::GROGGY:
+		case BS_STATE::GROGGY:	
+		case BS_STATE::DOWN:
+		playFrame(0);
+		break;
 
 		case BS_STATE::METEOR:
-		case BS_STATE::DASH:
+						
+		playFrame(1);
+		break;
 
+		case BS_STATE::DASH:
 		case BS_STATE::BLOCK:
 		case BS_STATE::SMASH:
 		case BS_STATE::SLAP:
@@ -182,14 +188,6 @@ void Boss::frameUpdate()
 		case BS_STATE::ATTACKED:
 		case BS_STATE::STANDATTACK:
 		case BS_STATE::METEORDOWN:
-		playFrame(0);
-		break;
-		
-				
-		playFrame(1);
-		break;
-
-		
 		playFrame(-1);
 		break;
 
