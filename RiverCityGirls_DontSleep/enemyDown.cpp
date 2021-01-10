@@ -4,10 +4,12 @@
 
 void enemyDown::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyDown::UpdateState()
 {
+
 }
 
 void enemyDown::ExitState()

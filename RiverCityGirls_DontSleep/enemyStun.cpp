@@ -4,6 +4,7 @@
 
 void enemyStun::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyStun::UpdateState()

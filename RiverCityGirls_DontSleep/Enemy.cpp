@@ -88,9 +88,9 @@ void Enemy::update()
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
-	
+
 	_EState->UpdateState();
-	
+
 
 	_obj.update();
 	_obj.shadowUpdate();
@@ -110,7 +110,7 @@ void Enemy::xzyMove(int x,int z, int y)
 
 	_obj.shadowUpdate();
 
-	_stageM->getColM()->enemyObjectCollision(&_obj);
+	_stageM->getColM()->enemyObjectCollision(this);
 
 	_obj.update();
 }
@@ -208,6 +208,7 @@ void Enemy::SetImage()
 
 void Enemy::setFrame(int count, float frameInterval)
 {
+
 	switch (_dest)
 	{
 	case DIRECTION::LEFT:
