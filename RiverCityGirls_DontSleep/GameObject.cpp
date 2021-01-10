@@ -106,6 +106,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
 			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
 			dir = DIRECTION::LEFT;
+			des = OBJECT_DESTRUCTION::INDESTRUCTIBLE;
 			break;
 		case OBJECT_TYPE::TABLE:
 			topPlane[0] = Linear(vector3(pos.x - size.x / 2 + 51, -size.z / 2, pos.z - 50 - size.z / 2), vector3(pos.x + size.x / 2 - 30, -size.z / 2, pos.z - 50 - size.z / 2));	// 위쪽 선분
@@ -124,6 +125,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
 			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
 			dir = DIRECTION::LEFT;
+			des = OBJECT_DESTRUCTION::INDESTRUCTIBLE;
 			break;
 		case OBJECT_TYPE::LADDER:
 			topPlane[0] = Linear(vector3(pos.x - 60, -440 + margin, pos.z - 440), vector3(pos.x + 60 - margin, -440 + margin, pos.z - 440));				// 위쪽 선분
@@ -143,6 +145,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
 			type = OBJECT_TYPE::LADDER;
 			dir = DIRECTION::RIGHT;
+			des = OBJECT_DESTRUCTION::INDESTRUCTIBLE;
 			break;
 		case OBJECT_TYPE::HARDPLATFORM:
 			topPlane[0] = Linear(vector3(pos.x - 853, (float)-420, pos.z - 150), vector3(pos.x + 853 - 55, (float)-420, pos.z - 150));	// 위쪽 선분
@@ -162,11 +165,74 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
 			type = OBJECT_TYPE::HARDPLATFORM;
 			dir = DIRECTION::RIGHT;
+			des = OBJECT_DESTRUCTION::INDESTRUCTIBLE;
+			break;
+		case OBJECT_TYPE::VENDINGMACHINE:
+			topPlane[0] = Linear(vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z));			// 위쪽 선분
+			topPlane[1] = Linear(vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z + margin));			// 오른쪽 선분
+			topPlane[2] = Linear(vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z + margin));	// 밑쪽 선분
+			topPlane[3] = Linear(vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z));						// 왼쪽 선분
+
+			bottomPlane[0] = Linear(vector3(pos.x - size.x / 2, (float)0, pos.z - margin), vector3(pos.x + size.x / 2 - margin, (float)0, pos.z - margin));	// 위쪽 선분
+			bottomPlane[1] = Linear(vector3(pos.x + size.x / 2 - margin, (float)0, pos.z - margin), vector3(pos.x + size.x / 2, (float)0, pos.z));						// 오른쪽 선분
+			bottomPlane[2] = Linear(vector3(pos.x + size.x / 2, (float)0, pos.z), vector3(pos.x - size.x / 2 + margin, (float)0, pos.z));				// 밑쪽 선분
+			bottomPlane[3] = Linear(vector3(pos.x - size.x / 2 + margin, (float)0, pos.z), vector3(pos.x - size.x / 2, (float)0, pos.z - margin));				// 왼쪽 선분
+
+			// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
+			sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());
+			sideHeight[1] = Linear(topPlane[1].getStart(), bottomPlane[1].getStart());
+			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
+			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
+			dir = DIRECTION::RIGHT;
+			imgIndex = PointMake(1, 0);
+			des = OBJECT_DESTRUCTION::BEFOREDESTRUCTION;
+			destructionCount = 5;
+			break;
+		case OBJECT_TYPE::PILLAR_LEFT: case OBJECT_TYPE::PILLAR_BIG_LEFT:
+			topPlane[0] = Linear(vector3(pos.x - (size.x / 2 - 20) + margin, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2) - 5, -size.z + margin, pos.z - size.z + 5));				// 위쪽 선분
+			topPlane[1] = Linear(vector3(pos.x + (size.x / 2) - 5, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2) - margin, -size.z + margin, pos.z - size.z + margin));		// 오른쪽 선분
+			topPlane[2] = Linear(vector3(pos.x + (size.x / 2) - margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin));			// 밑쪽 선분
+			topPlane[3] = Linear(vector3(pos.x - (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin), vector3(pos.x - (size.x / 2 - 20) + margin, -size.z + margin, pos.z - size.z + 5));		// 왼쪽 선분
+
+			bottomPlane[0] = Linear(vector3(pos.x - (size.x / 2 - 20) + margin, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2) - 5, (float)0, pos.z - margin + 5));			// 위쪽 선분
+			bottomPlane[1] = Linear(vector3(pos.x + (size.x / 2) - 5, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2) - margin, (float)0, pos.z));					// 오른쪽 선분
+			bottomPlane[2] = Linear(vector3(pos.x + (size.x / 2) - margin, (float)0, pos.z), vector3(pos.x - (size.x / 2 - 20), (float)0, pos.z));						// 밑쪽 선분
+			bottomPlane[3] = Linear(vector3(pos.x - (size.x / 2 - 20), (float)0, pos.z), vector3(pos.x - (size.x / 2 - 20) + margin, (float)0, pos.z - margin + 5));	// 왼쪽 선분
+
+			// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
+			sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());
+			sideHeight[1] = Linear(topPlane[1].getStart(), bottomPlane[1].getStart());
+			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
+			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
+			dir = DIRECTION::LEFT;
+			imgIndex = PointMake(1, 0);
+			des = OBJECT_DESTRUCTION::BEFOREDESTRUCTION;
+			destructionCount = 5;
+			break;
+		case OBJECT_TYPE::PILLAR_RIGHT: case OBJECT_TYPE::PILLAR_BIG_RIGHT:
+			topPlane[0] = Linear(vector3(pos.x - size.x / 2 + 5, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2 - 20) - margin, -size.z + margin, pos.z - size.z + 5));			// 위쪽 선분
+			topPlane[1] = Linear(vector3(pos.x + (size.x / 2 - 20) - margin, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin));				// 오른쪽 선분
+			topPlane[2] = Linear(vector3(pos.x + (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin), vector3(pos.x - (size.x / 2) + margin, -size.z + margin, pos.z - size.z + margin));			// 밑쪽 선분
+			topPlane[3] = Linear(vector3(pos.x - (size.x / 2) + margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2 + 5, -size.z + margin, pos.z - size.z + 5));						// 왼쪽 선분
+
+			bottomPlane[0] = Linear(vector3(pos.x - size.x / 2 + 5, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2 - 20) - margin, (float)0, pos.z - margin + 5));	// 위쪽 선분
+			bottomPlane[1] = Linear(vector3(pos.x + (size.x / 2 - 20) - margin, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2 - 20), (float)0, pos.z));						// 오른쪽 선분
+			bottomPlane[2] = Linear(vector3(pos.x + (size.x / 2 - 20), (float)0, pos.z), vector3(pos.x - (size.x / 2) + margin, (float)0, pos.z));					// 밑쪽 선분
+			bottomPlane[3] = Linear(vector3(pos.x - (size.x / 2) + margin, (float)0, pos.z), vector3(pos.x - size.x / 2 + 5, (float)0, pos.z - margin + 5));				// 왼쪽 선분
+
+			// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
+			sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());
+			sideHeight[1] = Linear(topPlane[1].getStart(), bottomPlane[1].getStart());
+			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
+			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
+			dir = DIRECTION::RIGHT;
+			imgIndex = PointMake(0, 0);
+			des = OBJECT_DESTRUCTION::BEFOREDESTRUCTION;
+			destructionCount = 5;
 			break;
 		default:
 			break;
 		}
-
 	case OBJECT_GROUP::ITEM:
 		isShadow = false;
 		break;
@@ -192,97 +258,6 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 	isRender = true;
 }
 
-void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image * _img, vector3 _pos, float a, bool broken)
-{
-	img = _img;
-	group = _group;
-	isBroken = broken;
-
-	pos = _pos;
-	margin = a;
-	zAngle = -PI / 4;
-	size.x = img->getFrameWidth();
-	size.z = img->getFrameHeight();
-
-	alpha = 255;
-
-	RectRenew();
-
-	switch (group)
-	{
-	case OBJECT_GROUP::OBJECT:
-		switch (_type)
-		{
-		case OBJECT_TYPE::VENDINGMACHINE:
-			topPlane[0] = Linear(vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z));			// 위쪽 선분
-			topPlane[1] = Linear(vector3(pos.x + size.x / 2 - margin, -size.z + margin, pos.z - size.z), vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z + margin));			// 오른쪽 선분
-			topPlane[2] = Linear(vector3(pos.x + size.x / 2, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z + margin));	// 밑쪽 선분
-			topPlane[3] = Linear(vector3(pos.x - size.x / 2 + margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2, -size.z + margin, pos.z - size.z));						// 왼쪽 선분
-
-			bottomPlane[0] = Linear(vector3(pos.x - size.x / 2, (float)0, pos.z - margin), vector3(pos.x + size.x / 2 - margin, (float)0, pos.z - margin));	// 위쪽 선분
-			bottomPlane[1] = Linear(vector3(pos.x + size.x / 2 - margin, (float)0, pos.z - margin), vector3(pos.x + size.x / 2, (float)0, pos.z));						// 오른쪽 선분
-			bottomPlane[2] = Linear(vector3(pos.x + size.x / 2, (float)0, pos.z), vector3(pos.x - size.x / 2 + margin, (float)0, pos.z));				// 밑쪽 선분
-			bottomPlane[3] = Linear(vector3(pos.x - size.x / 2 + margin, (float)0, pos.z), vector3(pos.x - size.x / 2, (float)0, pos.z - margin));				// 왼쪽 선분
-
-			// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
-			sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());
-			sideHeight[1] = Linear(topPlane[1].getStart(), bottomPlane[1].getStart());
-			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
-			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
-			dir = DIRECTION::RIGHT;
-			imgIndex = PointMake(1, 0);
-			break;
-		case OBJECT_TYPE::PILLAR_LEFT: case OBJECT_TYPE::PILLAR_BIG_LEFT:
-			topPlane[0] = Linear(vector3(pos.x - (size.x / 2 - 20) + margin, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2) - 5, -size.z + margin, pos.z - size.z + 5));				// 위쪽 선분
-			topPlane[1] = Linear(vector3(pos.x + (size.x / 2) - 5, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2) - margin, -size.z + margin, pos.z - size.z + margin));		// 오른쪽 선분
-			topPlane[2] = Linear(vector3(pos.x + (size.x / 2) - margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin));			// 밑쪽 선분
-			topPlane[3] = Linear(vector3(pos.x - (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin), vector3(pos.x - (size.x / 2 - 20) + margin, -size.z + margin, pos.z - size.z + 5));		// 왼쪽 선분
-
-			bottomPlane[0] = Linear(vector3(pos.x - (size.x / 2 - 20) + margin, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2) - 5, (float)0, pos.z - margin + 5));			// 위쪽 선분
-			bottomPlane[1] = Linear(vector3(pos.x + (size.x / 2) - 5, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2) - margin, (float)0, pos.z));					// 오른쪽 선분
-			bottomPlane[2] = Linear(vector3(pos.x + (size.x / 2) - margin, (float)0, pos.z), vector3(pos.x - (size.x / 2 - 20), (float)0, pos.z));						// 밑쪽 선분
-			bottomPlane[3] = Linear(vector3(pos.x - (size.x / 2 - 20), (float)0, pos.z), vector3(pos.x - (size.x / 2 - 20) + margin, (float)0, pos.z - margin + 5));	// 왼쪽 선분
-
-			// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
-			sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());
-			sideHeight[1] = Linear(topPlane[1].getStart(), bottomPlane[1].getStart());
-			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
-			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
-			dir = DIRECTION::LEFT;
-			imgIndex = PointMake(1, 0);
-			break;
-		case OBJECT_TYPE::PILLAR_RIGHT: case OBJECT_TYPE::PILLAR_BIG_RIGHT:
-			topPlane[0] = Linear(vector3(pos.x - size.x / 2 + 5, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2 - 20) - margin, -size.z + margin, pos.z - size.z + 5));			// 위쪽 선분
-			topPlane[1] = Linear(vector3(pos.x + (size.x / 2 - 20) - margin, -size.z + margin, pos.z - size.z + 5), vector3(pos.x + (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin));				// 오른쪽 선분
-			topPlane[2] = Linear(vector3(pos.x + (size.x / 2 - 20), -size.z + margin, pos.z - size.z + margin), vector3(pos.x - (size.x / 2) + margin, -size.z + margin, pos.z - size.z + margin));			// 밑쪽 선분
-			topPlane[3] = Linear(vector3(pos.x - (size.x / 2) + margin, -size.z + margin, pos.z - size.z + margin), vector3(pos.x - size.x / 2 + 5, -size.z + margin, pos.z - size.z + 5));						// 왼쪽 선분
-
-			bottomPlane[0] = Linear(vector3(pos.x - size.x / 2 + 5, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2 - 20) - margin, (float)0, pos.z - margin + 5));	// 위쪽 선분
-			bottomPlane[1] = Linear(vector3(pos.x + (size.x / 2 - 20) - margin, (float)0, pos.z - margin + 5), vector3(pos.x + (size.x / 2 - 20), (float)0, pos.z));						// 오른쪽 선분
-			bottomPlane[2] = Linear(vector3(pos.x + (size.x / 2 - 20), (float)0, pos.z), vector3(pos.x - (size.x / 2) + margin, (float)0, pos.z));					// 밑쪽 선분
-			bottomPlane[3] = Linear(vector3(pos.x - (size.x / 2) + margin, (float)0, pos.z), vector3(pos.x - size.x / 2 + 5, (float)0, pos.z - margin + 5));				// 왼쪽 선분
-
-			// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
-			sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());
-			sideHeight[1] = Linear(topPlane[1].getStart(), bottomPlane[1].getStart());
-			sideHeight[2] = Linear(topPlane[2].getStart(), bottomPlane[2].getStart());
-			sideHeight[3] = Linear(topPlane[3].getStart(), bottomPlane[3].getStart());
-			dir = DIRECTION::RIGHT;
-			imgIndex = PointMake(0, 0);
-			break;
-		default:
-			break;
-		}
-
-	case OBJECT_GROUP::ITEM:
-		isShadow = false;
-		break;
-	default:
-		break;
-	}
-
-	isRender = true;
-}
 
 void GameObject::release()
 {
@@ -293,6 +268,18 @@ void GameObject::update()
 {
 	RectRenew();
 	shadowUpdate();
+
+	switch (type)
+	{
+	case OBJECT_TYPE::VENDINGMACHINE:
+		if (des == OBJECT_DESTRUCTION::DESTRUCTION)
+		{
+			imgIndex = PointMake(0, 0);
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void GameObject::render()
