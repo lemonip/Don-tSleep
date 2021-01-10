@@ -8,7 +8,7 @@ void playerDead::EnterState()
 	if (_thisPl->getInfo().preState == PL_STATE::DOWN)
 	_thisPl->changeImg("pl_dead", false);
 	//사망
-	_thisPl->setIsDead(true);
+	_thisPl->getInfo().isDead = true;
 	//키조작 불가
 	_thisPl->setIsControl(false);
 }

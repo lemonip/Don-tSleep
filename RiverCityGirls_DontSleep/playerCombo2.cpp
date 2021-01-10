@@ -5,52 +5,95 @@
 
 void playerCombo2::EnterState()
 {
+	//타격에 여부초기화
+	_isCollision = false;
+	_isEffect = false;
+
 	//이미지변경
 	_thisPl->changeImg("pl_comboAttack2", false);
-	_isCollision = false;
 
-	//공격여부
-	checkAttack();
+	//방향에 따른 공격 렉트 생성
+	switch (_thisPl->getInfo().dest)
+	{
+	case DIRECTION::LEFT:
+		_thisPl->getInfo().attackRc = RectMakeCenter(_thisPl->getObj().pos.x - _thisPl->getObj().size.x / 2,
+			_thisPl->getObj().pos.z - _thisPl->getObj().size.z / 2 + _thisPl->getObj().pos.y,
+			ATTACKSIZE* 0.2, ATTACKSIZE / 2);
+		break;
+	case DIRECTION::RIGHT:
+		_thisPl->getInfo().attackRc = RectMakeCenter(_thisPl->getObj().pos.x + _thisPl->getObj().size.x / 2,
+			_thisPl->getObj().pos.z - _thisPl->getObj().size.z / 2 + _thisPl->getObj().pos.y,
+			ATTACKSIZE*0.2, ATTACKSIZE / 2);
+		break;
+	}
+
+	//공격여부: 에너미가 있는지 확인하고 있으면 isAttack을 true로 바꿈
+	if (checkEnemy())
+	{
+		_isCollision = true;
+		_isEffect = true;
+	}
+
+	//키 벡터를 지운다.
+	KEY_M->clearVKey();
 }
 
 void playerCombo2::UpdateState()
 {
-	_thisPl->SetIsAttack(false);
-	//공격키입력 받아서 벡터에 저장
+	RECT _temp;
+	//공격판정 1번만 되도록
+	_thisPl->getInfo().isAttack = false;
+
+	//피격에 성공했다면 인덱스번호가 방향에 따라 특정 번호일때 이펙트를 한번만 출력
+	switch (_thisPl->getInfo().dest)
+	{
+	case DIRECTION::LEFT:
+		if (_thisPl->getInfo().dest == DIRECTION::LEFT
+			&&_isEffect && _thisPl->getObj().imgIndex.x >= 2)
+		{
+			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
+				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
+			_isEffect = false;
+		}
+		break;
+	case DIRECTION::RIGHT:
+		if (_thisPl->getInfo().dest == DIRECTION::RIGHT
+			&&_isEffect && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
+		{
+			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
+				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
+			_isEffect = false;
+		}
+		break;
+	}
+
+	//공격 키 입력 받아서 벡터에 저장하기
 	if (KEY_M->isOnceKeyDownV('S'));
 
-	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	//프레임이 다 돌았다.
+	if (isEndFrame(false))
 	{
-		//몹한테 첫충돌시
-		if (!_isCollision
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
-				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
+		//그 와중에 S 키를 눌렀었다.
+		if (!KEY_M->getVKeyBuffer().empty() && KEY_M->getKeyBuffer(0) == 'S' && !_thisPl->getInfo().attackObj)
 		{
-			_isCollision = true;
+			for (int i = 0; i < _thisPl->getEnemyM()->getVEnemy().size(); i++)
+			{
+				//타격을 맞췄었고, 에너미와 충돌중이다.
+				if (_isCollision && IntersectRect(&_temp, &_thisPl->getInfo().attackRc,
+					&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
+					_thisPl->setState(PL_STATE::COMBO3);
+
+				else _thisPl->setState(PL_STATE::IDLE);
+			}
 		}
-
-		//몹한테 2콤보 공격할 경우
-		if (isEndFrame(false)
-			&& KEY_M->getVKeyBuffer().size() >= 2
-			&& KEY_M->getKeyBuffer(0) == 'S'
-			&& KEY_M->getKeyBuffer(1) == 'S'
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
-				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
-			&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
-			_thisPl->setState(PL_STATE::COMBO3);
-
-		//시간안에 몹한테 공격 못할 경우
-		if (isEndFrame(false)
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc, &(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
-			&& ((KEY_M->getVKeyBuffer().size() != 0
-				&& KEY_M->getKeyBuffer(0) != 'S') || KEY_M->getVKeyBuffer().size() <= 1)
-			)
-			_thisPl->setState(PL_STATE::IDLE);
+		else _thisPl->setState(PL_STATE::IDLE);
 	}
 
 	//걷기
 	walkPattern();
-	
+
+	//가드
+	if (KEY_M->isStayKeyDown('F'))_thisPl->setState(PL_STATE::GUARD);
 }
 
 void playerCombo2::ExitState()

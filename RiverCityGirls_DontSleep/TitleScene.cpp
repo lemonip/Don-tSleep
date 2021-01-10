@@ -39,11 +39,11 @@ HRESULT TitleScene::init()
 	/*====================================================================
 		카메라 움직임과 대기 이벤트를 실행합니다.
 	====================================================================*/
-	EVENT_M->addEvent(new waitForSec(0.5f));
-	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.0, 0.0005f));
-	EVENT_M->addEvent(new waitForSec(0.2f));
-	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.8, 0.0005f));
-	EVENT_M->addEvent(new waitForSec(0.5f));
+	EVENT_M->addEvent(new waitForSec(1.5f));
+	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.0, 0.005f));
+	EVENT_M->addEvent(new waitForSec(1.2f));
+	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.05, 0.005f));
+	EVENT_M->addEvent(new waitForSec(1.5f));
 	EVENT_M->addEvent(new cameraMove(vector3(0, 0, 0), 5, 1.0, 0.001f));
 
 	return S_OK;

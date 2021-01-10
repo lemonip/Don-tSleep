@@ -18,9 +18,7 @@ void EventManager::update()
 {
 	if (_qEvent.empty()) return;					//이벤트 큐가 비어있으면 리턴한다.
 
-	bool isEventEnd = _qEvent.front()->update();	//이벤트를 실행하고, 끝나면 End를 받는다.
-
-	if (isEventEnd)		//이벤트가 끝나면
+	if (_qEvent.front()->update())		//이벤트를 실행하고, 끝나면 End를 받는다.
 	{
 		_qEvent.front()->exit();					//해당 이벤트의 끝 처리 함수를 실행하고,
 		SAFE_DELETE(_qEvent.front());				//이벤트 큐의 객체를 지우고,
@@ -30,6 +28,9 @@ void EventManager::update()
 	}
 }
 
+/*====================================================================
+	이벤트를 렌더한다. (대화 기능 등)
+====================================================================*/
 void EventManager::render(HDC hdc)
 {
 	if (_qEvent.empty()) return;					//이벤트 큐가 비어있으면 리턴한다.
@@ -52,8 +53,7 @@ void EventManager::addEvent(Event * eve, bool playerControl)
 ====================================================================*/
 bool EventManager::getIsEvent()
 {
-	if (_qEvent.empty()) return false;		//이벤트 큐가 비어 있으면 없다고 한다.
-	else return true;						//이벤트 큐가 비어 있지 않으면 이벤트가 있다고 한다.
+	return !_qEvent.empty();		//이벤트 큐가 비어 있는지 반환한다.
 }
 
 /*====================================================================
@@ -62,19 +62,14 @@ bool EventManager::getIsEvent()
 bool EventManager::getIsMovie()
 {
 	if (_qEvent.empty()) return false;		//이벤트 큐가 비어 있으면 아니라고 한다.
-
-	_isMovie = _qEvent.front()->isMovie();	//현재 이벤트가 영상 재생 중인지 반환한다.
-
-	return _isMovie;
+	return  _qEvent.front()->isMovie();		//현재 이벤트가 영상 재생 중인지 반환한다.
 }
 
+/*====================================================================
+	카메라가 이동 중인지 (고정해야 하는지)
+====================================================================*/
 bool EventManager::getIsCameraMove()
 {
 	if (_qEvent.empty()) return false;		//이벤트 큐가 비어 있으면 아니라고 한다.
-
-	_isMovie = _qEvent.front()->isMovie();	//현재 이벤트가 영상 재생 중인지 반환한다.
-
-	return _isMovie;
-
-	return false;
+	return _qEvent.front()->_isCameraMove;	//현재 카메라가 이동 중인지 반환한다.
 }

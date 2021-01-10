@@ -4,9 +4,6 @@
 
 class playerCombo3: public IPlayerState
 {
-	//공격 충돌용
-	RECT _temp;
-	bool _isCollision;
 
 public:
 

@@ -204,7 +204,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("Bs_slap", "source/image/character/enemy/boss/slab.bmp", 5278, 582, 14, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_smash", "source/image/character/enemy/boss/smash.bmp", 11880, 594, 27, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_standat", "source/image/character/enemy/boss/standattack2.bmp", 3735, 580, 15, 2, true, MAGENTA, true);
-
+	IMG_M->addFrameImage("Bs_meteordown", "source/image/character/enemy/boss/meteor.bmp", 480, 460, 2, 2, true, MAGENTA, true);
 
 	//================= 오브젝트 =================
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);

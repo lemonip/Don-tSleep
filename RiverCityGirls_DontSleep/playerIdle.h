@@ -3,7 +3,6 @@
 
 class playerIdle :public IPlayerState
 {
-	float _stateTimer;	//상태가 변경되는 타이머
 public:
 
 	virtual void EnterState();

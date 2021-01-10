@@ -8,12 +8,12 @@ void playerStun::EnterState()
 	//키조작불가
 	_thisPl->setIsControl(false);
 
-	_stunTimer = TIME_M->getWorldTime();
+	_stateTimer = TIME_M->getWorldTime();
 }
 
 void playerStun::UpdateState()
 {
-	if (TIME_M->getWorldTime()-_stunTimer>1.5f)
+	if (TIME_M->getWorldTime()- _stateTimer >1.5f)
 	{
 		_thisPl->setIsControl(true);
 		_thisPl->setState(PL_STATE::IDLE);

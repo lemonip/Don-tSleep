@@ -7,22 +7,35 @@ void bossHowling::EnterState()
 {	
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossHowling::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
+		
+	if (_thisBs->getInfo().isAttack)
 	{
-		_thisBs->getIsInfo().rcAttack = RectMakeCenter(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z, 100, 100);
-		RECT _temp;
-		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
-		// 지속 처리 필요
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 200, 200);
+	}
+	
+	if (TIME_M->getWorldTime() - _enterTime > 5.0f)
+	{
+		_thisBs->SetState(BS_STATE::IDLE);
 	}	
 }
 
 void bossHowling::ExitState()
 {
-	return;
-
-	_thisBs->SetState(BS_STATE::IDLE);
+	_thisBs->getInfo().isAttack = false;
 }

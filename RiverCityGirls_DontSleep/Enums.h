@@ -69,6 +69,7 @@ enum class OBJECT_GROUP : int
 	BOSS,
 	OBJECT,
 	ITEM,
+	WEAPON,
 };
 
 /*====================================================================
@@ -79,6 +80,14 @@ enum class DIRECTION : int
 	LEFT,
 	RIGHT,
 	NONE
+};
+
+enum class MOVE_DIRECTION : int
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
 };
 
 /*====================================================================
@@ -124,7 +133,6 @@ enum class ITEM_TYPE : int
 ====================================================================*/
 enum class WEAPON_TYPE : int
 {
-	NONE,
 	BAT,
 	BASEBALL
 };

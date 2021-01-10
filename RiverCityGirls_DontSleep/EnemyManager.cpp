@@ -38,8 +38,9 @@ void EnemyManager::render()
 		{
 			Rectangle(getMapDC(), _vEnemy[i]->getInfo().rcAttack);
 		}
-	}
-	
+
+		_vEnemy[i]->render();
+	}	
 }
 
 void EnemyManager::pushEnemy(ENEMY_TYPE type, vector3 pos)
