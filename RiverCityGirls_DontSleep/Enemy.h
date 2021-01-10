@@ -73,6 +73,7 @@ protected:
 		bool goRight;              //오른쪽으로 가고있니
 		bool isAttack;				//공격했니
 		bool isSky;                 //공중에 있니
+		bool isPhase;				//페이즈에 들어갔니
 	};
 	
 
