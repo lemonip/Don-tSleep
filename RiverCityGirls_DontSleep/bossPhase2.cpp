@@ -23,12 +23,13 @@ void bossPhase2::EnterState()
 
 void bossPhase2::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
+	if (TIME_M->getWorldTime() - _enterTime > 3.0f)
 	{
-		return;	// 저 시간동안 이미지만 보여주겠다...(?)
+		_thisBs->SetState(BS_STATE::WAIT);
 	}
 }
 
 void bossPhase2::ExitState()
 {
+	_thisBs->SetState(BS_STATE::WAIT);
 }

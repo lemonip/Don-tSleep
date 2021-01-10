@@ -31,11 +31,12 @@ void bossHowling::UpdateState()
 	
 	if (TIME_M->getWorldTime() - _enterTime > 5.0f)
 	{
-		_thisBs->SetState(BS_STATE::IDLE);
+		_thisBs->SetState(BS_STATE::DASH);
 	}	
 }
 
 void bossHowling::ExitState()
 {
 	_thisBs->getInfo().isAttack = false;
+	_thisBs->SetState(BS_STATE::DASH);
 }
