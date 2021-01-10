@@ -169,6 +169,7 @@ void Player::update()
 			cout << "Climb" << endl;
 		}
 	}
+	_colM->destructObject();
 }
 
 //·»´õ

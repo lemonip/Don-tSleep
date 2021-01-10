@@ -9,6 +9,7 @@
 class Player;
 class StageManager;
 class ObjectManager;
+class CollisionManager;
 
 class IEnemyState;                 // 전방선언
 

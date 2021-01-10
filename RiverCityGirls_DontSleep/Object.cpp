@@ -18,3 +18,4 @@ void Object::update()
 void Object::render()
 {
 }
+
