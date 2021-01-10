@@ -4,6 +4,7 @@
 
 void enemyWRun::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyWRun::UpdateState()

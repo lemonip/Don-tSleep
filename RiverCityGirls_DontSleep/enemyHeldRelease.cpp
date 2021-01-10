@@ -4,6 +4,7 @@
 
 void enemyHeldRelease::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyHeldRelease::UpdateState()

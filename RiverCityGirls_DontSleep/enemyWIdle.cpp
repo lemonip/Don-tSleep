@@ -4,6 +4,7 @@
 
 void enemyWIdle::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyWIdle::UpdateState()

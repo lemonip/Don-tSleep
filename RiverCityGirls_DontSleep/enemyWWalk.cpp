@@ -4,6 +4,7 @@
 
 void enemyWWalk::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyWWalk::UpdateState()
