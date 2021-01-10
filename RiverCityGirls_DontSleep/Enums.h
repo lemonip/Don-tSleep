@@ -78,7 +78,8 @@ enum class OBJECT_GROUP : int
 enum class DIRECTION : int
 {
 	LEFT,
-	RIGHT
+	RIGHT,
+	NONE
 };
 
 enum class MOVE_DIRECTION : int
