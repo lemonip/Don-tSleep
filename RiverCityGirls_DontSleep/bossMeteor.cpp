@@ -46,9 +46,7 @@ void bossMeteor::UpdateState()
 
 		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 		_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
-		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
-		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
-		_thisBs->getObj()->pos.y -= tanf(_angle) * _speed * 3;
+		_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, tanf(_angle) * _speed * 3);
 
 		_thisBs->ChangeImg("Bs_meteordown");
 

@@ -2,6 +2,7 @@
 #include "StageManager.h"
 
 #include "Player.h"
+#include "CollisionManager.h"
 
 #include "EasyStage.h"
 #include "NormalStage.h"

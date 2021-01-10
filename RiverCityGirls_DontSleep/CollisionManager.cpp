@@ -693,3 +693,35 @@ void CollisionManager::enemyObjectCollision(GameObject* character)
 	}
 }
 
+void CollisionManager::destructObject()
+{
+	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
+	if (vObj.empty() == false)
+	{
+		for (int i = 0; i < vObj.size(); ++i)
+		{
+			if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_player->getInfo().attackRc, &vObj[i]->getObj()->rc))
+				{
+					vObj[i]->getObj()->destructionCount -= 1;
+				}
+
+				if (vObj[i]->getObj()->destructionCount <= 0)
+				{
+					vObj[i]->getObj()->des = OBJECT_DESTRUCTION::DESTRUCTION;
+				}
+
+				if (vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_LEFT ||
+					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_RIGHT ||
+					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_LEFT ||
+					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_RIGHT)
+				{
+					_stageM->getStage()->getObjectM()->popObject(i);
+				}
+			}
+		}
+	}
+}
+

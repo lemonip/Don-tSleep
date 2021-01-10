@@ -31,8 +31,7 @@ void bossMove::UpdateState()
 	{		
 		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
-		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
-		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;		
+		_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);
 	}	
 
 	if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 100 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30)
