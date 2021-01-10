@@ -145,15 +145,15 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 			dir = DIRECTION::RIGHT;
 			break;
 		case OBJECT_TYPE::HARDPLATFORM:
-			topPlane[0] = Linear(vector3(pos.x - 853, (float)385, pos.z - 150), vector3(pos.x + 853 - 55, (float)385, pos.z - 150));	// 위쪽 선분
-			topPlane[1] = Linear(vector3(pos.x + 853 - 55, (float)385, pos.z - 150), vector3(pos.x + 853, (float)385, pos.z - 95));			// 오른쪽 선분
-			topPlane[2] = Linear(vector3(pos.x + 853, (float)385, pos.z - 95), vector3(pos.x - 853 + 55, (float)385, pos.z - 95));		// 밑쪽 선분
-			topPlane[3] = Linear(vector3(pos.x - 853 + 55, (float)385, pos.z - 95), vector3(pos.x - 853, (float)385, pos.z - 150));			// 왼쪽 선분
+			topPlane[0] = Linear(vector3(pos.x - 853, (float)-420, pos.z - 150), vector3(pos.x + 853 - 55, (float)-420, pos.z - 150));	// 위쪽 선분
+			topPlane[1] = Linear(vector3(pos.x + 853 - 55, (float)-420, pos.z - 150), vector3(pos.x + 853, (float)-420, pos.z - 95));			// 오른쪽 선분
+			topPlane[2] = Linear(vector3(pos.x + 853, (float)-420, pos.z - 95), vector3(pos.x - 853 + 55, (float)-420, pos.z - 95));		// 밑쪽 선분
+			topPlane[3] = Linear(vector3(pos.x - 853 + 55, (float)-420, pos.z - 95), vector3(pos.x - 853, (float)-420, pos.z - 150));			// 왼쪽 선분
 
-			bottomPlane[0] = Linear(vector3(pos.x - 853, (float)0, pos.z - 55), vector3(pos.x + 853 - 55, (float)0, pos.z - 55));		// 위쪽 선분
-			bottomPlane[1] = Linear(vector3(pos.x + 853 - 55, (float)0, pos.z - 55), vector3(pos.x + 853, (float)0, pos.z));					// 오른쪽 선분
-			bottomPlane[2] = Linear(vector3(pos.x + 853, (float)0, pos.z), vector3(pos.x - 853 + 55, (float)0, pos.z));			// 밑쪽 선분
-			bottomPlane[3] = Linear(vector3(pos.x - 853 + 55, (float)0, pos.z), vector3(pos.x - 853, (float)0, pos.z - 55));			// 왼쪽 선분
+			bottomPlane[0] = Linear(vector3(pos.x - 853, (float)-335, pos.z - 55), vector3(pos.x + 853 - 55, (float)-335, pos.z - 55));		// 위쪽 선분
+			bottomPlane[1] = Linear(vector3(pos.x + 853 - 55, (float)-335, pos.z - 55), vector3(pos.x + 853, (float)-335, pos.z));					// 오른쪽 선분
+			bottomPlane[2] = Linear(vector3(pos.x + 853, (float)-335, pos.z), vector3(pos.x - 853 + 55, (float)-335, pos.z));			// 밑쪽 선분
+			bottomPlane[3] = Linear(vector3(pos.x - 853 + 55, (float)-335, pos.z), vector3(pos.x - 853, (float)-335, pos.z - 55));			// 왼쪽 선분
 
 			// 그리기 전용 선분들, 충돌처리에서는 안쓸꺼임
 			sideHeight[0] = Linear(topPlane[0].getStart(), bottomPlane[0].getStart());

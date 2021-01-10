@@ -59,6 +59,7 @@ HRESULT Player::init()
 		_info.isSky = false;
 		_info.isAttack = false;
 		_info.isClimb = false;
+
 		_info.isThrow = false;
 		_info.hasMember = false;
 
@@ -146,9 +147,26 @@ void Player::update()
 		cout << "그림자 LT X: " << _obj.shadow.LT.x << endl;
 		cout << "그림자 LT Y: " << _obj.shadow.LT.y << endl;
 		cout << "그림자 LT Z: " << _obj.shadow.LT.z << endl;
-		cout << "플랫폼 X: " << _platform->bottomPlane[0].getEnd().x << endl;
-		cout << "플랫폼 Y: " << _platform->bottomPlane[0].getEnd().y << endl;
-		cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
+
+		cout << "그림자 pos X: " << _obj.shadow.pos.x << endl;
+		cout << "그림자 pos Y: " << _obj.shadow.pos.y << endl;
+		cout << "그림자 pos Z: " << _obj.shadow.pos.z << endl;
+
+		cout << "캐릭터 X: " << _obj.pos.x << endl;
+		cout << "캐릭터 Y: " << _obj.pos.y << endl;
+		cout << "캐릭터 Z: " << _obj.pos.z << endl;
+		if (_platform != nullptr)
+		{
+			cout << "플랫폼 X: " << _platform->bottomPlane[0].getEnd().x << endl;
+			cout << "플랫폼 Y: " << _platform->bottomPlane[0].getEnd().y << endl;
+			cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
+		}
+		else cout << "NULL" << endl;
+
+		if (_info.state == PL_STATE::CLIMB)
+		{
+			cout << "Climb" << endl;
+		}
 	}
 }
 
@@ -595,7 +613,7 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.shadowUpdate();
 
 	//충돌처리 
-	_colM->objectCollision();
+	_colM->playerObjectCollision();
 
 	//그림자 아래로 안 떨어지도록 예외처리
 	if (_obj.pos.y > 0)_obj.pos.y = 0;
@@ -614,7 +632,7 @@ void Player::changePos(float x, float z, float y)
 	_obj.shadowUpdate();
 
 	//충돌처리 
-	_colM->objectCollision();
+	_colM->playerObjectCollision();
 
 	//그림자 아래로 안 떨어지도록 예외처리
 	if (_obj.pos.y > 0)_obj.pos.y = 0;
@@ -715,7 +733,7 @@ void Player::keyInput()
 	if (KEY_M->isOnceKeyDownV('D'));
 
 	//사다리오르기
-	if (_info.isClimb && KEY_M->isOnceKeyDownV(VK_UP)) setState(PL_STATE::CLIMB);
+	if (_info.isClimb && (GetAsyncKeyState(VK_UP) & 0x8000)) setState(PL_STATE::CLIMB);
 
 	//점프
 	if (KEY_M->isOnceKeyDownV('A') && !_info.isSky)

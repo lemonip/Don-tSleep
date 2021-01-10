@@ -34,6 +34,21 @@ void ObjectManager::render()
 	}
 }
 
+Object * ObjectManager::findHardPlatform()
+{
+	if (_vObject.empty() == false)
+	{
+		for (int i = 0; i < _vObject.size(); ++i)
+		{
+			if (_vObject[i]->getObj()->type == OBJECT_TYPE::HARDPLATFORM)
+			{
+				return _vObject[i];
+			}
+		}
+	}
+	else return nullptr;
+}
+
 void ObjectManager::pushObject(OBJECT_TYPE type, vector3 pos)
 {
 	switch (type)

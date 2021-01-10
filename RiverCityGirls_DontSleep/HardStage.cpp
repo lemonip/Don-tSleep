@@ -26,14 +26,7 @@ HRESULT HardStage::init()
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
 	_objectM->pushObject(OBJECT_TYPE::LADDER, vector3(1555, 0, 930));
-	_objectM->pushObject(OBJECT_TYPE::HARDPLATFORM, vector3(850, 0, 600));
-
-
-
-	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
-	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 250));
-
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 40));
+	_objectM->pushObject(OBJECT_TYPE::HARDPLATFORM, vector3(850, 0, 950));
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/

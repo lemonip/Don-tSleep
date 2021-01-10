@@ -47,7 +47,7 @@ void StageManager::update()
 	_stage->update();
 	_player->update();
 
-	if (!EVENT_M->getIsCameraMove()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z, 0, 0, 4.0f);
+	if (!EVENT_M->getIsCameraMove()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z + _player->getObj().pos.y, 0, 0, 4.0f);
 
 #ifdef _DEBUG
 	// 디버그용 스테이지 이동

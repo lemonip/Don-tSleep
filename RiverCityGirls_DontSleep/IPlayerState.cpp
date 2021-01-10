@@ -144,3 +144,17 @@ void IPlayerState::crossMove(float speed)
 	if (KEY_M->isStayKeyDown(VK_LEFT))
 		_thisPl->movePos(-speed, 0, 0);
 }
+
+void IPlayerState::ladderMove(float speed)
+{
+	if (KEY_M->isStayKeyDown(VK_UP))
+	{
+		_thisPl->movePos(0, 0, speed);
+	}
+
+
+	if (KEY_M->isStayKeyDown(VK_DOWN))
+	{
+		_thisPl->movePos(0, 0, -speed);
+	}
+}

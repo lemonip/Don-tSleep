@@ -32,4 +32,5 @@ void playerClimbTop::UpdateState()
 
 void playerClimbTop::ExitState()
 {
+
 }

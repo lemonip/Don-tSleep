@@ -176,6 +176,7 @@ public:
 	GameObject* getPlatform() { return _platform; }
 	EnemyManager* getEnemyM() {  return _enemyM; }
 	ObjectManager* getObjectM() {  return _objectM; }
+	StageManager* getStageM() { return _stageM; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
