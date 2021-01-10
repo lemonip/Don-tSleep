@@ -183,8 +183,9 @@ void Player::render()
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 
 	//무기를 가지고 있을 때
-	//if(_info.hasWeapon)
+	if(_info.hasWeapon)
 	{ 
+		//오브젝트가 렌더상태라면
 		if(_info.attackObj->isRender)
 		ZORDER_M->renderObject(getMapDC(), _info.attackObj, RENDERTYPE::FRAME_RENDER);
 	}

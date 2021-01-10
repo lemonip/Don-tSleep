@@ -44,6 +44,8 @@ void playerThrow::UpdateState()
 			}
 		}
 	}
+
+	//if()
 	if (isEndFrame(false))
 	{
 		//무기참조잃어버림
