@@ -13,6 +13,7 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos)
 	size.z = img->getFrameHeight();
 
 	alpha = 255;
+	isRender = true;
 
 	RectRenew();
 
@@ -38,6 +39,22 @@ void GameObject::init(OBJECT_GROUP _group, image* _img, vector3 _pos)
 	}
 
 	isActive = true;
+	isRender = true;
+	/*====================================================================
+						그림자 등 충돌 처리에 관련 해 설정합니다.
+	====================================================================*/
+	if (isShadow)
+	{
+		shadow.pos = vector3(pos.x, pos.y, pos.z);
+		shadow.width = 120;
+		shadow.height = 20;
+		shadow.LT = vector3(pos.x - shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+		shadow.RT = vector3(pos.x + shadow.width / 2, pos.y, pos.z - shadow.height / 2);
+		shadow.RB = vector3(pos.x + shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+		shadow.LB = vector3(pos.x - shadow.width / 2, pos.y, pos.z + shadow.height / 2);
+		shadow.rc = RectMakeCenter(pos.x, pos.z, shadow.width, shadow.height);
+	}
+
 }
 
 void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vector3 _pos, float a)
@@ -172,7 +189,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image* _img, vecto
 		shadow.rc = RectMakeCenter(pos.x, pos.z, shadow.width, shadow.height);
 	}
 
-	isActive = true;
+	isRender = true;
 }
 
 void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image * _img, vector3 _pos, float a, bool broken)
@@ -264,7 +281,7 @@ void GameObject::init(OBJECT_GROUP _group, OBJECT_TYPE _type, image * _img, vect
 		break;
 	}
 
-	isActive = true;
+	isRender = true;
 }
 
 void GameObject::release()

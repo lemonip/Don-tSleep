@@ -8,16 +8,15 @@ void playerDashAttack::EnterState()
 	//키조작 불가
 	_thisPl->setIsControl(false);
 	//공격여부
-	checkAttack();
+	checkEnemy();
 }
 
 void playerDashAttack::UpdateState()
 {
 	//공격판정 1번
-	_thisPl->SetIsAttack(false);
-
-	//무기타입을 없음으로 변경
-	if (_thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)_thisPl->setWeaponType(WEAPON_TYPE::NONE);
+	_thisPl->getInfo().isAttack = false;
+	//무기를 떨어뜨림.
+	dropWeapon();
 
 	//프레임이 다 돌면 원래 상태로 돌아가기
 	if (isEndFrame(true)
