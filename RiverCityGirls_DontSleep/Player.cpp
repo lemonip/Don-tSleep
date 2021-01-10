@@ -595,7 +595,7 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.shadowUpdate();
 
 	//충돌처리 
-	_colM->playerObjectCollision();
+	_colM->objectCollision();
 
 	//그림자 아래로 안 떨어지도록 예외처리
 	if (_obj.pos.y > 0)_obj.pos.y = 0;
@@ -614,7 +614,7 @@ void Player::changePos(float x, float z, float y)
 	_obj.shadowUpdate();
 
 	//충돌처리 
-	_colM->playerObjectCollision();
+	_colM->objectCollision();
 
 	//그림자 아래로 안 떨어지도록 예외처리
 	if (_obj.pos.y > 0)_obj.pos.y = 0;

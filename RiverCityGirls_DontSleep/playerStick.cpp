@@ -24,7 +24,7 @@ void playerStick::UpdateState()
 	{
 		_thisPl->setIsSky(true);
 		_thisPl->setIsControl(true);
-		_thisPl->movePos(0, 0, JUMPPOWERVALUE);
+		_thisPl->movePos(0, 0, JUMPPOWER);
 		_thisPl->setJumpPower(JUMPPOWER);
 		_thisPl->setState(PL_STATE::JUMP);
 	}
