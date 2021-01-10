@@ -1,42 +1,55 @@
 #include "stdafx.h"
 #include "bossWait.h"
-#include "Boss.h"
-#include "Player.h"
 
 void bossWait::EnterState()
 {
-	_count = 0;
-	_count++;	
-	
+
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_idle");
-	
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossWait::UpdateState()
 {
-	if (_count % 4 == 0)
+	if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 100 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30
+		&& TIME_M->getWorldTime() - _enterTime > 0.7f)
 	{	
-		if (!_thisBs->getIsAttack() && !_thisBs->getIsMove() && !_thisBs->getIsPhase())
-
-		_thisBs->getIsWait();
-		_thisBs->ChangeImg("Bs_idle");
-	}
-
-	else
+		_thisBs->SetState(BS_STATE::METEOR);
+		_thisBs->getInfo().isSky = true;
+		/*switch (RND->getInt(3))
+		{
+		case 0:
+			_thisBs->SetState(BS_STATE::SLAP);
+			_thisBs->getInfo().isAttack = true;
+			break;
+		case 1:
+			_thisBs->SetState(BS_STATE::ELBOW);
+			_thisBs->getInfo().isAttack = true;
+			break;
+		case 2:
+			_thisBs->SetState(BS_STATE::BLOCK);
+			_thisBs->getInfo().isAttack = true;
+			break;		
+		}*/
+	}	
+	else if (fabs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 && fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30)
 	{
-		!_thisBs->getIsWait();
+		_thisBs->SetState(BS_STATE::MOVE);
 	}
-
-	/*	1. slab attack 
-		2. elbow attack
-		3. meteor attack
-		4. dash attack
-		5. smash attack
-		6. bsss block
-		으로 상태 행동 변화전 단계*/
-		
 }
 
 void bossWait::ExitState()
 {
+	
 }

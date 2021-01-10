@@ -1,39 +1,37 @@
 #include "stdafx.h"
 #include "bossStandAttack.h"
-#include "Boss.h"
-#include "Player.h"
 
 void bossStandAttack::EnterState()
 {
-	_count = 0;
-	_count++;
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_standat");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossStandAttack::UpdateState()
 {
-	if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-		&& _thisBs->getIsDown())
+	/*if (TIME_M->getWorldTime() - _enterTime > 2.0f)
 	{
-		_thisBs->SetDest(BS_DEST::LEFT);
-		_thisBs->SetState(BS_STATE::STANDATTACK);
-		_thisBs->getIsAttack();
-	}
-
-	else if(_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-		&& _thisBs->getIsDown())
-	{
-		_thisBs->SetDest(BS_DEST::RIGHT);
-		_thisBs->SetState(BS_STATE::STANDATTACK);
-		_thisBs->getIsAttack();
-	}
-
-	else
-	{
-		!_thisBs->getIsAttack();
-	}	
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 200, 200);
+		RECT _temp;
+		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
+	}*/
 }
+
 
 void bossStandAttack::ExitState()
 {
+	
+	_thisBs->SetState(BS_STATE::IDLE);
 }

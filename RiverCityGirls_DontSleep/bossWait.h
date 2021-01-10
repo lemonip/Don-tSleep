@@ -9,11 +9,9 @@ class bossWait :public IBossState
 {
 
 private: 
-	int _count;			// 인터벌을 주기 위한 인트
-	Boss* _boss;
-public:
+	float _enterTime;
 
-	Boss* getBossAddress() { return _boss; }
+public:
 
 	virtual void EnterState();
 	virtual void UpdateState();

@@ -22,29 +22,34 @@ protected:
 	StageManager* _stageM;
 
 	image* backGround;
-	tagWall _leftWall;
-	tagWall _backWall;
-	tagWall _rightWall;
+	vector<tagWall> _vBackWall;
+	vector<tagWall> _vLeftWall;
+	vector<tagWall> _vRightWall;
 	tagWall _floor;
+	tagWall _pool;
+
 	float _zAngle;
-
-
 public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 	virtual void render();
 
+	virtual void backWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
+	virtual void leftWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
+	virtual void rightWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
+	virtual void floorInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
+	virtual void poolInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	/*====================================================================
 									GETTER
 	====================================================================*/
 	EnemyManager* getEnemyM() { return _enemyM; }
 	ObjectManager* getObjectM() { return _objectM; }
-	tagWall getLeftWall() { return _leftWall; }
-	tagWall getBackWall() { return _backWall; }
-	tagWall getRightWall() { return _rightWall; }
+	vector<tagWall> getLeftWall() { return _vLeftWall; }
+	vector<tagWall> getBackWall() { return _vBackWall; }
+	vector<tagWall> getRightWall() { return _vRightWall; }
 	tagWall getFloor() { return _floor; }
-
+	tagWall getPool() { return _pool; }
 	/*====================================================================
 									SETTER
 	====================================================================*/

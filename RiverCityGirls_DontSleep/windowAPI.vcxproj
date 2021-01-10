@@ -162,7 +162,7 @@
     <ClInclude Include="bossMeteor.h" />
     <ClInclude Include="bossMove.h" />
     <ClInclude Include="bossPhase2.h" />
-    <ClInclude Include="bossSlabAttack.h" />
+    <ClInclude Include="bossSlapAttack.h" />
     <ClInclude Include="bossSmashAttack.h" />
     <ClInclude Include="BossStage.h" />
     <ClInclude Include="bossStandAttack.h" />
@@ -172,6 +172,7 @@
     <ClInclude Include="cheerLeader.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="EasyStage.h" />
     <ClInclude Include="effect.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="HardStage.h" />
     <ClInclude Include="IBossState.h" />
+    <ClInclude Include="IEnemyState.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="Interpolation.h" />
@@ -227,8 +229,10 @@
     <ClInclude Include="NormalStage.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="pet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerClimb.h" />
+    <ClInclude Include="playerClimbTop.h" />
     <ClInclude Include="playerCombo1.h" />
     <ClInclude Include="playerCombo2.h" />
     <ClInclude Include="playerCombo3.h" />
@@ -299,7 +303,7 @@
     <ClCompile Include="bossMeteor.cpp" />
     <ClCompile Include="bossMove.cpp" />
     <ClCompile Include="bossPhase2.cpp" />
-    <ClCompile Include="bossSlabAttack.cpp" />
+    <ClCompile Include="bossSlapAttack.cpp" />
     <ClCompile Include="bossSmashAttack.cpp" />
     <ClCompile Include="BossStage.cpp" />
     <ClCompile Include="bossStandAttack.cpp" />
@@ -308,6 +312,7 @@
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="cheerLeader.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="EasyStage.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -351,6 +356,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="HardStage.cpp" />
     <ClCompile Include="IBossState.cpp" />
+    <ClCompile Include="IEnemyState.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="Interpolation.cpp" />
@@ -362,8 +368,10 @@
     <ClCompile Include="NormalStage.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="pet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerClimb.cpp" />
+    <ClCompile Include="playerClimbTop.cpp" />
     <ClCompile Include="playerCombo1.cpp" />
     <ClCompile Include="playerCombo2.cpp" />
     <ClCompile Include="playerCombo3.cpp" />

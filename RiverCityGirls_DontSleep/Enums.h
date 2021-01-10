@@ -10,6 +10,16 @@
 #define SPEED 5
 
 /*====================================================================
+	대화 종류입니다.
+====================================================================*/
+enum class DIALOGLIST : int
+{
+	EASY_START,
+
+	BOSS_START,
+	BOSS_END,
+};
+/*====================================================================
 	렌더 종류입니다.
 ====================================================================*/
 enum class RENDERTYPE : int
@@ -87,9 +97,14 @@ enum class ENEMY_TYPE : int
 enum class OBJECT_TYPE : int
 {
 	DESK,
-	LEFTWALL,
-	BACKWALL,
-	RIGHTWALL,
+	TABLE,
+	VENDINGMACHINE,
+	LADDER,
+	HARDPLATFORM,
+	PILLAR_LEFT,
+	PILLAR_RIGHT,
+	PILLAR_BIG_LEFT,
+	PILLAR_BIG_RIGHT,
 };
 
 
@@ -108,6 +123,7 @@ enum class ITEM_TYPE : int
 ====================================================================*/
 enum class WEAPON_TYPE : int
 {
-	TRASHCAN,
-	BASEBALL,
+	NONE,
+	BAT,
+	BASEBALL
 };

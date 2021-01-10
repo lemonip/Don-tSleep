@@ -4,7 +4,10 @@
 
 class playerCombo3: public IPlayerState
 {
-	float tempTime;	//이미지렌더 없어서 임시타이머
+	//공격 충돌용
+	RECT _temp;
+	bool _isCollision;
+
 public:
 
 	virtual void EnterState();

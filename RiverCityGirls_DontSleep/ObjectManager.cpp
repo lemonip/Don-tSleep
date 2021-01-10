@@ -46,6 +46,24 @@ void ObjectManager::pushObject(OBJECT_TYPE type, vector3 pos)
 	case OBJECT_TYPE::DESK:
 		_vObject.push_back(new StandingObj(type, pos));
 		break;
+	case OBJECT_TYPE::TABLE:
+		_vObject.push_back(new StandingObj(type, pos));
+		break;
+	case OBJECT_TYPE::VENDINGMACHINE:
+		_vObject.push_back(new BrokenObj(type, pos));
+		break;
+	case OBJECT_TYPE::LADDER:
+		_vObject.push_back(new StandingObj(type, pos));
+		break;
+	case OBJECT_TYPE::HARDPLATFORM:
+		_vObject.push_back(new StandingObj(type, pos));
+		break;
+	case OBJECT_TYPE::PILLAR_LEFT: case OBJECT_TYPE::PILLAR_BIG_LEFT:
+		_vObject.push_back(new BrokenObj(type, pos));
+		break;
+	case OBJECT_TYPE::PILLAR_RIGHT: case OBJECT_TYPE::PILLAR_BIG_RIGHT:
+		_vObject.push_back(new BrokenObj(type, pos));
+		break;
 	default:
 		break;
 	}
@@ -71,9 +89,9 @@ void ObjectManager::pushWeapon(WEAPON_TYPE type, vector3 pos)
 {
 	switch (type)
 	{
-	case WEAPON_TYPE::TRASHCAN:
+	case WEAPON_TYPE::NONE:
 		break;
-	case WEAPON_TYPE::BASEBALL:
+	case WEAPON_TYPE::BAT:
 		break;
 	default:
 		break;

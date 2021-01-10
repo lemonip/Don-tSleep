@@ -1,21 +1,73 @@
 #include "stdafx.h"
 #include "playerCombo1.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
 
 void playerCombo1::EnterState()
 {
-	_thisPl->changeImg("pl_comboAttack1", false);
-	tempTime = TIME_M->getWorldTime();
-	//방향조작 못하는 상태로 변경
-	_thisPl->setIsConDest(false);
+	//이미지 변경
+	switch (_thisPl->getInfo().weaponType)
+	{
+	case WEAPON_TYPE::NONE:	_thisPl->changeImg("pl_comboAttack1", false);	break;
+	case WEAPON_TYPE::BAT:	_thisPl->changeImg("pl_wBatAttack", false);	break;
+	case WEAPON_TYPE::BASEBALL:
+		break;
+	}
+	_isCollision = false;
+
+	//공격여부
+	checkAttack();
+
 }
 
 void playerCombo1::UpdateState()
 {
-	//임시타이머..원래는 프레임렌더 다돌아가면 변경할듯!
-	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
+	_thisPl->SetIsAttack(false);
 
-	//공격키 누르면 2콤보 + ★몬스터와 충돌도 있어야할듯
-	if(KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::COMBO2);
+
+	if (isEndFrame(false) && _thisPl->getInfo().weaponType != WEAPON_TYPE::NONE)
+		_thisPl->setState(PL_STATE::IDLE);
+
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+		//허공에 공격할 경우 프레임이 돌면 기본상태로 돌아간다.
+		if (isEndFrame(false)
+			&& !IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
+				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
+			_thisPl->setState(PL_STATE::IDLE);
+
+	//몹한테 첫충돌시
+	
+	if (!_isCollision
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
+	{
+		_isCollision = true;
+		KEY_M->clearVKey();
+	}
+	
+
+	//몹한테 공격할 경우
+	
+	if (isEndFrame(false)
+		&& KEY_M->getVKeyBuffer().size() != 0
+		&& KEY_M->getKeyBuffer(0) == 'S'
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+		&& _thisPl->getInfo().weaponType == WEAPON_TYPE::NONE)
+	{
+		_thisPl->setState(PL_STATE::COMBO2);
+		EFFECT_M->play("ef_attack", _thisPl->getInfo().attackInfo._obj.pos.x, _thisPl->getInfo().attackInfo._obj.pos.y);
+	}
+	
+	//시간안에 몹한테 공격 못할 경우
+	if (isEndFrame(false)
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc, &(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+		&& ((KEY_M->getVKeyBuffer().size() != 0
+			&& KEY_M->getKeyBuffer(0) != 'S') || KEY_M->getVKeyBuffer().size() == 0)
+		)
+		_thisPl->setState(PL_STATE::IDLE);
+	}
 
 	//기본 동작
 	basePattern();

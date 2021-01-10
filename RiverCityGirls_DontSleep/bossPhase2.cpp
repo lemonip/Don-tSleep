@@ -5,16 +5,27 @@
 
 void bossPhase2::EnterState()
 {
-	_count = 0;
-	_count++;
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_phase");
+
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
+
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossPhase2::UpdateState()
 {
-	if (_count % 8 == 0)
+	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
 	{
-		_thisBs->ChangeImg("Bs_phase");
+		return;	// 저 시간동안 이미지만 보여주겠다...(?)
 	}
 }
 

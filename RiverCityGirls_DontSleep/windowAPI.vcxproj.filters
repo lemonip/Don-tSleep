@@ -91,6 +91,9 @@
     <Filter Include="playGround\CollisionManager">
       <UniqueIdentifier>{0be01191-66bd-434e-b3fc-678fc5879341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Pet">
+      <UniqueIdentifier>{1ec7dc27-0589-4594-9271-4557528ca23c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -297,9 +300,6 @@
     <ClInclude Include="bossPhase2.h">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
-    <ClInclude Include="bossSlabAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
-    </ClInclude>
     <ClInclude Include="bossSmashAttack.h">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClInclude>
@@ -501,6 +501,21 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>playGround\CollisionManager</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="bossSlapAttack.h">
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="playerClimbTop.h">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="pet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemyState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -629,9 +644,6 @@
     <ClCompile Include="ShopScene.cpp">
       <Filter>playGround\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="playGround+setImage.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
     <ClCompile Include="NormalStage.cpp">
       <Filter>playGround\StageManager\Stage</Filter>
     </ClCompile>
@@ -687,9 +699,6 @@
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossPhase2.cpp">
-      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="bossSlabAttack.cpp">
       <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
     </ClCompile>
     <ClCompile Include="bossSmashAttack.cpp">
@@ -892,6 +901,24 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>playGround\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="bossSlapAttack.cpp">
+      <Filter>playGround\EnemyManager\Enemy\BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="playerClimbTop.cpp">
+      <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="pet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemyState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="playGround+setImage.cpp">
+      <Filter>playGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

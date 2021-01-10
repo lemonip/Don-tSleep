@@ -30,15 +30,15 @@ HRESULT SelectScene::init()
 	====================================================================*/
 	//로드 파일 선택 버튼
 	_loadSelect = new Select;
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 1, 0), &this->load0));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 2, 0), &this->load1));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 3, 0), &this->load2));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 4, 0), &this->load3));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 1, 0), std::bind(&SelectScene::load, this), 0));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 2, 0), std::bind(&SelectScene::load, this), 1));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 3, 0), std::bind(&SelectScene::load, this), 2));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 4, 0), std::bind(&SelectScene::load, this), 3));
 
 	//캐릭터 선택 버튼과 이미지
 	_charSelect = new Select;
-	_charSelect->addButton(Button(IMG_M->findImage("select_kyoko2"), IMG_M->findImage("select_kyoko"), vector3(WINSIZEX/2 + 100, WINSIZEY / 2, 0), &this->load1));
-	_charSelect->addButton(Button(IMG_M->findImage("select_misako2"), IMG_M->findImage("select_misako"), vector3(WINSIZEX/2 + 450, WINSIZEY / 2, 0), &this->load2));
+	_charSelect->addButton(Button(IMG_M->findImage("select_kyoko2"), IMG_M->findImage("select_kyoko"), vector3(WINSIZEX/2 + 100, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 0));
+	_charSelect->addButton(Button(IMG_M->findImage("select_misako2"), IMG_M->findImage("select_misako"), vector3(WINSIZEX/2 + 450, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 1));
 
 
 	//옵션 UI와 버튼
@@ -108,7 +108,7 @@ void SelectScene::update()
 			메뉴얼 UI를 띄우고, 씬을 로딩씬으로 변경합니다.
 		====================================================================*/
 		case SELECTTYPE::MANUAL:
-		if (!EVENT_M->isEvent())
+		if (!EVENT_M->getIsEvent())
 		{
 			if ((KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE)))
 			{
@@ -156,24 +156,9 @@ void SelectScene::render()
 /*====================================================================
 	버튼 선택에 따라 세이브 파일을 로드합니다.
 ====================================================================*/
-void SelectScene::load0()
+void SelectScene::load()
 {
 	cout << "0" << endl;
-}
-
-void SelectScene::load1()
-{
-	cout << "1" << endl;
-}
-
-void SelectScene::load2()
-{
-	cout << "2" << endl;
-}
-
-void SelectScene::load3()
-{
-	cout << "3" << endl;
 }
 
 /*====================================================================

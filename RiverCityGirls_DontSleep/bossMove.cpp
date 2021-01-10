@@ -5,62 +5,44 @@
 
 void bossMove::EnterState()
 {	
+	_enterTime = TIME_M->getWorldTime();	 
+	_angle = PI / 2;
+	_speed = 3.0f;
+	_thisBs->ChangeImg("Bs_move");	
 
-	_count = 0;
-	_count++;
+	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	{
+		_thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getObj()->imgIndex.y = 1;
+	}
 
-	//_count = TIME_M->getWorldTime();
-	   
-	_thisBs->ChangeImg("Bs_move");
-
-	
+	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	{
+		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
+		_thisBs->getObj()->imgIndex.y = 0;
+	}
 }
 
 void bossMove::UpdateState()
 {
 
-	/*_info.count++;								미완
-	if (_info.count % 8 == 0)
-	{
-		_boss.angle = getAngle(_boss.x, _boss.y, _player.x, _player.y);
 
-		_boss.x += cosf(_boss.angle) * _boss.speed;
-		_boss.y += -sinf(_boss.angle) * _boss.speed;
-	}
-	if (_palyer.x >= _boss.x)
-	{
-		_thisBs->set 오른쪽
-	}*/
+	if (fabs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 || fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30)
+	{		
+		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
+			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
+		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
+		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;		
+	}	
 
-	if (_count % 8 == 0)
+	if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 100 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30)
 	{
-
-		if (_thisBs->getobj().pos.x >= _thisBs->getPlayerAddress()->getObj().pos.x
-			&& abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.x) > 100 && abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.z) > 20)
-		{
-			_thisBs->SetDest(BS_DEST::LEFT);
-			_thisBs->SetState(BS_STATE::MOVE);
-			_thisBs->ChangeImg("Bs_move");
-			_thisBs->getIsMove();
-		}
-		else if (_thisBs->getobj().pos.x <= _thisBs->getPlayerAddress()->getObj().pos.x
-			&&abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.x) > 100 && abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.z) > 20)
-		{
-			_thisBs->SetDest(BS_DEST::RIGHT);
-			_thisBs->SetState(BS_STATE::MOVE);
-			_thisBs->ChangeImg("Bs_move");
-			_thisBs->getIsMove();
-		}
-	}
-
-	if (abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.x) < 100 && abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.z) < 20)
-	{
-		_thisBs->getIsAttack();
-	}
-	
-	
+		_thisBs->SetState(BS_STATE::WAIT);
+		
+	}	
 }
 
 void bossMove::ExitState()
 {
+	
 }

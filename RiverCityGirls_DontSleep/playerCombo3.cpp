@@ -1,21 +1,36 @@
 #include "stdafx.h"
 #include "playerCombo3.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
 
 void playerCombo3::EnterState()
 {
 	_thisPl->changeImg("pl_comboAttack3", false);
-	tempTime = TIME_M->getWorldTime();
-	//방향조작 못하는 상태로 변경
-	_thisPl->setIsConDest(false);
+	_isCollision = false;
+
+	//공격여부
+	checkAttack();
 }
 
 void playerCombo3::UpdateState()
 {
-	//임시타이머..원래는 프레임렌더 다돌아가면 변경할듯!
-	if (TIME_M->getWorldTime() - tempTime > .5f)_thisPl->setState(PL_STATE::IDLE);
+	_thisPl->SetIsAttack(false);
 
-	//기본 동작
-	basePattern();
+	if (isEndFrame(false))_thisPl->setState(PL_STATE::IDLE);
+	
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+	//몹한테 첫충돌시
+	if (!_isCollision
+		&& IntersectRect(&_temp, &_thisPl->getInfo().attackInfo._obj.rc,
+			&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
+	{
+		_isCollision = true;
+	}
+	}
+
+	//걷기
+	walkPattern();
 }
 
 void playerCombo3::ExitState()
