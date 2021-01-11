@@ -72,19 +72,6 @@ void Boss::update()
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
-	cout << static_cast<int>(_dest) << endl;
-	if (_player->getObj().pos.x < _obj.pos.x)
-	{
-		SetDest(DIRECTION::LEFT);
-	}
-	else if (_player->getObj().pos.x > _obj.pos.x)
-	{
-		
-		SetDest(DIRECTION::RIGHT);				
-	}
-
-
-	//setImage();
 	_BState->UpdateState();	
 
 	_obj.update();
@@ -92,16 +79,23 @@ void Boss::update()
 
 	frameUpdate();
 
-	/*if (_dest == DIRECTION::LEFT)
-	{
-		cout << "left" << endl;
-	}
 
-	else if (_dest == DIRECTION::RIGHT)
-	{
-		cout << "right" << endl;
-	}*/
-
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::DASH);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::DEATH);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DOWN);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD6)) SetState(BS_STATE::ELBOW);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD7)) SetState(BS_STATE::GROGGY);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD8)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD9)) SetState(BS_STATE::IDLE);
+	if (KEY_M->isOnceKeyDown('Q')) SetState(BS_STATE::METEOR);
+	if (KEY_M->isOnceKeyDown('W')) SetState(BS_STATE::METEORDOWN);
+	if (KEY_M->isOnceKeyDown('E')) SetState(BS_STATE::MOVE);
+	if (KEY_M->isOnceKeyDown('R')) SetState(BS_STATE::SLAP);
+	if (KEY_M->isOnceKeyDown('T')) SetState(BS_STATE::SMASH);
+	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
+	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
 
 }
 
@@ -152,8 +146,8 @@ void Boss::SetState(BS_STATE state)
 
 void Boss::SetDest(DIRECTION dest)
 {
-	if (_dest == dest)return; //같은 상태면 변경하지 않는다.
-	_dest = dest;
+	if (_info.dest == dest)return; //같은 상태면 변경하지 않는다.
+	_info.dest = dest;
 }
 
 void Boss::frameUpdate()
@@ -203,12 +197,12 @@ void Boss::playFrame(int count)
 	{
 	case -1:	//한 번 재생 후 기본
 				
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = 0;
 			SetState(BS_STATE::IDLE);			
 		}
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
 		{
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 			SetState(BS_STATE::IDLE);			
@@ -216,20 +210,20 @@ void Boss::playFrame(int count)
 		break;
 	case 1:		//한 번만 재생
 	
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = _obj.img->getMaxFrameX();
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = 0;
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = 0;
 		break;
 	case 0:		//무한 재생
 		
 		
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 		break;
 	}
 
 	/*if (_obj.imgIndex.x < 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 	else if (_obj.imgIndex.x > _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;*/
-	switch (_dest)
+	switch (_info.dest)
 	{
 	case DIRECTION::LEFT: 
 		--_obj.imgIndex.x;

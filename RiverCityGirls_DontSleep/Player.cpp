@@ -707,7 +707,7 @@ void Player::renewAttackRc()
 //중력작용
 void Player::gravity()
 {
-	if (_info.isSky) _info.jumpPower -= GRAVITYVALUE;
+	if (_info.isSky) _info.jumpPower -= GRAVITY;
 	if (_obj.pos.y >= 0 && _info.isSky)
 	{
 		setState(PL_STATE::IDLE);
@@ -742,8 +742,8 @@ void Player::keyInput()
 		//이전상태 저장
 		_info.preState = _info.state;
 		_info.isSky = true;
-		_info.jumpPower = JUMPPOWERVALUE;
-		movePos(0, 0, JUMPPOWERVALUE);
+		_info.jumpPower = JUMPPOWER;
+		movePos(0, 0, JUMPPOWER);
 		//점프파워가 - 면 점프상태로 전환
 		if (_info.jumpPower > 0.4)setState(PL_STATE::JUMP);
 	}
