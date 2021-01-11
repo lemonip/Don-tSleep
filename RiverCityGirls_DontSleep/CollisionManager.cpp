@@ -683,7 +683,7 @@ void CollisionManager::enemyObjectCollision(Enemy* enemy)
 					{
 						if (enemy->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// ¹þ¾î³ª¸é
 							character->shadow.LT.z > enemy->getPlatform()->bottomPlane[2].getStart().z ||					// ¹þ¾î³ª¸é
-							_stageM->getPlayer()->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// ¹þ¾î³ª¸é
+							enemy->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// ¹þ¾î³ª¸é
 							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// ¹þ¾î³ª¸é
 							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[0].getEnd().x ||						// ¹þ¾î³ª¸é
 							character->shadow.RB.x < enemy->getPlatform()->bottomPlane[2].getEnd().x)						// ¹þ¾î³ª¸é
