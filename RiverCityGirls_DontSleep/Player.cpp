@@ -49,28 +49,34 @@ HRESULT Player::init()
 	//기본 변수 초기화
 	{
 		_obj.ani = new animation;
-		_info.hp = _info.maxHP = 100;
 		_info.jumpPower = 0;
 		_info.speed = 4.f;
 
+		_info.hasMember = false;
+		_info.hasWeapon = false;
+		_info.isImmune = false;
+		_info.isAttack = false;
+		_info.isHit = false;
 		_info.isDead = false;
 		_info.isControl = true;
 		_info.isConDest = true;
 		_info.isSky = false;
-		_info.isAttack = false;
 		_info.isClimb = false;
-		_info.isImmune = false;
-		_info.hasMember = false;
-		_info.hasWeapon = false;
-		_info.isHit = false;
 
-		_info.dest = DIRECTION::RIGHT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
-		_info.rendType = RENDERTYPE::FRAME_RENDER;
-		_info.frameTimer = TIME_M->getWorldTime();
-		_info.hitCount = 3;
+		_info.dest = DIRECTION::RIGHT;
 		_info.goalState = GOALPOS::PLAYER;
+
+		_info.hp = _info.maxHP = 100;
+		_info.force = 10;
+		_info.LV = 1;
+		_info.exp = 0;
+		_info.hitCount = 3;
+
+		_info.frameTimer = TIME_M->getWorldTime();
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		_info.immuneTimer = 0;
+
 	}
 
 	//상태패턴 등록
@@ -227,14 +233,12 @@ void Player::setState(PL_STATE state)
 	case PL_STATE::CLIMBTOP:   _IState = _climbTop;		 break;
 	case PL_STATE::PICK:      _IState = _pick;			 break;
 		//가드 및 피격
-	case PL_STATE::GRAB:       _IState = _grab;			break;
+	case PL_STATE::GRAB:       _IState = _grab;			 break;
 	case PL_STATE::GUARD:       _IState = _guard;		 break;
 	case PL_STATE::ROLL:       _IState = _roll;			 break;
 	case PL_STATE::HIT:		    _IState = _hit;			 break;
 	case PL_STATE::STUN:        _IState = _stun;		 break;
-	case PL_STATE::STAND:		_IState = _stand;
-		_info.hitCount = 3;
-		break;
+	case PL_STATE::STAND:		_IState = _stand;		 break;
 	case PL_STATE::DOWN:	    _IState = _down;		 break;
 	case PL_STATE::DEAD:	    _IState = _dead;		 break;
 		// 공격
@@ -329,16 +333,20 @@ void Player::hit()
 	if (!_info.isImmune)
 	_info.immuneTimer = TIME_M->getWorldTime();
 
+	//이뮨상태라면 4초후에 돌아가기
 	 if (_info.isImmune && TIME_M->getWorldTime() - _info.immuneTimer > 4.f)
 	{
 		_info.isImmune = false;
 		_obj.alpha = 255;
 	}
 
-	//죽은게 아닐때
-	if (_info.state != PL_STATE::DEAD && !_info.isImmune)
+	 //플레이어가 죽었으면 죽음처리
+	 if (_info.hp <= 0)setState(PL_STATE::DEAD);
+
+	//죽은게 아닐때 기절이 아닐때
+	if (_info.state != PL_STATE::DEAD && !_info.isImmune && _info.state != PL_STATE::STUN)
 	{
-		//가드상태가 아닐때
+		//가드상태가 아닐때 
 		if (_info.state != PL_STATE::GUARD)
 		{
 			for (int i = 0; i != _enemyM->getVEnemy().size(); i++)
@@ -349,14 +357,14 @@ void Player::hit()
 					if (IntersectRect(&temp, &_obj.rc, &_enemyM->getVEnemy()[i]->getInfo().rcAttack)
 						&& isRange(_enemyM->getVEnemy()[i]->getRefObj()))
 					{
-						cout << _info.hitCount << endl;
-						if(_info.hitCount>=6)setState(PL_STATE::DOWN);
-						//if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
-						//else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
-						//else 
-						else  setState(PL_STATE::HIT);
-						
-						
+						if (_info.hitCount >= 4)
+						{ 
+							//맞은 수 초기화
+							_info.hitCount = 0;
+							if(_info.hp<=10)setState(PL_STATE::STUN);
+							if (_info.hp > 10)setState(PL_STATE::DOWN); 
+						}
+						else setState(PL_STATE::HIT);
 					}
 				}
 			}

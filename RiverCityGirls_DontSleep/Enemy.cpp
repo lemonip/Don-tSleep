@@ -41,7 +41,7 @@ HRESULT Enemy::init()
 	_objectM = _stageM->getStage()->getObjectM();
 	_info.baseSpeed = _info.speed = 3;
 	_info.isSky = false;
-	
+	_info.attack = 10;
 
 	_ES_IDLE = new enemyIdle;
 	_ES_WALK = new enemyWalk;

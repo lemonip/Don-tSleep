@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "playerIdle.h"
+#include "Enemy.h"
+#include "EnemyManager.h"
 
 void playerIdle::EnterState()
 {
@@ -30,7 +32,6 @@ void playerIdle::EnterState()
 	KEY_M->clearVKey();
 
 	//맞지않은상태로변경
-	//_thisPl->getInfo().isHit = false;
 	
 }
 
@@ -47,18 +48,33 @@ void playerIdle::UpdateState()
 	//강공격
 	sAttack();
 
-	/*무기가 쫓아다님,...;;
-	if (_thisPl->getInfo().attackObj)
-	{
-	_thisPl->getInfo().attackObj->pos.x = _thisPl->getObj().pos.x;
-	_thisPl->getInfo().attackObj->pos.y = _thisPl->getObj().pos.y;
-	_thisPl->getInfo().attackObj->pos.z = _thisPl->getObj().pos.z;
-	}*/
-
 	//줍기
 	if (KEY_M->isOnceKeyDownV('E')) { _thisPl->setState(PL_STATE::PICK); }
-		
 	
+	//동료되기
+
+	RECT temp;
+	//인터섹트렉트랑 / isrange함수로 같은 줄. 비슷한 범위의 z값에있는지 확인함.
+
+	//빌고있는 에너미랑 충돌하면
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+		if(_thisPl->getEnemyM()->getVEnemy()[i]->getState() ==EN_STATE::EN_BEGGING)
+		{
+			if (IntersectRect(&temp, &_thisPl->getInfo().attackRc,
+				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+				&& _thisPl->isRange(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj()))
+			{
+				_thisPl->setState(PL_STATE::GRAB);
+			}
+		}
+	}
+
+	if (KEY_M->isOnceKeyDownV('Q')) 
+	{
+		_thisPl->setState(PL_STATE::PICK); 
+	}
+
 }
 
 void playerIdle::ExitState()

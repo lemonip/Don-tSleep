@@ -16,6 +16,9 @@ void playerDead::EnterState()
 
 	//키조작 불가
 	_thisPl->setIsControl(false);
+
+	//알파값보정
+	_thisPl->getRefObj().alpha = 255;
 }
 
 void playerDead::UpdateState()

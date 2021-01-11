@@ -82,7 +82,6 @@ private:
 
 		float jumpPower;			//점프파워
 		float speed;				//속도
-		float immuneTimer;			//이뮨타이머
 
 		bool hasMember;				//맴버소유 유무
 		bool hasWeapon;				//무기소유 유무
@@ -101,7 +100,6 @@ private:
 		PL_STATE preState;			//플레이어 이전상태
 		GOALPOS goalState;			//골 상태
 
-		WEAPON_TYPE weaponType;		//무기종류
 		float hp;					//체력
 		float maxHP;				//최대 체력
 		float force;				//공격력
@@ -110,9 +108,9 @@ private:
 		float  exp;					//경험치
 		int hitCount;				//피격 카운트 (3번맞으면 다운됨)
 
+		float immuneTimer;			//이뮨타이머
 		float frameTimer;			//프레임시간 타이머
 		RENDERTYPE rendType;		//렌더타입
-		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
 	tagInfo	   _info;			//플레이어 정보
