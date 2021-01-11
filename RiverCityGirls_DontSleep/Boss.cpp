@@ -72,19 +72,6 @@ void Boss::update()
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
-	cout << static_cast<int>(_info.dest) << endl;
-	if (_player->getObj().pos.x < _obj.pos.x)
-	{
-		SetDest(DIRECTION::LEFT);
-	}
-	else if (_player->getObj().pos.x > _obj.pos.x)
-	{
-		
-		SetDest(DIRECTION::RIGHT);				
-	}
-
-
-	//setImage();
 	_BState->UpdateState();	
 
 	_obj.update();
@@ -92,16 +79,23 @@ void Boss::update()
 
 	frameUpdate();
 
-	/*if (_dest == DIRECTION::LEFT)
-	{
-		cout << "left" << endl;
-	}
 
-	else if (_dest == DIRECTION::RIGHT)
-	{
-		cout << "right" << endl;
-	}*/
-
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::DASH);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::DEATH);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DOWN);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD6)) SetState(BS_STATE::ELBOW);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD7)) SetState(BS_STATE::GROGGY);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD8)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD9)) SetState(BS_STATE::IDLE);
+	if (KEY_M->isOnceKeyDown('Q')) SetState(BS_STATE::METEOR);
+	if (KEY_M->isOnceKeyDown('W')) SetState(BS_STATE::METEORDOWN);
+	if (KEY_M->isOnceKeyDown('E')) SetState(BS_STATE::MOVE);
+	if (KEY_M->isOnceKeyDown('R')) SetState(BS_STATE::SLAP);
+	if (KEY_M->isOnceKeyDown('T')) SetState(BS_STATE::SMASH);
+	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
+	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
 
 }
 

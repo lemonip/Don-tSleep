@@ -21,7 +21,7 @@ void playerSAttack::EnterState()
 	case DIRECTION::RIGHT:
 		_thisPl->getInfo().attackRc = RectMakeCenter(_thisPl->getObj().pos.x + _thisPl->getObj().size.x / 2,
 			_thisPl->getObj().pos.z - _thisPl->getObj().size.z / 2 + _thisPl->getObj().pos.y,
-			ATTACKSIZE*0.2, ATTACKSIZE / 2);
+			ATTACKSIZE* 0.2, ATTACKSIZE / 2);
 		break;
 	}
 

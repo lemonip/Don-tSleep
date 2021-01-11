@@ -28,7 +28,7 @@ void bossWait::UpdateState()
 
 		/*_thisBs->SetState(BS_STATE::METEOR);
 		_thisBs->getInfo().isAttack = true;*/
-		switch (RND->getInt(4))
+	/*	switch (RND->getInt(4))
 		{
 		case 0:
 			_thisBs->SetState(BS_STATE::SLAP);
@@ -69,7 +69,7 @@ void bossWait::UpdateState()
 				_thisBs->getInfo().isAttack = true;
 				break;
 			}
-		}
+		}*/
 	}	
 	else if (fabs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 && fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30)
 	{

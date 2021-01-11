@@ -48,8 +48,7 @@ void playerCombo2::UpdateState()
 	switch (_thisPl->getInfo().dest)
 	{
 	case DIRECTION::LEFT:
-		if (_thisPl->getInfo().dest == DIRECTION::LEFT
-			&&_isEffect && _thisPl->getObj().imgIndex.x >= 2)
+		if (_isEffect && _thisPl->getObj().imgIndex.x >= 2)
 		{
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
@@ -57,8 +56,7 @@ void playerCombo2::UpdateState()
 		}
 		break;
 	case DIRECTION::RIGHT:
-		if (_thisPl->getInfo().dest == DIRECTION::RIGHT
-			&&_isEffect && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
+		if (_isEffect && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
 		{
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
