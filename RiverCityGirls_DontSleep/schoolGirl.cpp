@@ -12,7 +12,7 @@ HRESULT schoolGirl::init()
 	_obj.init(OBJECT_GROUP::ENEMY, IMG_M->findImage("schoolGirlIdle"),_obj.pos);
 	_ENEMY_TYPE = ENEMY_TYPE::SCHOOLGIRL;
 	SetState(EN_STATE::EN_IDLE);
-	
+
 
 	return S_OK;
 }

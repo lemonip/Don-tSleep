@@ -69,6 +69,7 @@ HRESULT Player::init()
 		_info.frameTimer = TIME_M->getWorldTime();
 		_info.hitCount = 3;
 		_info.goalState = GOALPOS::PLAYER;
+		_info.force = 5;
 	}
 
 	//상태패턴 등록

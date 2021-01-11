@@ -57,8 +57,6 @@ void StageManager::update()
 	if (KEY_M->isOnceKeyDown(VK_F3)) setStage(STAGETYPE::HARD);
 	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::BOSS);
 #endif
-
-
 }
 
 /*====================================================================

@@ -14,11 +14,11 @@ void enemyIdle::UpdateState()
 
 	if ((wait && TIME_M->getWorldTime() - _stateTimer > 2.f) || !wait) //대기를 2초 이상 하면
 	{
-		//가까우면 공격한다.
-		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
+		//내가 동료가 아니고 가까우면 공격한다.
+		if (!_thisEn->getInfo().isFriend &&
+			getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
 		{
-			
-			switch (RND->getInt(4))
+			switch (RND->getInt(5))
 			{
 			case 0:
 			case 1:
@@ -30,8 +30,10 @@ void enemyIdle::UpdateState()
 			case 3:
 				_thisEn->SetState(EN_STATE::EN_JUMP);
 				break;
+			case 4:
+				_thisEn->SetState(EN_STATE::EN_GUARD);
+				break;
 			}
-			
 		}
 		else
 		{
