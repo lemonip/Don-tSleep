@@ -305,7 +305,7 @@ void Enemy::playFrame()
 	case EN_STATE::EN_DOWN:
 	case EN_STATE::EN_HELDHIT: case EN_STATE::EN_HIT:
 	case EN_STATE::EN_WEAPONHIT:
-		setFrame(1, FRAMEINTERVAL*0.2);
+		setFrame(1, FRAMEINTERVAL*1.4);
 		break;
 		//재생 후 기본 상태
 	case EN_STATE::EN_ATTACK3:  case EN_STATE::EN_WATTACK:
