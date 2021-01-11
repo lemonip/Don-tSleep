@@ -18,6 +18,7 @@ void CollisionManager::release()
 
 void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 {
+	checkLeft = checkRight = checkUp = checkDown = false;
 	vector3 interVector; // 교차점을 담을 벡터
 	if (obj->bottomPlane[0].getStart().y == 0)
 	{
@@ -51,6 +52,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						else
 						{
 							character->pos.z = obj->bottomPlane[2].getEnd().z + character->shadow.height / 2;
+							checkUp = true;
 						}
 					}
 				}
@@ -66,6 +68,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (character->shadow.LT.x < interVector.x)
 						{
 							character->pos.x = interVector.x + character->shadow.width / 2; // 교차 점에서 오른쪽으로 보정
+							checkUp = true;
 						}
 					}
 				}
@@ -77,6 +80,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (character->shadow.RT.x > interVector.x)
 						{
 							character->pos.x = interVector.x - character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
+							checkUp = true;
 						}
 					}
 				}
@@ -94,6 +98,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)	// 위에서 아래로 내려가면
 					{
 						character->pos.z = obj->bottomPlane[0].getStart().z - character->shadow.height / 2;
+						checkDown = true;
 					}
 				}
 			}
@@ -108,6 +113,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (interVector.x < character->shadow.RB.x)
 						{
 							character->pos.x = interVector.x - character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
+							checkDown = true;
 						}
 					}
 				}
@@ -119,6 +125,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (character->shadow.LB.x < interVector.x)
 						{
 							character->pos.x = interVector.x + character->shadow.width / 2; // 교차 점에서 오른쪽으로 보정
+							checkDown = true;
 						}
 					}
 				}
@@ -141,6 +148,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &tempV)) // 좌측변이 밑변과 겹쳤을 때(1차 보정)
 						{
 							character->pos.x = obj->bottomPlane[2].getStart().x + character->shadow.width / 2;
+							checkLeft = true;
 						}
 					}
 
@@ -150,12 +158,14 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (obj->bottomPlane[0].getEnd().z < character->shadow.LT.z) // 그림자 윗변이 오브젝트 윗변보다 아래에 있을 경우
 						{
 							character->pos.x = obj->bottomPlane[1].getX(character->shadow.LT.z) + character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
+							checkLeft = true;
 						}
 						else // 그림자 윗변이 오브젝트 윗변보다 위에 있을 경우
 						{
 							if (character->preShadow.LB.z > obj->bottomPlane[0].getEnd().z)
 							{
 								character->pos.x = obj->bottomPlane[1].getStart().x + character->shadow.width / 2;
+								checkLeft = true;
 							}
 						}
 					}
@@ -168,6 +178,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &tempV)) // 좌측변이 윗변과 겹쳤을 때(1차 보정)
 						{
 							character->pos.x = obj->bottomPlane[0].getEnd().x + character->shadow.width / 2;
+							checkLeft = true;
 						}
 					}
 
@@ -177,12 +188,14 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (obj->bottomPlane[2].getStart().z > character->shadow.LB.z) // 그림자 밑변이 오브젝트 밑변보다 위에 있을 경우
 						{
 							character->pos.x = obj->bottomPlane[1].getX(character->shadow.LB.z) + character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
+							checkLeft = true;
 						}
 						else // 그림자 밑변이 오브젝트 밑변보다 아래에 있을 경우
 						{
 							if (character->preShadow.LT.z < obj->bottomPlane[2].getStart().z)
 							{
 								character->pos.x = obj->bottomPlane[1].getEnd().x + character->shadow.width / 2;
+								checkLeft = true;
 							}
 						}
 					}
@@ -203,6 +216,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[0], &tempV)) // 우측 선분이 오브젝트의 윗변과 겹치면(1차보정)
 						{
 							character->pos.x = obj->bottomPlane[0].getStart().x - character->shadow.width / 2;
+							checkRight = true;
 						}
 					}
 					if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) ||	// 우측 선분이 좌측변이랑 교차하면
@@ -211,12 +225,14 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (character->shadow.RB.z < obj->bottomPlane[2].getEnd().z) // 그림자 밑변이 오브젝트 밑변보다 위에 있을 경우
 						{
 							character->pos.x = obj->bottomPlane[3].getX(character->shadow.RB.z) - character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
+							checkRight = true;
 						}
 						else // 그림자 밑변이 오브젝트 밑변보다 아래에 있을 경우
 						{
 							if (character->preShadow.RT.z < obj->bottomPlane[2].getEnd().z)
 							{
 								character->pos.x = obj->bottomPlane[3].getStart().x - character->shadow.width / 2;
+								checkRight = true;
 							}
 						}
 					}
@@ -229,6 +245,7 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &tempV)) // 우측 선분이 오브젝트의 밑변과 겹치면(1차보정)
 						{
 							character->pos.x = obj->bottomPlane[2].getEnd().x - character->shadow.width / 2;
+							checkRight = true;
 						}
 					}
 					if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) || // 우측 선분이 좌측변이랑 교차하면
@@ -237,12 +254,14 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 						if (character->shadow.RT.z > obj->bottomPlane[0].getStart().z) // 그림자 윗변이 오브젝트 윗변보다 밑에 있을 경우
 						{
 							character->pos.x = obj->bottomPlane[3].getX(character->shadow.RT.z) - character->shadow.width / 2; // 교차 점에서 왼쪽으로 보정
+							checkRight = true;
 						}
 						else // 그림자 윗변이 오브젝트 윗변보다 위에 있을 경우
 						{
 							if (character->preShadow.RT.z > obj->bottomPlane[0].getStart().z)
 							{
 								character->pos.x = obj->bottomPlane[3].getEnd().x - character->shadow.width / 2;
+								checkRight = true;
 							}
 						}
 					}
@@ -250,6 +269,11 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			}
 		}
 	}
+	if (checkUp || checkDown || checkLeft || checkRight)
+	{
+		character->obstacle = obj;
+	}
+
 }
 
 void CollisionManager::playerWallCollsion()
@@ -442,7 +466,7 @@ void CollisionManager::playerObjectCollision()
 									character->pos.y = obj->topPlane[0].getStart().y;
 									// 상태보정
 									_stageM->getPlayer()->setPlatform(obj);
-									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setState(PL_STATE::IDLE);
 									_stageM->getPlayer()->setJumpPower(0);
 									_stageM->getPlayer()->setIsSky(false);
 								}
@@ -492,7 +516,7 @@ void CollisionManager::playerObjectCollision()
 									character->pos.y = obj->topPlane[0].getStart().y;
 									// 상태보정
 									_stageM->getPlayer()->setPlatform(obj);
-									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setState(PL_STATE::IDLE);
 									_stageM->getPlayer()->setJumpPower(0);
 									_stageM->getPlayer()->setIsSky(false);
 								}

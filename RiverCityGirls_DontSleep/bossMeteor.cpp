@@ -9,58 +9,54 @@ void bossMeteor::EnterState()
 	_speed = 25.0f;
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_meteor");
-	_thisBs->getInfo().jumpPower = 20.0f;
-	_thisBs->getInfo().isSky = false;
-	_thisBs->getInfo().gravity = 5.0f;
+	_thisBs->getInfo().jumpPower = 10.0f;
+	_thisBs->getInfo().isSky = true;
+	_thisBs->getInfo().gravity = 0.501f;
 
-	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
-	{
-		_thisBs->getObj()->imgIndex.x = 0;
-		_thisBs->getObj()->imgIndex.y = 1;
-	}
-
-	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-	{
-		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
-		_thisBs->getObj()->imgIndex.y = 0;
-	}
+	LookatPlayer();
+	ResetFrame();
 }
 
 void bossMeteor::UpdateState()
-{
-	
-	
-	if (TIME_M->getWorldTime() - _enterTime > 0.5f)
-	{
-		if (_thisBs->getInfo().isSky)
-		{			
-			_thisBs->getObj()->pos.y = -400;
-			_thisBs->getObj()->pos.y -= _thisBs->getInfo().jumpPower;
+{	
+	//Attack();
 
-			
-		}
+	if (0.5f < TIME_M->getWorldTime() - _enterTime && TIME_M->getWorldTime() - _enterTime <= 2.5f) // 하늘 위로 올라가는 시간
+	{
+		_thisBs->xzyMove(0, 0, -_thisBs->getInfo().jumpPower);
+		if(_thisBs->getObj()->pos.y < -600) _thisBs->getObj()->pos.y = -600;
+		
 	}
-	if (TIME_M->getWorldTime() - _enterTime > 3.0f)
+
+	if (2.5f < TIME_M->getWorldTime() - _enterTime && TIME_M->getWorldTime() - _enterTime <= 3.0f) // 하늘 위에서 움직이는 시간
 	{
-		_thisBs->getInfo().isSky = false;
-
-		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
-		_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
-		_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, tanf(_angle) * _speed * 3);
-
 		_thisBs->ChangeImg("Bs_meteordown");
 
-		if (_thisBs->getObj()->pos.y > _thisBs->getPlayerAddress()->getPObj()->pos.y)
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x <= 0) _thisBs->getObj()->imgIndex.x = 1;
+		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x >= 1) _thisBs->getObj()->imgIndex.x = 0;
+
+		_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);
+		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
+			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);		
+	}
+
+	if (3.0f < TIME_M->getWorldTime() - _enterTime) // 떨어지는 시간
+	{
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x <= 0) _thisBs->getObj()->imgIndex.x = 1;
+		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x >= 1) _thisBs->getObj()->imgIndex.x = 0;
+
+		if (_thisBs->getInfo().isSky)
 		{
-			_thisBs->getObj()->pos.y = 0;
+			_thisBs->xzyMove(0, 0, 10.0f);
 		}
 
-		if (TIME_M->getWorldTime() - _enterTime > 3.5f)
+		if (_thisBs->getObj()->pos.y >= 0)
 		{
 			_thisBs->SetState(BS_STATE::DOWN);
+			_thisBs->getObj()->pos.y = 0;
+			_thisBs->getInfo().isSky = false;
 		}
 	}
-	
 }
 
 void bossMeteor::ExitState()

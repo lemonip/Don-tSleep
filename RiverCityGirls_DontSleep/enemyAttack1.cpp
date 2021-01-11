@@ -5,15 +5,17 @@
 void enemyAttack1::EnterState()
 {
 	_thisEn->SetImage();
-
+	LookAtPlayer();
 
 }
 
 void enemyAttack1::UpdateState()
 {
-	LookAtPlayer();
+
 	Attack();
 
+
+	_thisEn->getInfo().isAttack = true;
 
 	//ATTACK1의 상태가 끝났다.
 	if (endFrame())

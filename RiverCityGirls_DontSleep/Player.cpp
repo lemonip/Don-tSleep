@@ -76,7 +76,6 @@ HRESULT Player::init()
 		_info.frameTimer = TIME_M->getWorldTime();
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		_info.immuneTimer = 0;
-
 	}
 
 	//상태패턴 등록
@@ -172,11 +171,7 @@ void Player::update()
 			cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 		}
 		else cout << "NULL" << endl;
-
-		if (_info.state == PL_STATE::CLIMB)
-		{
-			cout << "Climb" << endl;
-		}
+		
 	}
 	_colM->destructObject();
 }
@@ -215,7 +210,6 @@ void Player::setState(PL_STATE state)
 	_info.preState = _info.state;		//변경 전 현재 상태를 저장한다.
 	_info.state = state;				//현재 상태를 변경한다.
 
-	cout << "현재상태" << (int)_info.state << endl;
 	//상태를 빠져나온다
 	if (_IState != NULL) _IState->ExitState();
 

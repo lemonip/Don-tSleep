@@ -5,6 +5,7 @@
 void enemyWeaponHit::EnterState()
 {
 	_thisEn->SetImage();
+	Damage(_thisEn->getPlayerAddress()->getInfo().force);
 }
 
 void enemyWeaponHit::UpdateState()

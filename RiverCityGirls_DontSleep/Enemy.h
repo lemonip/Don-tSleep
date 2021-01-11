@@ -21,7 +21,6 @@ enum class EN_STATE
 	EN_DIE,						   //사망
 	EN_GUARD,					   //방어
 	EN_HELDRELEASE,				   //잡혔다 놓아짐
-	EN_FRIEND,                     //플레이어 동료가 됨
 
 	EN_RUNATTACK,				   //뛰다가 공격
 	EN_JUMPATTACK,				   //점프 공격
@@ -67,6 +66,7 @@ protected:
 		bool isAttack;				//공격했니
 		bool isSky;                 //공중에 있니
 		bool isDead;				//죽었니
+		bool isFriend;				//동료니
 		bool hasWeapon;				//무기들었니
 	};
 
@@ -104,7 +104,7 @@ protected:
 	ENEMY_TYPE _ENEMY_TYPE;		//에너미 유형
 	EN_STATE _state;            //현재 상태 enum
 	tagInfo _info;				//정보
-	
+
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	Player* _player;			//플래이어
@@ -129,6 +129,9 @@ public:
 									SETTER
 	====================================================================*/
 	virtual void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	//virtual void setGoRight(bool go) { _info.goRight = go; }
+	//virtual void setIsAttack(bool attack) { _info.isAttack = attack; }
+	//virtual void setSpeed(float speed) { _info.speed = speed; }
 	virtual void setPosition(vector3 pos) { _obj.pos = pos; }
 	virtual void setPlatform(GameObject* obj) { _platform = obj; }
 	/*====================================================================

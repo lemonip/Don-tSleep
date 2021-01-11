@@ -14,11 +14,11 @@ HRESULT BossStage::init()
 	/*====================================================================
 		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
 	====================================================================*/
-	backWallInit(vector3(650, WINSIZEY, 0), vector3(2480, WINSIZEY, 0), vector3(2480, 0, 535), vector3(650, 0, 535));
+	backWallInit(vector3(650, 9999, 0), vector3(2480, 9999, 0), vector3(2480, 0, 535), vector3(650, 0, 535));
 
-	leftWallInit(vector3(0, WINSIZEY, 0), vector3(650, WINSIZEY, 0), vector3(650, 0, 535), vector3(0, 0, 1180));
+	leftWallInit(vector3(0, 9999, 0), vector3(650, 9999, 0), vector3(650, 0, 535), vector3(0, 0, 1180));
 
-	rightWallInit(vector3(2480, WINSIZEY, 0), vector3(3116, WINSIZEY, 0), vector3(3116, 0, 1160), vector3(2480, 0, 535));
+	rightWallInit(vector3(2480, 9999, 0), vector3(3116, 9999, 0), vector3(3116, 0, 1160), vector3(2480, 0, 535));
 
 	floorInit(vector3(0, 0, 1180), vector3(3116, 0, 1160), vector3(3116, 0, 1215), vector3(0, 0, 1215));
 

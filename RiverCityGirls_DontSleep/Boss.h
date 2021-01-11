@@ -78,7 +78,7 @@ public:
 	void playFrame(int count);
 	void frameUpdate();
 	//void setFrame(FRAMETYPE _frametype);
-	void MovePos(float x, float z, float y);				//좌표 이동
+
 	void ChangeImg(string imgName);						//이미지변경
 	
 };
