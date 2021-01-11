@@ -128,7 +128,7 @@ public:
 	GameObject* getObj() { return &_obj; }
 	GameObject& getRefObj() { return _obj; }
 	ENEMY_TYPE getEnemyType() { return _ENEMY_TYPE; }
-
+	EN_STATE getState() { return _state; }
 	/*====================================================================
 									SETTER
 	====================================================================*/

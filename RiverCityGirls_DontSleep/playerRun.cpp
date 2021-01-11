@@ -22,10 +22,10 @@ void playerRun::EnterState()
 	switch (_thisPl->getInfo().dest)
 	{
 	case DIRECTION::LEFT:
-		EFFECT_M->play("ef_runL", (_thisPl->getObj().rc.left + _thisPl->getObj().rc.right) / 2,
-			 _thisPl->getObj().rc.bottom);
+		EFFECT_M->play("ef_runL", _thisPl->getObj().rc.right, _thisPl->getObj().rc.bottom);
 		break;
 	case DIRECTION::RIGHT:
+		EFFECT_M->play("ef_runR", _thisPl->getObj().rc.left,_thisPl->getObj().rc.bottom);
 		break;
 	}
 

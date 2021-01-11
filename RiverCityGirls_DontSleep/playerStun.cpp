@@ -8,16 +8,26 @@ void playerStun::EnterState()
 	//키조작불가
 	_thisPl->setIsControl(false);
 
+	//알파렌더 보정
+	_thisPl->getRefObj().alpha = 255;
+
+	//이팩트 출력
+	EFFECT_M->play("ef_stun", (_thisPl->getObj().rc.left + _thisPl->getObj().rc.right) /2, _thisPl->getObj().rc.top);
+
+	//기절 타이머 초기화
 	_stateTimer = TIME_M->getWorldTime();
+
+	//이뮨상태로 만들기
+	_thisPl->getInfo().isImmune = true;
+
+
 }
 
 void playerStun::UpdateState()
 {
-	/*
-	EFFECT_M->play("ef_spark", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
-		(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) *0.6);*/
 	if (TIME_M->getWorldTime()- _stateTimer >1.5f)
 	{
+		_thisPl->getRefObj().alpha = 180;
 		_thisPl->setIsControl(true);
 		_thisPl->setState(PL_STATE::IDLE);
 	}

@@ -49,17 +49,12 @@ void playerThrow::UpdateState()
 	//공격 판정
 	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 	{
-		if (!_isCollision
-			&&_thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj(), 30)
-			&& IntersectRect(&_temp, &_thisPl->getInfo().attackObj->rc,
+		if (//_thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj(), 40)&&
+			 IntersectRect(&_temp, &_thisPl->getInfo().attackObj->rc,
 				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
-
-			if (!_thisPl->getInfo().isAttack)
-			{
-				_thisPl->getInfo().isAttack = true;
-				_isCollision = true;
-			}
+			_thisPl->getInfo().isAttack = true;
+			cout << "공";
 		}
 	}
 

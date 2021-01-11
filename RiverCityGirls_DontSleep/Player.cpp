@@ -49,27 +49,33 @@ HRESULT Player::init()
 	//기본 변수 초기화
 	{
 		_obj.ani = new animation;
-		_info.hp = _info.maxHP = 100;
 		_info.jumpPower = 0;
 		_info.speed = 4.f;
 
+		_info.hasMember = false;
+		_info.hasWeapon = false;
+		_info.isImmune = false;
+		_info.isAttack = false;
+		_info.isHit = false;
 		_info.isDead = false;
 		_info.isControl = true;
 		_info.isConDest = true;
 		_info.isSky = false;
-		_info.isAttack = false;
 		_info.isClimb = false;
 
-		_info.hasMember = false;
-		_info.hasWeapon = false;
-
-		_info.dest = DIRECTION::RIGHT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
-		_info.rendType = RENDERTYPE::FRAME_RENDER;
-		_info.frameTimer = TIME_M->getWorldTime();
-		_info.hitCount = 3;
+		_info.dest = DIRECTION::RIGHT;
 		_info.goalState = GOALPOS::PLAYER;
-		_info.force = 5;
+
+		_info.hp = _info.maxHP = 100;
+		_info.force = 10;
+		_info.LV = 1;
+		_info.exp = 0;
+		_info.hitCount = 3;
+
+		_info.frameTimer = TIME_M->getWorldTime();
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
+		_info.immuneTimer = 0;
 	}
 
 	//상태패턴 등록
@@ -129,7 +135,9 @@ void Player::update()
 
 	//키입력
 	keyInput();
-	
+
+	//맞기
+	 hit();
 	//무기 업뎃
 	if (_info.attackObj!=NULL)weaponUpdate();
 
@@ -164,74 +172,6 @@ void Player::update()
 		}
 		else cout << "NULL" << endl;
 		
-		switch (_info.state)
-		{
-		case PL_STATE::IDLE:
-			cout << "IDLE" << endl;
-			break;
-		case PL_STATE::WAIT:
-			cout << "WAIT" << endl;
-			break;
-		case PL_STATE::WALK:
-			cout << "WALK" << endl;
-			break;
-		case PL_STATE::RUN:
-			cout << "RUN" << endl;
-			break;
-		case PL_STATE::JUMP:
-			cout << "JUMP" << endl;
-			break;
-		case PL_STATE::STICK:
-			cout << "STICK" << endl;
-			break;
-		case PL_STATE::CLIMB:
-			cout << "Climb" << endl;
-			break;
-		case PL_STATE::CLIMBTOP:
-			break;
-		case PL_STATE::PICK:
-			break;
-		case PL_STATE::GRAB:
-			break;
-		case PL_STATE::GUARD:
-			break;
-		case PL_STATE::ROLL:
-			break;
-		case PL_STATE::HIT:
-			break;
-		case PL_STATE::STUN:
-			break;
-		case PL_STATE::STAND:
-			break;
-		case PL_STATE::DOWN:
-			break;
-		case PL_STATE::DEAD:
-			break;
-		case PL_STATE::THROW:
-			break;
-		case PL_STATE::STOMP:
-			break;
-		case PL_STATE::COMBO1:
-			break;
-		case PL_STATE::COMBO2:
-			break;
-		case PL_STATE::COMBO3:
-			break;
-		case PL_STATE::SATTACK:
-			break;
-		case PL_STATE::DASHATTACK:
-			break;
-		case PL_STATE::DASHSATTACK:
-			break;
-		case PL_STATE::JUMPATTACK:
-			cout << "JUMPATTACK" << endl;
-			break;
-		case PL_STATE::SATTACKDOWN:
-			break;
-		default:
-			break;
-		}
-
 	}
 	_colM->destructObject();
 }
@@ -287,14 +227,12 @@ void Player::setState(PL_STATE state)
 	case PL_STATE::CLIMBTOP:   _IState = _climbTop;		 break;
 	case PL_STATE::PICK:      _IState = _pick;			 break;
 		//가드 및 피격
-	case PL_STATE::GRAB:       _IState = _grab;			break;
+	case PL_STATE::GRAB:       _IState = _grab;			 break;
 	case PL_STATE::GUARD:       _IState = _guard;		 break;
 	case PL_STATE::ROLL:       _IState = _roll;			 break;
 	case PL_STATE::HIT:		    _IState = _hit;			 break;
 	case PL_STATE::STUN:        _IState = _stun;		 break;
-	case PL_STATE::STAND:		_IState = _stand;
-		_info.hitCount = 3;
-		break;
+	case PL_STATE::STAND:		_IState = _stand;		 break;
 	case PL_STATE::DOWN:	    _IState = _down;		 break;
 	case PL_STATE::DEAD:	    _IState = _dead;		 break;
 		// 공격
@@ -381,6 +319,54 @@ bool Player::moveAttackObj()
 		return true;
 	}
 	return false;
+}
+
+void Player::hit()
+{
+	//이뮨타이머 갱신
+	if (!_info.isImmune)
+	_info.immuneTimer = TIME_M->getWorldTime();
+
+	//이뮨상태라면 4초후에 돌아가기
+	 if (_info.isImmune && TIME_M->getWorldTime() - _info.immuneTimer > 4.f)
+	{
+		_info.isImmune = false;
+		_obj.alpha = 255;
+	}
+
+	 //플레이어가 죽었으면 죽음처리
+	 if (_info.hp <= 0)setState(PL_STATE::DEAD);
+
+	//죽은게 아닐때 기절이 아닐때
+	if (_info.state != PL_STATE::DEAD && !_info.isImmune && _info.state != PL_STATE::STUN)
+	{
+		//가드상태가 아닐때 
+		if (_info.state != PL_STATE::GUARD)
+		{
+			for (int i = 0; i != _enemyM->getVEnemy().size(); i++)
+			{
+				if (_enemyM->getVEnemy()[i]->getInfo().isAttack)
+				{
+					RECT temp;
+					if (IntersectRect(&temp, &_obj.rc, &_enemyM->getVEnemy()[i]->getInfo().rcAttack)
+						&& isRange(_enemyM->getVEnemy()[i]->getRefObj()))
+					{
+						if (_info.hitCount >= 4)
+						{ 
+							//맞은 수 초기화
+							_info.hitCount = 0;
+							if(_info.hp<=10)setState(PL_STATE::STUN);
+							if (_info.hp > 10)setState(PL_STATE::DOWN); 
+						}
+						else setState(PL_STATE::HIT);
+					}
+				}
+			}
+			
+
+		}
+
+	}
 }
 
 //스테이지가 바뀔 때마다 초기화시키는 함수
@@ -573,6 +559,7 @@ void Player::playFrame()
 	{
 		//무한재생 (일반 속도)
 	case PL_STATE::WAIT:
+
 		setFrame(FRAMETYPE::LOOP, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
