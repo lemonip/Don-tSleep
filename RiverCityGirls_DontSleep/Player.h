@@ -100,6 +100,7 @@ private:
 		PL_STATE preState;			//플레이어 이전상태
 		GOALPOS goalState;			//골 상태
 
+		WEAPON_TYPE weaponType;		//무기종류
 		int hp;					//체력
 		int maxHP;				//최대 체력
 		int force;				//공격력

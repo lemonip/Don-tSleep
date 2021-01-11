@@ -35,6 +35,20 @@ HRESULT Boss::init()
 	
 	_frameTimer = TIME_M->getWorldTime();
 
+	{
+		_info.dest = DIRECTION::LEFT;		//방향
+		_info.gravity = 0;					//중력
+		_info.jumpPower = 0;				//점프력
+		_info.baseSpeed = _info.speed = 3;	//속도
+		_info.frameTimer = 0;				//프레임시간 타이머
+
+		_info.hp = _info.maxHp = 500;		//체력
+		_info.attack = 10;					//공격력
+
+		_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
+		_info.hasWeapon = false;			//무기들었니
+	};
+
 	//상태패턴 등록
 	_idle = new bossIdle;
 	_wait = new bossWait;
@@ -60,7 +74,7 @@ HRESULT Boss::init()
 
 	_BState = NULL;
 	SetState(BS_STATE::IDLE);
-		
+
 	return S_OK;
 }
 
