@@ -9,6 +9,7 @@ void enemyDown::EnterState()
 
 void enemyDown::UpdateState()
 {
+	LookAtPlayer();
 
 	//HIT의 상태가 끝났다.
 	if (endFrame())
