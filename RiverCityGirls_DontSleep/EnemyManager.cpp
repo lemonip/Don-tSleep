@@ -34,10 +34,6 @@ void EnemyManager::render()
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
 		ZORDER_M->renderObject(getMapDC(), _vEnemy[i]->getObj(), RENDERTYPE::FRAME_RENDER);
-		if (KEY_M->isToggleKey('O'))
-		{
-			Rectangle(getMapDC(), _vEnemy[i]->getInfo().rcAttack);
-		}
 
 		_vEnemy[i]->render();
 	}	

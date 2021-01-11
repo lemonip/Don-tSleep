@@ -34,7 +34,9 @@ void enemyJump::UpdateState()
 	{
 		_thisEn->SetState(EN_STATE::EN_WALK);
 	}
-	if (_thisEn->getPlayerAddress()->getObj().pos.y == 0 && !_thisEn->getPlayerAddress()->getInfo().isSky)
+	//플래이어가 바닥에 있으면 점프 어택을 한다.
+	if (_thisEn->getPlayerAddress()->getObj().pos.y == 0 && !_thisEn->getPlayerAddress()->getInfo().isSky
+		&& _thisEn->getInfo().jumpPower <= JUMPPOWER/3*2)
 	{
 		_thisEn->SetState(EN_STATE::EN_JUMPATTACK);
 	}
