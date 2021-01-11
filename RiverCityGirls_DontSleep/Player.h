@@ -99,9 +99,9 @@ private:
 		GOALPOS goalState;			//골 상태
 
 		WEAPON_TYPE weaponType;		//무기종류
-		float hp;					//체력
-		float maxHP;				//최대 체력
-		float force;				//공격력
+		int hp;					//체력
+		int maxHP;				//최대 체력
+		int force;				//공격력
 		float coin;					//소지금
 		int	   LV;					//레벨
 		float  exp;					//경험치
