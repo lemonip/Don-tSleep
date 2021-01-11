@@ -96,6 +96,7 @@ void ObjectManager::popObject(int index)
 	{
 		if (i == index)
 		{
+			SAFE_DELETE(_vObject[i]);
 			_vObject.erase(_vObject.begin() + i);
 		}
 		else  i++;

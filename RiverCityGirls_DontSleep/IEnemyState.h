@@ -24,6 +24,6 @@ public:
 	void LookAtPlayer();
 	void Attack();
 	bool endFrame();
-	
+	void Damage(int atk);
 };
 

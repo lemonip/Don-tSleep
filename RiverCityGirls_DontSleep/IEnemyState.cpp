@@ -47,3 +47,26 @@ bool IEnemyState::endFrame()
 	}
 	return false;
 }
+
+void IEnemyState::Damage(int atk)
+{
+	_thisEn->getInfo().hp -= atk;
+	cout << _thisEn->getInfo().hp << endl;
+
+	if (_thisEn->getInfo().hp < 0) { _thisEn->getInfo().hp = 0; }
+
+	//체력이 0이면 죽는다.
+	if (_thisEn->getInfo().hp == 0) { _thisEn->SetState(EN_STATE::EN_DIE); }
+	//체력이 1/3 이하면 베깅
+	else if (_thisEn->getInfo().hp <= _thisEn->getInfo().maxHp / 3)
+	{ 
+		if(RND->getInt(10) <= 5)
+		_thisEn->SetState(EN_STATE::EN_BEGGING);
+	}
+	//체력이 1/2 이하면 스턴
+	else if (_thisEn->getInfo().hp <= _thisEn->getInfo().maxHp / 2)
+	{ 
+		if (RND->getInt(10) <= 5)
+		_thisEn->SetState(EN_STATE::EN_STUN);
+	}
+}
