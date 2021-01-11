@@ -56,20 +56,22 @@ void playerIdle::UpdateState()
 	RECT temp;
 	//인터섹트렉트랑 / isrange함수로 같은 줄. 비슷한 범위의 z값에있는지 확인함.
 
-	//빌고있는 에너미랑 충돌하면
-	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	//동료가 없는 상태에서 빌고있는 에너미랑 충돌하면
+	if(!_thisPl->getInfo().hasMember)
 	{
-		if(_thisPl->getEnemyM()->getVEnemy()[i]->getState() ==EN_STATE::EN_BEGGING)
+		for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 		{
-			if (IntersectRect(&temp, &_thisPl->getInfo().attackRc,
-				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
-				&& _thisPl->isRange(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj()))
+			if(_thisPl->getEnemyM()->getVEnemy()[i]->getState() ==EN_STATE::EN_BEGGING)
 			{
-				_thisPl->setState(PL_STATE::GRAB);
+				if (IntersectRect(&temp, &_thisPl->getInfo().attackRc,
+					&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
+					&& _thisPl->isRange(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj()))
+				{
+					_thisPl->setState(PL_STATE::GRAB);
+				}
 			}
 		}
 	}
-
 	if (KEY_M->isOnceKeyDownV('Q')) 
 	{
 		_thisPl->setState(PL_STATE::PICK); 

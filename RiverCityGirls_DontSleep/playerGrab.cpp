@@ -19,8 +19,9 @@ void playerGrab::UpdateState()
 	RECT temp;
 	if (KEY_M->isOnceKeyDownV('Q'))
 	{
-		_thisPl->setState(PL_STATE::IDLE);
+		_thisPl->setIsControl(true);
 		_thisPl->getInfo().hasMember = true;
+		_thisPl->setState(PL_STATE::IDLE);
 
 		for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 		{
@@ -30,7 +31,7 @@ void playerGrab::UpdateState()
 					&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 					&& _thisPl->isRange(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj()))
 				{
-					//_thisPl->getEnemyM()->getVEnemy()[i]->getInfo().isfr
+					_thisPl->getEnemyM()->getVEnemy()[i]->getInfo().isFriend = true;
 				}
 			}
 		}
