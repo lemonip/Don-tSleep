@@ -13,6 +13,15 @@ void bossMeteor::EnterState()
 	_thisBs->getInfo().isSky = false;
 	_thisBs->getInfo().gravity = 5.0f;
 
+	if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x)
+	{
+		_thisBs->getInfo().dest = DIRECTION::LEFT;
+	}
+	else if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x)
+	{
+		_thisBs->getInfo().dest = DIRECTION::RIGHT;
+	}
+
 	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 	{
 		_thisBs->getObj()->imgIndex.x = 0;

@@ -8,6 +8,15 @@ void bossSlapAttack::EnterState()
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_slap");
 
+	if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x)
+	{
+		_thisBs->getInfo().dest = DIRECTION::LEFT;
+	}
+	else if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x)
+	{
+		_thisBs->getInfo().dest = DIRECTION::RIGHT;
+	}
+
 	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 	{
 		_thisBs->getObj()->imgIndex.x = 0;
@@ -19,14 +28,11 @@ void bossSlapAttack::EnterState()
 		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
 		_thisBs->getObj()->imgIndex.y = 0;
 	}
-}
 
-void bossSlapAttack::UpdateState()
-{	
-	if ( _thisBs->getInfo().dest == DIRECTION::LEFT)
+	if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 	{
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 50, _thisBs->getObj()->pos.z, 200, 100);
-	
+
 		/*if (IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getObj().rc))
 		{
 
@@ -36,8 +42,13 @@ void bossSlapAttack::UpdateState()
 	else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 	{
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z, 200, 100);
-			
-	}	
+
+	}
+}
+
+void bossSlapAttack::UpdateState()
+{	
+	
 }
 
 void bossSlapAttack::ExitState()

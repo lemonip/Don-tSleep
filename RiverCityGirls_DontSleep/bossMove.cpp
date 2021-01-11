@@ -10,6 +10,7 @@ void bossMove::EnterState()
 	_speed = 3.0f;
 	_thisBs->ChangeImg("Bs_move");	
 
+	
 	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 	{
 		_thisBs->getObj()->imgIndex.x = 0;
@@ -25,7 +26,14 @@ void bossMove::EnterState()
 
 void bossMove::UpdateState()
 {
-
+	if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x)
+	{
+		_thisBs->getInfo().dest = DIRECTION::LEFT;
+	}
+	else if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x)
+	{
+		_thisBs->getInfo().dest = DIRECTION::RIGHT;
+	}
 
 	if (fabs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 || fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30)
 	{		
