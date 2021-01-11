@@ -442,7 +442,7 @@ void CollisionManager::playerObjectCollision()
 									character->pos.y = obj->topPlane[0].getStart().y;
 									// 상태보정
 									_stageM->getPlayer()->setPlatform(obj);
-									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setState(PL_STATE::IDLE);
 									_stageM->getPlayer()->setJumpPower(0);
 									_stageM->getPlayer()->setIsSky(false);
 								}
@@ -492,7 +492,7 @@ void CollisionManager::playerObjectCollision()
 									character->pos.y = obj->topPlane[0].getStart().y;
 									// 상태보정
 									_stageM->getPlayer()->setPlatform(obj);
-									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
+									_stageM->getPlayer()->setState(PL_STATE::IDLE);
 									_stageM->getPlayer()->setJumpPower(0);
 									_stageM->getPlayer()->setIsSky(false);
 								}

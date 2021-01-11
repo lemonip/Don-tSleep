@@ -162,10 +162,73 @@ void Player::update()
 			cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 		}
 		else cout << "NULL" << endl;
-
-		if (_info.state == PL_STATE::CLIMB)
+		
+		switch (_info.state)
 		{
+		case PL_STATE::IDLE:
+			cout << "IDLE" << endl;
+			break;
+		case PL_STATE::WAIT:
+			cout << "WAIT" << endl;
+			break;
+		case PL_STATE::WALK:
+			cout << "WALK" << endl;
+			break;
+		case PL_STATE::RUN:
+			cout << "RUN" << endl;
+			break;
+		case PL_STATE::JUMP:
+			cout << "JUMP" << endl;
+			break;
+		case PL_STATE::STICK:
+			cout << "STICK" << endl;
+			break;
+		case PL_STATE::CLIMB:
 			cout << "Climb" << endl;
+			break;
+		case PL_STATE::CLIMBTOP:
+			break;
+		case PL_STATE::PICK:
+			break;
+		case PL_STATE::GRAB:
+			break;
+		case PL_STATE::GUARD:
+			break;
+		case PL_STATE::ROLL:
+			break;
+		case PL_STATE::HIT:
+			break;
+		case PL_STATE::STUN:
+			break;
+		case PL_STATE::STAND:
+			break;
+		case PL_STATE::DOWN:
+			break;
+		case PL_STATE::DEAD:
+			break;
+		case PL_STATE::THROW:
+			break;
+		case PL_STATE::STOMP:
+			break;
+		case PL_STATE::COMBO1:
+			break;
+		case PL_STATE::COMBO2:
+			break;
+		case PL_STATE::COMBO3:
+			break;
+		case PL_STATE::SATTACK:
+			break;
+		case PL_STATE::DASHATTACK:
+			break;
+		case PL_STATE::DASHSATTACK:
+			break;
+		case PL_STATE::JUMPATTACK:
+			cout << "JUMPATTACK" << endl;
+			break;
+		case PL_STATE::SATTACKDOWN:
+			break;
+		default:
+			break;
 		}
 
 	}
@@ -206,7 +269,6 @@ void Player::setState(PL_STATE state)
 	_info.preState = _info.state;		//변경 전 현재 상태를 저장한다.
 	_info.state = state;				//현재 상태를 변경한다.
 
-	cout << "현재상태" << (int)_info.state << endl;
 	//상태를 빠져나온다
 	if (_IState != NULL) _IState->ExitState();
 
