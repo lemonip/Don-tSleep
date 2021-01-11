@@ -49,7 +49,7 @@ public:
 	bool pauseUpdate();
 	//프레임 재생 끝났는지 확인, 리버스 프레임이면 매개변수 true
 	bool isEndFrame(bool reverse);
-
+	//무기 떨어뜨리기
 	void dropWeapon();
 };
 

@@ -84,7 +84,7 @@ private:
 		float speed;				//속도
 
 		bool hasMember;				//맴버소유 유무
-		bool isThrow;				//던짐 유무
+		bool hasWeapon;				//무기소유 유무
 		bool isAttack;				//공격 유무
 		bool isDead;				//사망유무
 		bool isControl;				//키입력 가능 유무
@@ -217,7 +217,7 @@ public:
 	//좌표 이동
 	void movePos(float x, float z, float y);
 	//좌표 고정
-	void changePos(float x, float z, float y);
+	void setPos(float x, float z, float y);
 
 	//어택 오브젝트를 골까지 움직임
 	bool moveAttackObj();
