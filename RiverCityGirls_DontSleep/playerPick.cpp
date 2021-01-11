@@ -9,6 +9,8 @@ void playerPick::EnterState()
 
 	//이미지변경
 	_thisPl->changeImg("pl_pick", false);
+	//무기를 가졌다고 함
+	_thisPl->getInfo().hasWeapon = true;
 }
 
 void playerPick::UpdateState()

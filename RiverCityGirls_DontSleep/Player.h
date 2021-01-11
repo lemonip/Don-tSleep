@@ -85,7 +85,6 @@ private:
 
 		bool hasMember;				//맴버소유 유무
 		bool hasWeapon;				//무기소유 유무
-		bool isThrow;				//던짐 유무
 		bool isAttack;				//공격 유무
 		bool isDead;				//사망유무
 		bool isControl;				//키입력 가능 유무

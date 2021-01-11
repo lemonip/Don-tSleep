@@ -24,7 +24,7 @@ void playerSAttackDown::EnterState()
 		break;
 	}
 
-	//무기타입을 없음으로 변경
+	//무기떨어뜨리기
 	dropWeapon();
 
 }

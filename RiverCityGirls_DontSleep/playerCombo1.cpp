@@ -41,13 +41,14 @@ void playerCombo1::EnterState()
 	//공격여부: 에너미가 있는지 확인하고 있으면 isAttack을 true로 바꿈
 	if (checkEnemy())
 	{
-		if ( _thisPl->getInfo().attackObj != NULL || _thisPl->getInfo().attackObj->weaponType == WEAPON_TYPE::BAT )
+		//무기가 있는 상태고, 종류가 방망이라면
+		if ( _thisPl->getInfo().attackObj != NULL && _thisPl->getInfo().attackObj->weaponType == WEAPON_TYPE::BAT )
 		{
 			//타격에 성공했는지 확인
 			_isCollision = true;
 		}
 		//맨손으로 때린 상태면 이펙트를 보여줌
-		else if (_thisPl->getInfo().attackObj != NULL)
+		else if (_thisPl->getInfo().attackObj == NULL)
 		{
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);

@@ -3,6 +3,7 @@
 
 class playerJumpAttack :public IPlayerState
 {
+	bool _isEffect;
 public:
 
 	virtual void EnterState();
