@@ -10,7 +10,7 @@ void enemyStun::EnterState()
 
 void enemyStun::UpdateState()
 {
-	if(TIME_M->getWorldTime() - _stateTimer > 5.0f)
+	if(TIME_M->getWorldTime() - _stateTimer > 3.0f)
 	{
 		_thisEn->SetState(EN_STATE::EN_IDLE);
 	}

@@ -9,6 +9,9 @@ class IEnemyState abstract
 {
 protected:
 	Enemy* _thisEn;
+	
+	//float _a1;
+	//float _a2;
 	float _stateTimer;
 public:
 	IEnemyState() {}

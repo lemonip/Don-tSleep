@@ -44,7 +44,7 @@ HRESULT Enemy::init()
 		_info.baseSpeed = _info.speed = 3;	//속도
 		_info.frameTimer = 0;				//프레임시간 타이머
 
-		_info.hp = _info.maxHp = 30;		//체력
+		_info.hp = _info.maxHp = 500;		//체력
 		_info.attack = 10;					//공격력
 
 		_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
@@ -288,12 +288,9 @@ void Enemy::setFrame(int count, float frameInterval)
 		}
 	}
 	break;
-	case 3:         //좌우 상관없이 계속 재생
+	case 3:            //비워놓고 그 상태에서 마음대로 바꾸기
 	{
-		if (_info.dest == DIRECTION::NONE && _obj.imgIndex.x > _obj.img->getMaxFrameX())
-		{
-			_obj.imgIndex.x = 0;
-		}
+
 	}
 	break;
 	}
@@ -312,7 +309,7 @@ void Enemy::playFrame()
 		break;
 		//계속 재생(속도 빠름)
 	case EN_STATE::EN_RUN:    case EN_STATE::EN_WRUN:
-		setFrame(2, FRAMEINTERVAL * 1.2);
+		setFrame(2, FRAMEINTERVAL * 0.8);
 		break;
 		//한번 재생(기본속도)
 	case EN_STATE::EN_JUMP:
@@ -320,11 +317,11 @@ void Enemy::playFrame()
 		setFrame(1, FRAMEINTERVAL);
 		break;
 		//한번 재생(느린속도)
-	case EN_STATE::EN_BEGGING: case EN_STATE::EN_GUARD:
+	case EN_STATE::EN_GUARD:
 	case EN_STATE::EN_HELDRELEASE:
 	case EN_STATE::EN_JUMPATTACK:
 	case EN_STATE::EN_DOWN:
-	case EN_STATE::EN_HELDHIT: case EN_STATE::EN_HIT:
+	case EN_STATE::EN_HELDHIT:
 	case EN_STATE::EN_WEAPONHIT: case EN_STATE::EN_DIE:
 		setFrame(1, FRAMEINTERVAL*1.8);
 		break;
@@ -332,6 +329,9 @@ void Enemy::playFrame()
 	case EN_STATE::EN_ATTACK3:  case EN_STATE::EN_WATTACK:
 	case EN_STATE::EN_WTHROW:   case EN_STATE::EN_RUNATTACK:
 		setFrame(0, FRAMEINTERVAL);
+		break;
+	case EN_STATE::EN_HIT:  case EN_STATE::EN_BEGGING:
+		setFrame(3, FRAMEINTERVAL);
 		break;
 	}
 }
