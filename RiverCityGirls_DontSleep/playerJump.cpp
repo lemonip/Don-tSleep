@@ -30,6 +30,8 @@ void playerJump::UpdateState()
 	//약공격
 	if (KEY_M->isOnceKeyDownV('S'))_thisPl->setState(PL_STATE::JUMPATTACK);
 
+	cout << "이미지인뎃" <<
+		_thisPl->getObj().imgIndex.x << endl;
 }
 
 void playerJump::ExitState()

@@ -82,10 +82,13 @@ private:
 
 		float jumpPower;			//점프파워
 		float speed;				//속도
+		float immuneTimer;			//이뮨타이머
 
 		bool hasMember;				//맴버소유 유무
 		bool hasWeapon;				//무기소유 유무
+		bool isImmune;				//이뮨상태인지
 		bool isAttack;				//공격 유무
+		bool isHit;					//맞았는지
 		bool isDead;				//사망유무
 		bool isControl;				//키입력 가능 유무
 		bool isConDest;				//방향전환 가능 유무
@@ -222,4 +225,6 @@ public:
 	//어택 오브젝트를 골까지 움직임
 	bool moveAttackObj();
 
+	//맞기
+	void hit();
 };

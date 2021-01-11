@@ -59,9 +59,10 @@ HRESULT Player::init()
 		_info.isSky = false;
 		_info.isAttack = false;
 		_info.isClimb = false;
-
+		_info.isImmune = false;
 		_info.hasMember = false;
 		_info.hasWeapon = false;
+		_info.isHit = false;
 
 		_info.dest = DIRECTION::RIGHT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
@@ -69,6 +70,7 @@ HRESULT Player::init()
 		_info.frameTimer = TIME_M->getWorldTime();
 		_info.hitCount = 3;
 		_info.goalState = GOALPOS::PLAYER;
+		_info.immuneTimer = 0;
 	}
 
 	//상태패턴 등록
@@ -128,7 +130,9 @@ void Player::update()
 
 	//키입력
 	keyInput();
-	
+
+	//맞기
+	 hit();
 	//무기 업뎃
 	if (_info.attackObj!=NULL)weaponUpdate();
 
@@ -317,6 +321,50 @@ bool Player::moveAttackObj()
 		return true;
 	}
 	return false;
+}
+
+void Player::hit()
+{
+	//이뮨타이머 갱신
+	if (!_info.isImmune)
+	_info.immuneTimer = TIME_M->getWorldTime();
+
+	 if (_info.isImmune && TIME_M->getWorldTime() - _info.immuneTimer > 4.f)
+	{
+		_info.isImmune = false;
+		_obj.alpha = 255;
+	}
+
+	//죽은게 아닐때
+	if (_info.state != PL_STATE::DEAD && !_info.isImmune)
+	{
+		//가드상태가 아닐때
+		if (_info.state != PL_STATE::GUARD)
+		{
+			for (int i = 0; i != _enemyM->getVEnemy().size(); i++)
+			{
+				if (_enemyM->getVEnemy()[i]->getInfo().isAttack)
+				{
+					RECT temp;
+					if (IntersectRect(&temp, &_obj.rc, &_enemyM->getVEnemy()[i]->getInfo().rcAttack)
+						&& isRange(_enemyM->getVEnemy()[i]->getRefObj()))
+					{
+						cout << _info.hitCount << endl;
+						if(_info.hitCount>=6)setState(PL_STATE::DOWN);
+						//if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
+						//else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
+						//else 
+						else  setState(PL_STATE::HIT);
+						
+						
+					}
+				}
+			}
+			
+
+		}
+
+	}
 }
 
 //스테이지가 바뀔 때마다 초기화시키는 함수
@@ -509,6 +557,7 @@ void Player::playFrame()
 	{
 		//무한재생 (일반 속도)
 	case PL_STATE::WAIT:
+
 		setFrame(FRAMETYPE::LOOP, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;

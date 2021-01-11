@@ -28,6 +28,9 @@ void playerIdle::EnterState()
 
 	//키커맨더 벡터 비움
 	KEY_M->clearVKey();
+
+	//맞지않은상태로변경
+	//_thisPl->getInfo().isHit = false;
 	
 }
 
