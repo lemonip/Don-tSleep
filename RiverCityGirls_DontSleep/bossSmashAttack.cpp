@@ -8,13 +8,13 @@ void bossSmashAttack::EnterState()
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_smash");
 
-	if (_thisBs->getdest() == DIRECTION::RIGHT)
+	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 	{
 		_thisBs->getObj()->imgIndex.x = 0;
 		_thisBs->getObj()->imgIndex.y = 1;
 	}
 
-	else if (_thisBs->getdest() == DIRECTION::LEFT)
+	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 	{
 		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
 		_thisBs->getObj()->imgIndex.y = 0;
@@ -26,7 +26,7 @@ void bossSmashAttack::UpdateState()
 
 	
 
-	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getdest() == DIRECTION ::LEFT)
+	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getInfo().dest == DIRECTION ::LEFT)
 	{
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 50, _thisBs->getObj()->pos.z, 50, 50);
 		RECT _temp;
@@ -34,7 +34,7 @@ void bossSmashAttack::UpdateState()
 		//손바닥 어택보다 높은 대미지
 	}
 
-	else if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getdest() == DIRECTION::RIGHT)
+	else if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getInfo().dest == DIRECTION::RIGHT)
 	{
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z, 50, 50);
 		RECT _temp;

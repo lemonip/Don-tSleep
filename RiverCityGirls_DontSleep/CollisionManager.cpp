@@ -5,6 +5,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Boss.h"
 
 HRESULT CollisionManager::init()
 {
@@ -269,7 +270,7 @@ void CollisionManager::playerWallCollsion()
 			{
 				character->pos.z = vBackWall[i].LB.z + character->shadow.height / 2;
 			}
-		}	
+		}
 	}
 
 	for (int i = 0; i < vLeftWall.size(); ++i)
@@ -326,7 +327,6 @@ void CollisionManager::playerWallCollsion()
 			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
 		}
 	}
-
 }
 
 void CollisionManager::enemyWallColiision(GameObject* character)
@@ -403,7 +403,6 @@ void CollisionManager::enemyWallColiision(GameObject* character)
 			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
 		}
 	}
-
 }
 
 
@@ -472,8 +471,6 @@ void CollisionManager::playerObjectCollision()
 				}
 				else if (obj->dir == DIRECTION::RIGHT)
 				{
-					
-
 					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// 캐릭터의 z값이 윗변보다 밑에 있고
 						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// 캐릭터의 z값이 밑변보다 위에 있고
 					{
@@ -551,8 +548,9 @@ void CollisionManager::playerObjectCollision()
 	}
 }
 
-void CollisionManager::enemyObjectCollision(GameObject* character)
+void CollisionManager::enemyObjectCollision(Enemy* enemy)
 {
+	GameObject* character = enemy->getObj();
 	enemyWallColiision(character);
 	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
 
@@ -560,10 +558,9 @@ void CollisionManager::enemyObjectCollision(GameObject* character)
 	for (int i = 0; i < vObj.size(); ++i)
 	{
 		GameObject* obj = vObj[i]->getObj();
-
 		if (obj->group == OBJECT_GROUP::OBJECT)
 		{
-			if (_stageM->getPlayer()->getInfo().isSky) // 공중에 있을 때
+			if (enemy->getInfo().isSky) // 공중에 있을 때
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
@@ -583,17 +580,21 @@ void CollisionManager::enemyObjectCollision(GameObject* character)
 								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
 									character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
 								{
-									// y값 보정
-									character->pos.y = obj->topPlane[0].getStart().y;
-									// 상태보정
-									_stageM->getPlayer()->setPlatform(obj);
-									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
-									_stageM->getPlayer()->setJumpPower(0);
-									_stageM->getPlayer()->setIsSky(false);
+									if (enemy->getEnemyType() == ENEMY_TYPE::CHEERLEADER ||
+										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLBOY ||
+										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLGIRL)
+									{
+										// y값 보정
+										character->pos.y = obj->topPlane[0].getStart().y;
+										// 상태보정
+										enemy->setPlatform(obj);
+										enemy->SetState(EN_STATE::EN_IDLE);
+										enemy->getInfo().jumpPower = 0;
+										enemy->getInfo().isSky = false;
+									}
 								}
 								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
 								{
-									cout << character->pos.y << endl;
 									LRUDCollision(character, obj);
 								}
 							}
@@ -633,13 +634,18 @@ void CollisionManager::enemyObjectCollision(GameObject* character)
 								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
 									character->pos.y <= obj->topPlane[0].getStart().y + 5) // 해당 범위에 들어가면
 								{
-									// y값 보정
-									character->pos.y = obj->topPlane[0].getStart().y;
-									// 상태보정
-									_stageM->getPlayer()->setPlatform(obj);
-									_stageM->getPlayer()->setState(_stageM->getPlayer()->getInfo().preState);
-									_stageM->getPlayer()->setJumpPower(0);
-									_stageM->getPlayer()->setIsSky(false);
+									if (enemy->getEnemyType() == ENEMY_TYPE::CHEERLEADER ||
+										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLBOY ||
+										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLGIRL)
+									{
+										// y값 보정
+										character->pos.y = obj->topPlane[0].getStart().y;
+										// 상태보정
+										enemy->setPlatform(obj);
+										enemy->SetState(EN_STATE::EN_IDLE);
+										enemy->getInfo().jumpPower = 0;
+										enemy->getInfo().isSky = false;
+									}
 								}
 								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // 낙하 중 오브젝트 높이보다 낮을 때
 								{
@@ -673,18 +679,18 @@ void CollisionManager::enemyObjectCollision(GameObject* character)
 				}
 				else // 지면이 아닐 때(오브젝트 위일 때)
 				{
-					if (_stageM->getPlayer()->getPlatform() != nullptr)
+					if (enemy->getPlatform() != nullptr)
 					{
-						if (_stageM->getPlayer()->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// 벗어나면
-							character->shadow.LT.z > _stageM->getPlayer()->getPlatform()->bottomPlane[2].getStart().z ||					// 벗어나면
+						if (enemy->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// 벗어나면
+							character->shadow.LT.z > enemy->getPlatform()->bottomPlane[2].getStart().z ||					// 벗어나면
 							_stageM->getPlayer()->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// 벗어나면
-							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// 벗어나면
-							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[0].getEnd().x ||						// 벗어나면
-							character->shadow.RB.x < _stageM->getPlayer()->getPlatform()->bottomPlane[2].getEnd().x)						// 벗어나면
+							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// 벗어나면
+							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[0].getEnd().x ||						// 벗어나면
+							character->shadow.RB.x < enemy->getPlatform()->bottomPlane[2].getEnd().x)						// 벗어나면
 						{
-							_stageM->getPlayer()->setState(PL_STATE::JUMP);
-							_stageM->getPlayer()->setIsSky(true);
-							_stageM->getPlayer()->setJumpPower(0);
+							enemy->SetState(EN_STATE::EN_JUMP);
+							enemy->getInfo().isSky = true;
+							enemy->getInfo().jumpPower = 0;
 						}
 					}
 				}
@@ -700,25 +706,45 @@ void CollisionManager::destructObject()
 	{
 		for (int i = 0; i < vObj.size(); ++i)
 		{
-			if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
+			if (vObj[i]->getObj()->type == OBJECT_TYPE::VENDINGMACHINE)
 			{
-				RECT temp;
-				if (IntersectRect(&temp, &_player->getInfo().attackRc, &vObj[i]->getObj()->rc))
+				if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
 				{
-					vObj[i]->getObj()->destructionCount -= 1;
-				}
+					RECT temp;
+					if (IntersectRect(&temp, &_player->getInfo().attackRc, &vObj[i]->getObj()->rc))
+					{
+						vObj[i]->getObj()->destructionCount -= 1;
+					}
 
-				if (vObj[i]->getObj()->destructionCount <= 0)
-				{
-					vObj[i]->getObj()->des = OBJECT_DESTRUCTION::DESTRUCTION;
+					if (vObj[i]->getObj()->destructionCount <= 0)
+					{
+						vObj[i]->getObj()->des = OBJECT_DESTRUCTION::DESTRUCTION;
+					}
 				}
+			}
+		}
+	}
+}
 
-				if (vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_LEFT ||
-					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_RIGHT ||
-					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_LEFT ||
-					vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_RIGHT)
+void CollisionManager::bossDestructObject(Enemy* enemy)
+{
+	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
+	if (vObj.empty() == false)
+	{
+		for (int i = 0; i < vObj.size(); ++i)
+		{
+			if (vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_LEFT ||
+				vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_BIG_RIGHT ||
+				vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_LEFT ||
+				vObj[i]->getObj()->type == OBJECT_TYPE::PILLAR_RIGHT)
+			{
+				if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
 				{
-					_stageM->getStage()->getObjectM()->popObject(i);
+					RECT temp2;
+					if (IntersectRect(&temp2, &enemy->getInfo().rcAttack, &vObj[i]->getObj()->rc))
+					{
+						_stageM->getStage()->getObjectM()->popObject(i);
+					}
 				}
 			}
 		}

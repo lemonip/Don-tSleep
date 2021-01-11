@@ -9,6 +9,7 @@ class CollisionManager
 private:
 	StageManager* _stageM;
 	Player* _player;
+	Enemy* _enemy;
 	int testNum = 0;
 public:
 	CollisionManager() {};
@@ -27,11 +28,12 @@ public:
 
 	// 충돌 함수
 	void playerObjectCollision();
-	void enemyObjectCollision(GameObject* character);
+	void enemyObjectCollision(Enemy* enemy);
 
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	void setLinkPlayer(Player* player) { _player = player; }
 
 	void destructObject();
+	void bossDestructObject(Enemy* enemy);
 };
 

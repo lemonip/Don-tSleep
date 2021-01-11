@@ -6,7 +6,7 @@
 
 class enemyIdle : public IEnemyState
 {
-	
+	bool wait;
 public :
 	enemyIdle() {}
 	~enemyIdle() {}
