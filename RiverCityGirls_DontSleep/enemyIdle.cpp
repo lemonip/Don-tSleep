@@ -17,8 +17,7 @@ void enemyIdle::UpdateState()
 		//가까우면 공격한다.
 		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
 		{
-			_thisEn->SetState(EN_STATE::EN_JUMP);
-			/*
+			
 			switch (RND->getInt(4))
 			{
 			case 0:
@@ -32,7 +31,7 @@ void enemyIdle::UpdateState()
 				_thisEn->SetState(EN_STATE::EN_JUMP);
 				break;
 			}
-			*/
+			
 		}
 		else
 		{

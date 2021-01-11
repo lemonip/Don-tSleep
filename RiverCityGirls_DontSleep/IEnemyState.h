@@ -22,6 +22,8 @@ public:
 
 	void Jump();
 	void LookAtPlayer();
+	void Attack();
+	bool endFrame();
 	
 };
 

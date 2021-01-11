@@ -13,7 +13,3 @@ void cheerLeader::release()
 void cheerLeader::update()
 {
 }
-
-void cheerLeader::render()
-{
-}
