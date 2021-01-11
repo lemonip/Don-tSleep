@@ -11,9 +11,6 @@ void enemyJump::EnterState()
 
 void enemyJump::UpdateState()
 {
-	_thisEn->getObj()->pos.y -= _thisEn->getInfo().jumpPower;
-	_thisEn->getInfo().jumpPower -= GRAVITY;
-	
 	//책상 등에 플래이어가 올라갔는데 그 자리에서 점프만 하면 안 되므로 이동시켜 준다.
 	if (_thisEn->getInfo().dest == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
 	{
@@ -34,7 +31,9 @@ void enemyJump::UpdateState()
 	{
 		_thisEn->SetState(EN_STATE::EN_WALK);
 	}
-	if (_thisEn->getPlayerAddress()->getObj().pos.y == 0 && !_thisEn->getPlayerAddress()->getInfo().isSky)
+	//플래이어가 바닥에 있으면 점프 어택을 한다.
+	if (_thisEn->getPlayerAddress()->getObj().pos.y == 0 && !_thisEn->getPlayerAddress()->getInfo().isSky
+		&& _thisEn->getInfo().jumpPower <= JUMPPOWER/3*2)
 	{
 		_thisEn->SetState(EN_STATE::EN_JUMPATTACK);
 	}
@@ -43,6 +42,5 @@ void enemyJump::UpdateState()
 void enemyJump::ExitState()
 {
 	_thisEn->getInfo().jumpPower = 0;
-	_thisEn->getInfo().isSky = false;
 }
 

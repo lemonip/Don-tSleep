@@ -13,6 +13,9 @@ void playerStun::EnterState()
 
 void playerStun::UpdateState()
 {
+	/*
+	EFFECT_M->play("ef_spark", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
+		(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) *0.6);*/
 	if (TIME_M->getWorldTime()- _stateTimer >1.5f)
 	{
 		_thisPl->setIsControl(true);

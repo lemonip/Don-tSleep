@@ -184,7 +184,6 @@
     <ClInclude Include="enemyBegging.h" />
     <ClInclude Include="enemyDie.h" />
     <ClInclude Include="enemyDown.h" />
-    <ClInclude Include="enemyFriend.h" />
     <ClInclude Include="enemyGuard.h" />
     <ClInclude Include="enemyHeldHit.h" />
     <ClInclude Include="enemyHeldRelease.h" />
@@ -192,8 +191,6 @@
     <ClInclude Include="enemyIdle.h" />
     <ClInclude Include="enemyJump.h" />
     <ClInclude Include="enemyJumpAttack.h" />
-    <ClInclude Include="enemyLadder.h" />
-    <ClInclude Include="enemyLadderTransition.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="enemyRun.h" />
     <ClInclude Include="enemyRunAttack.h" />
@@ -322,7 +319,6 @@
     <ClCompile Include="enemyBegging.cpp" />
     <ClCompile Include="enemyDie.cpp" />
     <ClCompile Include="enemyDown.cpp" />
-    <ClCompile Include="enemyFriend.cpp" />
     <ClCompile Include="enemyGuard.cpp" />
     <ClCompile Include="enemyHeldHit.cpp" />
     <ClCompile Include="enemyHeldRelease.cpp" />
@@ -330,8 +326,6 @@
     <ClCompile Include="enemyIdle.cpp" />
     <ClCompile Include="enemyJump.cpp" />
     <ClCompile Include="enemyJumpAttack.cpp" />
-    <ClCompile Include="enemyLadder.cpp" />
-    <ClCompile Include="enemyLadderTransition.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="enemyRun.cpp" />
     <ClCompile Include="enemyRunAttack.cpp" />

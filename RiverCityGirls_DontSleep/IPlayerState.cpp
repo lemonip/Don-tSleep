@@ -41,11 +41,30 @@ bool IPlayerState::isEndFrame(bool reverse)
 	}
 }
 
+//무기 떨어뜨리기
 void IPlayerState::dropWeapon()
 {
-	if (!_thisPl->getInfo().attackObj) return;
+	//무기를 들고 있다면 떨어뜨리기
+	if (_thisPl->getInfo().hasWeapon)
+	{
+		//무기를 떨어뜨림.
+		_thisPl->getInfo().hasWeapon = false;
+		//무기의 떨어질 초기위치 설정
+		_thisPl->getInfo().attackObj->pos.x = _thisPl->getObj().pos.x;
+		_thisPl->getInfo().attackObj->pos.y = _thisPl->getObj().pos.y;
+		_thisPl->getInfo().attackObj->pos.z = _thisPl->getObj().pos.z;
 
-	_thisPl->getInfo().attackObj = NULL;
+		//무기 렌더 활성화
+		_thisPl->getInfo().attackObj->isRender = true;
+
+		//무기가 향할 골 설정
+		_thisPl->getInfo().attackGoal.x = _thisPl->getObj().pos.x;
+		if (_thisPl->getInfo().attackGoal.x > CAMERA_M->GetMapXSize())_thisPl->getInfo().attackGoal.x = CAMERA_M->GetMapXSize();
+		_thisPl->getInfo().attackObj->pos.y = _thisPl->getObj().pos.y - 100;
+		_thisPl->getInfo().attackGoal.z = _thisPl->getObj().pos.z;
+		_thisPl->getInfo().attackGoal.y = _thisPl->getObj().pos.y - 100;
+		_thisPl->getInfo().goalState = GOALPOS::WINOUT;
+	}
 
 }
 
@@ -114,6 +133,7 @@ bool IPlayerState::checkEnemy()
 void IPlayerState::sAttack()
 {
 	if (KEY_M->isOnceKeyDownV('D')) _thisPl->setState(PL_STATE::SATTACK);
+	//_thisPl->setState(PL_STATE::STUN);
 	{
 		//for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 		//{

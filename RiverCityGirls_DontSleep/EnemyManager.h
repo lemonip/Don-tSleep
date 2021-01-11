@@ -23,6 +23,8 @@ public:
 	virtual void render();
 
 	void pushEnemy(ENEMY_TYPE type, vector3 pos);
+	void popEnemy(int index);
+
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	vector<Enemy*> getVEnemy() { return _vEnemy; }
 

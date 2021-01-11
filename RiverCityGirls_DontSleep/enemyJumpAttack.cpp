@@ -5,7 +5,6 @@
 void enemyJumpAttack::EnterState()
 {
 	_thisEn->SetImage();
-	_thisEn->getInfo().jumpPower = JUMPPOWER;
 	_thisEn->getInfo().isSky = true;
 }
 
@@ -16,15 +15,7 @@ void enemyJumpAttack::UpdateState()
 
 	LookAtPlayer();
 
-	//공격 렉트 위치와 크기 설정
-	if (_thisEn->getInfo().dest == DIRECTION::RIGHT)
-	{
-		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.right, _thisEn->getObj()->rc.top, 100, 200);
-	}
-	else if (_thisEn->getInfo().dest == DIRECTION::LEFT)
-	{
-		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.left - 100, _thisEn->getObj()->rc.top, 100, 200);
-	}
+	Attack();
 
 	if (_thisEn->getObj()->pos.y > 0)
 	{
@@ -41,4 +32,5 @@ void enemyJumpAttack::ExitState()
 {
 	_thisEn->getInfo().jumpPower = 0;
 	_thisEn->getInfo().isSky = false;
+	_thisEn->getInfo().isAttack = false;
 }

@@ -51,7 +51,7 @@ void playerClimb::UpdateState()
 		_thisPl->getPObj()->pos = vector3(1560, 0, 950);
 	}
 
-	//렉트템프로 사다리 위로 올라가면 바로 상태변경
+	//사다리 위로 올라가면 바로 상태변경
 	if ((GetAsyncKeyState(VK_UP) & 0x8000) &&
 		_thisPl->getInfo().isClimb &&
 		_thisPl->getObj().pos.y <= -440)
@@ -61,7 +61,7 @@ void playerClimb::UpdateState()
 		_thisPl->getInfo().isClimb = false;
 	}
 
-	//렉트템프로 사다리 내려가면 바로 상태변경
+	//사다리 내려가면 바로 상태변경
 	//_thisPl->setState(PL_STATE::IDLE);
 }
 
