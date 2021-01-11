@@ -9,40 +9,35 @@ void enemyAttack2::EnterState()
 
 void enemyAttack2::UpdateState()
 {
-	
-	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::RIGHT);
-	else if (_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::LEFT);
-	if (_thisEn->getdest() == DIRECTION::RIGHT)
+	LookAtPlayer();
+
+	//공격 렉트 크기와 위치 설정
+	if (_thisEn->getInfo().dest == DIRECTION::RIGHT)
 	{
-		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.right, _thisEn->getObj()->rc.top, 50, 50);
+		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.right, _thisEn->getObj()->rc.top, 100, 200);
 	}
-	else if (_thisEn->getdest() == DIRECTION::LEFT)
+	else if (_thisEn->getInfo().dest == DIRECTION::LEFT)
 	{
-		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.left, _thisEn->getObj()->rc.top, -50, 50);
+		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.left - 100, _thisEn->getObj()->rc.top, 100, 200);
 	}
-	if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) >= 100)
+
+	//ATTACK2의 상태가 끝났다.
+	if (_thisEn->getInfo().dest == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
 	{
-		if (_thisEn->getdest() == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
-		{
-			_thisEn->SetState(EN_STATE::EN_PATROL);
-		}
-		else if (_thisEn->getdest() == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x <= 0)
-		{
-			_thisEn->SetState(EN_STATE::EN_PATROL);
-		}
-		
-	}
-	else
-	{
-		if (_thisEn->getdest() == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
-		{
+		//가까우면 때린다.
+		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
 			_thisEn->SetState(EN_STATE::EN_ATTACK3);
-		}
-		else if (_thisEn->getdest() == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x <= 0)
-		{
-			_thisEn->SetState(EN_STATE::EN_ATTACK3);
-		}
+		else _thisEn->SetState(EN_STATE::EN_IDLE);
+
 	}
+	else if (_thisEn->getInfo().dest == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x <= 0)
+	{
+		//가까우면 때린다.
+		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
+			_thisEn->SetState(EN_STATE::EN_ATTACK3);
+		else _thisEn->SetState(EN_STATE::EN_IDLE);
+	}
+
 	
 }
 

@@ -339,9 +339,6 @@
     <ClInclude Include="enemyGuard.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
-    <ClInclude Include="enemyHardAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClInclude>
     <ClInclude Include="enemyHeldHit.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
@@ -364,9 +361,6 @@
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="enemyLadderTransition.h">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyPatrol.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="enemyRun.h">
@@ -740,9 +734,6 @@
     <ClCompile Include="enemyGuard.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
-    <ClCompile Include="enemyHardAttack.cpp">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClCompile>
     <ClCompile Include="enemyHeldHit.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
@@ -765,9 +756,6 @@
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
     <ClCompile Include="enemyLadderTransition.cpp">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyPatrol.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
     <ClCompile Include="enemyRun.cpp">

@@ -1,9 +1,6 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
-#define GRAVITYVALUE 0.5f;       //중력수치
-#define JUMPPOWERVALUE 15.f		 //점프파워수치
-#define FRAMEINTERVAL 0.1f		 //프레임인터벌
 
 //전방선언
 class Player;
@@ -21,7 +18,6 @@ enum class EN_STATE
 	EN_JUMP,					   //점프
 	EN_LADDER,					   //사다리
 	EN_LADDERTRANSITION,		   //사다리 마지막 짚고 서기
-	EN_PATROL,					   //왔다갔다
 	EN_STUN,					   //기절
 	EN_BEGGING,					   //구걸
 	EN_DIE,						   //사망
@@ -48,12 +44,13 @@ enum class EN_STATE
 	EN_WTHROW,					   //무기+던지기
 	EN_WWALK,					   //무기+걷기
 };
+
 class Enemy : public gameNode
 {
 protected:
 
 	GameObject _obj;
-
+	GameObject* _platform;
 	struct tagInfo
 	{
 	public:
@@ -64,7 +61,7 @@ protected:
 		float gravity;               //중력
 		float attack;                 //공격력
 		float baseSpeed;              //최초 스피드
-		float speed;                  //이동속도
+		float speed;                  //이동 속도
 		float jumpPower;              //점프력
 		float frameTimer;            //프레임시간 타이머
 		float hp;					//체력
@@ -76,7 +73,6 @@ protected:
 		bool isSky;                 //공중에 있니
 		bool isPhase;				//페이즈에 들어갔니
 	};
-	
 
 	IEnemyState* _EState;
 	IEnemyState* _ES_IDLE;
@@ -109,15 +105,13 @@ protected:
 	IEnemyState* _ES_WTHROW;
 	IEnemyState* _ES_WWALK;
 
-
 	ENEMY_TYPE _ENEMY_TYPE;
-	EN_STATE _state;               //현재 상태 enum
+	EN_STATE _state;            //현재 상태 enum
+	tagInfo _info;				//보스,에너미 공용 구조체
 
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	Player* _player;			//플래이어
-
-	tagInfo _info;			//보스,에너미 공용 구조체
 
 public:
 	virtual HRESULT init(); 
@@ -130,19 +124,20 @@ public:
 	====================================================================*/
 	Player* getPlayerAddress() { return _player; }
 	tagInfo&    getInfo() { return _info; }
+	GameObject* getPlatform() { return _platform; }
 	GameObject* getObj() { return &_obj; }
 	GameObject& getRefObj() { return _obj; }
+	ENEMY_TYPE getEnemyType() { return _ENEMY_TYPE; }
 
 	/*====================================================================
 									SETTER
 	====================================================================*/
 	virtual void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
-	//virtual void setPosition(vector3 pos) { _obj.pos = pos; }
 	//virtual void setGoRight(bool go) { _info.goRight = go; }
 	//virtual void setIsAttack(bool attack) { _info.isAttack = attack; }
 	//virtual void setSpeed(float speed) { _info.speed = speed; }
-
-
+	virtual void setPosition(vector3 pos) { _obj.pos = pos; }
+	virtual void setPlatform(GameObject* obj) { _platform = obj; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
@@ -151,6 +146,5 @@ public:
 	virtual void SetState(EN_STATE state);
 	virtual void setFrame(int count, float frameInterval);
 	virtual void playFrame();
-	//virtual void setBool();
 };
 

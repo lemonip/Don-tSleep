@@ -14,7 +14,6 @@
 #include "enemyDie.h"
 #include "enemyDown.h"
 #include "enemyGuard.h"
-#include "enemyHardAttack.h"
 #include "enemyHeldHit.h"
 #include "enemyHeldRelease.h"
 #include "enemyFriend.h"
@@ -24,7 +23,6 @@
 #include "enemyJumpAttack.h"
 #include "enemyLadder.h"
 #include "enemyLadderTransition.h"
-#include "enemyPatrol.h"
 #include "enemyRun.h"
 #include "enemyRunAttack.h"
 #include "enemyStun.h"
@@ -51,7 +49,6 @@ HRESULT Enemy::init()
 	_ES_JUMP = new enemyJump;
 	_ES_LADDER = new enemyLadder;
 	_ES_LADDERTRANSITION = new enemyLadderTransition;
-	_ES_PATROL = new enemyPatrol;
 	_ES_STUN = new enemyStun;
 	_ES_BEGGING = new enemyBegging;
 	_ES_DIE = new enemyDie;
@@ -60,7 +57,6 @@ HRESULT Enemy::init()
 	_ES_FRIEND = new enemyFriend;
 	_ES_RUNATTACK = new enemyRunAttack;
 	_ES_JUMPATTACK = new enemyJumpAttack;
-	_ES_HARDATTACK = new enemyHardAttack;
 	_ES_ATTACK1 = new enemyAttack1;
 	_ES_ATTACK2 = new enemyAttack2;
 	_ES_ATTACK3 = new enemyAttack3;
@@ -132,7 +128,6 @@ void Enemy::SetState(EN_STATE state)
 	case EN_STATE::EN_JUMP:             _EState = _ES_JUMP;             break;
 	case EN_STATE::EN_LADDER:           _EState = _ES_LADDER;           break;
 	case EN_STATE::EN_LADDERTRANSITION: _EState = _ES_LADDERTRANSITION; break;
-	case EN_STATE::EN_PATROL:           _EState = _ES_PATROL;           break;
 	case EN_STATE::EN_STUN:             _EState = _ES_STUN;             break;
 	case EN_STATE::EN_BEGGING:          _EState = _ES_BEGGING;          break;
 	case EN_STATE::EN_DIE:              _EState = _ES_DIE;              break;
@@ -173,7 +168,6 @@ void Enemy::SetImage()
 	case EN_STATE::EN_JUMP:			 if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlJump"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyJump"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderJump"); }               break;
 	case EN_STATE::EN_LADDER:		 if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlLadder"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyLadder"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderLadder"); }               break;
 	case EN_STATE::EN_LADDERTRANSITION:     if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) { _obj.img = IMG_M->findImage("schoolGirlLadderTransition"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyLadderTransition"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderLadderTransition"); }               break;
-	case EN_STATE::EN_PATROL:      if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) { _obj.img = IMG_M->findImage("schoolGirlPatrol"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyPatrol"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderPatrol"); }               break;
 	case EN_STATE::EN_STUN:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlStun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyStun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerStun"); }               break;
 	case EN_STATE::EN_BEGGING:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlBegging"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyBegging"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerBegging"); }               break;
 	//case EN_STATE::EN_DIE:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerDie"); }               break;
@@ -291,7 +285,7 @@ void Enemy::playFrame()
 		//계속 재생(기본속도)
 	case EN_STATE::EN_IDLE:  case EN_STATE::EN_STUN:
 	case EN_STATE::EN_WALK:
-	case EN_STATE::EN_PATROL: case EN_STATE::EN_WIDLE:
+	case EN_STATE::EN_WIDLE:
 	case EN_STATE::EN_WWALK:
 		setFrame(2, FRAMEINTERVAL);
 		break;

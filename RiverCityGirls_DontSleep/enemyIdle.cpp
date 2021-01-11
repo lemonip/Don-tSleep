@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "enemyIdle.h"
 
-
-
 void enemyIdle::EnterState()
 {
 	_thisEn->SetImage();
 	_stateTimer = TIME_M->getWorldTime();
+	wait = RND->getInt(2);
 }
 
 void enemyIdle::UpdateState()
@@ -16,22 +15,19 @@ void enemyIdle::UpdateState()
 	
 	//플레이어가 나보다 높이 있고 공중이 아니면 점프를 한다
 	Jump();
-	//대기를 2초 이상 하면
-	if (TIME_M->getWorldTime() - _stateTimer > 2.f)
+	if ((wait && TIME_M->getWorldTime() - _stateTimer > 2.f) || !wait) //대기를 2초 이상 하면
 	{
-		//가까우면
+		//가까우면 공격한다.
 		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
 		{
 			switch (RND->getInt(4))
 			{
 			case 0:
-				_thisEn->SetState(EN_STATE::EN_ATTACK1);
-				break;
 			case 1:
 				_thisEn->SetState(EN_STATE::EN_ATTACK1);
 				break;
 			case 2:
-				_thisEn->SetState(EN_STATE::EN_ATTACK1);
+				_thisEn->SetState(EN_STATE::EN_ATTACK3);
 				break;
 			case 3:
 				_thisEn->SetState(EN_STATE::EN_JUMP);
@@ -57,7 +53,6 @@ void enemyIdle::UpdateState()
 					break;
 				}
 			}
-
 		}
 	}
 

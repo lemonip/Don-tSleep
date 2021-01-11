@@ -8,6 +8,7 @@
 #define GRAVITY 0.12f
 #define JUMPPOWER 7
 #define SPEED 5
+#define FRAMEINTERVAL 0.1f		 //프레임인터벌
 
 /*====================================================================
 	대화 종류입니다.
