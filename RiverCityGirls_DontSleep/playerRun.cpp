@@ -4,7 +4,7 @@
 void playerRun::EnterState()
 {
 	//이미지 변경
-	if (_thisPl->getInfo().attackObj)
+	if (_thisPl->getInfo().hasWeapon)
 	{
 		switch (_thisPl->getInfo().attackObj->weaponType)
 		{
@@ -18,7 +18,19 @@ void playerRun::EnterState()
 	}
 	else _thisPl->changeImg("pl_run", true);
 
-	
+	//방향에 따른 이팩트 실행
+	switch (_thisPl->getInfo().dest)
+	{
+	case DIRECTION::LEFT:
+		EFFECT_M->play("ef_runL", (_thisPl->getObj().rc.left + _thisPl->getObj().rc.right) / 2,
+			 _thisPl->getObj().rc.bottom);
+		break;
+	case DIRECTION::RIGHT:
+		break;
+	}
+
+
+
 	//키조작 가능
 	_thisPl->setIsControl(true);
 	//방향전환 가능

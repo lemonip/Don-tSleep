@@ -4,7 +4,7 @@
 void playerJump::EnterState()
 {
 	//이미지 변경
-	if (_thisPl->getInfo().attackObj)
+	if (_thisPl->getInfo().hasWeapon)
 	{
 		switch (_thisPl->getInfo().attackObj->weaponType)
 		{

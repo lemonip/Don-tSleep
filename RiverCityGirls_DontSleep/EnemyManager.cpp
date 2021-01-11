@@ -23,9 +23,15 @@ void EnemyManager::release()
 
 void EnemyManager::update()
 {
-	for (int i = 0; i < _vEnemy.size(); i++)
+	for (int i = 0; i < _vEnemy.size();)
 	{
 		_vEnemy[i]->update();
+
+		if (_vEnemy[i]->getInfo().isDead)
+		{ 
+			popEnemy(i);
+		}
+		else  i++;
 	}
 }
 
@@ -34,11 +40,6 @@ void EnemyManager::render()
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
 		ZORDER_M->renderObject(getMapDC(), _vEnemy[i]->getObj(), RENDERTYPE::FRAME_RENDER);
-		if (KEY_M->isToggleKey('O'))
-		{
-			Rectangle(getMapDC(), _vEnemy[i]->getInfo().rcAttack);
-		}
-
 		_vEnemy[i]->render();
 	}	
 }
@@ -66,4 +67,17 @@ void EnemyManager::pushEnemy(ENEMY_TYPE type, vector3 pos)
 	_enemy->setPosition(pos);
 	_enemy->init();
 	_vEnemy.push_back(_enemy);
+}
+
+void EnemyManager::popEnemy(int index)
+{
+	for (int i = 0; i < _vEnemy.size();)
+	{
+		if (i == index)
+		{
+			SAFE_DELETE(_vEnemy[i]);
+			_vEnemy.erase(_vEnemy.begin() + i);
+		}
+		else  i++;
+	}
 }

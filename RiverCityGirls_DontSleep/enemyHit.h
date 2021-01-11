@@ -3,6 +3,7 @@
 
 class enemyHit : public IEnemyState
 {
+	bool isDown;
 public :
 
 	virtual void EnterState();
