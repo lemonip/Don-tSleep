@@ -18,15 +18,17 @@ void playerThrow::EnterState()
 
 	_thisPl->getInfo().attackObj->isRender = true;
 
-	//무기가 향할 골 설정
+	//무기가 향할 골 설정/이미지 설정
 	if (_thisPl->getInfo().dest == DIRECTION::RIGHT)
 	{
+		_thisPl->getInfo().attackObj->imgIndex.y = 1;
 		_thisPl->getInfo().attackGoal.x = _thisPl->getObj().pos.x + WINSIZEX / 2;
 		if (_thisPl->getInfo().attackGoal.x > CAMERA_M->GetMapXSize())_thisPl->getInfo().attackGoal.x = CAMERA_M->GetMapXSize();
 	}
 
 	if (_thisPl->getInfo().dest == DIRECTION::LEFT)
 	{
+		_thisPl->getInfo().attackObj->imgIndex.y = 0;
 		_thisPl->getInfo().attackGoal.x = _thisPl->getObj().pos.x - WINSIZEX / 2;
 		if (_thisPl->getInfo().attackGoal.x < 0)_thisPl->getInfo().attackGoal.x = 0;
 	}
@@ -50,11 +52,10 @@ void playerThrow::UpdateState()
 	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 	{
 		if (//_thisPl->isRange(*_thisPl->getEnemyM()->getVEnemy()[i]->getObj(), 40)&&
-			 IntersectRect(&_temp, &_thisPl->getInfo().attackObj->rc,
+			 IntersectRect(&_temp, &_thisPl->getInfo().attackRc,
 				&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
 			_thisPl->getInfo().isAttack = true;
-			cout << "공";
 		}
 	}
 

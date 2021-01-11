@@ -310,6 +310,11 @@ bool Player::moveAttackObj()
 
 	_info.attackObj->pos.y -= sinf(getAngle(0, _info.attackObj->pos.y, 0, _info.attackGoal.y)) * 6.0f;
 	
+	//공격 렉트를 어택 오브젝트의 위치에 맞춤.
+	_info.attackRc = RectMakeCenter(_info.attackObj->pos.x,
+		_info.attackObj->pos.z + _info.attackObj->pos.y,
+		_info.attackObj->size.x + 200, _info.attackObj->size.z + 100);
+
 	if (getDistance(_info.attackObj->pos.x, _info.attackObj->pos.z + _info.attackObj->pos.y,
 		_info.attackGoal.x, _info.attackGoal.z + _info.attackGoal.y) < 5)
 	{

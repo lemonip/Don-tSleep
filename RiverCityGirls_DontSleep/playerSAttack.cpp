@@ -5,15 +5,19 @@
 
 void playerSAttack::EnterState()
 {
+	RECT temp;
 	//몹이 넘어져있으면 밟기로 변경
 	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 	{
 		
-		if (_thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_DOWN
-		 || _thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_WEAPONHIT)
+		if (IntersectRect(&temp, &_thisPl->getRefObj().rc,&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
-			_thisPl->setState(PL_STATE::STOMP);
-			return;
+			if(_thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_DOWN
+			 || _thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_WEAPONHIT)
+			{
+				_thisPl->setState(PL_STATE::STOMP);
+				return;
+			}
 		}
 	}
 
