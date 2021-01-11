@@ -16,6 +16,7 @@ void bossAttacked::EnterState()
 			_thisBs->ChangeImg("Bs_attacked1");
 		}
 
+
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
 			_thisBs->ChangeImg("Bs_attacked1");
@@ -51,6 +52,7 @@ void bossAttacked::EnterState()
 
 void bossAttacked::UpdateState()
 {		
+
 }
 
 void bossAttacked::ExitState()

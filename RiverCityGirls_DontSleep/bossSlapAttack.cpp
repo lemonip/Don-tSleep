@@ -21,9 +21,11 @@ void bossSlapAttack::UpdateState()
 	}
 	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 	{
+
 		_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 80, _thisBs->getObj()->pos.z - 200, 150, 200);
-	}	
+	}		
 }
+
 
 void bossSlapAttack::ExitState()
 {

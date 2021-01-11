@@ -6,7 +6,6 @@ void bossWait::EnterState()
 
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_idle");
-	
 	ResetFrame();
 }
 

@@ -31,6 +31,8 @@ enum class EN_STATE
 	EN_DOWN,					   //쓰러짐
 	EN_HELDHIT,					   //잡힌 다음 맞음
 	EN_HIT,						   //맞음
+	EN_HIT2,
+	EN_HIT3,
 	EN_WEAPONHIT,				   //무기로 맞음
 
 	EN_WATTACK,                    //무기+공격
@@ -93,6 +95,8 @@ protected:
 	IEnemyState* _ES_DOWN;
 	IEnemyState* _ES_HELDHIT;
 	IEnemyState* _ES_HIT;
+	IEnemyState* _ES_HIT2;
+	IEnemyState* _ES_HIT3;
 	IEnemyState* _ES_WEAPONHIT;
 	IEnemyState* _ES_WATTACK;
 	IEnemyState* _ES_WIDLE;
@@ -104,7 +108,7 @@ protected:
 	ENEMY_TYPE _ENEMY_TYPE;		//에너미 유형
 	EN_STATE _state;            //현재 상태 enum
 	tagInfo _info;				//정보
-	
+
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
 	Player* _player;			//플래이어
@@ -129,6 +133,9 @@ public:
 									SETTER
 	====================================================================*/
 	virtual void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	//virtual void setGoRight(bool go) { _info.goRight = go; }
+	//virtual void setIsAttack(bool attack) { _info.isAttack = attack; }
+	//virtual void setSpeed(float speed) { _info.speed = speed; }
 	virtual void setPosition(vector3 pos) { _obj.pos = pos; }
 	virtual void setPlatform(GameObject* obj) { _platform = obj; }
 	/*====================================================================

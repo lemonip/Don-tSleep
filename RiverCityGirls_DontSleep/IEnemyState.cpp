@@ -15,7 +15,6 @@ void IEnemyState::Jump()
 
 void IEnemyState::LookAtPlayer()
 {
-
 	//플래이어가 오른쪽에 있으면 오른쪽 방향을 본다. 반대면 왼쪽을 본다.
 	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->getInfo().dest = DIRECTION::RIGHT;
 	else if (_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->getInfo().dest = DIRECTION::LEFT;

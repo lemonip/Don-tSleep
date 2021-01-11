@@ -18,6 +18,7 @@ struct tagShadow
 class GameObject
 {
 public:
+	GameObject* obstacle;
 	OBJECT_GROUP group;		//그룹
 	OBJECT_TYPE type;		//오브젝트 타입
 	OBJECT_DESTRUCTION des; //파괴가능 여부

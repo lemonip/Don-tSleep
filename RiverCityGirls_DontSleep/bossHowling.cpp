@@ -7,13 +7,16 @@ void bossHowling::EnterState()
 {	
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
+
 	_thisBs->getInfo().isAttack = true;
+	   
 	LookatPlayer();
 	ResetFrame();
 }
 
 void bossHowling::UpdateState()
-{	
+{
+	
 
 	if (_thisBs->getInfo().isAttack)
 	{

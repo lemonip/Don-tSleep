@@ -21,6 +21,7 @@ void bossDashAttack::EnterState()
 
 void bossDashAttack::UpdateState()
 {
+
 	_speed = 5.0f;
 
 	_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);	

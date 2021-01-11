@@ -78,6 +78,8 @@ void Boss::update()
 	_obj.update();
 	_obj.shadowUpdate();
 
+
+
 	frameUpdate();
 
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
