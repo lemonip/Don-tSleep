@@ -31,8 +31,3 @@ void schoolGirl::update()
 	//대쉬강공격어택 / 점프어택 / 커맨드어택은 불값하나 있어야함! 한번 맞았으면 더이상 안맞게!
 
 }
-
-void schoolGirl::render()
-{
-
-}
