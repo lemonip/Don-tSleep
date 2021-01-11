@@ -8,27 +8,10 @@ void bossDashAttack::EnterState()
 	_enterTime = TIME_M->getWorldTime();
 	_speed = 0;
 	_thisBs->ChangeImg("Bs_dash2");
+	_thisBs->getInfo().isAttack = true;
 	
-	if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x)
-	{
-		_thisBs->getInfo().dest = DIRECTION::LEFT;
-	}
-	else if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x)
-	{
-		_thisBs->getInfo().dest = DIRECTION::RIGHT;
-	}
-
-	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
-	{
-		_thisBs->getObj()->imgIndex.x = 0;
-		_thisBs->getObj()->imgIndex.y = 1;
-	}
-
-	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-	{
-		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
-		_thisBs->getObj()->imgIndex.y = 0;
-	}
+	LookatPlayer();
+	ResetFrame();
 
 	_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 		_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
@@ -38,10 +21,21 @@ void bossDashAttack::EnterState()
 
 void bossDashAttack::UpdateState()
 {
-		
-	_speed = 4.0f;
+	_speed = 5.0f;
 
 	_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);	
+
+	if (_thisBs->getInfo().isAttack)
+	{
+		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+		{
+			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->rc.right, _thisBs->getObj()->rc.top, 100, 200);
+		}
+		else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+		{
+			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->rc.left - 100, _thisBs->getObj()->rc.top, 100, 200);
+		}		
+	}
 	
 	if (getDistance(_startPos.x, _startPos.z, _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z) > 500)
 	{
@@ -70,5 +64,5 @@ void bossDashAttack::UpdateState()
 void bossDashAttack::ExitState()
 {
 	//_thisBs->SetState(BS_STATE::HOWLING);
-	//_thisBs->getInfo().isAttack = true;
+	_thisBs->getInfo().isAttack = false;
 }

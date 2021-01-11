@@ -4,39 +4,57 @@
 
 void bossAttacked::EnterState()
 {
-	_thisBs->ChangeImg("Bs_attacked");
+	LookatPlayer();
+	
+	switch (RND->getInt(3))
+	{		
+		
+	case 0:
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+		{
+			
+			_thisBs->ChangeImg("Bs_attacked1");
+		}
 
-	if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x)
-	{
-		_thisBs->getInfo().dest = DIRECTION::LEFT;
-	}
-	else if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x)
-	{
-		_thisBs->getInfo().dest = DIRECTION::RIGHT;
-	}
+		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+		{
+			_thisBs->ChangeImg("Bs_attacked1");
+		}
+		break;
 
-	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
-	{
-		_thisBs->getObj()->imgIndex.x = 0;
-		_thisBs->getObj()->imgIndex.y = 1;
-	}
+	case 1:
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+		{
+			_thisBs->ChangeImg("Bs_attacked2");
+		}
 
-	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-	{
-		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
-		_thisBs->getObj()->imgIndex.y = 0;
+		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+		{
+			_thisBs->ChangeImg("Bs_attacked2");
+		}
+		break;
+
+	case 2:
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+		{
+			_thisBs->ChangeImg("Bs_attacked3");
+		}
+		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+		{
+			_thisBs->ChangeImg("Bs_attacked3");
+		}
+		break;
 	}
+	
+	ResetFrame();
 }
 
 void bossAttacked::UpdateState()
-{
-	
-
-	
-	
+{		
 }
 
 void bossAttacked::ExitState()
 {
 	_thisBs->SetState(BS_STATE::IDLE);
+	_thisBs->getInfo().isAttack = false;
 }

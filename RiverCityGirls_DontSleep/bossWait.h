@@ -10,7 +10,6 @@ class bossWait :public IBossState
 
 private: 
 	float _enterTime;
-
 public:
 
 	virtual void EnterState();
