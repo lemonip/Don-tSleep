@@ -11,11 +11,9 @@ void bossAttacked::EnterState()
 		
 	case 0:
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-		{
-			
+		{			
 			_thisBs->ChangeImg("Bs_attacked1");
 		}
-
 
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{

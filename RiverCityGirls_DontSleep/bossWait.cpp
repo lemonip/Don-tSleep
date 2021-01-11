@@ -3,7 +3,6 @@
 
 void bossWait::EnterState()
 {
-
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_idle");
 	ResetFrame();
@@ -29,7 +28,7 @@ void bossWait::UpdateState()
 			break;
 		case 2:
 			_thisBs->SetState(BS_STATE::BLOCK);
-			_thisBs->getInfo().isAttack = true;
+			
 			break;	
 		case 3:
 			_thisBs->SetState(BS_STATE::HOWLING);
@@ -51,7 +50,7 @@ void bossWait::UpdateState()
 				break;
 			case 2:
 				_thisBs->SetState(BS_STATE::BLOCK);
-				_thisBs->getInfo().isAttack = true;
+				
 				break;
 			case 3:
 				_thisBs->SetState(BS_STATE::HOWLING);

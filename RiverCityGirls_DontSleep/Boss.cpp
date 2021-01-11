@@ -78,9 +78,19 @@ void Boss::update()
 	_obj.update();
 	_obj.shadowUpdate();
 
-
-
 	frameUpdate();
+
+	if (_state != BS_STATE::DEATH && _state != BS_STATE::BLOCK)
+	{
+		if (_player->getInfo().isAttack)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
+			{
+				SetState(BS_STATE::ATTACKED);				
+			}
+		}
+	}
 
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);

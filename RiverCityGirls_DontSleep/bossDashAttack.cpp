@@ -30,11 +30,11 @@ void bossDashAttack::UpdateState()
 	{
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
-			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->rc.right, _thisBs->getObj()->rc.top, 100, 200);
+			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x + 80, _thisBs->getObj()->pos.z - 200, 100, 200);
 		}
 		else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{
-			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->rc.left - 100, _thisBs->getObj()->rc.top, 100, 200);
+			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 80, _thisBs->getObj()->pos.z - 200, 100, 200);
 		}		
 	}
 	
