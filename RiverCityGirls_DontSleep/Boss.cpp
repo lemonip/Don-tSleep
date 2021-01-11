@@ -55,7 +55,8 @@ HRESULT Boss::init()
 	_smash = new bossSmashAttack;
 	_standattack = new bossStandAttack;
 	
-	_info.isAttack = false;
+	_info.isAttack = false;	
+	_isPhase = false;
 
 	_BState = NULL;
 	SetState(BS_STATE::IDLE);
@@ -77,15 +78,24 @@ void Boss::update()
 	_obj.update();
 	_obj.shadowUpdate();
 
-
-
 	frameUpdate();
 
+	if (_state != BS_STATE::DEATH && _state != BS_STATE::BLOCK)
+	{
+		if (_player->getInfo().isAttack)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
+			{
+				SetState(BS_STATE::ATTACKED);				
+			}
+		}
+	}
 
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::DASH);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::DEATH);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::ELBOW);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DOWN);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD6)) SetState(BS_STATE::ELBOW);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD7)) SetState(BS_STATE::GROGGY);
@@ -227,7 +237,7 @@ void Boss::playFrame(int count)
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT: 
-		--_obj.imgIndex.x;
+		_obj.imgIndex.x--;
 		_obj.imgIndex.y = 0;
 		break;
 		

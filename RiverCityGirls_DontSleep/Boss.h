@@ -52,7 +52,7 @@ private:
 	IBossState*	_standattack;	//기상 어택
 	IBossState* _meteordown;
 	
-	bool isPhase;				//페이즈에 들어갔니
+	bool _isPhase;				//페이즈에 들어갔니
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;	
 	float _frameTimer;
@@ -67,12 +67,15 @@ public:
 	virtual void render();			//렌더
 
 	//접근자===================================================
+
+	bool getIsphase() { return _isPhase; }
+
 	//지정자===================================================
 	void SetState(BS_STATE state);
 	void SetDest(DIRECTION dest);
 	void setPosition(vector3 pos) { _obj.pos = pos; }	
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
-	
+	void setIsphase(bool isphase) { _isPhase = isphase; }
 
 	//기능함수===================================================
 	void playFrame(int count);

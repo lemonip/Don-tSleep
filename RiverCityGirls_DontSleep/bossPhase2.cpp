@@ -16,6 +16,7 @@ void bossPhase2::UpdateState()
 {
 	if (TIME_M->getWorldTime() - _enterTime > 3.0f)
 	{
+		_thisBs->setIsphase(true);
 		_thisBs->SetState(BS_STATE::WAIT);
 	}
 }
@@ -23,4 +24,5 @@ void bossPhase2::UpdateState()
 void bossPhase2::ExitState()
 {
 	_thisBs->SetState(BS_STATE::WAIT);
+	_thisBs->setIsphase(true);
 }

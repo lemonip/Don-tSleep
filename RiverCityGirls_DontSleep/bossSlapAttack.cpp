@@ -7,31 +7,25 @@ void bossSlapAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_slap");
+	_thisBs->getInfo().isAttack = true;
 
 	LookatPlayer();
-	ResetFrame();
-
-	/*if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-	{
-		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 50, _thisBs->getObj()->pos.z, 200, 100);
-
-		/*if (IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getObj().rc))
-		{
-
-		}
-	}
-
-	else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
-	{
-		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z, 200, 100);
-
-	}*/
+	ResetFrame();	
 }
 
 void bossSlapAttack::UpdateState()
 {	
-	Attack();	
+	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+	{
+		_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x + 80, _thisBs->getObj()->pos.z - 200, 150, 200);
+	}
+	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+	{
+
+		_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 80, _thisBs->getObj()->pos.z - 200, 150, 200);
+	}		
 }
+
 
 void bossSlapAttack::ExitState()
 {
