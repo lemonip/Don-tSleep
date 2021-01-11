@@ -8,17 +8,19 @@ void bossHowling::EnterState()
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
 
+	_thisBs->getInfo().isAttack = true;
+	   
 	LookatPlayer();
 	ResetFrame();
 }
 
 void bossHowling::UpdateState()
 {
-	Attack();
+	
 
 	if (_thisBs->getInfo().isAttack)
 	{
-		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z, 200, 200);
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150, 300, 300);
 	}
 	
 	if (TIME_M->getWorldTime() - _enterTime > 5.0f)

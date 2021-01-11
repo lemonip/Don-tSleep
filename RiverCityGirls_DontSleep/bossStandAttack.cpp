@@ -5,6 +5,7 @@ void bossStandAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_standat");
+	_thisBs->getInfo().isAttack = true;
 
 	LookatPlayer();
 	ResetFrame();
@@ -12,7 +13,13 @@ void bossStandAttack::EnterState()
 
 void bossStandAttack::UpdateState()
 {
-	Attack();
+<<<<<<< HEAD
+
+	if (_thisBs->getInfo().isAttack)
+	{
+		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
+	}
+	//Attack();
 
 	/*if (TIME_M->getWorldTime() - _enterTime > 2.0f)
 	{

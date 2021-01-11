@@ -31,6 +31,8 @@ enum class EN_STATE
 	EN_DOWN,					   //쓰러짐
 	EN_HELDHIT,					   //잡힌 다음 맞음
 	EN_HIT,						   //맞음
+	EN_HIT2,
+	EN_HIT3,
 	EN_WEAPONHIT,				   //무기로 맞음
 
 	EN_WATTACK,                    //무기+공격
@@ -93,6 +95,8 @@ protected:
 	IEnemyState* _ES_DOWN;
 	IEnemyState* _ES_HELDHIT;
 	IEnemyState* _ES_HIT;
+	IEnemyState* _ES_HIT2;
+	IEnemyState* _ES_HIT3;
 	IEnemyState* _ES_WEAPONHIT;
 	IEnemyState* _ES_WATTACK;
 	IEnemyState* _ES_WIDLE;
@@ -124,7 +128,7 @@ public:
 	GameObject* getObj() { return &_obj; }
 	GameObject& getRefObj() { return _obj; }
 	ENEMY_TYPE getEnemyType() { return _ENEMY_TYPE; }
-
+	EN_STATE getState() { return _state; }
 	/*====================================================================
 									SETTER
 	====================================================================*/

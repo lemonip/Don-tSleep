@@ -5,10 +5,26 @@
 
 void playerSAttack::EnterState()
 {
+	//몹이 넘어져있으면 밟기로 변경
+	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
+	{
+		
+		if (_thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_DOWN
+		 || _thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_WEAPONHIT)
+		{
+			_thisPl->setState(PL_STATE::STOMP);
+			return;
+		}
+	}
+
+	
 	//무기든 상태면 던지기로 상태변경
-	if (_thisPl->getInfo().attackObj) _thisPl->setState(PL_STATE::THROW);
+	if (_thisPl->getInfo().hasWeapon) _thisPl->setState(PL_STATE::THROW);
+
 	//무기를 들고 있지 않으면 이미지 변경
 	else _thisPl->changeImg("pl_sAttack", false);
+	
+	
 	
 	//방향에 따른 공격 렉트 생성
 	switch (_thisPl->getInfo().dest)
