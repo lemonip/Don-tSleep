@@ -504,6 +504,12 @@
     <ClInclude Include="IEnemyState.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
+    <ClInclude Include="enemyHit2.h">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyHit3.h">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -891,6 +897,12 @@
       <Filter>playGround\Player\Pet</Filter>
     </ClCompile>
     <ClCompile Include="IEnemyState.cpp">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyHit2.cpp">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyHit3.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
   </ItemGroup>

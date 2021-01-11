@@ -3,8 +3,7 @@
 
 class enemyHit : public IEnemyState
 {
-	bool isDown;
-public :
+public:
 
 	virtual void EnterState();
 	virtual void UpdateState();
