@@ -6,14 +6,11 @@ void enemyJumpAttack::EnterState()
 {
 	_thisEn->SetImage();
 	_thisEn->getInfo().isSky = true;
+	LookAtPlayer();
 }
 
 void enemyJumpAttack::UpdateState()
 {
-	_thisEn->getObj()->pos.y -= _thisEn->getInfo().jumpPower;
-	_thisEn->getInfo().jumpPower -= GRAVITY;
-
-	LookAtPlayer();
 
 	Attack();
 

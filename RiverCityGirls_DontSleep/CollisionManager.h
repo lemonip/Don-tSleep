@@ -10,6 +10,10 @@ private:
 	StageManager* _stageM;
 	Player* _player;
 	Enemy* _enemy;
+	bool checkLeft;
+	bool checkRight;
+	bool checkUp;
+	bool checkDown;
 	int testNum = 0;
 public:
 	CollisionManager() {};

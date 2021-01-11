@@ -10,6 +10,10 @@ class IEnemyState abstract
 protected:
 	Enemy* _thisEn;
 	float _stateTimer;
+	vector3 _tempPos;
+	bool _isGoBack;
+	float tempAngle;
+	float _checkTimer;
 public:
 	IEnemyState() {}
 	~IEnemyState() {}

@@ -5,12 +5,13 @@
 void enemyAttack3::EnterState()
 {
 	_thisEn->SetImage();
+	LookAtPlayer();
 }
 
 void enemyAttack3::UpdateState()
 {
 
-	LookAtPlayer();
+	
 	Attack();
 
 	//ATTACK3의 상태가 끝났다.

@@ -9,26 +9,8 @@ void bossDashAttack::EnterState()
 	_speed = 0;
 	_thisBs->ChangeImg("Bs_dash2");
 	
-	if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x)
-	{
-		_thisBs->getInfo().dest = DIRECTION::LEFT;
-	}
-	else if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x)
-	{
-		_thisBs->getInfo().dest = DIRECTION::RIGHT;
-	}
-
-	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
-	{
-		_thisBs->getObj()->imgIndex.x = 0;
-		_thisBs->getObj()->imgIndex.y = 1;
-	}
-
-	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-	{
-		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
-		_thisBs->getObj()->imgIndex.y = 0;
-	}
+	LookatPlayer();
+	ResetFrame();
 
 	_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 		_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
@@ -38,8 +20,9 @@ void bossDashAttack::EnterState()
 
 void bossDashAttack::UpdateState()
 {
-		
-	_speed = 4.0f;
+	Attack();
+
+	_speed = 5.0f;
 
 	_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);	
 	

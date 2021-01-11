@@ -5,12 +5,11 @@
 void enemyRunAttack::EnterState()
 {
 	_thisEn->SetImage();
+	LookAtPlayer();
 }
 
 void enemyRunAttack::UpdateState()
 {
-
-	LookAtPlayer();
 
 	Attack();
 
