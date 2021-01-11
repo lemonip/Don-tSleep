@@ -60,8 +60,8 @@ HRESULT Player::init()
 		_info.isAttack = false;
 		_info.isClimb = false;
 
-		_info.isThrow = false;
 		_info.hasMember = false;
+		_info.hasWeapon = false;
 
 		_info.dest = DIRECTION::RIGHT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
@@ -181,9 +181,11 @@ void Player::render()
 	//플래이어 오브젝트 렌더
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 
-	if(_info.attackObj)
+	//무기를 가지고 있을 때(던져버렸을때 던져지는 무기를 렌더)
+	if(!_info.hasWeapon)
 	{ 
-		if(_info.attackObj->isRender)
+		//오브젝트참조를 잃지 않았고, 렌더상태라면
+		if(_info.attackObj != NULL && _info.attackObj->isRender)
 		ZORDER_M->renderObject(getMapDC(), _info.attackObj, RENDERTYPE::FRAME_RENDER);
 	}
 
@@ -193,25 +195,8 @@ void Player::render()
 		Rectangle(getMapDC(), _obj.shadow.rc);
 		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
 	}
-	
-	/*
-	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT
-		&& _obj.imgIndex.x >= 3)
-		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
 
-	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::RIGHT
-		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX() - 2)
-		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
-	*/
-
-	//_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
-
-	/*
-		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
-	if (_info.state == PL_STATE::THROW && _info.dest ==DIRECTION::RIGHT
-		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX()-2)
-		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 1);*/
-}
+	}
 
 //상태 지정
 void Player::setState(PL_STATE state)
@@ -271,7 +256,7 @@ void Player::setState(PL_STATE state)
 bool Player::isRange(GameObject obj)
 {
 	//위치 차이가 15미만이면
-	if (abs(_obj.pos.z - obj.pos.z) < 15) return true;
+	if (abs(_obj.pos.z - obj.pos.z) < 40) return true;
 	return false;
 }
 
@@ -283,34 +268,10 @@ bool Player::isRange(GameObject obj, float value)
 	return false;
 }
 
-
+//무기업뎃
 void Player::weaponUpdate()
 {
 	if (!_info.attackObj) return;
-
-	//플레이어가 던지면 골상태를 화면밖으로 바꿈
-	if (_info.isThrow)
-	{
-		_info.isThrow = false;
-
-		//방향에 따른 x값설정
-		if (_info.dest == DIRECTION::RIGHT)
-		{
-			_info.attackGoal.x = _obj.pos.x + WINSIZEX / 2;
-			if (_info.attackGoal.x > CAMERA_M->GetMapXSize())_info.attackGoal.x = CAMERA_M->GetMapXSize();
-		}
-
-		if (_info.dest == DIRECTION::LEFT)
-		{
-			_info.attackGoal.x = _obj.pos.x - WINSIZEX / 2;
-			if (_info.attackGoal.x < 0)_info.attackGoal.x = 0;
-		}
-		_info.attackObj->pos.y = _obj.pos.y - 100;
-
-		_info.attackGoal.z = _obj.pos.z;
-		_info.attackGoal.y = _obj.pos.y - 100;
-		_info.goalState = GOALPOS::WINOUT;
-	}
 
 	switch (_info.goalState)
 	{
@@ -322,7 +283,6 @@ void Player::weaponUpdate()
 		{
 			if (_info.dest == DIRECTION::RIGHT) _info.attackGoal.x -= 30;
 			if (_info.dest == DIRECTION::LEFT) _info.attackGoal.x += 30;
-			//_info.attackGoal.z = _info.attackGoal.z;
 			_info.attackGoal.y = 0;
 			_info.goalState = GOALPOS::FLOOR;
 		}
@@ -623,7 +583,8 @@ void Player::movePos(float x, float z, float jumpPower)
 	_obj.update();
 }
 
-void Player::changePos(float x, float z, float y)
+//좌표설정
+void Player::setPos(float x, float z, float y)
 {
 	_obj.pos.x = x;
 	_obj.pos.z = z;
@@ -642,67 +603,6 @@ void Player::changePos(float x, float z, float y)
 	_obj.update();
 }
 
-
-/*
-//공격렉트 갱신
-void Player::renewAttackRc()
-{
-	_info.attackInfo._obj.pos.z = _obj.pos.z;
-	//무기에 따른 렉트 크기 설정
-	switch (_info.weaponType)
-	{
-	case WEAPON_TYPE::NONE:
-		_info.attackInfo.width = ATTACKSIZE * 0.4; break;
-	case WEAPON_TYPE::BAT:	case WEAPON_TYPE::BASEBALL:
-		_info.attackInfo._obj.img = IMG_M->findImage("bat");
-		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth(); break;
-	}
-
-	//상황에 따른 렉트 크기 설정
-	_info.attackInfo.height = ATTACKSIZE / 2;
-	switch (_info.state)
-	{
-	case PL_STATE::IDLE:_info.attackInfo.height = ATTACKSIZE / 2; break;
-	case PL_STATE::JUMPATTACK:_info.attackInfo.height = ATTACKSIZE; break;
-	case PL_STATE::THROW:
-		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth();
-		_info.attackInfo.height = IMG_M->findImage("bat")->getFrameHeight();
-		break;
-	case PL_STATE::SATTACKDOWN:_info.attackInfo.width = ATTACKSIZE * 0.7; break;
-	}
-
-	//무기를 날리는게 아닐경우
-	if (_info.state != PL_STATE::THROW)
-	{
-		//방향에따라 공격 렉트 위치 갱신
-		switch (_info.dest)
-		{
-		case DIRECTION::LEFT:
-			_info.attackInfo._obj.pos.x = _obj.pos.x - (_obj.rc.right - _obj.rc.left) / 2;
-			_info.attackInfo._obj.imgIndex.x = 0;
-			_info.attackInfo._obj.imgIndex.y = 1;
-			break;
-		case DIRECTION::RIGHT:
-			_info.attackInfo._obj.pos.x = _obj.pos.x + (_obj.rc.right - _obj.rc.left) / 2; break;
-		}
-		//상황에 따른 렉트 위치 갱신
-		//★ 커맨드 공격의 경우 가운데여야함
-		_info.attackInfo._obj.pos.y = (_obj.rc.bottom + _obj.rc.top) / 2;
-
-		switch (_info.state)
-		{
-		case PL_STATE::SATTACKDOWN:_info.attackInfo._obj.pos.x = _obj.pos.x; break;
-		}
-	}
-	//무기를 날릴 경우
-	else if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT)_info.attackInfo._obj.pos.x -= THROWSPEED;
-	else if (_info.state == PL_STATE::THROW&& _info.dest == DIRECTION::RIGHT)_info.attackInfo._obj.pos.x += THROWSPEED;
-
-	//렉트 갱신
-	_info.attackInfo._obj.rc = RectMakeCenter(_info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, _info.attackInfo.width, _info.attackInfo.height);
-
-}
-*/
 
 //중력작용
 void Player::gravity()

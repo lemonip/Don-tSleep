@@ -5,6 +5,9 @@ void playerDown::EnterState()
 {
 	//이미지변경
 	_thisPl->changeImg("pl_down", false);
+
+	//무기떨어뜨리기
+	dropWeapon();
 }
 
 void playerDown::UpdateState()

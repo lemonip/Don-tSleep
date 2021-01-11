@@ -9,7 +9,22 @@ void playerSAttackDown::EnterState()
 	//키입력 막음
 	_thisPl->setIsControl(false);
 
-	//무기타입을 없음으로 변경
+	//방향에 따른 공격 렉트 생성
+	switch (_thisPl->getInfo().dest)
+	{
+	case DIRECTION::LEFT:
+		_thisPl->getInfo().attackRc = RectMakeCenter(_thisPl->getObj().pos.x - _thisPl->getObj().size.x /6 ,
+			_thisPl->getObj().pos.z - _thisPl->getObj().size.z / 2 + _thisPl->getObj().pos.y,
+			ATTACKSIZE* 0.8, ATTACKSIZE / 2);
+		break;
+	case DIRECTION::RIGHT:
+		_thisPl->getInfo().attackRc = RectMakeCenter(_thisPl->getObj().pos.x + _thisPl->getObj().size.x / 6,
+			_thisPl->getObj().pos.z - _thisPl->getObj().size.z / 2 + _thisPl->getObj().pos.y,
+			ATTACKSIZE*0.8, ATTACKSIZE / 2);
+		break;
+	}
+
+	//무기떨어뜨리기
 	dropWeapon();
 
 }
