@@ -50,7 +50,7 @@ class Enemy : public gameNode
 protected:
 
 	GameObject _obj;
-
+	GameObject* _platform;
 	struct tagInfo
 	{
 	public:
@@ -108,6 +108,7 @@ protected:
 	ENEMY_TYPE _ENEMY_TYPE;
 	EN_STATE _state;            //현재 상태 enum
 	tagInfo _info;				//보스,에너미 공용 구조체
+	
 
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
@@ -124,16 +125,17 @@ public:
 	====================================================================*/
 	Player* getPlayerAddress() { return _player; }
 	tagInfo&    getInfo() { return _info; }
-
+	GameObject* getPlatform() { return _platform; }
 	GameObject* getObj() { return &_obj; }
 	GameObject& getRefObj() { return _obj; }
+	ENEMY_TYPE getEnemyType() { return _ENEMY_TYPE; }
 
 	/*====================================================================
 									SETTER
 	====================================================================*/
 	virtual void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	virtual void setPosition(vector3 pos) { _obj.pos = pos; }
-
+	virtual void setPlatform(GameObject* obj) { _platform = obj; }
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
