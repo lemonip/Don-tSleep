@@ -21,6 +21,8 @@ void enemyAttack1::UpdateState()
 		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.left-100, _thisEn->getObj()->rc.top, 100, 200);
 	}
 
+	_thisEn->getInfo().isAttack = true;
+
 	//ATTACK1의 상태가 끝났다.
 	if (_thisEn->getInfo().dest == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x >= _thisEn->getObj()->img->getMaxFrameX())
 	{
@@ -42,4 +44,5 @@ void enemyAttack1::UpdateState()
 
 void enemyAttack1::ExitState()
 {
+	_thisEn->getInfo().isAttack = false;
 }

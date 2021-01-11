@@ -3,7 +3,6 @@
 
 void IEnemyState::Jump()
 {
-
 	//플래이어가 나보다 높이 있고 공중이 아니면 점프를 한다.
 	if (_thisEn->getPlayerAddress()->getObj().pos.y < _thisEn->getObj()->pos.y && !_thisEn->getPlayerAddress()->getInfo().isSky)
 	{

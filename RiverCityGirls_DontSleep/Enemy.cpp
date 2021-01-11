@@ -126,8 +126,6 @@ void Enemy::SetState(EN_STATE state)
 	case EN_STATE::EN_WALK:             _EState = _ES_WALK;             break;
 	case EN_STATE::EN_RUN:              _EState = _ES_RUN;              break;
 	case EN_STATE::EN_JUMP:             _EState = _ES_JUMP;             break;
-	case EN_STATE::EN_LADDER:           _EState = _ES_LADDER;           break;
-	case EN_STATE::EN_LADDERTRANSITION: _EState = _ES_LADDERTRANSITION; break;
 	case EN_STATE::EN_STUN:             _EState = _ES_STUN;             break;
 	case EN_STATE::EN_BEGGING:          _EState = _ES_BEGGING;          break;
 	case EN_STATE::EN_DIE:              _EState = _ES_DIE;              break;
@@ -166,8 +164,6 @@ void Enemy::SetImage()
 	case EN_STATE::EN_WALK:		     if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWalk"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWalk"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderWalk"); }               break;
 	case EN_STATE::EN_RUN:			 if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlRun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyRun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderRun"); }               break;
 	case EN_STATE::EN_JUMP:			 if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlJump"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyJump"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderJump"); }               break;
-	case EN_STATE::EN_LADDER:		 if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlLadder"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyLadder"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderLadder"); }               break;
-	case EN_STATE::EN_LADDERTRANSITION:     if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) { _obj.img = IMG_M->findImage("schoolGirlLadderTransition"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyLadderTransition"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerLeaderLadderTransition"); }               break;
 	case EN_STATE::EN_STUN:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlStun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyStun"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerStun"); }               break;
 	case EN_STATE::EN_BEGGING:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlBegging"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyBegging"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerBegging"); }               break;
 	//case EN_STATE::EN_DIE:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyDie"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerDie"); }               break;
@@ -223,9 +219,6 @@ void Enemy::setFrame(int count, float frameInterval)
 			break;
 		case DIRECTION::LEFT:
 			--_obj.imgIndex.x;
-			break;
-		case DIRECTION::NONE:
-			++_obj.imgIndex.x;
 			break;
 		}
 	}
@@ -311,10 +304,6 @@ void Enemy::playFrame()
 	case EN_STATE::EN_ATTACK3:  case EN_STATE::EN_WATTACK:
 	case EN_STATE::EN_WTHROW:   case EN_STATE::EN_RUNATTACK:
 		setFrame(0, FRAMEINTERVAL);
-		break;
-		//Y¿Œµ¶Ω∫ 0!
-	case EN_STATE::EN_LADDER:    case EN_STATE::EN_LADDERTRANSITION:
-		setFrame(3, FRAMEINTERVAL*1.2);
 		break;
 	}
 }
