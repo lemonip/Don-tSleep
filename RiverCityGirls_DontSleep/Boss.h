@@ -52,7 +52,7 @@ private:
 	IBossState*	_standattack;	//기상 어택
 	IBossState* _meteordown;
 	
-	
+	bool isPhase;				//페이즈에 들어갔니
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;	
 	float _frameTimer;

@@ -22,7 +22,3 @@ void schoolBoy::update()
 {
 	Enemy::update();
 }
-
-void schoolBoy::render()
-{
-}
