@@ -17,6 +17,8 @@
 #include "enemyHeldHit.h"
 #include "enemyHeldRelease.h"
 #include "enemyHit.h"
+#include "enemyHit2.h"
+#include "enemyHit3.h"
 #include "enemyIdle.h"
 #include "enemyJump.h"
 #include "enemyJumpAttack.h"
@@ -68,6 +70,8 @@ HRESULT Enemy::init()
 	_ES_DOWN = new enemyDown;
 	_ES_HELDHIT = new enemyHeldHit;
 	_ES_HIT = new enemyHit;
+	_ES_HIT2 = new enemyHit2;
+	_ES_HIT3 = new enemyHit3;
 	_ES_WEAPONHIT = new enemyWeaponHit;
 	_ES_WATTACK = new enemyWAttack;
 	_ES_WIDLE = new enemyWIdle;
@@ -116,7 +120,15 @@ void Enemy::update()
 			{
 				if(_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
 				else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
-				else SetState(EN_STATE::EN_HIT);
+				else
+				{
+					if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
+					{
+						if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
+						else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
+						else SetState(EN_STATE::EN_HIT);
+					}	
+				}
 			}
 		}
 	}
@@ -170,6 +182,8 @@ void Enemy::SetState(EN_STATE state)
 	case EN_STATE::EN_DOWN:             _EState = _ES_DOWN;             break;
 	case EN_STATE::EN_HELDHIT:          _EState = _ES_HELDHIT;          break;
 	case EN_STATE::EN_HIT:              _EState = _ES_HIT;              break;
+	case EN_STATE::EN_HIT2:             _EState = _ES_HIT2;             break;
+	case EN_STATE::EN_HIT3:             _EState = _ES_HIT3;             break;
 	case EN_STATE::EN_WEAPONHIT:        _EState = _ES_WEAPONHIT;        break;
 	case EN_STATE::EN_WATTACK:          _EState = _ES_WATTACK;          break;
 	case EN_STATE::EN_WIDLE:            _EState = _ES_WIDLE;            break;
@@ -207,6 +221,9 @@ void Enemy::SetImage()
 	case EN_STATE::EN_DOWN:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlDown"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyDown"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerDown"); }               break;
 	case EN_STATE::EN_HELDHIT:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlHeldHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyHeldHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerHeldHit"); }               break;
 	case EN_STATE::EN_HIT:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerHit"); }               break;
+	case EN_STATE::EN_HIT2:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) { _obj.img = IMG_M->findImage("schoolGirlHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerHit"); }               break;					
+	case EN_STATE::EN_HIT3:			if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) { _obj.img = IMG_M->findImage("schoolGirlHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerHit"); }               break;					
+									
 	case EN_STATE::EN_DIE:			
 	case EN_STATE::EN_WEAPONHIT:	if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWeaponHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWeaponHit"); } else if (_ENEMY_TYPE == ENEMY_TYPE::CHEERLEADER) { _obj.img = IMG_M->findImage("schoolCheerWeaponHit"); }               break;
 	case EN_STATE::EN_WATTACK:		if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLGIRL) {_obj.img = IMG_M->findImage("schoolGirlWAttack"); } else if (_ENEMY_TYPE == ENEMY_TYPE::SCHOOLBOY) { _obj.img = IMG_M->findImage("schoolBoyWAttack"); }                break;
@@ -241,15 +258,18 @@ void Enemy::setFrame(int count, float frameInterval)
 	if (TIME_M->getWorldTime() - _info.frameTimer > frameInterval)
 	{
 		_info.frameTimer = TIME_M->getWorldTime();
-		switch (_info.dest)
+		if (_state != EN_STATE::EN_HIT && _state != EN_STATE::EN_HIT2 && _state != EN_STATE::EN_HIT3)
 		{
-		case DIRECTION::RIGHT:
-			++_obj.imgIndex.x;
-			break;
-		case DIRECTION::LEFT:
-			--_obj.imgIndex.x;
-			break;
-		}
+			switch (_info.dest)
+			{
+			case DIRECTION::RIGHT:
+				++_obj.imgIndex.x;
+				break;
+			case DIRECTION::LEFT:
+				--_obj.imgIndex.x;
+				break;
+			}
+		}	
 	}
 	
 

@@ -188,6 +188,8 @@
     <ClInclude Include="enemyHeldHit.h" />
     <ClInclude Include="enemyHeldRelease.h" />
     <ClInclude Include="enemyHit.h" />
+    <ClInclude Include="enemyHit2.h" />
+    <ClInclude Include="enemyHit3.h" />
     <ClInclude Include="enemyIdle.h" />
     <ClInclude Include="enemyJump.h" />
     <ClInclude Include="enemyJumpAttack.h" />
@@ -323,6 +325,8 @@
     <ClCompile Include="enemyHeldHit.cpp" />
     <ClCompile Include="enemyHeldRelease.cpp" />
     <ClCompile Include="enemyHit.cpp" />
+    <ClCompile Include="enemyHit2.cpp" />
+    <ClCompile Include="enemyHit3.cpp" />
     <ClCompile Include="enemyIdle.cpp" />
     <ClCompile Include="enemyJump.cpp" />
     <ClCompile Include="enemyJumpAttack.cpp" />

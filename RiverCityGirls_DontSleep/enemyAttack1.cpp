@@ -6,14 +6,11 @@ void enemyAttack1::EnterState()
 {
 	_thisEn->SetImage();
 	LookAtPlayer();
-
 }
 
 void enemyAttack1::UpdateState()
 {
-
 	Attack();
-
 
 	_thisEn->getInfo().isAttack = true;
 

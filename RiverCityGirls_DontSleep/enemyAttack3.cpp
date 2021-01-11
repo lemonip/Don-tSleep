@@ -10,8 +10,6 @@ void enemyAttack3::EnterState()
 
 void enemyAttack3::UpdateState()
 {
-
-	
 	Attack();
 
 	//ATTACK3의 상태가 끝났다.

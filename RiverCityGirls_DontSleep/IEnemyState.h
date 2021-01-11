@@ -17,6 +17,8 @@ protected:
 	bool _isGoBack;
 	float tempAngle;
 	float _checkTimer;
+	float _hitIdxTimer;
+	bool isDown;
 public:
 	IEnemyState() {}
 	~IEnemyState() {}
