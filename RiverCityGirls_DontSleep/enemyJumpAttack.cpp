@@ -5,7 +5,6 @@
 void enemyJumpAttack::EnterState()
 {
 	_thisEn->SetImage();
-	_thisEn->getInfo().jumpPower = JUMPPOWER;
 	_thisEn->getInfo().isSky = true;
 }
 
