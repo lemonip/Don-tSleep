@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BossStage.h"
+#include "Enemy.h"
 
 HRESULT BossStage::init()
 {
@@ -31,13 +32,21 @@ HRESULT BossStage::init()
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_BIG_RIGHT, vector3(2416, 0, 1000));
 
 	_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX , 0, WINSIZEY));
-
+	
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
 	//EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
 	//EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_START), false);
-	//EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_END), false);
+	////EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_END), false);
+
+	/*====================================================================
+		UI 보스 체력 바를 호출한다.
+	====================================================================*/
+	UI_M->addBar("bossHPBar", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(200, 580, 0),
+		&_enemyM->getVEnemy()[0]->getInfo().hp, &_enemyM->getVEnemy()[0]->getInfo().maxHp);
+	UI_M->findUI("bossHPBar")->setActive(true);
+	//if (_enemyM->getVEnemy().empty()) UI_M->findUI("bossHPBar")->setActive(false);
 
 	return S_OK;
 }

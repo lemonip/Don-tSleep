@@ -41,13 +41,14 @@ void playGround::addImage()
 	IMG_M->addImage("misuzu_2", "source/image/ui/scene/misuzu_2.bmp", 386, 460, true, MAGENTA);
 	IMG_M->addImage("misuzu_3", "source/image/ui/scene/misuzu_3.bmp", 386, 460, true, MAGENTA);
 
-
 	//================= UI =================
 	IMG_M->addImage("shadow", "source/image/character/shadow.bmp", 128, 38, true, MAGENTA, true);
 	IMG_M->addImage("bossHPBack", "source/image/ui/battle/boss_HP_back.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
+	IMG_M->addImage("UI_kyoko", "source/image/ui/scene/UI_Kyoko_Portrait.bmp", 120, 135, true, MAGENTA);
+
 	//================= 스테이지 =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
 	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);
