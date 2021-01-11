@@ -59,9 +59,9 @@ protected:
 	public:
 		RECT rcDamage;                //피격 범위 렉트 
 		RECT rcAttack;				   //공격 범위 렉트 
+		DIRECTION dest;
 
 		float gravity;               //중력
-		float angle;                 //각도
 		float attack;                 //공격력
 		float baseSpeed;              //최초 스피드
 		float speed;                  //이동속도
@@ -70,15 +70,13 @@ protected:
 		float hp;					//체력
 
 		bool isDead;               //죽었니
-		bool weapon;              //무기들었니
+		bool hasWeapon;              //무기들었니
 		bool goRight;              //오른쪽으로 가고있니
 		bool isAttack;				//공격했니
 		bool isSky;                 //공중에 있니
 		bool isPhase;				//페이즈에 들어갔니
 	};
 	
-
-	//tagInfo _info;                  //에너미 정보
 
 	IEnemyState* _EState;
 	IEnemyState* _ES_IDLE;
@@ -111,13 +109,9 @@ protected:
 	IEnemyState* _ES_WTHROW;
 	IEnemyState* _ES_WWALK;
 
-	DIRECTION _dest;
+
 	ENEMY_TYPE _ENEMY_TYPE;
 	EN_STATE _state;               //현재 상태 enum
-
-	//int _imageXIndex;			//이미지 가로 인덱스
-	//int _imageYIndex;			//이미지 세로 인덱스
-	
 
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크
@@ -137,28 +131,24 @@ public:
 	Player* getPlayerAddress() { return _player; }
 	tagInfo&    getInfo() { return _info; }
 	GameObject* getObj() { return &_obj; }
-
-	DIRECTION& getdest() { return _dest; }
-
 	GameObject& getRefObj() { return _obj; }
 
 	/*====================================================================
 									SETTER
 	====================================================================*/
 	virtual void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	//virtual void setPosition(vector3 pos) { _obj.pos = pos; }
+	//virtual void setGoRight(bool go) { _info.goRight = go; }
+	//virtual void setIsAttack(bool attack) { _info.isAttack = attack; }
+	//virtual void setSpeed(float speed) { _info.speed = speed; }
 
-	virtual void setPosition(vector3 pos) { _obj.pos = pos; }
-	virtual void setDest(DIRECTION dest) { _dest = dest; }
-	virtual void setGoRight(bool go) { _info.goRight = go; }
-	virtual void setIsAttack(bool attack) { _info.isAttack = attack; }
-	virtual void SetState(EN_STATE state);
-	virtual void setSpeed(float speed) { _info.speed = speed; }
 
 	/*====================================================================
 									FUNCTION
 	====================================================================*/
 	virtual void xzyMove(int x,int z, int y);
 	virtual void SetImage();
+	virtual void SetState(EN_STATE state);
 	virtual void setFrame(int count, float frameInterval);
 	virtual void playFrame();
 	//virtual void setBool();

@@ -199,8 +199,8 @@ void Enemy::SetImage()
 	}
 	
 	
-	if (_dest == DIRECTION::RIGHT) _obj.imgIndex.x = 0; 
-	else if (_dest == DIRECTION::LEFT) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+	if (_info.dest == DIRECTION::RIGHT) _obj.imgIndex.x = 0; 
+	else if (_info.dest == DIRECTION::LEFT) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 }
 
 
@@ -209,7 +209,7 @@ void Enemy::SetImage()
 void Enemy::setFrame(int count, float frameInterval)
 {
 
-	switch (_dest)
+	switch (_info.dest)
 	{
 	case DIRECTION::LEFT:
 		_obj.imgIndex.y = 1;
@@ -222,7 +222,7 @@ void Enemy::setFrame(int count, float frameInterval)
 	if (TIME_M->getWorldTime() - _info.frameTimer > frameInterval)
 	{
 		_info.frameTimer = TIME_M->getWorldTime();
-		switch (_dest)
+		switch (_info.dest)
 		{
 		case DIRECTION::RIGHT:
 			++_obj.imgIndex.x;
@@ -240,22 +240,22 @@ void Enemy::setFrame(int count, float frameInterval)
 	switch (count)
 	{
 	case 0:   // 재생 후 기본 상태
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			SetState(EN_STATE::EN_IDLE);
 		}
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
 		{
 			SetState(EN_STATE::EN_IDLE);
 		}
 		break;
 	case 1:        //한번 재생
 	{
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		}
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
 		{
 			_obj.imgIndex.x = 0;
 		}
@@ -263,11 +263,11 @@ void Enemy::setFrame(int count, float frameInterval)
 	break;
 	case 2:           //계속 재생
 	{
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = 0;
 		}
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
 		{
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		}
@@ -275,7 +275,7 @@ void Enemy::setFrame(int count, float frameInterval)
 	break;
 	case 3:         //좌우 상관없이 계속 재생
 	{
-		if (_dest == DIRECTION::NONE && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		if (_info.dest == DIRECTION::NONE && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = 0;
 		}

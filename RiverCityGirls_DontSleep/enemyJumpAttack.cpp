@@ -18,7 +18,7 @@ void enemyJumpAttack::UpdateState()
 	if (_thisEn->getdest() == DIRECTION::RIGHT)
 	{
 		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.right, _thisEn->getObj()->rc.top, 100, 200);
-	}
+	} 
 	else if (_thisEn->getdest() == DIRECTION::LEFT)
 	{
 		_thisEn->getInfo().rcAttack = RectMake(_thisEn->getObj()->rc.left - 100, _thisEn->getObj()->rc.top, 100, 200);
