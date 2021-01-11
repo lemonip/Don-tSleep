@@ -77,6 +77,8 @@ void Boss::update()
 	_obj.update();
 	_obj.shadowUpdate();
 
+
+
 	frameUpdate();
 
 
@@ -89,9 +91,9 @@ void Boss::update()
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD7)) SetState(BS_STATE::GROGGY);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD8)) SetState(BS_STATE::HOWLING);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD9)) SetState(BS_STATE::IDLE);
-	if (KEY_M->isOnceKeyDown('Q')) SetState(BS_STATE::METEOR);
-	if (KEY_M->isOnceKeyDown('W')) SetState(BS_STATE::METEORDOWN);
-	if (KEY_M->isOnceKeyDown('E')) SetState(BS_STATE::MOVE);
+	if (KEY_M->isOnceKeyDown('Q')) SetState(BS_STATE::DASH);
+	if (KEY_M->isOnceKeyDown('W')) SetState(BS_STATE::METEOR);
+	if (KEY_M->isOnceKeyDown('E')) SetState(BS_STATE::METEORDOWN);
 	if (KEY_M->isOnceKeyDown('R')) SetState(BS_STATE::SLAP);
 	if (KEY_M->isOnceKeyDown('T')) SetState(BS_STATE::SMASH);
 	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
@@ -164,6 +166,7 @@ void Boss::frameUpdate()
 		case BS_STATE::WAIT:
 		case BS_STATE::GROGGY:	
 		case BS_STATE::DOWN:
+		case BS_STATE::METEORDOWN:
 		playFrame(0);
 		break;
 
@@ -181,7 +184,7 @@ void Boss::frameUpdate()
 		case BS_STATE::HOWLING:
 		case BS_STATE::ATTACKED:
 		case BS_STATE::STANDATTACK:
-		case BS_STATE::METEORDOWN:
+		
 		playFrame(-1);
 		break;
 
@@ -214,8 +217,7 @@ void Boss::playFrame(int count)
 		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = 0;
 		break;
 	case 0:		//무한 재생
-		
-		
+		cout << "this?" << endl;
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;
 		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 		break;

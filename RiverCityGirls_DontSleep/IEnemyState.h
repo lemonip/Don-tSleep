@@ -13,6 +13,10 @@ protected:
 	//float _a1;
 	//float _a2;
 	float _stateTimer;
+	vector3 _tempPos;
+	bool _isGoBack;
+	float tempAngle;
+	float _checkTimer;
 public:
 	IEnemyState() {}
 	~IEnemyState() {}

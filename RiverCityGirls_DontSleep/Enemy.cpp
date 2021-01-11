@@ -120,6 +120,7 @@ void Enemy::update()
 			}
 		}
 	}
+	
 }
 
 void Enemy::render()
