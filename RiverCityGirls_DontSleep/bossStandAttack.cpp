@@ -13,8 +13,6 @@ void bossStandAttack::EnterState()
 
 void bossStandAttack::UpdateState()
 {
-<<<<<<< HEAD
-
 	if (_thisBs->getInfo().isAttack)
 	{
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
