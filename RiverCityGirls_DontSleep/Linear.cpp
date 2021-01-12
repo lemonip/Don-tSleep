@@ -76,7 +76,6 @@ bool Linear::segmentIntersect(Linear lB, vector3* vP)
 
 	if (AtoB <= 0 && BtoA <= 0)
 	{
-		//cout << "this?" << endl;
 		if (this->a == 9999)
 		{
 			vP->x = this->getStart().x;

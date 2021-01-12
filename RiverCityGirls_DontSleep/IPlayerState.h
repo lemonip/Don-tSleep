@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
 #include "Player.h"
+#include "StageManager.h"
+#include "Stage.h"
 
 class IPlayerState: public gameNode
 {
@@ -40,12 +42,14 @@ public:
 	void lineMove(float speed);
 	//좌우이동
 	void crossMove(float speed);
+	//사다리 이동
+	void ladderMove(float speed);
 
 	//업데이트 일시정지
 	bool pauseUpdate();
 	//프레임 재생 끝났는지 확인, 리버스 프레임이면 매개변수 true
 	bool isEndFrame(bool reverse);
-
+	//무기 떨어뜨리기
 	void dropWeapon();
 };
 

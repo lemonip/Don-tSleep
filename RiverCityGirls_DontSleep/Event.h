@@ -135,3 +135,22 @@ public:
 	virtual bool update();
 	virtual void exit();
 };
+
+/*====================================================================
+	Áö¿ª¶ô
+====================================================================*/
+class locationLock : public Event
+{
+private:
+	bool isStart;
+	bool isEnd;
+
+	int enemyCount;
+	int maxEnemyCount;
+public:
+	locationLock();
+
+	virtual void enter(int maxEnemy);
+	virtual bool update();
+	virtual void exit();
+};

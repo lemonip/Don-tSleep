@@ -5,39 +5,65 @@
 
 void bossDashAttack::EnterState()
 {
+	_enterTime = TIME_M->getWorldTime();
 	_speed = 0;
-	_thisBs->ChangeImg("Bs_dash");
+	_thisBs->ChangeImg("Bs_dash2");
+	_thisBs->getInfo().isAttack = true;
+	
+	LookatPlayer();
+	ResetFrame();
 
-	if (_thisBs->getdest() == DIRECTION::RIGHT)
-	{
-		_thisBs->getObj()->imgIndex.x = 0;
-		_thisBs->getObj()->imgIndex.y = 1;
-	}
+	_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
+		_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
 
-	else if (_thisBs->getdest() == DIRECTION::LEFT)
-	{
-		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
-		_thisBs->getObj()->imgIndex.y = 0;
-	}
+	_startPos = _thisBs->getObj()->pos;
 }
 
 void bossDashAttack::UpdateState()
 {
-	_speed = 8.0f;
 
-	
-	if (abs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 && abs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 20)
+	_speed = 5.0f;
+
+	_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);	
+
+	if (_thisBs->getInfo().isAttack)
 	{
-		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
-			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
-		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
-		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;
+		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+		{
+			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x + 80, _thisBs->getObj()->pos.z - 200, 100, 200);
+		}
+		else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+		{
+			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 80, _thisBs->getObj()->pos.z - 200, 100, 200);
+		}		
 	}
-	// 3번 공격 필요		
+	
+	if (getDistance(_startPos.x, _startPos.z, _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z) > 500)
+	{
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x <= 0)
+		{
+			_thisBs->SetState(BS_STATE::IDLE);
+		}
+		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x >= 9)
+		{
+			_thisBs->SetState(BS_STATE::IDLE);
+		}
+	}
+	else
+	{
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x <= 2)
+		{
+			_thisBs->getObj()->imgIndex = PointMake(9, 0);
+		}
+		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x >= 7)
+		{
+			_thisBs->getObj()->imgIndex = PointMake(0, 1);
+		}
+	}
 }
 
 void bossDashAttack::ExitState()
 {
-	_thisBs->SetState(BS_STATE::HOWLING);
-	_thisBs->getInfo().isAttack = true;
+	//_thisBs->SetState(BS_STATE::HOWLING);
+	_thisBs->getInfo().isAttack = false;
 }

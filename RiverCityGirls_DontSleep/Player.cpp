@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Player.h"
-//¿ÜºÎ
+//ì™¸ë¶€
 #include "StageManager.h"
 #include "Stage.h"
 #include "ObjectManager.h"
 #include "EnemyManager.h"
 #include "CollisionManager.h"
 #include "Enemy.h"
-//»óÅÂ
+//ìƒíƒœ
 #include "IPlayerState.h"
 #include "playerIdle.h"
 #include "playerWait.h"
@@ -38,39 +38,47 @@
 #include "playerSAttackDown.h"
 
 #include "Weapon.h"
-//ÃÊ±âÈ­
+//ì´ˆê¸°í™”
 HRESULT Player::init()
 {
 	/*====================================================================
-		ÇÃ·¡ÀÌ¾îÀÇ ¿ÀºêÁ§Æ® ÃÊ±âÈ­¿Í ±âº» ¼³Á¤À» ÇÕ´Ï´Ù.
+		í”Œë˜ì´ì–´ì˜ ì˜¤ë¸Œì íŠ¸ ì´ˆê¸°í™”ì™€ ê¸°ë³¸ ì„¤ì •ì„ í•©ë‹ˆë‹¤.
 	====================================================================*/
 	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wait"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
 
-	//±âº» º¯¼ö ÃÊ±âÈ­
+	//ê¸°ë³¸ ë³€ìˆ˜ ì´ˆê¸°í™”
 	{
 		_obj.ani = new animation;
-		_info.hp = _info.maxHP = 100;
 		_info.jumpPower = 0;
 		_info.speed = 4.f;
 
+		_info.hasMember = false;
+		_info.hasWeapon = false;
+		_info.isImmune = false;
+		_info.isAttack = false;
+		_info.isHit = false;
 		_info.isDead = false;
 		_info.isControl = true;
 		_info.isConDest = true;
 		_info.isSky = false;
-		_info.isAttack = false;
 		_info.isClimb = false;
-		_info.isThrow = false;
-		_info.hasMember = false;
 
-		_info.dest = DIRECTION::RIGHT;
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
-		_info.rendType = RENDERTYPE::FRAME_RENDER;
-		_info.frameTimer = TIME_M->getWorldTime();
-		_info.hitCount = 3;
+		_info.dest = DIRECTION::RIGHT;
 		_info.goalState = GOALPOS::PLAYER;
+
+		_info.hp = _info.maxHP = 100;
+		_info.force = 10;
+		_info.LV = 1;
+		_info.exp = 0;
+		_info.hitCount = 3;
+
+		_info.frameTimer = TIME_M->getWorldTime();
+		_info.rendType = RENDERTYPE::FRAME_RENDER;
+		_info.immuneTimer = 0;
 	}
 
-	//»óÅÂÆĞÅÏ µî·Ï
+	//ìƒíƒœíŒ¨í„´ ë“±ë¡
 	{
 		_idle = new playerIdle;
 		_wait = new playerWait;
@@ -111,7 +119,7 @@ void Player::release()
 {
 }
 
-//¾÷µ« ¼ø¼­ Áß¿äÇÔ¡Ú »óÅÂ->Áß·Â->Å°ÀÔ·Â
+//ì—…ëƒ ìˆœì„œ ì¤‘ìš”í•¨â˜… ìƒíƒœ->ì¤‘ë ¥->í‚¤ì…ë ¥
 void Player::update()
 {
 	//cout << (int)_info.state<< endl;
@@ -119,96 +127,96 @@ void Player::update()
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
-	//»óÅÂ¾÷µ¥ÀÌÆ®
+	//ìƒíƒœì—…ë°ì´íŠ¸
 	_IState->UpdateState();
 
-	//Áß·ÂÀÛ¿ë
+	//ì¤‘ë ¥ì‘ìš©
 	gravity();
 
-	//Å°ÀÔ·Â
+	//í‚¤ì…ë ¥
 	keyInput();
+
 	
-	//¹«±â ¾÷µ«
+	 hit();
+	 //ë¬´ê¸° ì—…ëƒ
 	if (_info.attackObj!=NULL)weaponUpdate();
 
-	//¿ÀºêÁ§Æ® ¾÷µ«
+	//ì˜¤ë¸Œì íŠ¸ ì—…ëƒ
 	_obj.update();
 	_obj.shadowUpdate();
 	
-	//¾Ö´Ï ÇÁ·¹ÀÓ ¾÷µ«
+	//ì• ë‹ˆ í”„ë ˆì„ ì—…ëƒ
 	if (_info.rendType == RENDERTYPE::ANI_RENDER) _obj.ani->frameUpdate(TIME_M->getElapsedTime() * 7);
 
-	//ÇÁ·¹ÀÓ¾÷µ«
+	//í”„ë ˆì„ì—…ëƒ
 	playFrame();
 
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD0))
 	{
-		cout << "±×¸²ÀÚ LT X: " << _obj.shadow.LT.x << endl;
-		cout << "±×¸²ÀÚ LT Y: " << _obj.shadow.LT.y << endl;
-		cout << "±×¸²ÀÚ LT Z: " << _obj.shadow.LT.z << endl;
-		cout << "ÇÃ·§Æû X: " << _platform->bottomPlane[0].getEnd().x << endl;
-		cout << "ÇÃ·§Æû Y: " << _platform->bottomPlane[0].getEnd().y << endl;
-		cout << "ÇÃ·§Æû Z: " << _platform->bottomPlane[0].getEnd().z << endl;
+		cout << "ê·¸ë¦¼ì LT X: " << _obj.shadow.LT.x << endl;
+		cout << "ê·¸ë¦¼ì LT Y: " << _obj.shadow.LT.y << endl;
+		cout << "ê·¸ë¦¼ì LT Z: " << _obj.shadow.LT.z << endl;
+
+		cout << "ê·¸ë¦¼ì pos X: " << _obj.shadow.pos.x << endl;
+		cout << "ê·¸ë¦¼ì pos Y: " << _obj.shadow.pos.y << endl;
+		cout << "ê·¸ë¦¼ì pos Z: " << _obj.shadow.pos.z << endl;
+
+		cout << "ìºë¦­í„° X: " << _obj.pos.x << endl;
+		cout << "ìºë¦­í„° Y: " << _obj.pos.y << endl;
+		cout << "ìºë¦­í„° Z: " << _obj.pos.z << endl;
+		if (_platform != nullptr)
+		{
+			cout << "í”Œë«í¼ X: " << _platform->bottomPlane[0].getEnd().x << endl;
+			cout << "í”Œë«í¼ Y: " << _platform->bottomPlane[0].getEnd().y << endl;
+			cout << "í”Œë«í¼ Z: " << _platform->bottomPlane[0].getEnd().z << endl;
+		}
+		else cout << "NULL" << endl;
+		
 	}
+	
 }
 
-//·»´õ
+//ë Œë”
 void Player::render()
 {
 	/*====================================================================
-		Z-ORDER¿¡ µû¶ó ¾ËÆÄ ÇÁ·¹ÀÓ ·»´õ ½ÃÅµ´Ï´Ù.
+		Z-ORDERì— ë”°ë¼ ì•ŒíŒŒ í”„ë ˆì„ ë Œë” ì‹œí‚µë‹ˆë‹¤.
 	====================================================================*/
 
-	//ÇÃ·¡ÀÌ¾î ¿ÀºêÁ§Æ® ·»´õ
+	//í”Œë˜ì´ì–´ ì˜¤ë¸Œì íŠ¸ ë Œë”
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 
-	if(_info.attackObj)
+	//ë¬´ê¸°ë¥¼ ê°€ì§€ê³  ìˆì„ ë•Œ(ë˜ì ¸ë²„ë ¸ì„ë•Œ ë˜ì ¸ì§€ëŠ” ë¬´ê¸°ë¥¼ ë Œë”)
+	if(!_info.hasWeapon)
 	{ 
-		if(_info.attackObj->isRender)
+		//ì˜¤ë¸Œì íŠ¸ì°¸ì¡°ë¥¼ ìƒì§€ ì•Šì•˜ê³ , ë Œë”ìƒíƒœë¼ë©´
+		if(_info.attackObj != NULL && _info.attackObj->isRender)
 		ZORDER_M->renderObject(getMapDC(), _info.attackObj, RENDERTYPE::FRAME_RENDER);
 	}
 
-	//µğ¹ö±ë ½Ã ·ºÆ® ·»´õ
+	//ë””ë²„ê¹… ì‹œ ë ‰íŠ¸ ë Œë”
 	if (KEY_M->isToggleKey(VK_SHIFT))
 	{
 		Rectangle(getMapDC(), _obj.shadow.rc);
 		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
 	}
-	
-	/*
-	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT
-		&& _obj.imgIndex.x >= 3)
-		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
 
-	if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::RIGHT
-		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX() - 2)
-		ZORDER_M->renderObject(getMapDC(), &_info.attackObj, RENDERTYPE::FRAME_RENDER);
-	*/
+	}
 
-	//_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
-
-	/*
-		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 0);
-	if (_info.state == PL_STATE::THROW && _info.dest ==DIRECTION::RIGHT
-		&& _obj.imgIndex.x <= _obj.img->getMaxFrameX()-2)
-		_info.attackInfo._obj.img->frameRender(getMapDC(), _info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, 0, 1);*/
-}
-
-//»óÅÂ ÁöÁ¤
+//ìƒíƒœ ì§€ì •
 void Player::setState(PL_STATE state)
 {
-	if (_info.state == state)return;	//°°Àº »óÅÂ¸é º¯°æÇÏÁö ¾Ê´Â´Ù.
-	_info.preState = _info.state;		//º¯°æ Àü ÇöÀç »óÅÂ¸¦ ÀúÀåÇÑ´Ù.
-	_info.state = state;				//ÇöÀç »óÅÂ¸¦ º¯°æÇÑ´Ù.
+	if (_info.state == state)return;	//ê°™ì€ ìƒíƒœë©´ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
+	_info.preState = _info.state;		//ë³€ê²½ ì „ í˜„ì¬ ìƒíƒœë¥¼ ì €ì¥í•œë‹¤.
+	_info.state = state;				//í˜„ì¬ ìƒíƒœë¥¼ ë³€ê²½í•œë‹¤.
 
-	cout << "ÇöÀç»óÅÂ" << (int)_info.state << endl;
-	//»óÅÂ¸¦ ºüÁ®³ª¿Â´Ù
+	//ìƒíƒœë¥¼ ë¹ ì ¸ë‚˜ì˜¨ë‹¤
 	if (_IState != NULL) _IState->ExitState();
 
-	//»óÅÂ¸¦ º¯°æÇÑ´Ù
+	//ìƒíƒœë¥¼ ë³€ê²½í•œë‹¤
 	switch (_info.state)
 	{
-		//±âº»µ¿ÀÛ
+		//ê¸°ë³¸ë™ì‘
 	case PL_STATE::IDLE:	    _IState = _idle;		 break;
 	case PL_STATE::WAIT:	    _IState = _wait;		 break;
 	case PL_STATE::WALK:	    _IState = _walk;		 break;
@@ -218,18 +226,16 @@ void Player::setState(PL_STATE state)
 	case PL_STATE::CLIMB:      _IState = _climb;		 break;
 	case PL_STATE::CLIMBTOP:   _IState = _climbTop;		 break;
 	case PL_STATE::PICK:      _IState = _pick;			 break;
-		//°¡µå ¹× ÇÇ°İ
-	case PL_STATE::GRAB:       _IState = _grab;			break;
+		//ê°€ë“œ ë° í”¼ê²©
+	case PL_STATE::GRAB:       _IState = _grab;			 break;
 	case PL_STATE::GUARD:       _IState = _guard;		 break;
 	case PL_STATE::ROLL:       _IState = _roll;			 break;
 	case PL_STATE::HIT:		    _IState = _hit;			 break;
 	case PL_STATE::STUN:        _IState = _stun;		 break;
-	case PL_STATE::STAND:		_IState = _stand;
-		_info.hitCount = 3;
-		break;
+	case PL_STATE::STAND:		_IState = _stand;		 break;
 	case PL_STATE::DOWN:	    _IState = _down;		 break;
 	case PL_STATE::DEAD:	    _IState = _dead;		 break;
-		// °ø°İ
+		// ê³µê²©
 	case PL_STATE::THROW:	    _IState = _throw;		 break;
 	case PL_STATE::STOMP:	    _IState = _stomp;		 break;
 	case PL_STATE::COMBO1:	    _IState = _combo1;		 break;
@@ -243,67 +249,42 @@ void Player::setState(PL_STATE state)
 	default: break;
 	}
 
-	//»óÅÂ¿¡ ¸µÅ©ÇÏ°í ÁøÀÔÇÑ´Ù.
+	//ìƒíƒœì— ë§í¬í•˜ê³  ì§„ì…í•œë‹¤.
 	_IState->LinkPlAddress(this);
 	_IState->EnterState();
 }
 
-//°°Àº ÁÙ À¯¹«
+//ê°™ì€ ì¤„ ìœ ë¬´
 bool Player::isRange(GameObject obj)
 {
-	//À§Ä¡ Â÷ÀÌ°¡ 15¹Ì¸¸ÀÌ¸é
-	if (abs(_obj.pos.z - obj.pos.z) < 15) return true;
+	//ìœ„ì¹˜ ì°¨ì´ê°€ 15ë¯¸ë§Œì´ë©´
+	if (abs(_obj.pos.z - obj.pos.z) < 40) return true;
 	return false;
 }
 
-//°°Àº ÁÙ À¯¹«
+//ê°™ì€ ì¤„ ìœ ë¬´
 bool Player::isRange(GameObject obj, float value)
 {
-	//À§Ä¡ Â÷ÀÌ°¡ °ª ¹Ì¸¸ÀÌ¸é
+	//ìœ„ì¹˜ ì°¨ì´ê°€ ê°’ ë¯¸ë§Œì´ë©´
 	if (abs(_obj.pos.z - obj.pos.z) < value) return true;
 	return false;
 }
 
-
+//ë¬´ê¸°ì—…ëƒ
 void Player::weaponUpdate()
 {
 	if (!_info.attackObj) return;
-
-	//ÇÃ·¹ÀÌ¾î°¡ ´øÁö¸é °ñ»óÅÂ¸¦ È­¸é¹ÛÀ¸·Î ¹Ù²Ş
-	if (_info.isThrow)
-	{
-		_info.isThrow = false;
-
-		//¹æÇâ¿¡ µû¸¥ x°ª¼³Á¤
-		if (_info.dest == DIRECTION::RIGHT)
-		{
-			_info.attackGoal.x = _obj.pos.x + WINSIZEX / 2;
-			if (_info.attackGoal.x > CAMERA_M->GetMapXSize())_info.attackGoal.x = CAMERA_M->GetMapXSize();
-		}
-
-		if (_info.dest == DIRECTION::LEFT)
-		{
-			_info.attackGoal.x = _obj.pos.x - WINSIZEX / 2;
-			if (_info.attackGoal.x < 0)_info.attackGoal.x = 0;
-		}
-		_info.attackObj->pos.y = _obj.pos.y - 100;
-
-		_info.attackGoal.z = _obj.pos.z;
-		_info.attackGoal.y = _obj.pos.y - 100;
-		_info.goalState = GOALPOS::WINOUT;
-	}
 
 	switch (_info.goalState)
 	{
 	case GOALPOS::PLAYER:
 		break;
 	case GOALPOS::WINOUT:
-		//°ñ·Î ÀÌµ¿ÇÏ´Ù°¡ È­¸é°ñ¿¡ °¡¸é °ñ»óÅÂ¸¦ ¹Ù´ÚÀ¸·Î º¯°æ
+		//ê³¨ë¡œ ì´ë™í•˜ë‹¤ê°€ í™”ë©´ê³¨ì— ê°€ë©´ ê³¨ìƒíƒœë¥¼ ë°”ë‹¥ìœ¼ë¡œ ë³€ê²½
 		if (moveAttackObj())
 		{
 			if (_info.dest == DIRECTION::RIGHT) _info.attackGoal.x -= 30;
 			if (_info.dest == DIRECTION::LEFT) _info.attackGoal.x += 30;
-			//_info.attackGoal.z = _info.attackGoal.z;
 			_info.attackGoal.y = 0;
 			_info.goalState = GOALPOS::FLOOR;
 		}
@@ -329,6 +310,11 @@ bool Player::moveAttackObj()
 
 	_info.attackObj->pos.y -= sinf(getAngle(0, _info.attackObj->pos.y, 0, _info.attackGoal.y)) * 6.0f;
 	
+	//ê³µê²© ë ‰íŠ¸ ìƒì„±
+	_info.attackRc = RectMakeCenter(_info.attackObj->pos.x,
+		_info.attackObj->pos.z + _info.attackObj->pos.y,
+		_info.attackObj->size.x + 200, _info.attackObj->size.z + 100);
+
 	if (getDistance(_info.attackObj->pos.x, _info.attackObj->pos.z + _info.attackObj->pos.y,
 		_info.attackGoal.x, _info.attackGoal.z + _info.attackGoal.y) < 5)
 	{
@@ -340,52 +326,101 @@ bool Player::moveAttackObj()
 	return false;
 }
 
-//½ºÅ×ÀÌÁö°¡ ¹Ù²ğ ¶§¸¶´Ù ÃÊ±âÈ­½ÃÅ°´Â ÇÔ¼ö
+void Player::hit()
+{
+	//ì´ë®¨ ìƒíƒœê°€ ì•„ë‹ˆë©´ íƒ€ì´ë¨¸ ì´ˆê¸°í™”
+	if (!_info.isImmune)
+	_info.immuneTimer = TIME_M->getWorldTime();
+
+	//ì´ë®¨ ìƒíƒœê³  4ì´ˆê°€ ì§€ë‚¬ë‹¤ë©´ ì´ë®¨ ëë‚¨
+	 if (_info.isImmune && TIME_M->getWorldTime() - _info.immuneTimer > 4.f)
+	{
+		_info.isImmune = false;
+		_obj.alpha = 255;
+	}
+
+	 //í”¼ê°€ 0ì´í•˜ê°€ ë˜ë©´
+	 if (_info.hp <= 0)setState(PL_STATE::DEAD);
+
+	//Dead ìƒíƒœê°€ ì•„ë‹ˆê³  ì´ë®¨ì´ ì•„ë‹ˆê³  ìŠ¤í„´ ìƒíƒœê°€ ì•„ë‹ˆë©´
+	if (_info.state != PL_STATE::DEAD && !_info.isImmune && _info.state != PL_STATE::STUN)
+	{
+		//ê°€ë“œ ìƒíƒœê°€ ì•„ë‹ˆë©´
+		if (_info.state != PL_STATE::GUARD)
+		{
+			for (int i = 0; i != _enemyM->getVEnemy().size(); i++)
+			{
+				if (_enemyM->getVEnemy()[i]->getInfo().isAttack)
+				{
+					RECT temp;
+					if (IntersectRect(&temp, &_obj.rc, &_enemyM->getVEnemy()[i]->getInfo().rcAttack)
+						&& isRange(_enemyM->getVEnemy()[i]->getRefObj()))
+					{
+						if (_info.hitCount >= 4)
+						{ 
+							//í”¼ê°€ 10 ì´í•˜ë©´ ìŠ¤í„´ / 10 ì´ˆê³¼ë©´ ë‹¤ìš´ ìƒíƒœ
+							_info.hitCount = 0;
+							if(_info.hp<=10)setState(PL_STATE::STUN);
+							if (_info.hp > 10)setState(PL_STATE::DOWN); 
+						}
+						else setState(PL_STATE::HIT);
+					}
+				}
+			}
+			
+
+		}
+
+	}
+}
+
+
+//ìŠ¤í…Œì´ì§€ê°€ ë°”ë€” ë•Œë§ˆë‹¤ ì´ˆê¸°í™”ì‹œí‚¤ëŠ” í•¨ìˆ˜
 void Player::stageInit()
 {
 	/*====================================================================
-		½ºÅ×ÀÌÁö°¡ ¹Ù²ğ ¶§¸¶´Ù ÃÊ±âÈ­½ÃÅ°´Â ÇÔ¼öÀÔ´Ï´Ù.
+		ìŠ¤í…Œì´ì§€ê°€ ë°”ë€” ë•Œë§ˆë‹¤ ì´ˆê¸°í™”ì‹œí‚¤ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤.
 	====================================================================*/
-	switch (_stageM->getCurStage()) // ÇöÀç ½ºÅ×ÀÌÁö´Â?
+	switch (_stageM->getCurStage()) // í˜„ì¬ ìŠ¤í…Œì´ì§€ëŠ”?
 	{
-	case STAGETYPE::EASY: // ÇöÀç ½ºÅ×ÀÌÁö°¡ ÀÌÁö¸é
-		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¿´À¸¸é
+	case STAGETYPE::EASY: // í˜„ì¬ ìŠ¤í…Œì´ì§€ê°€ ì´ì§€ë©´
+		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ì´ì „ ìŠ¤í…Œì´ì§€ê°€ ë…¸ë§ì´ì˜€ìœ¼ë©´
 		{
 			_obj.setPosX(1445);
 			_obj.setPosY(0);
 			_obj.setPosZ(420);
 		}
 		break;
-	case STAGETYPE::NORMAL:  // ÇöÀç ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¸é
-		if (_stageM->getPreStage() == STAGETYPE::EASY) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¿´À¸¸é
+	case STAGETYPE::NORMAL:  // í˜„ì¬ ìŠ¤í…Œì´ì§€ê°€ ë…¸ë§ì´ë©´
+		if (_stageM->getPreStage() == STAGETYPE::EASY) // ì´ì „ ìŠ¤í…Œì´ì§€ê°€ ë…¸ë§ì´ì˜€ìœ¼ë©´
 		{
 			_obj.setPosX(180);
 			_obj.setPosY(0);
 			_obj.setPosZ(700);
 		}
-		else if (_stageM->getPreStage() == STAGETYPE::HARD) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ÇÏµåÀÌ¿´À¸¸é
+		else if (_stageM->getPreStage() == STAGETYPE::HARD) // ì´ì „ ìŠ¤í…Œì´ì§€ê°€ í•˜ë“œì´ì˜€ìœ¼ë©´
 		{
 			_obj.setPosX(2645);
 			_obj.setPosY(0);
 			_obj.setPosZ(670);
 		}
 		break;
-	case STAGETYPE::HARD: // ÇöÀç ½ºÅ×ÀÌÁö°¡ ÇÏµå¸é
-		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¿´À¸¸é
+	case STAGETYPE::HARD: // í˜„ì¬ ìŠ¤í…Œì´ì§€ê°€ í•˜ë“œë©´
+		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ì´ì „ ìŠ¤í…Œì´ì§€ê°€ ë…¸ë§ì´ì˜€ìœ¼ë©´
 		{
 			_obj.setPosX(270);
-			_obj.setPosY(0); // ³ªÁß¿¡ Ãß°¡ÇØ¾ßÇÔ
+			_obj.setPosY(0); 
 			_obj.setPosZ(480);
 		}
-		else if (_stageM->getPreStage() == STAGETYPE::BOSS) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ º¸½º¿´À¸¸é
+		else if (_stageM->getPreStage() == STAGETYPE::BOSS) // ì´ì „ ìŠ¤í…Œì´ì§€ê°€ ë³´ìŠ¤ì˜€ìœ¼ë©´
 		{
 			_obj.setPosX(2070);
 			_obj.setPosY(0);
 			_obj.setPosZ(1370);
 		}
 		break;
-	case STAGETYPE::BOSS: // ÇöÀç ½ºÅ×ÀÌÁö°¡ º¸½º¸é
-		if (_stageM->getPreStage() == STAGETYPE::HARD) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ÇÏµåÀÌ¿´À¸¸é
+	case STAGETYPE::BOSS: // í˜„ì¬ ìŠ¤í…Œì´ì§€ê°€ ë³´ìŠ¤ë©´
+		if (_stageM->getPreStage() == STAGETYPE::HARD) // ì´ì „ ìŠ¤í…Œì´ì§€ê°€ í•˜ë“œì´ì˜€ìœ¼ë©´
 		{
 			_obj.setPosX(275);
 			_obj.setPosY(0);
@@ -397,19 +432,19 @@ void Player::stageInit()
 	}
 
 	/*====================================================================
-		¸µÅ© : ¿¡³Ê¹Ì¸Å´ÏÀú, ¿ÀºêÁ§Æ® ¸Å´ÏÀú¿Í ¸µÅ©ÇÕ´Ï´Ù.
+		ë§í¬ : ì—ë„ˆë¯¸ë§¤ë‹ˆì €, ì˜¤ë¸Œì íŠ¸ ë§¤ë‹ˆì €ì™€ ë§í¬í•©ë‹ˆë‹¤.
 	====================================================================*/
 	_enemyM = _stageM->getStage()->getEnemyM();
 	_objectM = _stageM->getStage()->getObjectM();
 }
 
-//ÀÌ¹ÌÁö º¯°æ
+//ì´ë¯¸ì§€ ë³€ê²½
 void Player::changeImg(string imgName, bool reverse)
 {
-	//ÀÌ¹ÌÁö¸¦ ¹Ù²Û´Ù.
+	//ì´ë¯¸ì§€ë¥¼ ë°”ê¾¼ë‹¤.
 	_obj.img = IMG_M->findImage(imgName);
 
-	//¹æÇâ°ú ¸®¹ö½º ¿©ºÎ µû¸¥ ÇÁ·¹ÀÓ x ÀÎµ¦½º ¼³Á¤
+	//ë°©í–¥ê³¼ ë¦¬ë²„ìŠ¤ ì—¬ë¶€ ë”°ë¥¸ í”„ë ˆì„ x ì¸ë±ìŠ¤ ì„¤ì •
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT:
@@ -425,15 +460,15 @@ void Player::changeImg(string imgName, bool reverse)
 		break;
 	}
 
-	//ÇÁ·¹ÀÓ ½Ã°£ °»½ÅÇÏ¿© ¹Ù·Î ÇÁ·¹ÀÓ º¯°æ
+	//í”„ë ˆì„ ì‹œê°„ ê°±ì‹ í•˜ì—¬ ë°”ë¡œ í”„ë ˆì„ ë³€ê²½
 	_info.frameTimer = TIME_M->getWorldTime();
 
 }
 
-//ÇÁ·¹ÀÓ ¿¬»ê
+//í”„ë ˆì„ ì—°ì‚°
 void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 {
-	//ÇÁ·¹ÀÓ y ¹øÈ£ ¼³Á¤
+	//í”„ë ˆì„ y ë²ˆí˜¸ ì„¤ì •
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT:
@@ -445,13 +480,13 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 	}
 	if (_info.state == PL_STATE::CLIMB || _info.state == PL_STATE::CLIMBTOP)
 		_obj.imgIndex.y = 0;
-	//ÇÁ·¹ÀÓ y ¹øÈ£ ¼¼ÆÃ
+	//í”„ë ˆì„ y ë²ˆí˜¸ ì„¸íŒ…
 	_obj.img->setFrameY((int)_info.dest);
 
-	//ÇÁ·¹ÀÓ ½ÇÇà ½Ã°£ ¼³Á¤
+	//í”„ë ˆì„ ì‹¤í–‰ ì‹œê°„ ì„¤ì •
 	if (TIME_M->getWorldTime() - _info.frameTimer > frameInterval)
 	{
-		//½Ã°£ °»½Å
+		//ì‹œê°„ ê°±ì‹ 
 		_info.frameTimer = TIME_M->getWorldTime();
 		switch (_info.dest)
 		{
@@ -468,17 +503,17 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		}
 	}
 
-	//ÇÁ·¹ÀÓ x ¹øÈ£ Á¶Àı
+	//í”„ë ˆì„ x ë²ˆí˜¸ ì¡°ì ˆ
 	switch (frameType)
 	{
-	case FRAMETYPE::ONCE://ÇÑ ¹ø Àç»ı
+	case FRAMETYPE::ONCE://í•œ ë²ˆ ì¬ìƒ
 	{
-		//¿ŞÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ 0¹øºÎÅÍ~ ³¡¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é ³¡¹øÈ£·Î ÇÁ·¹ÀÓ¹øÈ£ °íÁ¤
+		//ì™¼ìª½ì˜ ê²½ìš° xì¸ë±ìŠ¤ê°€ 0ë²ˆë¶€í„°~ ëë²ˆê¹Œì§€ í”„ë ˆì„ì´ ë‹¤ ë˜ë©´ ëë²ˆí˜¸ë¡œ í”„ë ˆì„ë²ˆí˜¸ ê³ ì •
 		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		}
-		//¿À¸¥ÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ ³¡¹øºÎÅÍ 0¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é 0¹øÀ¸·Î ÇÁ·¹ÀÓ ¹øÈ£ °íÁ¤
+		//ì˜¤ë¥¸ìª½ì˜ ê²½ìš° xì¸ë±ìŠ¤ê°€ ëë²ˆë¶€í„° 0ë²ˆê¹Œì§€ í”„ë ˆì„ì´ ë‹¤ ë˜ë©´ 0ë²ˆìœ¼ë¡œ í”„ë ˆì„ ë²ˆí˜¸ ê³ ì •
 		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
 		{
 			_obj.imgIndex.x = 0;
@@ -486,18 +521,18 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 
 	}
 	break;
-	case FRAMETYPE::LOOP://¹«ÇÑ Àç»ı
+	case FRAMETYPE::LOOP://ë¬´í•œ ì¬ìƒ
 	{
-		//¿ŞÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ 0¹øºÎÅÍ~ ³¡¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é ³¡¹øÈ£·Î ÇÁ·¹ÀÓ¹øÈ£ 0¹øÀ¸·Î °»½Å
+		//ì™¼ìª½ì˜ ê²½ìš° xì¸ë±ìŠ¤ê°€ 0ë²ˆë¶€í„°~ ëë²ˆê¹Œì§€ í”„ë ˆì„ì´ ë‹¤ ë˜ë©´ ëë²ˆí˜¸ë¡œ í”„ë ˆì„ë²ˆí˜¸ 0ë²ˆìœ¼ë¡œ ê°±ì‹ 
 		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
 
-		//¿À¸¥ÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ ³¡¹øºÎÅÍ 0¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é 0¹øÀ¸·Î ÇÁ·¹ÀÓ ¹øÈ£ ³¡¹øÈ£·Î °»½Å
+		//ì˜¤ë¥¸ìª½ì˜ ê²½ìš° xì¸ë±ìŠ¤ê°€ ëë²ˆë¶€í„° 0ë²ˆê¹Œì§€ í”„ë ˆì„ì´ ë‹¤ ë˜ë©´ 0ë²ˆìœ¼ë¡œ í”„ë ˆì„ ë²ˆí˜¸ ëë²ˆí˜¸ë¡œ ê°±ì‹ 
 		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 	}
 	break;
-	case FRAMETYPE::REVERSEONCE://¹İ´ë ÇÑ¹ø Àç»ı
+	case FRAMETYPE::REVERSEONCE://ë°˜ëŒ€ í•œë²ˆ ì¬ìƒ
 	{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
@@ -509,7 +544,7 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		}
 	}
 	break;
-	case FRAMETYPE::REVERSELOOP://¹İ´ë ¹«ÇÑ Àç»ı
+	case FRAMETYPE::REVERSELOOP://ë°˜ëŒ€ ë¬´í•œ ì¬ìƒ
 	{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
@@ -523,27 +558,28 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 
 }
 
-//ÇÁ·¹ÀÓ ½ÇÇà
+//í”„ë ˆì„ ì‹¤í–‰
 void Player::playFrame()
 {
 	switch (_info.state)
 	{
-		//¹«ÇÑÀç»ı (ÀÏ¹İ ¼Óµµ)
+		//ë¬´í•œì¬ìƒ (ì¼ë°˜ ì†ë„)
 	case PL_STATE::WAIT:
+
 		setFrame(FRAMETYPE::LOOP, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¹İ´ë ¹«ÇÑÀç»ı (»¡¸®)
+		//ë°˜ëŒ€ ë¬´í•œì¬ìƒ (ë¹¨ë¦¬)
 	case PL_STATE::RUN:
 		setFrame(FRAMETYPE::REVERSELOOP, FRAMEINTERVAL*0.35);
 		break;
-		//¹İ´ë ¹«ÇÑÀç»ı
+		//ë°˜ëŒ€ ë¬´í•œì¬ìƒ
 	case PL_STATE::STUN:
 	case PL_STATE::IDLE:	case PL_STATE::WALK:
 		setFrame(FRAMETYPE::REVERSELOOP, FRAMEINTERVAL);
 		break;
 
-		//ÇÑ¹ø (ÃµÃµÈ÷)
+		//í•œë²ˆ (ì²œì²œíˆ)
 	case PL_STATE::PICK:	case PL_STATE::GRAB:
 	case PL_STATE::STICK:	case PL_STATE::HIT:
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL * 3);
@@ -551,7 +587,7 @@ void Player::playFrame()
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL * 5);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//ÇÑ¹ø (ÀÏ¹İ ¼Óµµ)
+		//í•œë²ˆ (ì¼ë°˜ ì†ë„)
 	case PL_STATE::JUMP:
 	case PL_STATE::ROLL:
 	case PL_STATE::STAND:
@@ -564,18 +600,18 @@ void Player::playFrame()
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¹İ´ë ÇÑ¹øÀç»ı (ÀÏ¹İ ¼Óµµ)
+		//ë°˜ëŒ€ í•œë²ˆì¬ìƒ (ì¼ë°˜ ì†ë„)
 	case PL_STATE::STOMP:
 	case PL_STATE::DASHATTACK:	case PL_STATE::SATTACKDOWN:
 		setFrame(FRAMETYPE::REVERSEONCE, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¹İ´ë ÇÑ¹øÀç»ı (»¡¸®)
+		//ë°˜ëŒ€ í•œë²ˆì¬ìƒ (ë¹¨ë¦¬)
 	case PL_STATE::GUARD:
 		setFrame(FRAMETYPE::REVERSEONCE, FRAMEINTERVAL*0.4);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¾Ö´Ï·£´õ
+		//ì• ë‹ˆëœë”
 	case PL_STATE::CLIMB:
 		_info.rendType = RENDERTYPE::ANI_RENDER;
 		_obj.ani->setFPS(1);
@@ -584,115 +620,55 @@ void Player::playFrame()
 
 }
 
-//ÁÂÇ¥ÀÌµ¿
+//ì¢Œí‘œì´ë™
 void Player::movePos(float x, float z, float jumpPower)
 {
 	_obj.pos.x += x;
 	_obj.pos.z += z;
 	_obj.pos.y -= jumpPower;
 
-	//±×¸²ÀÚ¸¸ ÀÏ´Ü ÇÑ¹ø ¾÷µ¥ÀÌÆ® (Ãæµ¹Ã³¸®¸¦ À§ÇÑ °Å! °Çµå¸®¸é ¾ÈµÊ!)
+	//ê·¸ë¦¼ìë§Œ ì¼ë‹¨ í•œë²ˆ ì—…ë°ì´íŠ¸ (ì¶©ëŒì²˜ë¦¬ë¥¼ ìœ„í•œ ê±°! ê±´ë“œë¦¬ë©´ ì•ˆë¨!)
 	_obj.shadowUpdate();
 
-	//Ãæµ¹Ã³¸® 
-	_colM->objectCollision();
+	//ì¶©ëŒì²˜ë¦¬
+	_colM->playerObjectCollision();
 
-	//±×¸²ÀÚ ¾Æ·¡·Î ¾È ¶³¾îÁöµµ·Ï ¿¹¿ÜÃ³¸®
+	//ê·¸ë¦¼ì ì•„ë˜ë¡œ ì•ˆ ë–¨ì–´ì§€ë„ë¡ ì˜ˆì™¸ì²˜ë¦¬
 	if (_obj.pos.y > 0)_obj.pos.y = 0;
 
-	//ÃÖÁ¾ ·ºÆ® °»½Å
+	//ìµœì¢… ë ‰íŠ¸ ê°±ì‹ 
 	_obj.update();
 }
 
-void Player::changePos(float x, float z, float y)
+//ì¢Œí‘œì„¤ì •
+void Player::setPos(float x, float z, float y)
 {
 	_obj.pos.x = x;
 	_obj.pos.z = z;
 	_obj.pos.y = y;
 
-	//±×¸²ÀÚ¸¸ ÀÏ´Ü ÇÑ¹ø ¾÷µ¥ÀÌÆ® (Ãæµ¹Ã³¸®¸¦ À§ÇÑ°Å! °Çµå¸®¸é ¾ÈµÊ!)
+	//ê·¸ë¦¼ìë§Œ ì¼ë‹¨ í•œë²ˆ ì—…ë°ì´íŠ¸ (ì¶©ëŒì²˜ë¦¬ë¥¼ ìœ„í•œê±°! ê±´ë“œë¦¬ë©´ ì•ˆë¨!)
 	_obj.shadowUpdate();
 
-	//Ãæµ¹Ã³¸® 
-	_colM->objectCollision();
+	//ì¶©ëŒì²˜ë¦¬
+	_colM->playerObjectCollision();
 
-	//±×¸²ÀÚ ¾Æ·¡·Î ¾È ¶³¾îÁöµµ·Ï ¿¹¿ÜÃ³¸®
+	//ê·¸ë¦¼ì ì•„ë˜ë¡œ ì•ˆ ë–¨ì–´ì§€ë„ë¡ ì˜ˆì™¸ì²˜ë¦¬
 	if (_obj.pos.y > 0)_obj.pos.y = 0;
 
-	//ÃÖÁ¾ ·ºÆ® °»½Å
+	//ìµœì¢… ë ‰íŠ¸ ê°±ì‹ 
 	_obj.update();
 }
 
 
-/*
-//°ø°İ·ºÆ® °»½Å
-void Player::renewAttackRc()
-{
-	_info.attackInfo._obj.pos.z = _obj.pos.z;
-	//¹«±â¿¡ µû¸¥ ·ºÆ® Å©±â ¼³Á¤
-	switch (_info.weaponType)
-	{
-	case WEAPON_TYPE::NONE:
-		_info.attackInfo.width = ATTACKSIZE * 0.4; break;
-	case WEAPON_TYPE::BAT:	case WEAPON_TYPE::BASEBALL:
-		_info.attackInfo._obj.img = IMG_M->findImage("bat");
-		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth(); break;
-	}
-
-	//»óÈ²¿¡ µû¸¥ ·ºÆ® Å©±â ¼³Á¤
-	_info.attackInfo.height = ATTACKSIZE / 2;
-	switch (_info.state)
-	{
-	case PL_STATE::IDLE:_info.attackInfo.height = ATTACKSIZE / 2; break;
-	case PL_STATE::JUMPATTACK:_info.attackInfo.height = ATTACKSIZE; break;
-	case PL_STATE::THROW:
-		_info.attackInfo.width = IMG_M->findImage("bat")->getFrameWidth();
-		_info.attackInfo.height = IMG_M->findImage("bat")->getFrameHeight();
-		break;
-	case PL_STATE::SATTACKDOWN:_info.attackInfo.width = ATTACKSIZE * 0.7; break;
-	}
-
-	//¹«±â¸¦ ³¯¸®´Â°Ô ¾Æ´Ò°æ¿ì
-	if (_info.state != PL_STATE::THROW)
-	{
-		//¹æÇâ¿¡µû¶ó °ø°İ ·ºÆ® À§Ä¡ °»½Å
-		switch (_info.dest)
-		{
-		case DIRECTION::LEFT:
-			_info.attackInfo._obj.pos.x = _obj.pos.x - (_obj.rc.right - _obj.rc.left) / 2;
-			_info.attackInfo._obj.imgIndex.x = 0;
-			_info.attackInfo._obj.imgIndex.y = 1;
-			break;
-		case DIRECTION::RIGHT:
-			_info.attackInfo._obj.pos.x = _obj.pos.x + (_obj.rc.right - _obj.rc.left) / 2; break;
-		}
-		//»óÈ²¿¡ µû¸¥ ·ºÆ® À§Ä¡ °»½Å
-		//¡Ú Ä¿¸Çµå °ø°İÀÇ °æ¿ì °¡¿îµ¥¿©¾ßÇÔ
-		_info.attackInfo._obj.pos.y = (_obj.rc.bottom + _obj.rc.top) / 2;
-
-		switch (_info.state)
-		{
-		case PL_STATE::SATTACKDOWN:_info.attackInfo._obj.pos.x = _obj.pos.x; break;
-		}
-	}
-	//¹«±â¸¦ ³¯¸± °æ¿ì
-	else if (_info.state == PL_STATE::THROW && _info.dest == DIRECTION::LEFT)_info.attackInfo._obj.pos.x -= THROWSPEED;
-	else if (_info.state == PL_STATE::THROW&& _info.dest == DIRECTION::RIGHT)_info.attackInfo._obj.pos.x += THROWSPEED;
-
-	//·ºÆ® °»½Å
-	_info.attackInfo._obj.rc = RectMakeCenter(_info.attackInfo._obj.pos.x, _info.attackInfo._obj.pos.y, _info.attackInfo.width, _info.attackInfo.height);
-
-}
-*/
-
-//Áß·ÂÀÛ¿ë
+//ì¤‘ë ¥ì‘ìš©
 void Player::gravity()
 {
-	if (_info.isSky) _info.jumpPower -= GRAVITYVALUE;
+	if (_info.isSky) _info.jumpPower -= GRAVITY;
 	if (_obj.pos.y >= 0 && _info.isSky)
 	{
 		setState(PL_STATE::IDLE);
-		//°È°Å³ª ¶Ù°íÀÖ¾ú°í, Å°¸¦ °è¼Ó ´©¸£°íÀÖÀ¸¸é ±× »óÅÂ ±×´ë·Îµ¹¾Æ¿À±â
+		//ê±·ê±°ë‚˜ ë›°ê³ ìˆì—ˆê³ , í‚¤ë¥¼ ê³„ì† ëˆ„ë¥´ê³ ìˆìœ¼ë©´ ê·¸ ìƒíƒœ ê·¸ëŒ€ë¡œëŒì•„ì˜¤ê¸°
 		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)
 		{
 			if (_info.dest == DIRECTION::LEFT && KEY_M->isStayKeyDown(VK_LEFT))setState(_info.preState);
@@ -705,62 +681,62 @@ void Player::gravity()
 	movePos(0, 0, _info.jumpPower);
 }
 
-//Å°ÀÔ·Â
+//í‚¤ì…ë ¥
 void Player::keyInput()
 {
-	//Å°Á¶ÀÛÀ» ¸øÇÏ´Â »óÅÂ¶ó¸é ¸®ÅÏ
+	//í‚¤ì¡°ì‘ì„ ëª»í•˜ëŠ” ìƒíƒœë¼ë©´ ë¦¬í„´
 	if (!_info.isControl) return;
 
-	//°ø°İÅ°¹Ş±â(Ä¿¸Çµå¸¦À§ÇØ)
+	//ê³µê²©í‚¤ë°›ê¸°(ì»¤ë§¨ë“œë¥¼ìœ„í•´)
 	if (KEY_M->isOnceKeyDownV('D'));
 
-	//»ç´Ù¸®¿À¸£±â
-	if (_info.isClimb && KEY_M->isOnceKeyDownV(VK_UP)) setState(PL_STATE::CLIMB);
+	//ì‚¬ë‹¤ë¦¬ì˜¤ë¥´ê¸°
+	if (_info.isClimb && (GetAsyncKeyState(VK_UP) & 0x8000)) setState(PL_STATE::CLIMB);
 
-	//Á¡ÇÁ
+	//ì í”„
 	if (KEY_M->isOnceKeyDownV('A') && !_info.isSky)
 	{
-		//ÀÌÀü»óÅÂ ÀúÀå
+		//ì´ì „ìƒíƒœ ì €ì¥
 		_info.preState = _info.state;
 		_info.isSky = true;
-		_info.jumpPower = JUMPPOWERVALUE;
-		movePos(0, 0, JUMPPOWERVALUE);
-		//Á¡ÇÁÆÄ¿ö°¡ - ¸é Á¡ÇÁ»óÅÂ·Î ÀüÈ¯
+		_info.jumpPower = JUMPPOWER;
+		movePos(0, 0, JUMPPOWER);
+		//ì í”„íŒŒì›Œê°€ - ë©´ ì í”„ìƒíƒœë¡œ ì „í™˜
 		if (_info.jumpPower > 0.4)setState(PL_STATE::JUMP);
 	}
-	//±¸¸£±â
+	//êµ¬ë¥´ê¸°
 	if (KEY_M->isOnceKeyDownV('W') && !_info.isSky)
 	{
-		//ÀÌÀü»óÅÂ ÀúÀå
+		//ì´ì „ìƒíƒœ ì €ì¥
 		_info.preState = _info.state;
 		setState(PL_STATE::ROLL);
 	}
 
-	//¹æÇâÁ¶ÀÛÀ» ¸øÇÏ´Â »óÅÂ¶ó¸é ¸®ÅÏ
+	//ë°©í–¥ì¡°ì‘ì„ ëª»í•˜ëŠ” ìƒíƒœë¼ë©´ ë¦¬í„´
 	if (!_info.isConDest) return;
 
-	//¿Ş
+	//ì™¼
 	if (KEY_M->isOnceKeyDownV(VK_LEFT) || KEY_M->isStayKeyDown(VK_LEFT))
 	{
 		_info.moveDest = MOVE_DIRECTION::LEFT;
 		_info.dest = DIRECTION::LEFT;
 	}
-	//¿À
+	//ì˜¤
 	if (KEY_M->isOnceKeyDownV(VK_RIGHT) || KEY_M->isStayKeyDown(VK_RIGHT))
 	{
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
 		_info.dest = DIRECTION::RIGHT;
 	}
-	//À§
+	//ìœ„
 	if (KEY_M->isOnceKeyDownV(VK_UP) || KEY_M->isStayKeyDown(VK_UP))_info.moveDest = MOVE_DIRECTION::UP;
-	//¾Æ·¡
+	//ì•„ë˜
 	if (KEY_M->isOnceKeyDownV(VK_DOWN) || KEY_M->isStayKeyDown(VK_DOWN))_info.moveDest = MOVE_DIRECTION::DOWN;
 
 
-	//Å°Ä¿¸Çµå 
+	//í‚¤ì»¤ë§¨ë“œ
 	if (!_info.isSky && KEY_M->getVKeyBuffer().size() >= 3)
 	{
-		//¹Ù¶óº¸´Â ¹æÇâÅ°+ ¡é + d Ä¿¸Çµå °ø°İ
+		//ë°”ë¼ë³´ëŠ” ë°©í–¥í‚¤+ â†“ + d ì»¤ë§¨ë“œ ê³µê²©
 		if (KEY_M->getKeyBuffer(0) == 'D' &&KEY_M->getKeyBuffer(1) == VK_DOWN
 			&& KEY_M->getKeyBuffer(2) == VK_RIGHT && _info.dest == DIRECTION::RIGHT)
 			setState(PL_STATE::SATTACKDOWN);

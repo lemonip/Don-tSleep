@@ -11,60 +11,103 @@ void enemyWalk::EnterState()
 
 void enemyWalk::UpdateState()
 {
+	_checkTimer += TIME_M->getElapsedTime();
+	if (_checkTimer > 1.0f)
+	{
+		_tempPos = _thisEn->getObj()->pos;
+	}
+	
+	Jump();
+
+	
+	if (_tempPos == _thisEn->getObj()->pos)
+	{
+		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) > 150)
+		{
+			LookAtPlayer();
+		}
+
+		if (_thisEn->getObj()->obstacle != nullptr)
+		{
+			if (fabs(_thisEn->getObj()->obstacle->bottomPlane[0].getStart().z - _thisEn->getPlayerAddress()->getObj().pos.z) >=
+				fabs(_thisEn->getObj()->obstacle->bottomPlane[2].getStart().z - _thisEn->getPlayerAddress()->getObj().pos.z))
+			{
+				_thisEn->xzyMove(0, _thisEn->getInfo().speed, 0);
+			}
+			else
+			{
+				_thisEn->xzyMove(0, -_thisEn->getInfo().speed, 0);
+			}
+		}
+
+		if (_thisEn->getInfo().dest == DIRECTION::LEFT)
+		{
+			_thisEn->xzyMove(-_thisEn->getInfo().speed, 0, 0);
+		}
+		else if (_thisEn->getInfo().dest == DIRECTION::RIGHT)
+		{
+			_thisEn->xzyMove(_thisEn->getInfo().speed, 0, 0);
+		}
+		if (_checkTimer > 3.0f)
+		{
+			_checkTimer = 0;
+		}
+	}
+
+	else
+	{
+		LookAtPlayer();
+		
+		tempAngle = getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z);
+		if (abs(_thisEn->getPlayerAddress()->getObj().pos.x - _thisEn->getObj()->pos.x) >= 90)
+		{
+			_thisEn->xzyMove(cosf(-tempAngle) * _thisEn->getInfo().speed, -sinf(tempAngle) * 0, 0);
+		}
+
+		if (abs(_thisEn->getPlayerAddress()->getObj().pos.z - _thisEn->getObj()->pos.z) >= 0)
+		{
+			_thisEn->xzyMove(cosf(tempAngle) * 0, -sinf(tempAngle) * _thisEn->getInfo().speed, 0);
+		}
+	
+	}
+
+	//충분히 가까워졌으면 IDLE로 돌아간다.
+	if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
+	{
+		_thisEn->SetState(EN_STATE::EN_IDLE);
+	}
 	/*
-	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::RIGHT);
-	else if (_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::LEFT);
-	_thisEn->xzyMove(cosf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) * _thisEn->getInfo().speed ,
-		-sinf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) *_thisEn->getInfo().speed, 0);
-	if (_thisEn->getPlayerAddress()->getObj().pos.y < _thisEn->getObj()->pos.y && !_thisEn->getPlayerAddress()->getInfo().isSky)
+	for (int i = 1; i < 100; i++)
 	{
-		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 50)
+		if (TIME_M->getWorldTime() - _stateTimer >= i*2)
 		{
-			_thisEn->SetState(EN_STATE::EN_JUMP);
+			_a1 = _thisEn->getObj()->pos.x;
+		}
+		if (TIME_M->getWorldTime() - _stateTimer >= i*2 - 1)
+		{
+			_a2 = _thisEn->getObj()->pos.x;
 		}
 	}
-	if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 100
-		&& _thisEn->getObj()->pos.z >= _thisEn->getPlayerAddress()->getObj().shadow.RT.z && _thisEn->getObj()->pos.z <= _thisEn->getPlayerAddress()->getObj().shadow.RB.z)
+	if (_a1 == _a2)
 	{
-		_thisEn->SetState(EN_STATE::EN_ATTACK1);
+		_thisEn->xzyMove(0, 2, 0);
 	}
-	if (TIME_M->getWorldTime() - _stateTimer > 7.f)
+	else if (_a1 != _a2)
 	{
-		_thisEn->SetState(EN_STATE::EN_IDLE);
+		if (abs(_thisEn->getPlayerAddress()->getObj().pos.x - _thisEn->getObj()->pos.x) >= 90)
+		{
+			_thisEn->xzyMove(cosf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) * _thisEn->getInfo().speed,
+				-sinf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) * 0, 0);
+		}
+		//z 움직임
+		if (abs(_thisEn->getPlayerAddress()->getObj().pos.z - _thisEn->getObj()->pos.z) >= 0)
+		{
+			_thisEn->xzyMove(cosf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) * 0,
+				-sinf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) *_thisEn->getInfo().speed, 0);
+		}
 	}
+
 	*/
-	if (_thisEn->getPlayerAddress()->getObj().pos.x > _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::RIGHT);
-	else if (_thisEn->getPlayerAddress()->getObj().pos.x < _thisEn->getObj()->pos.x) _thisEn->setDest(DIRECTION::LEFT);
-	if (abs(_thisEn->getPlayerAddress()->getObj().pos.x - _thisEn->getObj()->pos.x) > 50)
-	{
-		_thisEn->xzyMove(cosf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) * _thisEn->getInfo().speed,
-			-sinf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) * 0, 0);
-	}
-	if (abs(_thisEn->getPlayerAddress()->getObj().pos.z - _thisEn->getObj()->pos.z) > 20)
-	{
-		_thisEn->xzyMove(cosf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) * 0,
-			-sinf(getAngle(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z)) *_thisEn->getInfo().speed, 0);
-	}
-	if (_thisEn->getPlayerAddress()->getObj().pos.y < _thisEn->getObj()->pos.y && !_thisEn->getPlayerAddress()->getInfo().isSky)
-	{
-		if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 50)
-		{
-			_thisEn->SetState(EN_STATE::EN_JUMP);
-		}
-	}
-	if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 100
-		&& _thisEn->getObj()->pos.z >= _thisEn->getPlayerAddress()->getObj().shadow.RT.z && _thisEn->getObj()->pos.z <= _thisEn->getPlayerAddress()->getObj().shadow.RB.z)
-	{
-		_thisEn->SetState(EN_STATE::EN_ATTACK1);
-	}
-	if (TIME_M->getWorldTime() - _stateTimer > 7.f)
-	{
-		_thisEn->SetState(EN_STATE::EN_IDLE);
-	}
-	if (abs(_thisEn->getPlayerAddress()->getObj().pos.z - _thisEn->getObj()->pos.z) <= 20 && abs(_thisEn->getPlayerAddress()->getObj().pos.x - _thisEn->getObj()->pos.x) <= 100)
-	{
-		_thisEn->SetState(EN_STATE::EN_IDLE);
-	}
 }
 
 void enemyWalk::ExitState()

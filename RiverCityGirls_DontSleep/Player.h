@@ -84,8 +84,10 @@ private:
 		float speed;				//속도
 
 		bool hasMember;				//맴버소유 유무
-		bool isThrow;				//던짐 유무
+		bool hasWeapon;				//무기소유 유무
+		bool isImmune;				//이뮨상태인지
 		bool isAttack;				//공격 유무
+		bool isHit;					//맞았는지
 		bool isDead;				//사망유무
 		bool isControl;				//키입력 가능 유무
 		bool isConDest;				//방향전환 가능 유무
@@ -99,17 +101,17 @@ private:
 		GOALPOS goalState;			//골 상태
 
 		WEAPON_TYPE weaponType;		//무기종류
-		float hp;					//체력
-		float maxHP;				//최대 체력
-		float force;				//공격력
+		int hp;					//체력
+		int maxHP;				//최대 체력
+		int force;				//공격력
 		float coin;					//소지금
 		int	   LV;					//레벨
 		float  exp;					//경험치
 		int hitCount;				//피격 카운트 (3번맞으면 다운됨)
 
+		float immuneTimer;			//이뮨타이머
 		float frameTimer;			//프레임시간 타이머
 		RENDERTYPE rendType;		//렌더타입
-		//★아이템벡터로 인벤토리가질듯 여기가아닐지두.. 스테이지나 플레이그라운드일 가능성있음
 	};
 private:
 	tagInfo	   _info;			//플레이어 정보
@@ -176,6 +178,7 @@ public:
 	GameObject* getPlatform() { return _platform; }
 	EnemyManager* getEnemyM() {  return _enemyM; }
 	ObjectManager* getObjectM() {  return _objectM; }
+	StageManager* getStageM() { return _stageM; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
@@ -216,9 +219,11 @@ public:
 	//좌표 이동
 	void movePos(float x, float z, float y);
 	//좌표 고정
-	void changePos(float x, float z, float y);
+	void setPos(float x, float z, float y);
 
 	//어택 오브젝트를 골까지 움직임
 	bool moveAttackObj();
 
+	//맞기
+	void hit();
 };
