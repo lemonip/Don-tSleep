@@ -36,7 +36,7 @@ public:
 ====================================================================*/
 	void addImage(string, image* img, vector3 pos);						//단일 이미지 UI를 추가한다.
 	void addBar(string name, image * front, image * back, vector3 pos, int* current, int* max);		//프로그레스 바 UI를 추가한다.
-
+	void addDoor(string name, image* img, vector3 pos, int alpha);									//문 UI를 추가한다.
 /*====================================================================
 							FUNCTION
 ====================================================================*/

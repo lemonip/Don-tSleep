@@ -44,6 +44,23 @@ HRESULT NormalStage::init()
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
 
+	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+	_leftDoor.isUsed = true;
+	_leftDoor.LT = vector3(0, 0, 610);
+	_leftDoor.RT = vector3(180, 0, 610);
+	_leftDoor.LB = vector3(0, 0, 775);
+	_leftDoor.RB = vector3(180, 0, 775);
+	UI_M->findUI("doorLeft")->setPos(&vector3((_leftDoor.LT.x + _leftDoor.RT.x) / 2, (float)0, _leftDoor.LT.z - 200));
+
+	_rightDoor.isUsed = true;
+	_rightDoor.LT = vector3(2580, 0, 535);
+	_rightDoor.RT = vector3(2820, 0, 535);
+	_rightDoor.LB = vector3(2580, 0, 760);
+	_rightDoor.RB = vector3(2820, 0, 760);
+	UI_M->findUI("doorRight")->setPos(&vector3((_rightDoor.LT.x + _rightDoor.RT.x) / 2, (float)0, _rightDoor.LT.z - 200));
+
+	_enemyCount = 0;
+	_maxEnemyCount = 7;
 	return S_OK;
 }
 
