@@ -125,9 +125,9 @@ void Boss::update()
 	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
 
 
-=======
+
 	_stageM->getColM()->bossDestructObject(this);
->>>>>>> 종환?�업2
+
 }
 
 void Boss::render()
