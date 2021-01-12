@@ -14,6 +14,7 @@ protected:
 	GameObject _obj;
 	OBJECT_TYPE _type;
 	tagInfo _info;
+	float _renderTimer;
 
 public:
 
@@ -23,7 +24,8 @@ public:
 	virtual void render();
 
 
-
+	float getTimer() { return _renderTimer; }
+	void setTimer(float time) { _renderTimer = time; }
 	GameObject* getObj() { return &_obj; }
 	GameObject& getRefObj() { return _obj; }
 	tagInfo& getInfo() { return _info; }
