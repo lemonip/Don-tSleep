@@ -46,6 +46,23 @@ HRESULT HardStage::init()
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
 
+	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+	_leftDoor.isUsed = true;
+	_leftDoor.LT = vector3(160, 0, 890);
+	_leftDoor.RT = vector3(360, 0, 890);
+	_leftDoor.LB = vector3(160, 0, 940);
+	_leftDoor.RB = vector3(360, 0, 940);
+	UI_M->findUI("doorLeft")->setPos(&vector3((_leftDoor.LT.x + _leftDoor.RT.x) / 2, (float)0, _leftDoor.LT.z - 200));
+
+	_rightDoor.isUsed = true;
+	_rightDoor.LT = vector3(2040, 0, 1275);
+	_rightDoor.RT = vector3(2250, 0, 1275);
+	_rightDoor.LB = vector3(2040, 0, 1420);
+	_rightDoor.RB = vector3(2250, 0, 1420);
+	UI_M->findUI("doorRight")->setPos(&vector3((_rightDoor.LT.x + _rightDoor.RT.x) / 2, (float)0, _rightDoor.LT.z - 200));
+
+	_enemyCount = 0;
+	_maxEnemyCount = 10;
 	return S_OK;
 }
 
