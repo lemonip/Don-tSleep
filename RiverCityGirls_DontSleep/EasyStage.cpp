@@ -51,6 +51,20 @@ HRESULT EasyStage::init()
 	*/
 	EVENT_M->addEvent(new dialogue(DIALOGLIST::EASY_START), false);
 
+	/*====================================================================
+		스테이지 문 만들기
+	====================================================================*/
+	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+
+	_rightDoor.LT = vector3(1310, 0, 385);
+	_rightDoor.RT = vector3(1575, 0, 385);
+	_rightDoor.LB = vector3(1310, 0, 430);
+	_rightDoor.RB = vector3(1575, 0, 430);
+
+
+
+	_enemyCount = 0;
+	_maxEnemyCount = 5;
 	return S_OK;
 }
 

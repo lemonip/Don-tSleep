@@ -50,5 +50,7 @@ public:
 	//받은 키 벡터를 모두 지운다.
 	void clearVKey();
 
+	
+
 };
 

@@ -112,6 +112,7 @@ private:
 		float immuneTimer;			//이뮨타이머
 		float frameTimer;			//프레임시간 타이머
 		RENDERTYPE rendType;		//렌더타입
+		float doorKeyTimer;			//도어 키 타이머
 	};
 private:
 	tagInfo	   _info;			//플레이어 정보

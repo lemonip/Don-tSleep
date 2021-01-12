@@ -57,11 +57,6 @@ void playGround::update()
 	SCENE_M->update();					//¾À ¾÷µ¥ÀÌÆ®
 
 
-	if (KEY_M->isOnceKeyDown(VK_LBUTTON))
-	{
-		cout << "¸¶¿ì½º XÁÂÇ¥: " << _ptMouse.x << endl;
-		cout << "¸¶¿ì½º YÁÂÇ¥: " << _ptMouse.y << endl;
-	}
 
 	
 }

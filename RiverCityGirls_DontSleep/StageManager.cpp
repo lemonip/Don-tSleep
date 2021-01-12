@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "CollisionManager.h"
 
+#include "Stage.h"
 #include "EasyStage.h"
 #include "NormalStage.h"
 #include "HardStage.h"
@@ -47,7 +48,7 @@ void StageManager::update()
 {
 	_stage->update();
 	_player->update();
-
+	changeStage();
 	if (!EVENT_M->getIsCameraMove()) CAMERA_M->SetPos(_player->getObj().pos.x, _player->getObj().pos.z + _player->getObj().pos.y, 0, 0, 4.0f);
 
 #ifdef _DEBUG
@@ -66,6 +67,82 @@ void StageManager::render()
 {
 	_stage->render();
 	_player->render();
+}
+
+void StageManager::changeStage()
+{
+	if (KEY_M->isStayKeyDown('M'))
+	{
+		_keyTimer += TIME_M->getElapsedTime();
+		if (_keyTimer >= 1.0f)
+		{
+			switch (_currentStage)
+			{
+			case STAGETYPE::EASY:
+				if (_stage->getRightDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getRightDoor().RB.z &&
+					_stage->getRightDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getRightDoor().RB.x)
+				{
+					setStage(STAGETYPE::NORMAL);
+					_keyTimer = 0;
+				}
+				break;
+			case STAGETYPE::NORMAL:
+				if (_stage->getLeftDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getLeftDoor().RB.z &&
+					_stage->getLeftDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getLeftDoor().RB.x)
+				{
+					setStage(STAGETYPE::EASY);
+					_keyTimer = 0;
+				}
+				else if (_stage->getRightDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getRightDoor().RB.z &&
+					_stage->getRightDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getRightDoor().RB.x)
+				{
+					setStage(STAGETYPE::HARD);
+					_keyTimer = 0;
+				}
+				break;
+
+			case STAGETYPE::HARD:
+				if (_stage->getLeftDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getLeftDoor().RB.z &&
+					_stage->getLeftDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getLeftDoor().RB.x)
+				{
+					setStage(STAGETYPE::NORMAL);
+					_keyTimer = 0;
+				}
+				else if (_stage->getRightDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getRightDoor().RB.z &&
+					_stage->getRightDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getRightDoor().RB.x)
+				{
+					setStage(STAGETYPE::BOSS);
+					_keyTimer = 0;
+				}
+				break;
+			case STAGETYPE::BOSS:
+				if (_stage->getLeftDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getLeftDoor().RB.z &&
+					_stage->getLeftDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getLeftDoor().RB.x)
+				{
+					setStage(STAGETYPE::HARD);
+					_keyTimer = 0;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
+	if (KEY_M->isOnceKeyUp('M')) _keyTimer = 0;
 }
 
 /*====================================================================

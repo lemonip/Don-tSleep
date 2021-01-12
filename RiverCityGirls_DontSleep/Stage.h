@@ -14,6 +14,7 @@ struct tagWall
 	vector3 LT, RT, RB, LB;
 };
 
+
 class Stage : public gameNode
 {
 protected:
@@ -27,13 +28,17 @@ protected:
 	vector<tagWall> _vRightWall;
 	tagWall _floor;
 	tagWall _pool;
+	tagWall _leftDoor;
+	tagWall _rightDoor;
 
 	float _zAngle;
 
 	bool eventEnd;
 
-	bool activeDoor;
-
+	DOOR_ACTIVITY _doorActive;
+	int _enemyCount;
+	int _maxEnemyCount;
+	float _keyTimer;
 public:
 	virtual HRESULT init();
 	virtual void release();
@@ -55,10 +60,16 @@ public:
 	vector<tagWall> getRightWall() { return _vRightWall; }
 	tagWall getFloor() { return _floor; }
 	tagWall getPool() { return _pool; }
+	tagWall getLeftDoor() { return _leftDoor; }
+	tagWall getRightDoor() { return _rightDoor; }
+	DOOR_ACTIVITY getDoorActive() { return _doorActive; }
+	int getEnemyCount() { return _enemyCount; }
+	int getMaxEnemyCount() { return _maxEnemyCount; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
+	void setEnemyCount(int num) { _enemyCount = num; }
 
 	/*====================================================================
 									디버그용 임시함수

@@ -87,6 +87,7 @@ bool keyManager::isToggleKey(int key)
 	return false;
 }
 
+
 //키버퍼(벡터)를 비운다
 void keyManager::clearVKey()
 {

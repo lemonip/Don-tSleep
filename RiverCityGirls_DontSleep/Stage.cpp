@@ -30,6 +30,10 @@ void Stage::update()
 	_enemyM->update();
 	_objectM->update();
 
+	// 지역락 조건 추가해야함
+	if (_enemyCount >= _maxEnemyCount) _doorActive = DOOR_ACTIVITY::ACTIVE;
+
+
 }
 
 void Stage::render()
@@ -131,5 +135,15 @@ void Stage::wallRender()
 		polylineRender(_pool.LB, _pool.LT);
 
 		polylineRender(_floor.LB, _floor.RB);
+
+		polylineRender(_leftDoor.LT, _leftDoor.RT);
+		polylineRender(_leftDoor.RT, _leftDoor.RB);
+		polylineRender(_leftDoor.RB, _leftDoor.LB);
+		polylineRender(_leftDoor.LB, _leftDoor.LT);
+
+		polylineRender(_rightDoor.LT, _rightDoor.RT);
+		polylineRender(_rightDoor.RT, _rightDoor.RB);
+		polylineRender(_rightDoor.RB, _rightDoor.LB);
+		polylineRender(_rightDoor.LB, _rightDoor.LT);
 	}	
 }
