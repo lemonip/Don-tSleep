@@ -29,6 +29,11 @@ protected:
 	tagWall _pool;
 
 	float _zAngle;
+
+	bool eventEnd;
+
+	bool activeDoor;
+
 public:
 	virtual HRESULT init();
 	virtual void release();
