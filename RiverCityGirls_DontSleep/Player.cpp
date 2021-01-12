@@ -7,6 +7,8 @@
 #include "EnemyManager.h"
 #include "CollisionManager.h"
 #include "Enemy.h"
+#include "ItemObj.h"
+#include "Object.h"
 //상태
 #include "IPlayerState.h"
 #include "playerIdle.h"
@@ -140,6 +142,8 @@ void Player::update()
 	 hit();
 	//무기 업뎃
 	if (_info.attackObj!=NULL)weaponUpdate();
+	//아이템 상호작용
+	checkItem();
 
 	//오브젝트 업뎃
 	_obj.update();
@@ -657,6 +661,50 @@ void Player::setPos(float x, float z, float y)
 
 	//최종 렉트 갱신
 	_obj.update();
+}
+
+//아이템이랑 상호작용
+void Player::checkItem()
+{
+	RECT temp;
+	for (int i = 0; i != _objectM->getVObject().size();i++)
+	{
+		//활성화 상태일때
+		if (_objectM->getVObject()[i]->getObj()->isActive)
+		{
+			// 충돌한다면
+			if (IntersectRect(&temp, &_obj.rc, &_objectM->getVObject()[i]->getRefObj().rc))
+			{
+				switch (_objectM->getVObject()[i]->getInfo().type)
+				{
+				//소지금 올려줌
+				case ITEM_TYPE::MONEY:
+					break;
+				case ITEM_TYPE::COIN:
+					break;
+				//체력회복
+				case ITEM_TYPE::MEAT:
+				case ITEM_TYPE::APPLE:
+				case ITEM_TYPE::HEN:
+				case ITEM_TYPE::CHILI:
+					if (_info.hp < _info.maxHP)
+					{
+						_info.hp += _objectM->getVObject()[i]->getInfo().healValue;
+						_objectM->popObject(i);
+						if (i == _objectM->getVObject().size())return;
+					}
+					break;
+				}
+			}
+			
+		}
+	}
+
+	//체력수치 보정
+	if (_info.hp > _info.maxHP)
+	{
+		_info.hp = _info.maxHP;
+	}
 }
 
 

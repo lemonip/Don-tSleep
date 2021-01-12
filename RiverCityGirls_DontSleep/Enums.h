@@ -134,6 +134,9 @@ enum class ITEM_TYPE : int
 	MONEY,
 	COIN,
 	MEAT,
+	APPLE,
+	HEN,
+	CHILI
 };
 
 /*====================================================================

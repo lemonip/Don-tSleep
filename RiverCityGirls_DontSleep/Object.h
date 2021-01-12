@@ -2,13 +2,18 @@
 #include "gameNode.h"
 #include "GameObject.h"
 
+struct tagInfo
+{
+	int healValue;
+	ITEM_TYPE type;
+};
 
 class Object : public gameNode
 {
 protected:
 	GameObject _obj;
 	OBJECT_TYPE _type;
-
+	tagInfo _info;
 
 public:
 
@@ -20,5 +25,8 @@ public:
 
 
 	GameObject* getObj() { return &_obj; }
+	GameObject& getRefObj() { return _obj; }
+	tagInfo& getInfo() { return _info; }
+	OBJECT_TYPE getType() { return _type; }
 };
 
