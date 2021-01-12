@@ -76,6 +76,20 @@ void UIManager::addBar(string name, image * front, image * back, vector3 pos, in
 	_mUI.insert(make_pair(name, ui));
 }
 
+void UIManager::addDoor(string name, image * img, vector3 pos, int alpha)
+{
+	_miUI = _mUI.find(name);
+	if (_miUI != _mUI.end()) return;
+
+
+	UI* ui = new StageDoor(alpha);
+	ui->_type = UITYPE::DOOR;
+	ui->_img = img;
+	ui->_pos = new vector3(pos.x, pos.y, pos.z);
+	ui->_isActive = true;
+
+	_mUI.insert(make_pair(name, ui));
+}
 /*====================================================================
 						UI를 제거합니다.
 ====================================================================*/

@@ -38,12 +38,14 @@ HRESULT EasyStage::init()
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(1210, 0, 545));
 
 	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY * 0.8));
-	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX/2, 0, WINSIZEY/2+250));
+	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 250));
 
 
-	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 40));
-	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 100, 0, WINSIZEY / 2 + 40));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 200, 0, WINSIZEY / 2 + 40));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2-300, 0, WINSIZEY / 2+ 300 ));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 80));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 300));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 200));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 500, 0, WINSIZEY / 2 + 120));
 
 
 	/*====================================================================
@@ -58,6 +60,22 @@ HRESULT EasyStage::init()
 	*/
 	EVENT_M->addEvent(new dialogue(DIALOGLIST::EASY_START), false);
 
+	/*====================================================================
+		스테이지 문 만들기
+	====================================================================*/
+	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+	_leftDoor.isUsed = false;
+
+	_rightDoor.isUsed = true;
+	_rightDoor.LT = vector3(1310, 0, 385);
+	_rightDoor.RT = vector3(1575, 0, 385);
+	_rightDoor.LB = vector3(1310, 0, 430);
+	_rightDoor.RB = vector3(1575, 0, 430);
+	UI_M->findUI("doorRight")->setPos(vector3((_rightDoor.LT.x + _rightDoor.RT.x) / 2, (float)0, _rightDoor.LT.z - 200));
+
+
+	_enemyCount = 0;
+	_maxEnemyCount = 5;
 	return S_OK;
 }
 

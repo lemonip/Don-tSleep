@@ -20,13 +20,15 @@ class StageManager
 	STAGETYPE _currentStage;
 	STAGETYPE _preStage;
 	CollisionManager* _colM;
-
+	float _keyTimer;
 public:
 
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	void changeStage();
 
 	/*====================================================================
 									SETTER

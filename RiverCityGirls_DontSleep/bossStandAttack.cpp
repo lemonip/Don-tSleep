@@ -17,6 +17,8 @@ void bossStandAttack::UpdateState()
 	{
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
 	}	
+	EFFECT_M->play("Bss_stand", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+		(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 }
 
 
