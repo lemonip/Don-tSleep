@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Object.h"
+#include "ItemObj.h"
 
 HRESULT Object::init()
 {

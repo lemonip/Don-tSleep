@@ -30,7 +30,7 @@ HRESULT EasyStage::init()
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(950, 0, 545));
 	_objectM->pushObject(OBJECT_TYPE::DESK, vector3(1210, 0, 545));
 
-	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
+	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY * 0.8));
 	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX/2, 0, WINSIZEY/2+250));
 
 

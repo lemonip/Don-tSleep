@@ -1,7 +1,11 @@
 #pragma once
 #include "Object.h"
+
+
 class ItemObj : public Object
 {
+private:
+
 public:
 	ItemObj(ITEM_TYPE type, vector3 pos);
 
