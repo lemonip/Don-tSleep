@@ -10,6 +10,7 @@ protected:
 	OBJECT_TYPE _type;
 	float _renderTimer;
 
+
 public:
 
 	virtual HRESULT init();

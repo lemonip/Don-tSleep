@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Player.h"
-//¿ÜºÎ
+//ï¿½Üºï¿½
 #include "StageManager.h"
 #include "Stage.h"
 #include "ObjectManager.h"
 #include "EnemyManager.h"
 #include "CollisionManager.h"
 #include "Enemy.h"
-//»óÅÂ
+//ï¿½ï¿½ï¿½ï¿½
 #include "IPlayerState.h"
 #include "playerIdle.h"
 #include "playerWait.h"
@@ -38,15 +38,15 @@
 #include "playerSAttackDown.h"
 
 #include "Weapon.h"
-//ÃÊ±âÈ­
+//ï¿½Ê±ï¿½È­
 HRESULT Player::init()
 {
 	/*====================================================================
-		ÇÃ·¡ÀÌ¾îÀÇ ¿ÀºêÁ§Æ® ÃÊ±âÈ­¿Í ±âº» ¼³Á¤À» ÇÕ´Ï´Ù.
+		ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	====================================================================*/
 	_obj.init(OBJECT_GROUP::PLAYER, IMG_M->findImage("pl_wait"), vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 200));
 
-	//±âº» º¯¼ö ÃÊ±âÈ­
+	//ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	{
 		_obj.ani = new animation;
 		_info.jumpPower = 0;
@@ -78,7 +78,7 @@ HRESULT Player::init()
 		_info.immuneTimer = 0;
 	}
 
-	//»óÅÂÆÐÅÏ µî·Ï
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		_idle = new playerIdle;
 		_wait = new playerWait;
@@ -119,7 +119,7 @@ void Player::release()
 {
 }
 
-//¾÷µ« ¼ø¼­ Áß¿äÇÔ¡Ú »óÅÂ->Áß·Â->Å°ÀÔ·Â
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½Ô¡ï¿½ ï¿½ï¿½ï¿½ï¿½->ï¿½ß·ï¿½->Å°ï¿½Ô·ï¿½
 void Player::update()
 {
 	//cout << (int)_info.state<< endl;
@@ -127,48 +127,48 @@ void Player::update()
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
-	//»óÅÂ¾÷µ¥ÀÌÆ®
+	//ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	_IState->UpdateState();
 
-	//Áß·ÂÀÛ¿ë
+	//ï¿½ß·ï¿½ï¿½Û¿ï¿½
 	gravity();
 
-	//Å°ÀÔ·Â
+	//Å°ï¿½Ô·ï¿½
 	keyInput();
 
-	//¸Â±â
+	//ï¿½Â±ï¿½
 	 hit();
-	//¹«±â ¾÷µ«
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (_info.attackObj!=NULL)weaponUpdate();
 
-	//¿ÀºêÁ§Æ® ¾÷µ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	_obj.update();
 	_obj.shadowUpdate();
 	
-	//¾Ö´Ï ÇÁ·¹ÀÓ ¾÷µ«
+	//ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (_info.rendType == RENDERTYPE::ANI_RENDER) _obj.ani->frameUpdate(TIME_M->getElapsedTime() * 7);
 
-	//ÇÁ·¹ÀÓ¾÷µ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¾ï¿½ï¿½ï¿½
 	playFrame();
 
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD0))
 	{
-		cout << "±×¸²ÀÚ LT X: " << _obj.shadow.LT.x << endl;
-		cout << "±×¸²ÀÚ LT Y: " << _obj.shadow.LT.y << endl;
-		cout << "±×¸²ÀÚ LT Z: " << _obj.shadow.LT.z << endl;
+		cout << "ï¿½×¸ï¿½ï¿½ï¿½ LT X: " << _obj.shadow.LT.x << endl;
+		cout << "ï¿½×¸ï¿½ï¿½ï¿½ LT Y: " << _obj.shadow.LT.y << endl;
+		cout << "ï¿½×¸ï¿½ï¿½ï¿½ LT Z: " << _obj.shadow.LT.z << endl;
 
-		cout << "±×¸²ÀÚ pos X: " << _obj.shadow.pos.x << endl;
-		cout << "±×¸²ÀÚ pos Y: " << _obj.shadow.pos.y << endl;
-		cout << "±×¸²ÀÚ pos Z: " << _obj.shadow.pos.z << endl;
+		cout << "ï¿½×¸ï¿½ï¿½ï¿½ pos X: " << _obj.shadow.pos.x << endl;
+		cout << "ï¿½×¸ï¿½ï¿½ï¿½ pos Y: " << _obj.shadow.pos.y << endl;
+		cout << "ï¿½×¸ï¿½ï¿½ï¿½ pos Z: " << _obj.shadow.pos.z << endl;
 
-		cout << "Ä³¸¯ÅÍ X: " << _obj.pos.x << endl;
-		cout << "Ä³¸¯ÅÍ Y: " << _obj.pos.y << endl;
-		cout << "Ä³¸¯ÅÍ Z: " << _obj.pos.z << endl;
+		cout << "Ä³ï¿½ï¿½ï¿½ï¿½ X: " << _obj.pos.x << endl;
+		cout << "Ä³ï¿½ï¿½ï¿½ï¿½ Y: " << _obj.pos.y << endl;
+		cout << "Ä³ï¿½ï¿½ï¿½ï¿½ Z: " << _obj.pos.z << endl;
 		if (_platform != nullptr)
 		{
-			cout << "ÇÃ·§Æû X: " << _platform->bottomPlane[0].getEnd().x << endl;
-			cout << "ÇÃ·§Æû Y: " << _platform->bottomPlane[0].getEnd().y << endl;
-			cout << "ÇÃ·§Æû Z: " << _platform->bottomPlane[0].getEnd().z << endl;
+			cout << "ï¿½Ã·ï¿½ï¿½ï¿½ X: " << _platform->bottomPlane[0].getEnd().x << endl;
+			cout << "ï¿½Ã·ï¿½ï¿½ï¿½ Y: " << _platform->bottomPlane[0].getEnd().y << endl;
+			cout << "ï¿½Ã·ï¿½ï¿½ï¿½ Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 		}
 		else cout << "NULL" << endl;
 		
@@ -176,25 +176,25 @@ void Player::update()
 	
 }
 
-//·»´õ
+//ï¿½ï¿½ï¿½ï¿½
 void Player::render()
 {
 	/*====================================================================
-		Z-ORDER¿¡ µû¶ó ¾ËÆÄ ÇÁ·¹ÀÓ ·»´õ ½ÃÅµ´Ï´Ù.
+		Z-ORDERï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµï¿½Ï´ï¿½.
 	====================================================================*/
 
-	//ÇÃ·¡ÀÌ¾î ¿ÀºêÁ§Æ® ·»´õ
+	//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 
-	//¹«±â¸¦ °¡Áö°í ÀÖÀ» ¶§(´øÁ®¹ö·ÈÀ»¶§ ´øÁ®Áö´Â ¹«±â¸¦ ·»´õ)
+	//ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½)
 	if(!_info.hasWeapon)
 	{ 
-		//¿ÀºêÁ§Æ®ÂüÁ¶¸¦ ÀÒÁö ¾Ê¾Ò°í, ·»´õ»óÅÂ¶ó¸é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½
 		if(_info.attackObj != NULL && _info.attackObj->isRender)
 		ZORDER_M->renderObject(getMapDC(), _info.attackObj, RENDERTYPE::FRAME_RENDER);
 	}
 
-	//µð¹ö±ë ½Ã ·ºÆ® ·»´õ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	if (KEY_M->isToggleKey(VK_SHIFT))
 	{
 		Rectangle(getMapDC(), _obj.shadow.rc);
@@ -203,20 +203,20 @@ void Player::render()
 
 	}
 
-//»óÅÂ ÁöÁ¤
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void Player::setState(PL_STATE state)
 {
-	if (_info.state == state)return;	//°°Àº »óÅÂ¸é º¯°æÇÏÁö ¾Ê´Â´Ù.
-	_info.preState = _info.state;		//º¯°æ Àü ÇöÀç »óÅÂ¸¦ ÀúÀåÇÑ´Ù.
-	_info.state = state;				//ÇöÀç »óÅÂ¸¦ º¯°æÇÑ´Ù.
+	if (_info.state == state)return;	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+	_info.preState = _info.state;		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	_info.state = state;				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 
-	//»óÅÂ¸¦ ºüÁ®³ª¿Â´Ù
+	//ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 	if (_IState != NULL) _IState->ExitState();
 
-	//»óÅÂ¸¦ º¯°æÇÑ´Ù
+	//ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	switch (_info.state)
 	{
-		//±âº»µ¿ÀÛ
+		//ï¿½âº»ï¿½ï¿½ï¿½ï¿½
 	case PL_STATE::IDLE:	    _IState = _idle;		 break;
 	case PL_STATE::WAIT:	    _IState = _wait;		 break;
 	case PL_STATE::WALK:	    _IState = _walk;		 break;
@@ -226,7 +226,7 @@ void Player::setState(PL_STATE state)
 	case PL_STATE::CLIMB:      _IState = _climb;		 break;
 	case PL_STATE::CLIMBTOP:   _IState = _climbTop;		 break;
 	case PL_STATE::PICK:      _IState = _pick;			 break;
-		//°¡µå ¹× ÇÇ°Ý
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç°ï¿½
 	case PL_STATE::GRAB:       _IState = _grab;			 break;
 	case PL_STATE::GUARD:       _IState = _guard;		 break;
 	case PL_STATE::ROLL:       _IState = _roll;			 break;
@@ -235,7 +235,7 @@ void Player::setState(PL_STATE state)
 	case PL_STATE::STAND:		_IState = _stand;		 break;
 	case PL_STATE::DOWN:	    _IState = _down;		 break;
 	case PL_STATE::DEAD:	    _IState = _dead;		 break;
-		// °ø°Ý
+		// ï¿½ï¿½ï¿½ï¿½
 	case PL_STATE::THROW:	    _IState = _throw;		 break;
 	case PL_STATE::STOMP:	    _IState = _stomp;		 break;
 	case PL_STATE::COMBO1:	    _IState = _combo1;		 break;
@@ -249,28 +249,28 @@ void Player::setState(PL_STATE state)
 	default: break;
 	}
 
-	//»óÅÂ¿¡ ¸µÅ©ÇÏ°í ÁøÀÔÇÑ´Ù.
+	//ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½Å©ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	_IState->LinkPlAddress(this);
 	_IState->EnterState();
 }
 
-//°°Àº ÁÙ À¯¹«
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 bool Player::isRange(GameObject obj)
 {
-	//À§Ä¡ Â÷ÀÌ°¡ 15¹Ì¸¸ÀÌ¸é
+	//ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ì°ï¿½ 15ï¿½Ì¸ï¿½ï¿½Ì¸ï¿½
 	if (abs(_obj.pos.z - obj.pos.z) < 40) return true;
 	return false;
 }
 
-//°°Àº ÁÙ À¯¹«
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 bool Player::isRange(GameObject obj, float value)
 {
-	//À§Ä¡ Â÷ÀÌ°¡ °ª ¹Ì¸¸ÀÌ¸é
+	//ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½Ì¸ï¿½
 	if (abs(_obj.pos.z - obj.pos.z) < value) return true;
 	return false;
 }
 
-//¹«±â¾÷µ«
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::weaponUpdate()
 {
 	if (!_info.attackObj) return;
@@ -280,7 +280,7 @@ void Player::weaponUpdate()
 	case GOALPOS::PLAYER:
 		break;
 	case GOALPOS::WINOUT:
-		//°ñ·Î ÀÌµ¿ÇÏ´Ù°¡ È­¸é°ñ¿¡ °¡¸é °ñ»óÅÂ¸¦ ¹Ù´ÚÀ¸·Î º¯°æ
+		//ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´Ù°ï¿½ È­ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (moveAttackObj())
 		{
 			if (_info.dest == DIRECTION::RIGHT) _info.attackGoal.x -= 30;
@@ -310,7 +310,7 @@ bool Player::moveAttackObj()
 
 	_info.attackObj->pos.y -= sinf(getAngle(0, _info.attackObj->pos.y, 0, _info.attackGoal.y)) * 6.0f;
 	
-	//°ø°Ý ·ºÆ®¸¦ ¾îÅÃ ¿ÀºêÁ§Æ®ÀÇ À§Ä¡¿¡ ¸ÂÃã.
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	_info.attackRc = RectMakeCenter(_info.attackObj->pos.x,
 		_info.attackObj->pos.z + _info.attackObj->pos.y,
 		_info.attackObj->size.x + 200, _info.attackObj->size.z + 100);
@@ -328,24 +328,24 @@ bool Player::moveAttackObj()
 
 void Player::hit()
 {
-	//ÀÌ¹ÃÅ¸ÀÌ¸Ó °»½Å
+	//ï¿½Ì¹ï¿½Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (!_info.isImmune)
 	_info.immuneTimer = TIME_M->getWorldTime();
 
-	//ÀÌ¹Ã»óÅÂ¶ó¸é 4ÃÊÈÄ¿¡ µ¹¾Æ°¡±â
+	//ï¿½Ì¹Ã»ï¿½ï¿½Â¶ï¿½ï¿½ 4ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½
 	 if (_info.isImmune && TIME_M->getWorldTime() - _info.immuneTimer > 4.f)
 	{
 		_info.isImmune = false;
 		_obj.alpha = 255;
 	}
 
-	 //ÇÃ·¹ÀÌ¾î°¡ Á×¾úÀ¸¸é Á×À½Ã³¸®
+	 //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	 if (_info.hp <= 0)setState(PL_STATE::DEAD);
 
-	//Á×Àº°Ô ¾Æ´Ò¶§ ±âÀýÀÌ ¾Æ´Ò¶§
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½
 	if (_info.state != PL_STATE::DEAD && !_info.isImmune && _info.state != PL_STATE::STUN)
 	{
-		//°¡µå»óÅÂ°¡ ¾Æ´Ò¶§ 
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ò¶ï¿½ 
 		if (_info.state != PL_STATE::GUARD)
 		{
 			for (int i = 0; i != _enemyM->getVEnemy().size(); i++)
@@ -358,7 +358,7 @@ void Player::hit()
 					{
 						if (_info.hitCount >= 4)
 						{ 
-							//¸ÂÀº ¼ö ÃÊ±âÈ­
+							//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­
 							_info.hitCount = 0;
 							if(_info.hp<=10)setState(PL_STATE::STUN);
 							if (_info.hp > 10)setState(PL_STATE::DOWN); 
@@ -374,52 +374,52 @@ void Player::hit()
 	}
 }
 
-//½ºÅ×ÀÌÁö°¡ ¹Ù²ð ¶§¸¶´Ù ÃÊ±âÈ­½ÃÅ°´Â ÇÔ¼ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ô¼ï¿½
 void Player::stageInit()
 {
 	/*====================================================================
-		½ºÅ×ÀÌÁö°¡ ¹Ù²ð ¶§¸¶´Ù ÃÊ±âÈ­½ÃÅ°´Â ÇÔ¼öÀÔ´Ï´Ù.
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½.
 	====================================================================*/
-	switch (_stageM->getCurStage()) // ÇöÀç ½ºÅ×ÀÌÁö´Â?
+	switch (_stageM->getCurStage()) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 	{
-	case STAGETYPE::EASY: // ÇöÀç ½ºÅ×ÀÌÁö°¡ ÀÌÁö¸é
-		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¿´À¸¸é
+	case STAGETYPE::EASY: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë¸»ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			_obj.setPosX(1445);
 			_obj.setPosY(0);
 			_obj.setPosZ(420);
 		}
 		break;
-	case STAGETYPE::NORMAL:  // ÇöÀç ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¸é
-		if (_stageM->getPreStage() == STAGETYPE::EASY) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¿´À¸¸é
+	case STAGETYPE::NORMAL:  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë¸»ï¿½Ì¸ï¿½
+		if (_stageM->getPreStage() == STAGETYPE::EASY) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë¸»ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			_obj.setPosX(180);
 			_obj.setPosY(0);
 			_obj.setPosZ(700);
 		}
-		else if (_stageM->getPreStage() == STAGETYPE::HARD) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ÇÏµåÀÌ¿´À¸¸é
+		else if (_stageM->getPreStage() == STAGETYPE::HARD) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			_obj.setPosX(2645);
 			_obj.setPosY(0);
 			_obj.setPosZ(670);
 		}
 		break;
-	case STAGETYPE::HARD: // ÇöÀç ½ºÅ×ÀÌÁö°¡ ÇÏµå¸é
-		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ³ë¸»ÀÌ¿´À¸¸é
+	case STAGETYPE::HARD: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½
+		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë¸»ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			_obj.setPosX(270);
-			_obj.setPosY(0); // ³ªÁß¿¡ Ãß°¡ÇØ¾ßÇÔ
+			_obj.setPosY(0); // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
 			_obj.setPosZ(480);
 		}
-		else if (_stageM->getPreStage() == STAGETYPE::BOSS) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ º¸½º¿´À¸¸é
+		else if (_stageM->getPreStage() == STAGETYPE::BOSS) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			_obj.setPosX(2070);
 			_obj.setPosY(0);
 			_obj.setPosZ(1370);
 		}
 		break;
-	case STAGETYPE::BOSS: // ÇöÀç ½ºÅ×ÀÌÁö°¡ º¸½º¸é
-		if (_stageM->getPreStage() == STAGETYPE::HARD) // ÀÌÀü ½ºÅ×ÀÌÁö°¡ ÇÏµåÀÌ¿´À¸¸é
+	case STAGETYPE::BOSS: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (_stageM->getPreStage() == STAGETYPE::HARD) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			_obj.setPosX(275);
 			_obj.setPosY(0);
@@ -431,19 +431,19 @@ void Player::stageInit()
 	}
 
 	/*====================================================================
-		¸µÅ© : ¿¡³Ê¹Ì¸Å´ÏÀú, ¿ÀºêÁ§Æ® ¸Å´ÏÀú¿Í ¸µÅ©ÇÕ´Ï´Ù.
+		ï¿½ï¿½Å© : ï¿½ï¿½ï¿½Ê¹Ì¸Å´ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½Õ´Ï´ï¿½.
 	====================================================================*/
 	_enemyM = _stageM->getStage()->getEnemyM();
 	_objectM = _stageM->getStage()->getObjectM();
 }
 
-//ÀÌ¹ÌÁö º¯°æ
+//ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void Player::changeImg(string imgName, bool reverse)
 {
-	//ÀÌ¹ÌÁö¸¦ ¹Ù²Û´Ù.
+	//ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½.
 	_obj.img = IMG_M->findImage(imgName);
 
-	//¹æÇâ°ú ¸®¹ö½º ¿©ºÎ µû¸¥ ÇÁ·¹ÀÓ x ÀÎµ¦½º ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT:
@@ -459,15 +459,15 @@ void Player::changeImg(string imgName, bool reverse)
 		break;
 	}
 
-	//ÇÁ·¹ÀÓ ½Ã°£ °»½ÅÇÏ¿© ¹Ù·Î ÇÁ·¹ÀÓ º¯°æ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	_info.frameTimer = TIME_M->getWorldTime();
 
 }
 
-//ÇÁ·¹ÀÓ ¿¬»ê
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 {
-	//ÇÁ·¹ÀÓ y ¹øÈ£ ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ y ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT:
@@ -479,13 +479,13 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 	}
 	if (_info.state == PL_STATE::CLIMB || _info.state == PL_STATE::CLIMBTOP)
 		_obj.imgIndex.y = 0;
-	//ÇÁ·¹ÀÓ y ¹øÈ£ ¼¼ÆÃ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ y ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	_obj.img->setFrameY((int)_info.dest);
 
-	//ÇÁ·¹ÀÓ ½ÇÇà ½Ã°£ ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (TIME_M->getWorldTime() - _info.frameTimer > frameInterval)
 	{
-		//½Ã°£ °»½Å
+		//ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 		_info.frameTimer = TIME_M->getWorldTime();
 		switch (_info.dest)
 		{
@@ -502,17 +502,17 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		}
 	}
 
-	//ÇÁ·¹ÀÓ x ¹øÈ£ Á¶Àý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	switch (frameType)
 	{
-	case FRAMETYPE::ONCE://ÇÑ ¹ø Àç»ý
+	case FRAMETYPE::ONCE://ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
-		//¿ÞÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ 0¹øºÎÅÍ~ ³¡¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é ³¡¹øÈ£·Î ÇÁ·¹ÀÓ¹øÈ£ °íÁ¤
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ xï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 		}
-		//¿À¸¥ÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ ³¡¹øºÎÅÍ 0¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é 0¹øÀ¸·Î ÇÁ·¹ÀÓ ¹øÈ£ °íÁ¤
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ xï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
 		{
 			_obj.imgIndex.x = 0;
@@ -520,18 +520,18 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 
 	}
 	break;
-	case FRAMETYPE::LOOP://¹«ÇÑ Àç»ý
+	case FRAMETYPE::LOOP://ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
-		//¿ÞÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ 0¹øºÎÅÍ~ ³¡¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é ³¡¹øÈ£·Î ÇÁ·¹ÀÓ¹øÈ£ 0¹øÀ¸·Î °»½Å
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ xï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½È£ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
 
-		//¿À¸¥ÂÊÀÇ °æ¿ì xÀÎµ¦½º°¡ ³¡¹øºÎÅÍ 0¹ø±îÁö ÇÁ·¹ÀÓÀÌ ´Ù µÇ¸é 0¹øÀ¸·Î ÇÁ·¹ÀÓ ¹øÈ£ ³¡¹øÈ£·Î °»½Å
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ xï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		else if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
 			_obj.imgIndex.x = _obj.img->getMaxFrameX();
 	}
 	break;
-	case FRAMETYPE::REVERSEONCE://¹Ý´ë ÇÑ¹ø Àç»ý
+	case FRAMETYPE::REVERSEONCE://ï¿½Ý´ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½
 	{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 		{
@@ -543,7 +543,7 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 		}
 	}
 	break;
-	case FRAMETYPE::REVERSELOOP://¹Ý´ë ¹«ÇÑ Àç»ý
+	case FRAMETYPE::REVERSELOOP://ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
 			_obj.imgIndex.x = 0;
@@ -557,28 +557,28 @@ void Player::setFrame(FRAMETYPE frameType, float frameInterval)
 
 }
 
-//ÇÁ·¹ÀÓ ½ÇÇà
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void Player::playFrame()
 {
 	switch (_info.state)
 	{
-		//¹«ÇÑÀç»ý (ÀÏ¹Ý ¼Óµµ)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ï¹ï¿½ ï¿½Óµï¿½)
 	case PL_STATE::WAIT:
 
 		setFrame(FRAMETYPE::LOOP, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¹Ý´ë ¹«ÇÑÀç»ý (»¡¸®)
+		//ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 	case PL_STATE::RUN:
 		setFrame(FRAMETYPE::REVERSELOOP, FRAMEINTERVAL*0.35);
 		break;
-		//¹Ý´ë ¹«ÇÑÀç»ý
+		//ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case PL_STATE::STUN:
 	case PL_STATE::IDLE:	case PL_STATE::WALK:
 		setFrame(FRAMETYPE::REVERSELOOP, FRAMEINTERVAL);
 		break;
 
-		//ÇÑ¹ø (ÃµÃµÈ÷)
+		//ï¿½Ñ¹ï¿½ (ÃµÃµï¿½ï¿½)
 	case PL_STATE::PICK:	case PL_STATE::GRAB:
 	case PL_STATE::STICK:	case PL_STATE::HIT:
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL * 3);
@@ -586,7 +586,7 @@ void Player::playFrame()
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL * 5);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//ÇÑ¹ø (ÀÏ¹Ý ¼Óµµ)
+		//ï¿½Ñ¹ï¿½ (ï¿½Ï¹ï¿½ ï¿½Óµï¿½)
 	case PL_STATE::JUMP:
 	case PL_STATE::ROLL:
 	case PL_STATE::STAND:
@@ -599,18 +599,18 @@ void Player::playFrame()
 		setFrame(FRAMETYPE::ONCE, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¹Ý´ë ÇÑ¹øÀç»ý (ÀÏ¹Ý ¼Óµµ)
+		//ï¿½Ý´ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ (ï¿½Ï¹ï¿½ ï¿½Óµï¿½)
 	case PL_STATE::STOMP:
 	case PL_STATE::DASHATTACK:	case PL_STATE::SATTACKDOWN:
 		setFrame(FRAMETYPE::REVERSEONCE, FRAMEINTERVAL);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¹Ý´ë ÇÑ¹øÀç»ý (»¡¸®)
+		//ï¿½Ý´ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 	case PL_STATE::GUARD:
 		setFrame(FRAMETYPE::REVERSEONCE, FRAMEINTERVAL*0.4);
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		break;
-		//¾Ö´Ï·£´õ
+		//ï¿½Ö´Ï·ï¿½ï¿½ï¿½
 	case PL_STATE::CLIMB:
 		_info.rendType = RENDERTYPE::ANI_RENDER;
 		_obj.ani->setFPS(1);
@@ -619,55 +619,55 @@ void Player::playFrame()
 
 }
 
-//ÁÂÇ¥ÀÌµ¿
+//ï¿½ï¿½Ç¥ï¿½Ìµï¿½
 void Player::movePos(float x, float z, float jumpPower)
 {
 	_obj.pos.x += x;
 	_obj.pos.z += z;
 	_obj.pos.y -= jumpPower;
 
-	//±×¸²ÀÚ¸¸ ÀÏ´Ü ÇÑ¹ø ¾÷µ¥ÀÌÆ® (Ãæµ¹Ã³¸®¸¦ À§ÇÑ °Å! °Çµå¸®¸é ¾ÈµÊ!)
+	//ï¿½×¸ï¿½ï¿½Ú¸ï¿½ ï¿½Ï´ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® (ï¿½æµ¹Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½! ï¿½Çµå¸®ï¿½ï¿½ ï¿½Èµï¿½!)
 	_obj.shadowUpdate();
 
-	//Ãæµ¹Ã³¸® 
+	//ï¿½æµ¹Ã³ï¿½ï¿½ 
 	_colM->playerObjectCollision();
 
-	//±×¸²ÀÚ ¾Æ·¡·Î ¾È ¶³¾îÁöµµ·Ï ¿¹¿ÜÃ³¸®
+	//ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	if (_obj.pos.y > 0)_obj.pos.y = 0;
 
-	//ÃÖÁ¾ ·ºÆ® °»½Å
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	_obj.update();
 }
 
-//ÁÂÇ¥¼³Á¤
+//ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½
 void Player::setPos(float x, float z, float y)
 {
 	_obj.pos.x = x;
 	_obj.pos.z = z;
 	_obj.pos.y = y;
 
-	//±×¸²ÀÚ¸¸ ÀÏ´Ü ÇÑ¹ø ¾÷µ¥ÀÌÆ® (Ãæµ¹Ã³¸®¸¦ À§ÇÑ°Å! °Çµå¸®¸é ¾ÈµÊ!)
+	//ï¿½×¸ï¿½ï¿½Ú¸ï¿½ ï¿½Ï´ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® (ï¿½æµ¹Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ°ï¿½! ï¿½Çµå¸®ï¿½ï¿½ ï¿½Èµï¿½!)
 	_obj.shadowUpdate();
 
-	//Ãæµ¹Ã³¸® 
+	//ï¿½æµ¹Ã³ï¿½ï¿½ 
 	_colM->playerObjectCollision();
 
-	//±×¸²ÀÚ ¾Æ·¡·Î ¾È ¶³¾îÁöµµ·Ï ¿¹¿ÜÃ³¸®
+	//ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	if (_obj.pos.y > 0)_obj.pos.y = 0;
 
-	//ÃÖÁ¾ ·ºÆ® °»½Å
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	_obj.update();
 }
 
 
-//Áß·ÂÀÛ¿ë
+//ï¿½ß·ï¿½ï¿½Û¿ï¿½
 void Player::gravity()
 {
 	if (_info.isSky) _info.jumpPower -= GRAVITY;
 	if (_obj.pos.y >= 0 && _info.isSky)
 	{
 		setState(PL_STATE::IDLE);
-		//°È°Å³ª ¶Ù°íÀÖ¾ú°í, Å°¸¦ °è¼Ó ´©¸£°íÀÖÀ¸¸é ±× »óÅÂ ±×´ë·Îµ¹¾Æ¿À±â
+		//ï¿½È°Å³ï¿½ ï¿½Ù°ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½, Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½Îµï¿½ï¿½Æ¿ï¿½ï¿½ï¿½
 		if (_info.preState == PL_STATE::WALK || _info.preState == PL_STATE::RUN)
 		{
 			if (_info.dest == DIRECTION::LEFT && KEY_M->isStayKeyDown(VK_LEFT))setState(_info.preState);
@@ -680,62 +680,62 @@ void Player::gravity()
 	movePos(0, 0, _info.jumpPower);
 }
 
-//Å°ÀÔ·Â
+//Å°ï¿½Ô·ï¿½
 void Player::keyInput()
 {
-	//Å°Á¶ÀÛÀ» ¸øÇÏ´Â »óÅÂ¶ó¸é ¸®ÅÏ
+	//Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (!_info.isControl) return;
 
-	//°ø°ÝÅ°¹Þ±â(Ä¿¸Çµå¸¦À§ÇØ)
+	//ï¿½ï¿½ï¿½ï¿½Å°ï¿½Þ±ï¿½(Ä¿ï¿½Çµå¸¦ï¿½ï¿½ï¿½ï¿½)
 	if (KEY_M->isOnceKeyDownV('D'));
 
-	//»ç´Ù¸®¿À¸£±â
+	//ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (_info.isClimb && (GetAsyncKeyState(VK_UP) & 0x8000)) setState(PL_STATE::CLIMB);
 
-	//Á¡ÇÁ
+	//ï¿½ï¿½ï¿½ï¿½
 	if (KEY_M->isOnceKeyDownV('A') && !_info.isSky)
 	{
-		//ÀÌÀü»óÅÂ ÀúÀå
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		_info.preState = _info.state;
 		_info.isSky = true;
 		_info.jumpPower = JUMPPOWER;
 		movePos(0, 0, JUMPPOWER);
-		//Á¡ÇÁÆÄ¿ö°¡ - ¸é Á¡ÇÁ»óÅÂ·Î ÀüÈ¯
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½È¯
 		if (_info.jumpPower > 0.4)setState(PL_STATE::JUMP);
 	}
-	//±¸¸£±â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (KEY_M->isOnceKeyDownV('W') && !_info.isSky)
 	{
-		//ÀÌÀü»óÅÂ ÀúÀå
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		_info.preState = _info.state;
 		setState(PL_STATE::ROLL);
 	}
 
-	//¹æÇâÁ¶ÀÛÀ» ¸øÇÏ´Â »óÅÂ¶ó¸é ¸®ÅÏ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (!_info.isConDest) return;
 
-	//¿Þ
+	//ï¿½ï¿½
 	if (KEY_M->isOnceKeyDownV(VK_LEFT) || KEY_M->isStayKeyDown(VK_LEFT))
 	{
 		_info.moveDest = MOVE_DIRECTION::LEFT;
 		_info.dest = DIRECTION::LEFT;
 	}
-	//¿À
+	//ï¿½ï¿½
 	if (KEY_M->isOnceKeyDownV(VK_RIGHT) || KEY_M->isStayKeyDown(VK_RIGHT))
 	{
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
 		_info.dest = DIRECTION::RIGHT;
 	}
-	//À§
+	//ï¿½ï¿½
 	if (KEY_M->isOnceKeyDownV(VK_UP) || KEY_M->isStayKeyDown(VK_UP))_info.moveDest = MOVE_DIRECTION::UP;
-	//¾Æ·¡
+	//ï¿½Æ·ï¿½
 	if (KEY_M->isOnceKeyDownV(VK_DOWN) || KEY_M->isStayKeyDown(VK_DOWN))_info.moveDest = MOVE_DIRECTION::DOWN;
 
 
-	//Å°Ä¿¸Çµå 
+	//Å°Ä¿ï¿½Çµï¿½ 
 	if (!_info.isSky && KEY_M->getVKeyBuffer().size() >= 3)
 	{
-		//¹Ù¶óº¸´Â ¹æÇâÅ°+ ¡é + d Ä¿¸Çµå °ø°Ý
+		//ï¿½Ù¶óº¸´ï¿½ ï¿½ï¿½ï¿½ï¿½Å°+ ï¿½ï¿½ + d Ä¿ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (KEY_M->getKeyBuffer(0) == 'D' &&KEY_M->getKeyBuffer(1) == VK_DOWN
 			&& KEY_M->getKeyBuffer(2) == VK_RIGHT && _info.dest == DIRECTION::RIGHT)
 			setState(PL_STATE::SATTACKDOWN);

@@ -22,7 +22,7 @@ void ObjectManager::update()
 	for (int i = 0; i < _vObject.size(); i++)
 	{
 		if (_vObject[i]->getObj()->isRender) _vObject[i]->update();
-		
+
 	}
 	for (int i = 0; i < _vParticleLeftUp.size(); ++i)
 	{
@@ -128,7 +128,7 @@ void ObjectManager::render()
 		if (_vObject[i]->getObj()->isRender) _vObject[i]->render();
 		if (_vObject[i]->getObj()->isRender) _vObject[i]->getObj()->PolyLineRender(getMapDC());
 	}
-	
+
 	for (int i = 0; i < _vParticleLeftUp.size(); ++i)
 	{
 		if (_vParticleLeftUp[i]->getObj()->isRender) _vParticleLeftUp[i]->render();
@@ -265,7 +265,7 @@ void ObjectManager::particleInit(vector3 pos, OBJECT_TYPE type)
 	default:
 		break;
 	}
-	
+
 
 
 }
@@ -284,7 +284,7 @@ void ObjectManager::particleSwitch(OBJECT_TYPE type)
 				_vParticleLeftUp[i]->setTimer(TIME_M->getWorldTime());
 			}
 		}
-		
+
 		break;
 	case OBJECT_TYPE::PILLAR_RIGHT:
 		for (int i = 0; i < _vParticleRightUp.size(); ++i)
@@ -322,7 +322,7 @@ void ObjectManager::particleSwitch(OBJECT_TYPE type)
 	default:
 		break;
 	}
-	
+
 }
 
 void ObjectManager::pushObject(OBJECT_TYPE type, vector3 pos)

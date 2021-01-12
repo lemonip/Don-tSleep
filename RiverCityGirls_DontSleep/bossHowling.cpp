@@ -16,6 +16,7 @@ void bossHowling::EnterState()
 
 void bossHowling::UpdateState()
 {
+	
 
 	if (_thisBs->getInfo().isAttack)
 	{
