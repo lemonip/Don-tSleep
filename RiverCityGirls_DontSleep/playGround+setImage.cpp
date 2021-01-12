@@ -211,10 +211,20 @@ void playGround::addImage()
 	IMG_M->addFrameImage("Bs_attacked2", "source/image/character/enemy/boss/attacked 02.bmp", 737, 594, 3, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_attacked3", "source/image/character/enemy/boss/attacked 03.bmp", 737, 598, 3, 2, true, MAGENTA, true);
 
+	//================= 보스 이펙트 ===============
 
+	EFFECT_M->addEffect("Bss_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_smash", "Boss smash.bmp", 960, 89, 96, 89, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_howling", "Boss howling.bmp", 1821, 165,227.f, 165, 1.f, 3.f, 100);
+	EFFECT_M->addEffect("Bss_howling2", "Boss howling2.bmp", 416, 208, 208, 208, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_meteor", "Boss meteor2.bmp", 2424, 320, 404, 320, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_crush", "crush.bmp", 190, 193, 190, 193, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_stand", "Boss stand2.bmp", 3390, 144, 484.2f, 144, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_phase", "Boss phase1.bmp", 299, 82, 99.6f, 82, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Ob_break", "obj break.bmp", 3304, 248, 236, 248, 1.f, 3.f, 50);
 
-
-
+	   	 
 	//================= ������Ʈ =================
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
 	IMG_M->addImage("table", "source/image/object/table.bmp", 339, 162, true, MAGENTA, true);

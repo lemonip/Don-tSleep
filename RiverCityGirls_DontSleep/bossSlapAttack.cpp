@@ -21,9 +21,11 @@ void bossSlapAttack::UpdateState()
 	}
 	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 	{
-
 		_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 80, _thisBs->getObj()->pos.z - 200, 150, 200);
 	}		
+
+	EFFECT_M->play("Bss_attack", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+		(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 }
 
 

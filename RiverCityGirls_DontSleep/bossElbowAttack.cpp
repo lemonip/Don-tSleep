@@ -33,6 +33,8 @@ void bossElbowAttack::UpdateState()
 			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z -150, 200, 100);
 		}
 	}
+	EFFECT_M->play("Bss_attack", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+		(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 	
 }
 

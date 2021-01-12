@@ -107,7 +107,7 @@ void Boss::update()
 		}
 	}
 
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::SLAP);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::HOWLING);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::ELBOW);
