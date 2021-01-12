@@ -12,7 +12,7 @@ using namespace FMOD;
 
 #define TOTALSOUNDBUFFER SOUNDBUFFER + EXTRACHANNELBUFFER
 
-enum tagVolumeType
+enum class tagVolumeType
 {
     MUSIC,
     SFX,

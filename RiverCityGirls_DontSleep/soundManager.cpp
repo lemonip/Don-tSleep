@@ -61,10 +61,10 @@ void soundManager::addSound(string keyName, string soundName, tagVolumeType volu
     {
         switch (volumeType)
         {
-        case SFX:
+		case tagVolumeType::SFX:
             _system->createSound(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &_sound[_mTotalSounds.size()]);
             break;
-        case DIALOGUE: case MUSIC: default:
+        case tagVolumeType::DIALOGUE: case  tagVolumeType::MUSIC: default:
             _system->createStream(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &_sound[_mTotalSounds.size()]);
             break;
         }
@@ -73,10 +73,10 @@ void soundManager::addSound(string keyName, string soundName, tagVolumeType volu
     {
         switch (volumeType)
         {
-        case SFX:
+        case  tagVolumeType::SFX:
             _system->createSound(soundName.c_str(), FMOD_DEFAULT, NULL, &_sound[_mTotalSounds.size()]);
             break;
-        case DIALOGUE: case MUSIC: default:
+        case  tagVolumeType::DIALOGUE: case tagVolumeType::MUSIC: default:
             _system->createStream(soundName.c_str(), FMOD_DEFAULT, NULL, &_sound[_mTotalSounds.size()]);
             break;
         }

@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "ItemObj.h"
 #include "Object.h"
+#include "pet.h"
 //상태
 #include "IPlayerState.h"
 #include "playerIdle.h"
@@ -78,6 +79,8 @@ HRESULT Player::init()
 		_info.frameTimer = TIME_M->getWorldTime();
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		_info.immuneTimer = 0;
+
+		_pet.init();
 	}
 
 	//상태패턴 등록
@@ -124,8 +127,7 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-	//cout << (int)_info.state<< endl;
-
+	_pet.update(vector3( _obj.pos.x, _obj.pos.y, _obj.pos.z));
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
@@ -187,6 +189,7 @@ void Player::render()
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
 
+	_pet.render(getMapDC());
 	//플래이어 오브젝트 렌더
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 

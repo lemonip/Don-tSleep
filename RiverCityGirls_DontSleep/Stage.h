@@ -2,6 +2,8 @@
 #include "gameNode.h"
 #include "ObjectManager.h"
 #include "EnemyManager.h"
+#define BGMVOLUME .5f
+#define SFXVOLUME .5f
 
 class StageManager;
 /*====================================================================

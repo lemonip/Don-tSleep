@@ -1,10 +1,34 @@
 #include "stdafx.h"
 #include "playGround.h"
 
+
 /*====================================================================
 	playGround에서, 이미지를 추가하는 함수입니다.
 	게임 내에서 쓰이는 모든 이미지는 이 곳에서 추가합니다.
 ====================================================================*/
+
+void playGround::addSource()
+{
+	//================= 씬 음악 =================
+	SOUND_M->addSound("bossStage", "source/bgm/bossStage.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("hardStage", "source/bgm/hardStage.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("menuBG", "source/bgm/menuBG.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("openingBG", "source/bgm/openingBG.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("shopBG", "source/bgm/shopBG.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("stage", "source/bgm/stage.mp3", tagVolumeType::MUSIC, true);
+
+	//================= 씬 효과음 =================
+	SOUND_M->addSound("kyoko_battlestart", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_coin", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_combo", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_dashSAttack", "source/mr/playerMr/kyoko_dashSAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_hurricane", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_jumpAttack", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_sAttack", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_weapon_bat", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
+
+}
+
 
 void playGround::addImage()
 {
@@ -48,6 +72,8 @@ void playGround::addImage()
 	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("UI_kyoko", "source/image/ui/scene/UI_Kyoko_Portrait.bmp", 120, 135, true, MAGENTA);
+
+	IMG_M->addImage("phone", "source/image/ui/inven/phone.bmp", 480, 642, true, MAGENTA);
 
 	//================= 스테이지 =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
@@ -226,6 +252,7 @@ void playGround::addImage()
 	IMG_M->addImage("pillar_particle_3", "source/image/object/pillar_particle_3.bmp", 64, 64, true, MAGENTA, true);
 
 	IMG_M->addFrameImage("bat", "source/image/object/bat.bmp", 179, 104, 1, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pet", "source/image/object/pet.bmp", 576, 96, 6, 1, true, MAGENTA, true);
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
 	IMG_M->addImage("apple", "source/image/object/apple.bmp", 50, 50, true, MAGENTA, true);
@@ -243,4 +270,7 @@ void playGround::addImage()
 	EFFECT_M->addEffect("ef_spark", "spark.bmp", 512, 128, 128, 128, 1.f, .2f, 20);	
 	EFFECT_M->addEffect("ef_star", "star.bmp", 1350, 90, 90, 90, 1.f, .2f, 20);
 	EFFECT_M->addEffect("ef_stun", "stun.bmp", 420, 54, 70, 54, 1.f, .07f, 20);
+
+
+	
 }
