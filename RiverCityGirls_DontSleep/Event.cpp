@@ -292,3 +292,30 @@ void Event::exit()
 	_isMovie = _isCameraMove = false;
 	if (_player) _player->setIsControl(true);
 }
+
+locationLock::locationLock()
+{
+	
+}
+
+void locationLock::enter(int maxEnemy)
+{
+	enemyCount = 0;
+	maxEnemyCount = maxEnemy;
+}
+
+bool locationLock::update()
+{
+	/*CAMERA_M->*/
+
+
+	if (enemyCount == maxEnemyCount)
+	{
+		return true;
+	}
+	return false;
+}
+
+void locationLock::exit()
+{
+}

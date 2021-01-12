@@ -3,8 +3,8 @@
 #include "Object.h"
 #define PARTICLEMAX 60
 /*====================================================================
-	������Ʈ �Ŵ����Դϴ�. ������Ʈ�� ���Ϳ� �־� �����ϸ�,
-	push�� ������Ʈ�� ���� ���� �� �ֽ��ϴ�.
+	오브젝트 매니저입니다. 오브젝트를 벡터에 넣어 관리하며,
+	push로 오브젝트를 집어 넣을 수 있습니다.
 ====================================================================*/
 class ObjectManager : public gameNode
 {
@@ -34,10 +34,10 @@ public:
 /*====================================================================
 								FUNCTION
 ====================================================================*/
-	void pushObject(OBJECT_TYPE type, vector3 pos);		//������Ʈ�� �ִ´�.
-	void pushItem(ITEM_TYPE type, vector3 pos);			//�������� �ִ´�.
-	void pushWeapon(WEAPON_TYPE type, vector3 pos);		//���⸦ �ִ´�.
+	void pushObject(OBJECT_TYPE type, vector3 pos);		//오브젝트를 넣는다.
+	void pushItem(ITEM_TYPE type, vector3 pos);			//아이템을 넣는다.
+	void pushWeapon(WEAPON_TYPE type, vector3 pos);		//무기를 넣는다.
 
-	void popObject(int index);						//������Ʈ�� �����Ѵ�.
+	void popObject(int index);							//오브젝트를 삭제한다.
 };
 
