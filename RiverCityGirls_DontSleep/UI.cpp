@@ -97,3 +97,30 @@ void Option::update()
 void Option::render(HDC hdc)
 {
 }
+
+/*====================================================================
+						스테이지 문
+====================================================================*/
+
+StageDoor::StageDoor(int alpha)
+{
+	_alpha = alpha;
+}
+
+HRESULT StageDoor::init()
+{
+	return S_OK;
+}
+
+void StageDoor::release()
+{
+}
+
+void StageDoor::update()
+{
+}
+
+void StageDoor::render(HDC hdc)
+{
+	_img->render(hdc, _pos->x, _pos->z);
+}

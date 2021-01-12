@@ -10,7 +10,17 @@ void enemyBegging::EnterState()
 
 void enemyBegging::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _stateTimer > 5.0f)
+	LookAtPlayer();
+	EFFECT_M->play("ef_beg", (_thisEn->getRefObj().rc.left + _thisEn->getRefObj().rc.right) / 2, _thisEn->getRefObj().rc.top);
+	if (_thisEn->getInfo().dest == DIRECTION::RIGHT && _thisEn->getObj()->imgIndex.x > _thisEn->getObj()->img->getMaxFrameX())
+	{
+		_thisEn->getObj()->imgIndex.x = 1;
+	}
+	else if (_thisEn->getInfo().dest == DIRECTION::LEFT && _thisEn->getObj()->imgIndex.x < 0)
+	{
+		_thisEn->getObj()->imgIndex.x = 1;
+	}
+	if (TIME_M->getWorldTime() - _stateTimer > 3.0f)
 	{
 		_thisEn->SetState(EN_STATE::EN_IDLE);
 	}

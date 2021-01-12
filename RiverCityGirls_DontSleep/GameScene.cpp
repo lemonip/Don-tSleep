@@ -7,6 +7,8 @@
 
 HRESULT GameScene::init()
 {
+	UI_M->addDoor("doorLeft", IMG_M->findImage("UI_UnLocked_Door"), vector3(0, 0, 0), 155);
+	UI_M->addDoor("doorRight", IMG_M->findImage("UI_UnLocked_Door"), vector3(0, 0, 0), 155);
 	/*====================================================================
 		게임 씬은 스테이지 매니저와 콜리전 매니저를 가집니다.
 	====================================================================*/

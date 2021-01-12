@@ -220,7 +220,8 @@ public:
 	void movePos(float x, float z, float y);
 	//좌표 고정
 	void setPos(float x, float z, float y);
-
+	//아이템오브젝트와 상호작용
+	void checkItem();
 	//어택 오브젝트를 골까지 움직임
 	bool moveAttackObj();
 

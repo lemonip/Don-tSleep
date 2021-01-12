@@ -10,7 +10,8 @@ void enemyStun::EnterState()
 
 void enemyStun::UpdateState()
 {
-	if(TIME_M->getWorldTime() - _stateTimer > 3.0f)
+	EFFECT_M->play("ef_stun", (_thisEn->getRefObj().rc.left + _thisEn->getRefObj().rc.right) / 2, _thisEn->getRefObj().rc.top);
+	if(TIME_M->getWorldTime() - _stateTimer > 2.0f)
 	{
 		_thisEn->SetState(EN_STATE::EN_IDLE);
 	}

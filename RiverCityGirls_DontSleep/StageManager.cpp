@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "CollisionManager.h"
 
+#include "Stage.h"
 #include "EasyStage.h"
 #include "NormalStage.h"
 #include "HardStage.h"
@@ -38,6 +39,82 @@ void StageManager::release()
 	_stage->release();
 	SAFE_DELETE(_stage);
 }	
+
+void StageManager::changeStage()
+{
+	if (KEY_M->isStayKeyDown('M'))
+	{
+		_keyTimer += TIME_M->getElapsedTime();
+		if (_keyTimer >= 1.0f)
+		{
+			switch (_currentStage)
+			{
+			case STAGETYPE::EASY:
+				if (_stage->getRightDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getRightDoor().RB.z &&
+					_stage->getRightDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getRightDoor().RB.x)
+				{
+					setStage(STAGETYPE::NORMAL);
+					_keyTimer = 0;
+				}
+				break;
+			case STAGETYPE::NORMAL:
+				if (_stage->getLeftDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getLeftDoor().RB.z &&
+					_stage->getLeftDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getLeftDoor().RB.x)
+				{
+					setStage(STAGETYPE::EASY);
+					_keyTimer = 0;
+				}
+				else if (_stage->getRightDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getRightDoor().RB.z &&
+					_stage->getRightDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getRightDoor().RB.x)
+				{
+					setStage(STAGETYPE::HARD);
+					_keyTimer = 0;
+				}
+				break;
+
+			case STAGETYPE::HARD:
+				if (_stage->getLeftDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getLeftDoor().RB.z &&
+					_stage->getLeftDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getLeftDoor().RB.x)
+				{
+					setStage(STAGETYPE::NORMAL);
+					_keyTimer = 0;
+				}
+				else if (_stage->getRightDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getRightDoor().RB.z &&
+					_stage->getRightDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getRightDoor().RB.x)
+				{
+					setStage(STAGETYPE::BOSS);
+					_keyTimer = 0;
+				}
+				break;
+			case STAGETYPE::BOSS:
+				if (_stage->getLeftDoor().LT.z <= _player->getObj().pos.z &&
+					_player->getObj().pos.z <= _stage->getLeftDoor().RB.z &&
+					_stage->getLeftDoor().LT.x <= _player->getObj().pos.x &&
+					_player->getObj().pos.x <= _stage->getLeftDoor().RB.x)
+				{
+					setStage(STAGETYPE::HARD);
+					_keyTimer = 0;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
+	if (KEY_M->isOnceKeyUp('M')) _keyTimer = 0;
+}
 
 /*====================================================================
 	Player와 Stage에 대한 걸 업데이트 하며,

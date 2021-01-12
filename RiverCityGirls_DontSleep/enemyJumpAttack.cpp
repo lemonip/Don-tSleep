@@ -7,6 +7,12 @@ void enemyJumpAttack::EnterState()
 	_thisEn->SetImage();
 	_thisEn->getInfo().isSky = true;
 	LookAtPlayer();
+	RECT temp;
+	if (IntersectRect(&temp, &_thisEn->getInfo().rcAttack, &_thisEn->getPlayerAddress()->getRefObj().rc))
+	{
+		EFFECT_M->play("ef_attack", (_thisEn->getInfo().rcAttack.left + _thisEn->getInfo().rcAttack.right) / 2,
+			(_thisEn->getInfo().rcAttack.top + _thisEn->getInfo().rcAttack.bottom) / 2);
+	}
 }
 
 void enemyJumpAttack::UpdateState()
