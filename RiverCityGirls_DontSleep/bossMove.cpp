@@ -9,41 +9,29 @@ void bossMove::EnterState()
 	_angle = PI / 2;
 	_speed = 3.0f;
 	_thisBs->ChangeImg("Bs_move");	
+	
+	ResetFrame();
 }
 
 void bossMove::UpdateState()
-{	
+{
+	LookatPlayer();
 
-	if (abs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getobj().pos.x) > 100 && abs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getobj().pos.z) > 20)
+	if (fabs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 || fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30)
 	{		
-		_angle = getAngle(_thisBs->getobj().pos.x, _thisBs->getobj().pos.z,
+		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
-		_thisBs->getObj()->pos.x += cosf(_angle) * _speed;
-		_thisBs->getObj()->pos.z += -sinf(_angle) * _speed;		
+		_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);
 	}	
 
-	if (abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.x) < 100 && abs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getobj().pos.z) < 20)
+	if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 100 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30)
 	{
-		switch (RND->getInt(4))
-		{
-		case 0:
-			_thisBs->SetState(BS_STATE::SLAP);
-			break;
-		case 1:
-			_thisBs->SetState(BS_STATE::ELBOW);
-			break;
-		case 2:
-			_thisBs->SetState(BS_STATE::METEOR);
-			break;
-		case 3:
-			_thisBs->SetState(BS_STATE::BLOCK);
-			break;
-		}		
-	}
-	
-	
+		_thisBs->SetState(BS_STATE::WAIT);
+		
+	}	
 }
 
 void bossMove::ExitState()
 {
+	
 }

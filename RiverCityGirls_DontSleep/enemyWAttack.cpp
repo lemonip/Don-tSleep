@@ -4,6 +4,7 @@
 
 void enemyWAttack::EnterState()
 {
+	_thisEn->SetImage();
 }
 
 void enemyWAttack::UpdateState()

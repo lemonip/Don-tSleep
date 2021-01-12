@@ -5,9 +5,10 @@
 	enum보다는 enum class만 사용하도록 권장하며, 뒤에 :int를 붙여주세요.
 ====================================================================*/
 
-#define GRAVITY 0.12f
+#define GRAVITY 0.22f
 #define JUMPPOWER 7
 #define SPEED 5
+#define FRAMEINTERVAL 0.1f		 //프레임인터벌
 
 /*====================================================================
 	대화 종류입니다.
@@ -69,6 +70,7 @@ enum class OBJECT_GROUP : int
 	BOSS,
 	OBJECT,
 	ITEM,
+	WEAPON,
 };
 
 /*====================================================================
@@ -77,7 +79,16 @@ enum class OBJECT_GROUP : int
 enum class DIRECTION : int
 {
 	LEFT,
-	RIGHT
+	RIGHT,
+	NONE
+};
+
+enum class MOVE_DIRECTION : int
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
 };
 
 /*====================================================================
@@ -105,6 +116,16 @@ enum class OBJECT_TYPE : int
 	PILLAR_RIGHT,
 	PILLAR_BIG_LEFT,
 	PILLAR_BIG_RIGHT,
+	PILLAR_PARTICLE_1,
+	PILLAR_PARTICLE_2,
+	PILLAR_PARTICLE_3,
+};
+
+enum class OBJECT_DESTRUCTION : int
+{
+	INDESTRUCTIBLE,
+	BEFOREDESTRUCTION,
+	DESTRUCTION,
 };
 
 
@@ -123,7 +144,6 @@ enum class ITEM_TYPE : int
 ====================================================================*/
 enum class WEAPON_TYPE : int
 {
-	NONE,
 	BAT,
 	BASEBALL
 };

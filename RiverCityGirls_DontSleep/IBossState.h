@@ -22,6 +22,11 @@ public:
 	virtual void UpdateState() = 0;
 	virtual void ExitState() = 0;
 
+	void LookatPlayer();
+	void ResetFrame();
+	void Damaged(int atk);
+	void Attack();
+
 
 };
 

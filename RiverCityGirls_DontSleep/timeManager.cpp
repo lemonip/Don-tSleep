@@ -36,11 +36,20 @@ void timeManager::update(float lock)
 
 void timeManager::render(HDC hdc)
 {
+#ifdef _DEBUG
+	//폰트에 대해 설정한다.
+	SetBkMode(hdc, OPAQUE);
+	SetTextColor(hdc, RGB(0, 0, 0));
+	HFONT font, oldFont;
+	font = CreateFont(20, 0, 0, 0, 0, false, false, false,
+		DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("CookieRunOTF Bold"));
+	oldFont = (HFONT)SelectObject(hdc, font);
+
 	char str[256];
 	string frameRate;
 	SetBkMode(hdc, OPAQUE);
 
-#ifdef _DEBUG
 	{
 		wsprintf(str, "framePerSec(FPS) : %d", _timer->getFrameRate());
 		TextOut(hdc, 0, 0, str, strlen(str));
@@ -58,4 +67,6 @@ void timeManager::render(HDC hdc)
 	}
 #endif
 
+	//폰트를 삭제한다.
+	DeleteObject(font);
 }

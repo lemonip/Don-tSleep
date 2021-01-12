@@ -3,37 +3,69 @@
 
 void bossWait::EnterState()
 {
-	_count = 0;
-	_count++;	
-	
+	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_idle");
+	ResetFrame();
 }
 
 void bossWait::UpdateState()
 {
-	if (_count % 4 == 0)
-	{	
-		if (!_thisBs->getIsAttack() && !_thisBs->getIsMove() && !_thisBs->getIsPhase())
+	LookatPlayer();
 
-		_thisBs->getIsWait();
-		_thisBs->ChangeImg("Bs_idle");
-	}
+	if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 100 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30
+		&& TIME_M->getWorldTime() - _enterTime > 0.7f)
+	{		
 
-	else
+		switch (RND->getInt(4))
+		{
+		case 0:
+			_thisBs->SetState(BS_STATE::SLAP);
+			_thisBs->getInfo().isAttack = true;
+			break;
+		case 1:
+			_thisBs->SetState(BS_STATE::ELBOW);
+			_thisBs->getInfo().isAttack = true;
+			break;
+		case 2:
+			_thisBs->SetState(BS_STATE::BLOCK);
+			
+			break;	
+		case 3:
+			_thisBs->SetState(BS_STATE::HOWLING);
+			_thisBs->getInfo().isAttack = true;
+			break;
+		}
+
+		if (_thisBs->getIsphase())
+		{
+			switch (RND->getInt(4))
+			{
+			case 0:
+				_thisBs->SetState(BS_STATE::SMASH);
+				_thisBs->getInfo().isAttack = true;
+				break;
+			case 1:
+				_thisBs->SetState(BS_STATE::ELBOW);
+				_thisBs->getInfo().isAttack = true;
+				break;
+			case 2:
+				_thisBs->SetState(BS_STATE::BLOCK);
+				
+				break;
+			case 3:
+				_thisBs->SetState(BS_STATE::HOWLING);
+				_thisBs->getInfo().isAttack = true;
+				break;
+			}
+		}
+	}	
+	else if (fabs(_thisBs->getPlayerAddress()->getPObj()->pos.x - _thisBs->getObj()->pos.x) > 50 && fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30)
 	{
-		!_thisBs->getIsWait();
+		_thisBs->SetState(BS_STATE::MOVE);
 	}
-
-	/*	1. slab attack 
-		2. elbow attack
-		3. meteor attack
-		4. dash attack
-		5. smash attack
-		6. bsss block
-		으로 상태 행동 변화전 단계*/
-		
 }
 
 void bossWait::ExitState()
 {
+	
 }

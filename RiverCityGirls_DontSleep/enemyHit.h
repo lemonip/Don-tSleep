@@ -3,7 +3,7 @@
 
 class enemyHit : public IEnemyState
 {
-public :
+public:
 
 	virtual void EnterState();
 	virtual void UpdateState();

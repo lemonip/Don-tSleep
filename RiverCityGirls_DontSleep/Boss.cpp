@@ -19,6 +19,7 @@
 #include "bossStandAttack.h"
 #include "IBossState.h"
 
+#include "CollisionManager.h"
 #include "StageManager.h"
 #include "ObjectManager.h"
 #include "Player.h"
@@ -31,10 +32,23 @@ HRESULT Boss::init()
 	_objectM = _stageM->getStage()->getObjectM();
 
 	_obj.init(OBJECT_GROUP::BOSS, IMG_M->findImage("Bs_idle"), _obj.pos);	
-	_obj.imgIndex = { 0,0 }; 
+	_obj.imgIndex = { 0,0 };
 	
-	_info.angle = PI / 2;
-	_info.speed = 3.0f;
+	_frameTimer = TIME_M->getWorldTime();
+
+	{
+		_info.dest = DIRECTION::LEFT;		//방향
+		_info.gravity = 0;					//중력
+		_info.jumpPower = 0;				//점프력
+		_info.baseSpeed = _info.speed = 3;	//속도
+		_info.frameTimer = 0;				//프레임시간 타이머
+
+		_info.hp = _info.maxHp = 500;		//체력
+		_info.attack = 10;					//공격력
+
+		_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
+		_info.hasWeapon = false;			//무기들었니
+	};
 
 	//상태패턴 등록
 	_idle = new bossIdle;
@@ -55,22 +69,12 @@ HRESULT Boss::init()
 	_slap = new bossSlapAttack;
 	_smash = new bossSmashAttack;
 	_standattack = new bossStandAttack;
+	
+	_info.isAttack = false;	
+	_isPhase = false;
 
 	_BState = NULL;
 	SetState(BS_STATE::IDLE);
-	
-	_isAttack = false;
-	_isDown = false;
-	_isBlock = false;
-	_isDead = false;
-	_isPhase = false;
-	_isWait = false;
-	_isMove = false;
-	_isElbow = false;
-	_isMeteor = false;
-	_isSmash = false;
-	_isHowling = false;
-	_isDash = false;
 
 	return S_OK;
 }
@@ -81,22 +85,50 @@ void Boss::release()
 
 void Boss::update()
 {
-	_obj.update();
-	setImage();
+	_obj.prePos = _obj.pos;
+	_obj.preShadow = _obj.shadow;
+
 	_BState->UpdateState();	
 
-	if (_player->getObj().pos.x <= _obj.pos.x)
+	_obj.update();
+	_obj.shadowUpdate();
+
+	frameUpdate();
+
+	if (_state != BS_STATE::DEATH && _state != BS_STATE::BLOCK)
 	{
-		SetDest(DIRECTION::LEFT);
+		if (_player->getInfo().isAttack)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
+			{
+				SetState(BS_STATE::ATTACKED);				
+			}
+		}
 	}
-	else
-	{
-		SetDest(DIRECTION::RIGHT);
-	}	
+
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::ELBOW);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DOWN);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD6)) SetState(BS_STATE::ELBOW);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD7)) SetState(BS_STATE::GROGGY);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD8)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD9)) SetState(BS_STATE::IDLE);
+	if (KEY_M->isOnceKeyDown('Q')) SetState(BS_STATE::DASH);
+	if (KEY_M->isOnceKeyDown('W')) SetState(BS_STATE::METEOR);
+	if (KEY_M->isOnceKeyDown('E')) SetState(BS_STATE::METEORDOWN);
+	if (KEY_M->isOnceKeyDown('R')) SetState(BS_STATE::SLAP);
+	if (KEY_M->isOnceKeyDown('T')) SetState(BS_STATE::SMASH);
+	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
+	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
+	_stageM->getColM()->bossDestructObject(this);
 }
 
 void Boss::render()
-{
+{	
+	if(_info.isAttack)Rectangle(getMapDC(), _info.rcAttack);
 }
 
 void Boss::SetState(BS_STATE state)
@@ -141,77 +173,183 @@ void Boss::SetState(BS_STATE state)
 
 void Boss::SetDest(DIRECTION dest)
 {
-	if (_dest == dest)return; //같은 상태면 변경하지 않는다.
-	_dest = dest;
+	if (_info.dest == dest)return; //같은 상태면 변경하지 않는다.
+	_info.dest = dest;
 }
 
-
-
-void Boss::setImage()
+void Boss::frameUpdate()
 {
-	switch (_state)
+	if (TIME_M->getWorldTime() - _frameTimer > 0.1f)
 	{
-		case BS_STATE::IDLE:
-		  _obj.img = IMG_M->findImage("Bs_idle");
-		break;
-		case BS_STATE::WAIT:
-			_obj.img = IMG_M->findImage("Bs_wait");
-		break;
-		case BS_STATE::MOVE:
-			_obj.img = IMG_M->findImage("Bs_move");
-		break;
-		case BS_STATE::BLOCK:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_block"); }
-		break;
-		case BS_STATE::ATTACKED:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_attacked"); }
-		break;
-		case BS_STATE::GROGGY:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_groggy"); }
-		break;
-		case BS_STATE::PHASE:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_phase"); }
-		break;
-		case BS_STATE::DOWN:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_down"); }
-		break;
+		_frameTimer = TIME_M->getWorldTime();
+
+		switch (_state)
+		{
+		case BS_STATE::IDLE:		
 		case BS_STATE::DEATH:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_death"); }
+		case BS_STATE::MOVE:
+		case BS_STATE::WAIT:
+		case BS_STATE::GROGGY:	
+		case BS_STATE::DOWN:
+		case BS_STATE::METEORDOWN:
+		playFrame(0);
 		break;
+
+		case BS_STATE::METEOR:
+						
+		playFrame(1);
+		break;
+
+		case BS_STATE::DASH:
+		case BS_STATE::BLOCK:
+		case BS_STATE::SMASH:
+		case BS_STATE::SLAP:
+		case BS_STATE::ELBOW:
+		case BS_STATE::PHASE:
 		case BS_STATE::HOWLING:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_howling"); }
+		case BS_STATE::ATTACKED:
+		case BS_STATE::STANDATTACK:
+		
+		playFrame(-1);
 		break;
-	case BS_STATE::METEOR:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_meteor"); }
+
+		default:
 		break;
-	case BS_STATE::DASH:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_dash"); }
+		}
+	}
+}
+
+void Boss::playFrame(int count)
+{
+	switch (count)
+	{
+	case -1:	//한 번 재생 후 기본
+				
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
+		{
+			_obj.imgIndex.x = 0;
+			SetState(BS_STATE::IDLE);			
+		}
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0)
+		{
+			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+			SetState(BS_STATE::IDLE);			
+		}
 		break;
-	case BS_STATE::ELBOW:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_elbow"); }
+	case 1:		//한 번만 재생
+	
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = 0;
 		break;
-	case BS_STATE::SLAP:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_slap"); }
+	case 0:		//무한 재생
+		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;
+		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 		break;
-	case BS_STATE::SMASH:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_smash"); }
-		break;
-	case BS_STATE::STANDATTACK:
-		if (_ENEMY_TYPE == ENEMY_TYPE::BOSS) { IMG_M->findImage("Bs_standat"); }
-		break;	
 	}
 
-
+	/*if (_obj.imgIndex.x < 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
+	else if (_obj.imgIndex.x > _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;*/
+	switch (_info.dest)
+	{
+	case DIRECTION::LEFT: 
+		_obj.imgIndex.x--;
+		_obj.imgIndex.y = 0;
+		break;
+		
+	case DIRECTION::RIGHT: 
+		++_obj.imgIndex.x;
+		_obj.imgIndex.y = 1;
+		break;
+	}
 }
 
-
-void Boss::MovePos(float x, float z, float y)
+/*void Boss::setFrame(FRAMETYPE _frametype)
 {
-	_obj.pos.x += x;	
-	_obj.pos.z -= z;
-	_obj.pos.y += y;
-	
-}
+	switch (_dest)
+	{
+	case DIRECTION::LEFT:
+		_obj.imgIndex.y = 0;
+		break;
+	case DIRECTION::RIGHT:
+		_obj.imgIndex.y = 1;
+		break;
+	}
+	_obj.img->setFrameY((int)_dest);
+
+	//프레임 실행 시간 설정
+	if (TIME_M->getWorldTime() - _frameTimer > 1.0f)
+	{		
+		_frameTimer = TIME_M->getWorldTime();
+		switch (_dest)
+		{
+		case DIRECTION::LEFT:
+			if (_frametype != FRAMETYPE::REVERSROOP && _frametype != FRAMETYPE::REVERSONCE) ++_obj.imgIndex.x;
+			else --_obj.imgIndex.x;
+
+
+			break;
+		case DIRECTION::RIGHT:
+			if (_frametype != FRAMETYPE::REVERSROOP&& _frametype != FRAMETYPE::REVERSONCE) --_obj.imgIndex.x;
+			else  ++_obj.imgIndex.x;
+			break;
+		}
+	}
+
+	//프레임 x 번호 조절
+	switch (_frametype)
+	{
+	case FRAMETYPE::ONCE://한 번 재생
+	{
+		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 고정
+		if (_dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		{
+			_obj.imgIndex.x = _obj.img->getMaxFrameX(); return;
+		}
+		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 고정
+		else if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
+		{
+			_obj.imgIndex.x = 0; return;
+		}
+
+	}
+	break;
+	case FRAMETYPE::ROOP://무한 재생
+	{
+		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 0번으로 갱신
+		if (_dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+			_obj.imgIndex.x = 0;
+
+		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 끝번호로 갱신
+		else if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
+			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+	}
+	break;
+	case FRAMETYPE::REVERSONCE://반대 한번 재생
+	{
+		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+		{
+			_obj.imgIndex.x = _obj.img->getMaxFrameX(); return;
+		}
+		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
+		{
+			_obj.imgIndex.x = 0; return;
+		}
+	}
+	break;
+	case FRAMETYPE::REVERSROOP://반대 무한 재생
+	{
+		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
+			_obj.imgIndex.x = 0;
+
+		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
+			_obj.imgIndex.x = _obj.img->getMaxFrameX();
+
+	}
+	break;
+	}
+}*/
+
+
 
 void Boss::ChangeImg(string imgName)
 {

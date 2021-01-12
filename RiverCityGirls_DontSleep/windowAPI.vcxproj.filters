@@ -91,6 +91,12 @@
     <Filter Include="playGround\CollisionManager">
       <UniqueIdentifier>{0be01191-66bd-434e-b3fc-678fc5879341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\ObjectManager\Weapon">
+      <UniqueIdentifier>{8106a9de-02b8-4895-b7f4-715efda0c1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Player\Pet">
+      <UniqueIdentifier>{1ec7dc27-0589-4594-9271-4557528ca23c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -327,13 +333,7 @@
     <ClInclude Include="enemyDown.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
-    <ClInclude Include="enemyFriend.h">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClInclude>
     <ClInclude Include="enemyGuard.h">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyHardAttack.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="enemyHeldHit.h">
@@ -352,15 +352,6 @@
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="enemyJumpAttack.h">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyLadder.h">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyLadderTransition.h">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyPatrol.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="enemyRun.h">
@@ -468,9 +459,6 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="DialogueManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SelectScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
@@ -506,6 +494,21 @@
     </ClInclude>
     <ClInclude Include="playerClimbTop.h">
       <Filter>playGround\Player\playerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>playGround\ObjectManager\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="pet.h">
+      <Filter>playGround\Player\Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemyState.h">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyHit2.h">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyHit3.h">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -635,9 +638,6 @@
     <ClCompile Include="ShopScene.cpp">
       <Filter>playGround\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="playGround+setImage.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
     <ClCompile Include="NormalStage.cpp">
       <Filter>playGround\StageManager\Stage</Filter>
     </ClCompile>
@@ -725,13 +725,7 @@
     <ClCompile Include="enemyDown.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
-    <ClCompile Include="enemyFriend.cpp">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClCompile>
     <ClCompile Include="enemyGuard.cpp">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyHardAttack.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
     <ClCompile Include="enemyHeldHit.cpp">
@@ -750,15 +744,6 @@
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
     <ClCompile Include="enemyJumpAttack.cpp">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyLadder.cpp">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyLadderTransition.cpp">
-      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyPatrol.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
     <ClCompile Include="enemyRun.cpp">
@@ -796,9 +781,6 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>playGround\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogueManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="IPlayerState.cpp">
       <Filter>playGround\Player\playerState</Filter>
@@ -904,6 +886,24 @@
     </ClCompile>
     <ClCompile Include="playerClimbTop.cpp">
       <Filter>playGround\Player\playerState</Filter>
+    </ClCompile>
+    <ClCompile Include="playGround+setImage.cpp">
+      <Filter>playGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>playGround\ObjectManager\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="pet.cpp">
+      <Filter>playGround\Player\Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemyState.cpp">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyHit2.cpp">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyHit3.cpp">
+      <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

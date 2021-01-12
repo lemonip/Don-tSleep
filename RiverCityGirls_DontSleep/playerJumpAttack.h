@@ -3,9 +3,7 @@
 
 class playerJumpAttack :public IPlayerState
 {
-	//공격판정용
-	bool _isCollsion;
-	RECT _temp;
+	bool _isEffect;
 public:
 
 	virtual void EnterState();

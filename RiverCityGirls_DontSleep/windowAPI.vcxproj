@@ -173,7 +173,6 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="DataManager.h" />
-    <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="EasyStage.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
@@ -185,19 +184,16 @@
     <ClInclude Include="enemyBegging.h" />
     <ClInclude Include="enemyDie.h" />
     <ClInclude Include="enemyDown.h" />
-    <ClInclude Include="enemyFriend.h" />
     <ClInclude Include="enemyGuard.h" />
-    <ClInclude Include="enemyHardAttack.h" />
     <ClInclude Include="enemyHeldHit.h" />
     <ClInclude Include="enemyHeldRelease.h" />
     <ClInclude Include="enemyHit.h" />
+    <ClInclude Include="enemyHit2.h" />
+    <ClInclude Include="enemyHit3.h" />
     <ClInclude Include="enemyIdle.h" />
     <ClInclude Include="enemyJump.h" />
     <ClInclude Include="enemyJumpAttack.h" />
-    <ClInclude Include="enemyLadder.h" />
-    <ClInclude Include="enemyLadderTransition.h" />
     <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="enemyPatrol.h" />
     <ClInclude Include="enemyRun.h" />
     <ClInclude Include="enemyRunAttack.h" />
     <ClInclude Include="enemyStun.h" />
@@ -217,6 +213,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="HardStage.h" />
     <ClInclude Include="IBossState.h" />
+    <ClInclude Include="IEnemyState.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="Interpolation.h" />
@@ -228,6 +225,7 @@
     <ClInclude Include="NormalStage.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="pet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerClimb.h" />
     <ClInclude Include="playerClimbTop.h" />
@@ -283,6 +281,7 @@
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector3.h" />
     <ClInclude Include="Video.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="windowAPI.h" />
     <ClInclude Include="zOrderManager.h" />
   </ItemGroup>
@@ -311,7 +310,6 @@
     <ClCompile Include="cheerLeader.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DataManager.cpp" />
-    <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="EasyStage.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
@@ -323,19 +321,16 @@
     <ClCompile Include="enemyBegging.cpp" />
     <ClCompile Include="enemyDie.cpp" />
     <ClCompile Include="enemyDown.cpp" />
-    <ClCompile Include="enemyFriend.cpp" />
     <ClCompile Include="enemyGuard.cpp" />
-    <ClCompile Include="enemyHardAttack.cpp" />
     <ClCompile Include="enemyHeldHit.cpp" />
     <ClCompile Include="enemyHeldRelease.cpp" />
     <ClCompile Include="enemyHit.cpp" />
+    <ClCompile Include="enemyHit2.cpp" />
+    <ClCompile Include="enemyHit3.cpp" />
     <ClCompile Include="enemyIdle.cpp" />
     <ClCompile Include="enemyJump.cpp" />
     <ClCompile Include="enemyJumpAttack.cpp" />
-    <ClCompile Include="enemyLadder.cpp" />
-    <ClCompile Include="enemyLadderTransition.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="enemyPatrol.cpp" />
     <ClCompile Include="enemyRun.cpp" />
     <ClCompile Include="enemyRunAttack.cpp" />
     <ClCompile Include="enemyStun.cpp" />
@@ -354,6 +349,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="HardStage.cpp" />
     <ClCompile Include="IBossState.cpp" />
+    <ClCompile Include="IEnemyState.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="Interpolation.cpp" />
@@ -365,6 +361,7 @@
     <ClCompile Include="NormalStage.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="pet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerClimb.cpp" />
     <ClCompile Include="playerClimbTop.cpp" />
@@ -422,6 +419,7 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="Video.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="winMain.cpp" />
     <ClCompile Include="zOrderManager.cpp" />
   </ItemGroup>

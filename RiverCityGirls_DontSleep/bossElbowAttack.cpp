@@ -5,28 +5,39 @@
 
 void bossElbowAttack::EnterState()
 {
+	
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_elbow");
+	_thisBs->getInfo().isAttack = true;
+
+	LookatPlayer();
+	ResetFrame();
 }
 
 void bossElbowAttack::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x > _thisBs->getPlayerAddress()->getObj().pos.x)
-	{
-		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
-		RECT _temp;
-		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
-	}
+	/*if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x) _thisBs->setDest(DIRECTION::RIGHT);
+	else if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x) _thisBs->setDest(DIRECTION::LEFT);
+	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
+	{*/
 
-	else if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x < _thisBs->getPlayerAddress()->getObj().pos.x)
+	if (_thisBs->getInfo().isAttack)
 	{
-		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
-		RECT _temp;
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+		{
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 50, _thisBs->getObj()->pos.z -150, 200, 100);
+		}
+
+		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+		{
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z -150, 200, 100);
+		}
 	}
+	
 }
 
 void bossElbowAttack::ExitState()
 {
-	return;
 	_thisBs->SetState(BS_STATE::IDLE);
+	_thisBs->getInfo().isAttack = false;
 }

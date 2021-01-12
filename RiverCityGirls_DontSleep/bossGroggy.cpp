@@ -5,14 +5,17 @@
 void bossGroggy::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
-	_thisBs->ChangeImg("Bs_down");
+	_thisBs->ChangeImg("Bs_groggy");
+
+	LookatPlayer();
+	ResetFrame();
 }
 
 void bossGroggy::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
+	if (TIME_M->getWorldTime() - _enterTime > 3.5f)
 	{
-		return;	// 저 시간동안 아무것도 안하겠다...(?)
+		_thisBs->SetState(BS_STATE::IDLE);
 	}
 }
 

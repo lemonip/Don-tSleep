@@ -7,27 +7,28 @@ void bossSlapAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_slap");
+	_thisBs->getInfo().isAttack = true;
+
+	LookatPlayer();
+	ResetFrame();	
 }
 
 void bossSlapAttack::UpdateState()
-{
-		
-	if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x > _thisBs->getPlayerAddress()->getObj().pos.x)
+{	
+	if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 	{
-		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
-		RECT _temp;
-		//if(IntersectRect(&_temp, & _thisBs->getIsInfo().attackRC,& )) 충돌처리 필요, 플레이어 렉트? 
+		_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x + 80, _thisBs->getObj()->pos.z - 200, 150, 200);
 	}
-
-	else if (TIME_M->getWorldTime() - _enterTime > 3.0f && _thisBs->getobj().pos.x < _thisBs->getPlayerAddress()->getObj().pos.x)
+	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 	{
-		_thisBs->getIsInfo().attackRC = RectMakeCenter(_thisBs->getobj().pos.x - 10, _thisBs->getobj().pos.z, 20, 20);
-		RECT _temp;		
-	}	
+
+		_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 80, _thisBs->getObj()->pos.z - 200, 150, 200);
+	}		
 }
+
 
 void bossSlapAttack::ExitState()
 {
-	return;
 	_thisBs->SetState(BS_STATE::IDLE);
+	_thisBs->getInfo().isAttack = false;
 }
