@@ -19,6 +19,7 @@
 #include "bossStandAttack.h"
 #include "IBossState.h"
 
+#include "CollisionManager.h"
 #include "StageManager.h"
 #include "ObjectManager.h"
 #include "Player.h"
@@ -123,6 +124,10 @@ void Boss::update()
 	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
 	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
 
+
+=======
+	_stageM->getColM()->bossDestructObject(this);
+>>>>>>> 종환?�업2
 }
 
 void Boss::render()

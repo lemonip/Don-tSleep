@@ -8,6 +8,7 @@ class Object : public gameNode
 protected:
 	GameObject _obj;
 	OBJECT_TYPE _type;
+	float _renderTimer;
 
 
 public:
@@ -18,7 +19,8 @@ public:
 	virtual void render();
 
 
-
+	float getTimer() { return _renderTimer; }
+	void setTimer(float time) { _renderTimer = time; }
 	GameObject* getObj() { return &_obj; }
 };
 

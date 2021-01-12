@@ -7,13 +7,13 @@ HRESULT BossStage::init()
 	Stage::init();
 
 	/*====================================================================
-		½ºÅ×ÀÌÁöÀÇ ¹è°æ ÀÌ¹ÌÁö¸¦ ¼³Á¤ÇÏ°í, Ä«¸Þ¶ó¿¡°Ô ¸Ê »çÀÌÁî¸¦ ¾Ë·Á ÁÝ´Ï´Ù.
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, Ä«ï¿½Þ¶ó¿¡°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½Ë·ï¿½ ï¿½Ý´Ï´ï¿½.
 	====================================================================*/
 	backGround = IMG_M->findImage("bossStage");
 	CAMERA_M->SetMap(*this, backGround);
 
 	/*====================================================================
-		½ºÅ×ÀÌÁöÀÇ º®À» ¹èÄ¡ÇÕ´Ï´Ù. LT, RT, RB, LB ¼ø!!
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Õ´Ï´ï¿½. LT, RT, RB, LB ï¿½ï¿½!!
 	====================================================================*/
 	backWallInit(vector3(650, 9999, 0), vector3(2480, 9999, 0), vector3(2480, 0, 535), vector3(650, 0, 535));
 
@@ -24,24 +24,28 @@ HRESULT BossStage::init()
 	floorInit(vector3(0, 0, 1180), vector3(3116, 0, 1160), vector3(3116, 0, 1215), vector3(0, 0, 1215));
 
 	/*====================================================================
-		¿ÀºêÁ§Æ®¿Í ¿¡³Ê¹Ì¸¦ ¹èÄ¡ÇÕ´Ï´Ù.
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¹Ì¸ï¿½ ï¿½ï¿½Ä¡ï¿½Õ´Ï´ï¿½.
 	====================================================================*/
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_LEFT, vector3(1000, 0, 700));
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_BIG_LEFT, vector3(700, 0, 1000));
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_RIGHT, vector3(2100, 0, 700));
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_BIG_RIGHT, vector3(2416, 0, 1000));
+	_objectM->particleInit(vector3(970, 0, 700), OBJECT_TYPE::PILLAR_LEFT);
+	_objectM->particleInit(vector3(670, 0, 1000), OBJECT_TYPE::PILLAR_BIG_LEFT);
+	_objectM->particleInit(vector3(2070, 0, 700), OBJECT_TYPE::PILLAR_RIGHT);
+	_objectM->particleInit(vector3(2386, 0, 1000), OBJECT_TYPE::PILLAR_BIG_RIGHT);
 
-	_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX , 0, WINSIZEY));
+	_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX , 0, WINSIZEY - 20));
 	
 	/*====================================================================
-		½ºÅ×ÀÌÁö ÁøÀÔ ½Ã ½ÇÇà µÉ ÀÌº¥Æ®¸¦ Ãß°¡ÇÕ´Ï´Ù.
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
 	====================================================================*/
 	//EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
 	//EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_START), false);
 	////EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_END), false);
 
 	/*====================================================================
-		UI º¸½º Ã¼·Â ¹Ù¸¦ È£ÃâÇÑ´Ù.
+		UI ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½Ù¸ï¿½ È£ï¿½ï¿½ï¿½Ñ´ï¿½.
 	====================================================================*/
 	UI_M->addBar("bossHPBar", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(200, 580, 0),
 		&_enemyM->getVEnemy()[0]->getInfo().hp, &_enemyM->getVEnemy()[0]->getInfo().maxHp);

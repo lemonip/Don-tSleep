@@ -3,8 +3,6 @@
 
 BrokenObj::BrokenObj(OBJECT_TYPE type, vector3 pos)
 {
-
-
 	switch (type)
 	{
 	case OBJECT_TYPE::VENDINGMACHINE:

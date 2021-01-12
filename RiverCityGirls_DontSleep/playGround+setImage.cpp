@@ -2,26 +2,26 @@
 #include "playGround.h"
 
 /*====================================================================
-	playGround¿¡¼­, ÀÌ¹ÌÁö¸¦ Ãß°¡ÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù.
-	°ÔÀÓ ³»¿¡¼­ ¾²ÀÌ´Â ¸ðµç ÀÌ¹ÌÁö´Â ÀÌ °÷¿¡¼­ Ãß°¡ÇÕ´Ï´Ù.
+	playGroundï¿½ï¿½ï¿½ï¿½, ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½.
+	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
 ====================================================================*/
 
 void playGround::addImage()
 {
-	//================= ¾À ÀÌ¹ÌÁö =================
+	//================= ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ =================
 
-	//·Îµù ¾À
+	//ï¿½Îµï¿½ ï¿½ï¿½
 	IMG_M->addImage("load_background", "source/image/ui/scene/LoadingScene_Background.bmp", 1280, 720, true, MAGENTA);
 	IMG_M->addFrameImage("loading_sprite", "source/image/ui/scene/loadingSprite.bmp", 1152, 227, 4, 1, false, MAGENTA);
 	
-	//½ÃÀÛ ¾À
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	IMG_M->addImage("start_background", "source/image/ui/scene/StartScene_Background.bmp", 1280, 720, false, MAGENTA);
 	IMG_M->addImage("start_frame", "source/image/ui/scene/StartScene_Frame.bmp", 1600, 900, true, MAGENTA);
 	IMG_M->addImage("start_title", "source/image/ui/scene/StartScene_Title.bmp", 537, 308, true, MAGENTA);
 	IMG_M->addImage("start_kyoko", "source/image/ui/scene/StartScene_Kyoko.bmp", 672, 1024, true, MAGENTA);
 	IMG_M->addImage("start_misako", "source/image/ui/scene/StartScene_Misako.bmp", 672, 1024, true, MAGENTA);
 
-	//¼±ÅÃ ¾À
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	IMG_M->addImage("select_background", "source/image/ui/scene/SelectScene_Background.bmp", 1280, 720, false, MAGENTA);
 	IMG_M->addImage("select_background2", "source/image/ui/scene/SelectScene_background2.bmp", 1280, 720, true, MAGENTA);
 	IMG_M->addImage("select_illust", "source/image/ui/scene/SelectScene_illust.bmp", 996, 1705, true, MAGENTA);
@@ -32,7 +32,7 @@ void playGround::addImage()
 	IMG_M->addImage("select_kyoko_background", "source/image/ui/scene/SelectScene_kyoko_background.bmp", 360, 563, true, MAGENTA);
 	IMG_M->addImage("select_misako_background", "source/image/ui/scene/SelectScene_misako_background.bmp", 360, 563, true, MAGENTA);
 
-	//°ÔÀÓ ¾À
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	IMG_M->addImage("dialogWindow", "source/image/ui/scene/dialogWindow.bmp", 1280, 150, true, MAGENTA);
 	IMG_M->addImage("kyoko_1", "source/image/ui/scene/kyoko_1.bmp", 386, 460, true, MAGENTA);
 	IMG_M->addImage("kyoko_2", "source/image/ui/scene/kyoko_2.bmp", 386, 460, true, MAGENTA);
@@ -49,14 +49,14 @@ void playGround::addImage()
 	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("UI_kyoko", "source/image/ui/scene/UI_Kyoko_Portrait.bmp", 120, 135, true, MAGENTA);
 
-	//================= ½ºÅ×ÀÌÁö =================
+	//================= ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
 	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);
 	IMG_M->addImage("hardStage", "source/image/stage/hard.bmp", 2328, 1428, false, MAGENTA);
 	IMG_M->addImage("bossStage", "source/image/stage/boss1.bmp", 3116, 1215, false, MAGENTA);
 	IMG_M->addImage("bossStage2", "source/image/stage/boss2.bmp", 3116, 1215, false, MAGENTA);
 
-	//================= ÇÃ·¡ÀÌ¾î =================
+	//================= ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ =================
 	IMG_M->addFrameImage("pl_climb", "source/image/character/player/climb.bmp", 720, 237, 6, 1, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_climbTop", "source/image/character/player/climbTop.bmp", 288, 192, 3, 1, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_climbTopDown", "source/image/character/player/climbTopDown.bmp", 288, 234, 3, 1, true, MAGENTA, true);
@@ -98,8 +98,8 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pl_wBatThrow", "source/image/character/player/wBatThrow.bmp", 1616, 600, 8, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("pl_wBatWalk", "source/image/character/player/wBatWalk.bmp", 1476, 500, 12, 2, true, MAGENTA, true);
 
-	//================= ¿¡³Ê¹Ì =================
-	//===============¿©ÀÚÇÐ»ý==========================
+	//================= ï¿½ï¿½ï¿½Ê¹ï¿½ =================
+	//===============ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½==========================
 	IMG_M->addFrameImage("schoolGirlIdle", "source/image/character/enemy/schoolGirl/Idle.bmp", 1170, 354, 10,2,true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlWalk", "source/image/character/enemy/schoolGirl/walk.bmp", 1296, 372, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlRun", "source/image/character/enemy/schoolGirl/run.bmp", 1470, 330, 10, 2, true, MAGENTA, true);
@@ -131,7 +131,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolGirlWWalk", "source/image/character/enemy/schoolGirl/WWalk.bmp", 2232, 502, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolGirlWJump", "source/image/character/enemy/schoolGirl/WJump.bmp", 429, 450, 3, 2, true, MAGENTA, true);
 
-	//====================³²ÀÚÇÐ»ý=======================
+	//====================ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½=======================
 	IMG_M->addFrameImage("schoolBoyIdle", "source/image/character/enemy/schoolBoy/Idle.bmp", 1224, 432, 8, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolBoyWalk", "source/image/character/enemy/schoolBoy/walk.bmp", 1620, 444, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolBoyRun", "source/image/character/enemy/schoolBoy/run.bmp", 1920, 390, 10, 2, true, MAGENTA, true);
@@ -163,7 +163,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolBoyWWalk", "source/image/character/enemy/schoolBoy/WWalk.bmp", 1572, 556, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolBoyWJump", "source/image/character/enemy/schoolBoy/WJump.bmp", 432, 468, 3, 2, true, MAGENTA, true);
 
-	//===============ÀÀ¿ø´ÜÀå=============================
+	//===============ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=============================
 	IMG_M->addFrameImage("schoolCheerIdle", "source/image/character/enemy/cheerLeader/Idle.bmp", 2304, 432, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolCheerWalk", "source/image/character/enemy/cheerLeader/walk.bmp", 2736, 438, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("schoolCheerRun", "source/image/character/enemy/cheerLeader/run.bmp", 1368, 318, 8, 2, true, MAGENTA, true);
@@ -189,7 +189,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("schoolCheerWeaponHit", "source/image/character/enemy/cheerLeader/weaponhit.bmp", 7084, 436, 22, 2, true, MAGENTA, true);
 
 
-	//================= º¸½º ====================
+	//================= ï¿½ï¿½ï¿½ï¿½ ====================
 	IMG_M->addFrameImage("Bs_idle", "source/image/character/enemy/boss/idle.bmp", 3180, 634, 12, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_move", "source/image/character/enemy/boss/move.bmp", 2110, 588, 10, 2, true, MAGENTA, true);
 	IMG_M->addFrameImage("Bs_block", "source/image/character/enemy/boss/block.bmp", 1688, 576, 8, 2, true, MAGENTA, true);
@@ -215,18 +215,21 @@ void playGround::addImage()
 
 
 
-	//================= ¿ÀºêÁ§Æ® =================
+	//================= ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® =================
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
 	IMG_M->addImage("table", "source/image/object/table.bmp", 339, 162, true, MAGENTA, true);
 	IMG_M->addFrameImage("vendingMachine", "source/image/object/vendingMachine.bmp", 525, 260, 2, 1, true, MAGENTA, true);
 	IMG_M->addFrameImage("pillar", "source/image/object/pillar.bmp", 390, 678, 2, 1, true, MAGENTA, true);
 	IMG_M->addFrameImage("pillar_big", "source/image/object/pillar_big.bmp", 390, 957, 2, 1, true, MAGENTA, true);
+	IMG_M->addImage("pillar_particle_1", "source/image/object/pillar_particle_1.bmp", 64, 64, true, MAGENTA, true);
+	IMG_M->addImage("pillar_particle_2", "source/image/object/pillar_particle_2.bmp", 64, 64, true, MAGENTA, true);
+	IMG_M->addImage("pillar_particle_3", "source/image/object/pillar_particle_3.bmp", 64, 64, true, MAGENTA, true);
 
 	IMG_M->addFrameImage("bat", "source/image/object/bat.bmp", 179, 104, 1, 2, true, MAGENTA, true);
-	//================= ¾ÆÀÌÅÛ =================
+	//================= ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
 
-	//================= ÀÌÆÑÆ® =================
+	//================= ï¿½ï¿½ï¿½ï¿½Æ® =================
 	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, .15f, 50);
 	EFFECT_M->addEffect("ef_beg", "beg.bmp", 268, 127, 134, 127, 1.f, 3.f, 20);
 	EFFECT_M->addEffect("ef_blueAttack", "blueAttack.bmp", 1440, 160, 160, 160, 1.f, .25f, 50);

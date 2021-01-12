@@ -19,22 +19,22 @@ void CollisionManager::release()
 void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 {
 	checkLeft = checkRight = checkUp = checkDown = false;
-	vector3 interVector; // ±³Â÷Á¡À» ´ãÀ» º¤ÅÍ
+	vector3 interVector; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (obj->bottomPlane[0].getStart().y == 0)
 	{
 	/*====================================================================
-								À§ / ¾Æ·¡ Ãæµ¹
+								ï¿½ï¿½ / ï¿½Æ·ï¿½ ï¿½æµ¹
 	====================================================================*/
-	//==================================À§==================================//
-		if (character->prePos.z > character->pos.z) // ÇÃ·¹ÀÌ¾î°¡ À§ÂÊÀ¸·Î ¿òÁ÷¿´À» ¶§
+	//==================================ï¿½ï¿½==================================//
+		if (character->prePos.z > character->pos.z) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		{
 			if (obj->bottomPlane[2].getEnd().x < character->shadow.RT.x &&
-				character->shadow.LT.x < obj->bottomPlane[2].getStart().x) // ¿ÀºêÁ§Æ®ÀÇ x ¹üÀ§ ¾È¿¡ µé¾î¿ÔÀ» ¶§
+				character->shadow.LT.x < obj->bottomPlane[2].getStart().x) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ x ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			{
 				if (character->shadow.RT.z < obj->bottomPlane[2].getEnd().z &&
-					obj->bottomPlane[2].getEnd().z < character->shadow.RB.z) // À­º¯ÀÌ ¿ÀºêÁ§Æ®ÀÇ ¹Ø¸éÀ» ³Ñ¾î°¡¸é
+					obj->bottomPlane[2].getEnd().z < character->shadow.RB.z) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ø¸ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½
 				{
-					if (character->preShadow.LT.z >= obj->bottomPlane[2].getStart().z) // ¹Ø¿¡¼­ À§·Î ¿Ã¶ó°£°Å¸é
+					if (character->preShadow.LT.z >= obj->bottomPlane[2].getStart().z) // ï¿½Ø¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ó°£°Å¸ï¿½
 					{
 						if (obj->type == OBJECT_TYPE::LADDER)
 						{
@@ -58,16 +58,16 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 				}
 			}
 			else if (obj->bottomPlane[3].getEnd().z < character->shadow.RB.z &&
-				character->shadow.RT.z < obj->bottomPlane[3].getStart().z) // ObjectÀÇ z ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§ (¿ÞÂÊ ¿À¸¥ÂÊ)
+				character->shadow.RT.z < obj->bottomPlane[3].getStart().z) // Objectï¿½ï¿½ z ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
 					if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[1], &interVector) ||
-						Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[1], &interVector)) // À­º¯,¹Øº¯ ¼±ºÐÀÌ ¿ìÃø ¼±ºÐ°ú ±³Â÷ÇÏ¸é
+						Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[1], &interVector)) // ï¿½ï¿½ï¿½ï¿½,ï¿½Øºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 					{
 						if (character->shadow.LT.x < interVector.x)
 						{
-							character->pos.x = interVector.x + character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿À¸¥ÂÊÀ¸·Î º¸Á¤
+							character->pos.x = interVector.x + character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkUp = true;
 						}
 					}
@@ -75,27 +75,27 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 				else if (obj->dir == DIRECTION::RIGHT)
 				{
 					if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[3], &interVector) ||
-						Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector)) // À­º¯, ¹Øº¯ ¼±ºÐÀÌ ÁÂÃø ¼±ºÐ°ú ±³Â÷ÇÏ¸é
+						Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector)) // ï¿½ï¿½ï¿½ï¿½, ï¿½Øºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 					{
 						if (character->shadow.RT.x > interVector.x)
 						{
-							character->pos.x = interVector.x - character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿ÞÂÊÀ¸·Î º¸Á¤
+							character->pos.x = interVector.x - character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkUp = true;
 						}
 					}
 				}
 			}
 		}
-		//==================================¾Æ·¡==================================//
-		else if (character->prePos.z < character->pos.z) // ÇÃ·¹ÀÌ¾î°¡ ¾Æ·¡·Î ¿òÁ÷¿´À» ¶§
+		//==================================ï¿½Æ·ï¿½==================================//
+		else if (character->prePos.z < character->pos.z) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		{
 			if (obj->bottomPlane[0].getStart().x < character->shadow.RB.x &&
-				character->shadow.LB.x < obj->bottomPlane[0].getEnd().x) // ¿ÀºêÁ§Æ®ÀÇ x ¹üÀ§ ¾È¿¡ µé¾î¿ÔÀ» ¶§
+				character->shadow.LB.x < obj->bottomPlane[0].getEnd().x) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ x ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			{
 				if (character->shadow.LT.z < obj->bottomPlane[0].getStart().z &&
-					obj->bottomPlane[0].getStart().z < character->shadow.LB.z) // ¹Øº¯ÀÌ ¿ÀºêÁ§Æ®ÀÇ À­º¯À» ³Ñ¾î°¡¸é
+					obj->bottomPlane[0].getStart().z < character->shadow.LB.z) // ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½
 				{
-					if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)	// À§¿¡¼­ ¾Æ·¡·Î ³»·Á°¡¸é
+					if (character->preShadow.LB.z <= obj->bottomPlane[0].getStart().z)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					{
 						character->pos.z = obj->bottomPlane[0].getStart().z - character->shadow.height / 2;
 						checkDown = true;
@@ -103,16 +103,16 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 				}
 			}
 			else if (obj->bottomPlane[3].getEnd().z < character->shadow.RB.z &&
-				character->shadow.RT.z < obj->bottomPlane[3].getStart().z) // ObjectÀÇ z ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§ (¿ÞÂÊ ¿À¸¥ÂÊ)
+				character->shadow.RT.z < obj->bottomPlane[3].getStart().z) // Objectï¿½ï¿½ z ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
 					if (Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) ||
-						Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[3], &interVector)) // ¹Øº¯ ¼±ºÐÀÌ ÁÂÃøº¯ÀÌ¶û ±³Â÷ÇÏ¸é
+						Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[3], &interVector)) // ï¿½Øºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 					{
 						if (interVector.x < character->shadow.RB.x)
 						{
-							character->pos.x = interVector.x - character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿ÞÂÊÀ¸·Î º¸Á¤
+							character->pos.x = interVector.x - character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkDown = true;
 						}
 					}
@@ -120,11 +120,11 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 				else if (obj->dir == DIRECTION::RIGHT)
 				{
 					if (Linear(character->shadow.LB, character->shadow.RB).segmentIntersect(obj->bottomPlane[1], &interVector) ||
-						Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[1], &interVector)) // ¹Øº¯ ¼±ºÐÀÌ ÁÂÃøº¯ÀÌ¶û ±³Â÷ÇÏ¸é
+						Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(obj->bottomPlane[1], &interVector)) // ï¿½Øºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 					{
 						if (character->shadow.LB.x < interVector.x)
 						{
-							character->pos.x = interVector.x + character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿À¸¥ÂÊÀ¸·Î º¸Á¤
+							character->pos.x = interVector.x + character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkDown = true;
 						}
 					}
@@ -132,35 +132,35 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 			}
 		}
 		/*====================================================================
-									ÁÂ / ¿ì Ãæµ¹
+									ï¿½ï¿½ / ï¿½ï¿½ ï¿½æµ¹
 		====================================================================*/
-		//==================================ÁÂ==================================//
-		if (character->prePos.x > character->pos.x) // ÇÃ·¹ÀÌ¾î°¡ ¿ÞÂÊÀ¸·Î ¿òÁ÷¿´À» ¶§
+		//==================================ï¿½ï¿½==================================//
+		if (character->prePos.x > character->pos.x) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		{
 			if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&
-				character->shadow.LT.z < obj->bottomPlane[2].getEnd().z) // ObjectÀÇ z ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§ (¿ÞÂÊ ¿À¸¥ÂÊ)
+				character->shadow.LT.z < obj->bottomPlane[2].getEnd().z) // Objectï¿½ï¿½ z ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
 					if (character->preShadow.LT.z < obj->bottomPlane[2].getStart().z)
 					{
 						vector3 tempV;
-						if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &tempV)) // ÁÂÃøº¯ÀÌ ¹Øº¯°ú °ãÃÆÀ» ¶§(1Â÷ º¸Á¤)
+						if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &tempV)) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 						{
 							character->pos.x = obj->bottomPlane[2].getStart().x + character->shadow.width / 2;
 							checkLeft = true;
 						}
 					}
 
-					if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[1], &interVector) ||  // ÁÂÃø ¼±ºÐÀÌ ¿ìÃøº¯ÀÌ¶û ±³Â÷ÇÏ¸é
-						Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &interVector))	   // ÁÂÃø ¼±ºÐÀÌ À­º¯ÀÌ¶û ±³Â÷ÇÏ¸é 
+					if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[1], &interVector) ||  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
+						Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &interVector))	   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
 					{
-						if (obj->bottomPlane[0].getEnd().z < character->shadow.LT.z) // ±×¸²ÀÚ À­º¯ÀÌ ¿ÀºêÁ§Æ® À­º¯º¸´Ù ¾Æ·¡¿¡ ÀÖÀ» °æ¿ì
+						if (obj->bottomPlane[0].getEnd().z < character->shadow.LT.z) // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
-							character->pos.x = obj->bottomPlane[1].getX(character->shadow.LT.z) + character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿ÞÂÊÀ¸·Î º¸Á¤
+							character->pos.x = obj->bottomPlane[1].getX(character->shadow.LT.z) + character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkLeft = true;
 						}
-						else // ±×¸²ÀÚ À­º¯ÀÌ ¿ÀºêÁ§Æ® À­º¯º¸´Ù À§¿¡ ÀÖÀ» °æ¿ì
+						else // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
 							if (character->preShadow.LB.z > obj->bottomPlane[0].getEnd().z)
 							{
@@ -175,22 +175,22 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					if (character->preShadow.LB.z > obj->bottomPlane[0].getStart().z)
 					{
 						vector3 tempV;
-						if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &tempV)) // ÁÂÃøº¯ÀÌ À­º¯°ú °ãÃÆÀ» ¶§(1Â÷ º¸Á¤)
+						if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[0], &tempV)) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 						{
 							character->pos.x = obj->bottomPlane[0].getEnd().x + character->shadow.width / 2;
 							checkLeft = true;
 						}
 					}
 
-					if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[1], &interVector) ||  // ÁÂÃø ¼±ºÐÀÌ ¿ìÃøº¯ÀÌ¶û ±³Â÷ÇÏ¸é
-						Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &interVector))	   // ÁÂÃø ¼±ºÐÀÌ ¹Øº¯ÀÌ¶û ±³Â÷ÇÏ¸é 
+					if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[1], &interVector) ||  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
+						Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(obj->bottomPlane[2], &interVector))	   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
 					{
-						if (obj->bottomPlane[2].getStart().z > character->shadow.LB.z) // ±×¸²ÀÚ ¹Øº¯ÀÌ ¿ÀºêÁ§Æ® ¹Øº¯º¸´Ù À§¿¡ ÀÖÀ» °æ¿ì
+						if (obj->bottomPlane[2].getStart().z > character->shadow.LB.z) // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
-							character->pos.x = obj->bottomPlane[1].getX(character->shadow.LB.z) + character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿ÞÂÊÀ¸·Î º¸Á¤
+							character->pos.x = obj->bottomPlane[1].getX(character->shadow.LB.z) + character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkLeft = true;
 						}
-						else // ±×¸²ÀÚ ¹Øº¯ÀÌ ¿ÀºêÁ§Æ® ¹Øº¯º¸´Ù ¾Æ·¡¿¡ ÀÖÀ» °æ¿ì
+						else // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
 							if (character->preShadow.LT.z < obj->bottomPlane[2].getStart().z)
 							{
@@ -202,32 +202,32 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 				}
 			}
 		}
-		//==================================¿ì==================================//
-		else if (character->prePos.x < character->pos.x) // ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊÀ¸·Î ¿òÁ÷¿´À» ¶§
+		//==================================ï¿½ï¿½==================================//
+		else if (character->prePos.x < character->pos.x) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		{
 			if (obj->bottomPlane[0].getStart().z < character->shadow.RB.z &&
-				character->shadow.RT.z < obj->bottomPlane[2].getEnd().z) // ObjectÀÇ z ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§ (¿ÞÂÊ ¿À¸¥ÂÊ)
+				character->shadow.RT.z < obj->bottomPlane[2].getEnd().z) // Objectï¿½ï¿½ z ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
 					if (character->preShadow.RB.z > obj->bottomPlane[0].getStart().z)
 					{
 						vector3 tempV;
-						if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[0], &tempV)) // ¿ìÃø ¼±ºÐÀÌ ¿ÀºêÁ§Æ®ÀÇ À­º¯°ú °ãÄ¡¸é(1Â÷º¸Á¤)
+						if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[0], &tempV)) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½(1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 						{
 							character->pos.x = obj->bottomPlane[0].getStart().x - character->shadow.width / 2;
 							checkRight = true;
 						}
 					}
-					if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) ||	// ¿ìÃø ¼±ºÐÀÌ ÁÂÃøº¯ÀÌ¶û ±³Â÷ÇÏ¸é
-						Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &interVector))		// ¿ìÃø ¼±ºÐÀÌ ¹Øº¯ÀÌ¶û ±³Â÷ÇÏ¸é
+					if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) ||	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
+						Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &interVector))		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 					{
-						if (character->shadow.RB.z < obj->bottomPlane[2].getEnd().z) // ±×¸²ÀÚ ¹Øº¯ÀÌ ¿ÀºêÁ§Æ® ¹Øº¯º¸´Ù À§¿¡ ÀÖÀ» °æ¿ì
+						if (character->shadow.RB.z < obj->bottomPlane[2].getEnd().z) // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
-							character->pos.x = obj->bottomPlane[3].getX(character->shadow.RB.z) - character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿ÞÂÊÀ¸·Î º¸Á¤
+							character->pos.x = obj->bottomPlane[3].getX(character->shadow.RB.z) - character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkRight = true;
 						}
-						else // ±×¸²ÀÚ ¹Øº¯ÀÌ ¿ÀºêÁ§Æ® ¹Øº¯º¸´Ù ¾Æ·¡¿¡ ÀÖÀ» °æ¿ì
+						else // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
 							if (character->preShadow.RT.z < obj->bottomPlane[2].getEnd().z)
 							{
@@ -242,21 +242,21 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 					if (character->preShadow.RT.z < obj->bottomPlane[2].getStart().z)
 					{
 						vector3 tempV;
-						if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &tempV)) // ¿ìÃø ¼±ºÐÀÌ ¿ÀºêÁ§Æ®ÀÇ ¹Øº¯°ú °ãÄ¡¸é(1Â÷º¸Á¤)
+						if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[2], &tempV)) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½(1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 						{
 							character->pos.x = obj->bottomPlane[2].getEnd().x - character->shadow.width / 2;
 							checkRight = true;
 						}
 					}
-					if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) || // ¿ìÃø ¼±ºÐÀÌ ÁÂÃøº¯ÀÌ¶û ±³Â÷ÇÏ¸é
-						Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[0], &interVector))		// ¿ìÃø ¼±ºÐÀÌ À­º¯ÀÌ¶û ±³Â÷ÇÏ¸é
+					if (Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[3], &interVector) || // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
+						Linear(character->shadow.RT, character->shadow.RB).segmentIntersect(obj->bottomPlane[0], &interVector))		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 					{
-						if (character->shadow.RT.z > obj->bottomPlane[0].getStart().z) // ±×¸²ÀÚ À­º¯ÀÌ ¿ÀºêÁ§Æ® À­º¯º¸´Ù ¹Ø¿¡ ÀÖÀ» °æ¿ì
+						if (character->shadow.RT.z > obj->bottomPlane[0].getStart().z) // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
-							character->pos.x = obj->bottomPlane[3].getX(character->shadow.RT.z) - character->shadow.width / 2; // ±³Â÷ Á¡¿¡¼­ ¿ÞÂÊÀ¸·Î º¸Á¤
+							character->pos.x = obj->bottomPlane[3].getX(character->shadow.RT.z) - character->shadow.width / 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							checkRight = true;
 						}
-						else // ±×¸²ÀÚ À­º¯ÀÌ ¿ÀºêÁ§Æ® À­º¯º¸´Ù À§¿¡ ÀÖÀ» °æ¿ì
+						else // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						{
 							if (character->preShadow.RT.z > obj->bottomPlane[0].getStart().z)
 							{
@@ -274,6 +274,24 @@ void CollisionManager::LRUDCollision(GameObject* character, GameObject* obj)
 		character->obstacle = obj;
 	}
 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹
+	if (_stageM->getCurStage() == STAGETYPE::HARD)
+	{
+		vector3 temp;
+		tagWall pool = _stageM->getStage()->getPool();
+		if (pool.LT.x < character->shadow.RB.x &&
+			character->shadow.LB.x < pool.RT.x)  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹)
+		{
+			if (character->shadow.LB.z > pool.RT.z)
+			{
+				character->pos.z = pool.RT.z - character->shadow.height / 2;
+			}
+		}
+		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê°ï¿½ ï¿½æµ¹ ï¿½ï¿½
+		{
+			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
+		}
+	}
 }
 
 void CollisionManager::playerWallCollsion()
@@ -285,7 +303,7 @@ void CollisionManager::playerWallCollsion()
 	tagWall floor = _stageM->getStage()->getFloor();
 
 	vector3 interVector;
-	for (int i = 0; i < vBackWall.size(); ++i) // ÇÃ·¹ÀÌ¾î À§ÂÊ ÃÖ´ëÄ¡ (µÞ º® Ãæµ¹)
+	for (int i = 0; i < vBackWall.size(); ++i) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ (ï¿½ï¿½ ï¿½ï¿½ ï¿½æµ¹)
 	{
 		if (character->shadow.LT.z < vBackWall[i].LB.z)
 		{
@@ -301,7 +319,7 @@ void CollisionManager::playerWallCollsion()
 	{
 		if (character->preShadow.LT.z < vLeftWall[i].LB.z)
 		{
-			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vLeftWall[i].RB, vLeftWall[i].LB), &interVector))  // ±×¸²ÀÚ À­º¯ÀÌ ¿ÞÂÊ º®ÀÌ¶û ±³Â÷ÇÏ¸é
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vLeftWall[i].RB, vLeftWall[i].LB), &interVector))  // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 			{
 				character->pos.x = interVector.x + character->shadow.width / 2;
 			}
@@ -312,41 +330,41 @@ void CollisionManager::playerWallCollsion()
 	{
 		if (character->preShadow.RT.z < vRightWall[i].RB.z)
 		{
-			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vRightWall[i].LB, vRightWall[i].RB), &interVector))  // ±×¸²ÀÚ À­º¯ÀÌ ¿À¸¥ÂÊ º®ÀÌ¶û ±³Â÷ÇÏ¸é
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vRightWall[i].LB, vRightWall[i].RB), &interVector))  // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 			{
 				character->pos.x = interVector.x - character->shadow.width / 2;
 			}
 		}
 	}
 
-	// ¹Ù´Ú°ú Ãæµ¹
-	if (character->shadow.LB.z > floor.LB.z) // ÇÃ·¹ÀÌ¾î ¾Æ·¡ÂÊ ÃÖ´ëÄ¡ (¹Ù´Ú Ãæµ¹)
+	// ï¿½Ù´Ú°ï¿½ ï¿½æµ¹
+	if (character->shadow.LB.z > floor.LB.z) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ (ï¿½Ù´ï¿½ ï¿½æµ¹)
 	{
 		character->pos.z = floor.LB.z - character->shadow.height / 2;
 	}
-	if (character->shadow.LB.x < floor.LT.x) // ¹Ù´Ú ¿ÞÂÊ
+	if (character->shadow.LB.x < floor.LT.x) // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		character->pos.x = floor.LT.x + character->shadow.width / 2;
 	}
-	if (character->shadow.RB.x > floor.RT.x) // ¹Ù´Ú ¿À¸¥ÂÊ
+	if (character->shadow.RB.x > floor.RT.x) // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		character->pos.x = floor.RT.x - character->shadow.width / 2;
 	}
 
-	// ¼ö¿µÀå°ú Ãæµ¹
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹
 	if (_stageM->getCurStage() == STAGETYPE::HARD)
 	{
 		vector3 temp;
 		tagWall pool = _stageM->getStage()->getPool();
 		if (pool.LT.x < character->shadow.RB.x &&
-			character->shadow.LB.x < pool.RT.x)  // ÇÃ·¹ÀÌ¾î ¾Æ·¡ÂÊ ÃÖ´ëÄ¡ (¼ö¿µÀå Ãæµ¹)
+			character->shadow.LB.x < pool.RT.x)  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹)
 		{
 			if (character->shadow.LB.z > pool.RT.z)
 			{
 				character->pos.z = pool.RT.z - character->shadow.height / 2;
 			}
 		}
-		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // ¼ö¿µÀåÀÇ ¿À¸¥ÂÊ°ú Ãæµ¹ ½Ã
+		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê°ï¿½ ï¿½æµ¹ ï¿½ï¿½
 		{
 			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
 		}
@@ -361,7 +379,7 @@ void CollisionManager::enemyWallColiision(GameObject* character)
 	tagWall floor = _stageM->getStage()->getFloor();
 
 	vector3 interVector;
-	for (int i = 0; i < vBackWall.size(); ++i) // ÇÃ·¹ÀÌ¾î À§ÂÊ ÃÖ´ëÄ¡ (µÞ º® Ãæµ¹)
+	for (int i = 0; i < vBackWall.size(); ++i) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ (ï¿½ï¿½ ï¿½ï¿½ ï¿½æµ¹)
 	{
 		if (character->shadow.LT.z < vBackWall[i].LB.z)
 		{
@@ -377,7 +395,7 @@ void CollisionManager::enemyWallColiision(GameObject* character)
 	{
 		if (character->preShadow.LT.z < vLeftWall[i].LB.z)
 		{
-			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vLeftWall[i].RB, vLeftWall[i].LB), &interVector))  // ±×¸²ÀÚ À­º¯ÀÌ ¿ÞÂÊ º®ÀÌ¶û ±³Â÷ÇÏ¸é
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vLeftWall[i].RB, vLeftWall[i].LB), &interVector))  // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 			{
 				character->pos.x = interVector.x + character->shadow.width / 2;
 			}
@@ -388,41 +406,41 @@ void CollisionManager::enemyWallColiision(GameObject* character)
 	{
 		if (character->preShadow.RT.z < vRightWall[i].RB.z)
 		{
-			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vRightWall[i].LB, vRightWall[i].RB), &interVector))  // ±×¸²ÀÚ À­º¯ÀÌ ¿À¸¥ÂÊ º®ÀÌ¶û ±³Â÷ÇÏ¸é
+			if (Linear(character->shadow.LT, character->shadow.RT).segmentIntersect(Linear(vRightWall[i].LB, vRightWall[i].RB), &interVector))  // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
 			{
 				character->pos.x = interVector.x - character->shadow.width / 2;
 			}
 		}
 	}
 
-	// ¹Ù´Ú°ú Ãæµ¹
-	if (character->shadow.LB.z > floor.LB.z) // ÇÃ·¹ÀÌ¾î ¾Æ·¡ÂÊ ÃÖ´ëÄ¡ (¹Ù´Ú Ãæµ¹)
+	// ï¿½Ù´Ú°ï¿½ ï¿½æµ¹
+	if (character->shadow.LB.z > floor.LB.z) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ (ï¿½Ù´ï¿½ ï¿½æµ¹)
 	{
 		character->pos.z = floor.LB.z - character->shadow.height / 2;
 	}
-	if (character->shadow.LB.x < floor.LT.x) // ¹Ù´Ú ¿ÞÂÊ
+	if (character->shadow.LB.x < floor.LT.x) // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		character->pos.x = floor.LT.x + character->shadow.width / 2;
 	}
-	if (character->shadow.RB.x > floor.RT.x) // ¹Ù´Ú ¿À¸¥ÂÊ
+	if (character->shadow.RB.x > floor.RT.x) // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		character->pos.x = floor.RT.x - character->shadow.width / 2;
 	}
 
-	// ¼ö¿µÀå°ú Ãæµ¹
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹
 	if (_stageM->getCurStage() == STAGETYPE::HARD)
 	{
 		vector3 temp;
 		tagWall pool = _stageM->getStage()->getPool();
 		if (pool.LT.x < character->shadow.RB.x &&
-			character->shadow.LB.x < pool.RT.x)  // ÇÃ·¹ÀÌ¾î ¾Æ·¡ÂÊ ÃÖ´ëÄ¡ (¼ö¿µÀå Ãæµ¹)
+			character->shadow.LB.x < pool.RT.x)  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹)
 		{
 			if (character->shadow.LB.z > pool.RT.z)
 			{
 				character->pos.z = pool.RT.z - character->shadow.height / 2;
 			}
 		}
-		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // ¼ö¿µÀåÀÇ ¿À¸¥ÂÊ°ú Ãæµ¹ ½Ã
+		if (Linear(character->shadow.LT, character->shadow.LB).segmentIntersect(Linear(pool.RT, pool.RB), &temp))  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê°ï¿½ ï¿½æµ¹ ï¿½ï¿½
 		{
 			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
 		}
@@ -442,52 +460,52 @@ void CollisionManager::playerObjectCollision()
 
 		if (obj->group == OBJECT_GROUP::OBJECT)
 		{
-			if (_stageM->getPlayer()->getInfo().isSky) // °øÁß¿¡ ÀÖÀ» ¶§
+			if (_stageM->getPlayer()->getInfo().isSky) // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
-					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³¸¯ÅÍÀÇ z°ªÀÌ À­º¯º¸´Ù ¹Ø¿¡ ÀÖ°í
-						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³¸¯ÅÍÀÇ z°ªÀÌ ¹Øº¯º¸´Ù À§¿¡ ÀÖ°í
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½Ö°ï¿½
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
 					{
-						float tempMaxUz = obj->bottomPlane[1].getX(character->shadow.LT.z);				// ¿ÀºêÁ§Æ® À§ÀÇ ÃÖ´ë°ª
+						float tempMaxUz = obj->bottomPlane[1].getX(character->shadow.LT.z);				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ª
 						if (obj->bottomPlane[1].getStart().x < tempMaxUz) tempMaxUz = obj->bottomPlane[1].getStart().x;
 						float tempMaxDz = obj->bottomPlane[3].getX(character->shadow.RB.z);
 						if (tempMaxDz < obj->bottomPlane[3].getStart().x) tempMaxDz = obj->bottomPlane[3].getStart().x;
 
 						if (tempMaxDz < character->shadow.RB.x &&
-							character->shadow.LT.x < tempMaxUz)											// ¸Æ½º°ªµéº¸´Ù »çÀÌ¿¡ ÀÖÀ¸¸é
+							character->shadow.LT.x < tempMaxUz)											// ï¿½Æ½ï¿½ï¿½ï¿½ï¿½éº¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						{
-							if (character->prePos.y < character->pos.y) // ³«ÇÏ ÁßÀÏ ¶§
+							if (character->prePos.y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 							{
 								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
-									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ÇØ´ç ¹üÀ§¿¡ µé¾î°¡¸é
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½
 								{
-									// y°ª º¸Á¤
+									// yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									character->pos.y = obj->topPlane[0].getStart().y;
-									// »óÅÂº¸Á¤
+									// ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½
 									_stageM->getPlayer()->setPlatform(obj);
 									_stageM->getPlayer()->setState(PL_STATE::IDLE);
 									_stageM->getPlayer()->setJumpPower(0);
 									_stageM->getPlayer()->setIsSky(false);
 								}
-								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ³«ÇÏ Áß ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À» ¶§
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
-							else if (character->pos.y < character->prePos.y) // Á¡ÇÁ ÁßÀÏ ¶§ 
+							else if (character->pos.y < character->prePos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
 							{
-								if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+								if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
 						}
 					}
-					// ¿ÀºêÁ§Æ®¿Í ¾È°ãÃÆÀ»¶§ (ÇÊ¿äÇÑ°¡?)
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ï¿½ï¿½Ñ°ï¿½?)
 					else
 					{
-						if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+						if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 						{
 							LRUDCollision(character, obj);
 						}
@@ -495,10 +513,10 @@ void CollisionManager::playerObjectCollision()
 				}
 				else if (obj->dir == DIRECTION::RIGHT)
 				{
-					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³¸¯ÅÍÀÇ z°ªÀÌ À­º¯º¸´Ù ¹Ø¿¡ ÀÖ°í
-						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³¸¯ÅÍÀÇ z°ªÀÌ ¹Øº¯º¸´Ù À§¿¡ ÀÖ°í
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½Ö°ï¿½
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
 					{
-						float tempMaxUz = obj->bottomPlane[3].getX(character->shadow.RT.z);				// ¿ÀºêÁ§Æ® À§ÀÇ ÃÖ´ë°ª
+						float tempMaxUz = obj->bottomPlane[3].getX(character->shadow.RT.z);				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ª
 						if (tempMaxUz < obj->bottomPlane[3].getEnd().x) tempMaxUz = obj->bottomPlane[3].getEnd().x;
 						float tempMaxDz = obj->bottomPlane[1].getX(character->shadow.LB.z);
 						if (obj->bottomPlane[1].getEnd().x < tempMaxDz) tempMaxDz = obj->bottomPlane[1].getEnd().x;
@@ -506,60 +524,60 @@ void CollisionManager::playerObjectCollision()
 						if (character->shadow.LB.x < tempMaxDz &&
 							tempMaxUz < character->shadow.RT.x)
 						{
-							if (character->prePos.y < character->pos.y) // ³«ÇÏ ÁßÀÏ ¶§
+							if (character->prePos.y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 							{
 								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
-									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ÇØ´ç ¹üÀ§¿¡ µé¾î°¡¸é
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½
 								{
 									
-									// y°ª º¸Á¤
+									// yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									character->pos.y = obj->topPlane[0].getStart().y;
-									// »óÅÂº¸Á¤
+									// ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½
 									_stageM->getPlayer()->setPlatform(obj);
 									_stageM->getPlayer()->setState(PL_STATE::IDLE);
 									_stageM->getPlayer()->setJumpPower(0);
 									_stageM->getPlayer()->setIsSky(false);
 								}
-								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ³«ÇÏ Áß ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À» ¶§
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
-							else if (character->pos.y < character->prePos.y) // Á¡ÇÁ ÁßÀÏ ¶§ 
+							else if (character->pos.y < character->prePos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
 							{
-								if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+								if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
 						}
 					}
-					// ¿ÀºêÁ§Æ®¿Í ¾È°ãÃÆÀ»¶§ (ÇÊ¿äÇÑ°¡?)
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ï¿½ï¿½Ñ°ï¿½?)
 					else
 					{
-						if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+						if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 						{
 							LRUDCollision(character, obj);
 						}
 					}
 				}
 			}
-			else // °øÁßÀÌ ¾Æ´Ò ¶§(isSky == false)
+			else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½(isSky == false)
 			{
-				if (character->pos.y == 0) // Áö¸éÀÏ ¶§
+				if (character->pos.y == 0) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				{
 					LRUDCollision(character, obj);
 				}
-				else // Áö¸éÀÌ ¾Æ´Ò ¶§(¿ÀºêÁ§Æ® À§ÀÏ ¶§)
+				else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
 				{
 					if (_stageM->getPlayer()->getPlatform() != nullptr)
 					{
-						if (_stageM->getPlayer()->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// ¹þ¾î³ª¸é
-							character->shadow.LT.z > _stageM->getPlayer()->getPlatform()->bottomPlane[2].getStart().z ||					// ¹þ¾î³ª¸é
-							_stageM->getPlayer()->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// ¹þ¾î³ª¸é
-							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// ¹þ¾î³ª¸é
-							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[0].getEnd().x ||						// ¹þ¾î³ª¸é
-							character->shadow.RB.x < _stageM->getPlayer()->getPlatform()->bottomPlane[2].getEnd().x)						// ¹þ¾î³ª¸é
+						if (_stageM->getPlayer()->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.LT.z > _stageM->getPlayer()->getPlatform()->bottomPlane[2].getStart().z ||					// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							_stageM->getPlayer()->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.LT.x > _stageM->getPlayer()->getPlatform()->bottomPlane[0].getEnd().x ||						// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.RB.x < _stageM->getPlayer()->getPlatform()->bottomPlane[2].getEnd().x)						// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
 						{
 							_stageM->getPlayer()->setState(PL_STATE::JUMP);
 							_stageM->getPlayer()->setIsSky(true);
@@ -584,57 +602,57 @@ void CollisionManager::enemyObjectCollision(Enemy* enemy)
 		GameObject* obj = vObj[i]->getObj();
 		if (obj->group == OBJECT_GROUP::OBJECT)
 		{
-			if (enemy->getInfo().isSky) // °øÁß¿¡ ÀÖÀ» ¶§
+			if (enemy->getInfo().isSky) // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			{
 				if (obj->dir == DIRECTION::LEFT)
 				{
-					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³¸¯ÅÍÀÇ z°ªÀÌ À­º¯º¸´Ù ¹Ø¿¡ ÀÖ°í
-						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³¸¯ÅÍÀÇ z°ªÀÌ ¹Øº¯º¸´Ù À§¿¡ ÀÖ°í
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½Ö°ï¿½
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
 					{
-						float tempMaxUz = obj->bottomPlane[1].getX(character->shadow.LT.z);				// ¿ÀºêÁ§Æ® À§ÀÇ ÃÖ´ë°ª
+						float tempMaxUz = obj->bottomPlane[1].getX(character->shadow.LT.z);				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ª
 						if (obj->bottomPlane[1].getStart().x < tempMaxUz) tempMaxUz = obj->bottomPlane[1].getStart().x;
 						float tempMaxDz = obj->bottomPlane[3].getX(character->shadow.RB.z);
 						if (tempMaxDz < obj->bottomPlane[3].getStart().x) tempMaxDz = obj->bottomPlane[3].getStart().x;
 
 						if (tempMaxDz < character->shadow.RB.x &&
-							character->shadow.LT.x < tempMaxUz)											// ¸Æ½º°ªµéº¸´Ù »çÀÌ¿¡ ÀÖÀ¸¸é
+							character->shadow.LT.x < tempMaxUz)											// ï¿½Æ½ï¿½ï¿½ï¿½ï¿½éº¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						{
-							if (character->prePos.y < character->pos.y) // ³«ÇÏ ÁßÀÏ ¶§
+							if (character->prePos.y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 							{
 								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
-									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ÇØ´ç ¹üÀ§¿¡ µé¾î°¡¸é
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½
 								{
 									if (enemy->getEnemyType() == ENEMY_TYPE::CHEERLEADER ||
 										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLBOY ||
 										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLGIRL)
 									{
-										// y°ª º¸Á¤
+										// yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 										character->pos.y = obj->topPlane[0].getStart().y;
-										// »óÅÂº¸Á¤
+										// ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½
 										enemy->setPlatform(obj);
 										enemy->SetState(EN_STATE::EN_IDLE);
 										enemy->getInfo().jumpPower = 0;
 										enemy->getInfo().isSky = false;
 									}
 								}
-								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ³«ÇÏ Áß ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À» ¶§
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
-							else if (character->pos.y < character->prePos.y) // Á¡ÇÁ ÁßÀÏ ¶§ 
+							else if (character->pos.y < character->prePos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
 							{
-								if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+								if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
 						}
 					}
-					// ¿ÀºêÁ§Æ®¿Í ¾È°ãÃÆÀ»¶§ (ÇÊ¿äÇÑ°¡?)
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ï¿½ï¿½Ñ°ï¿½?)
 					else
 					{
-						if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+						if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 						{
 							LRUDCollision(character, obj);
 						}
@@ -642,10 +660,10 @@ void CollisionManager::enemyObjectCollision(Enemy* enemy)
 				}
 				else if (obj->dir == DIRECTION::RIGHT)
 				{
-					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³¸¯ÅÍÀÇ z°ªÀÌ À­º¯º¸´Ù ¹Ø¿¡ ÀÖ°í
-						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³¸¯ÅÍÀÇ z°ªÀÌ ¹Øº¯º¸´Ù À§¿¡ ÀÖ°í
+					if (obj->bottomPlane[0].getStart().z < character->shadow.LB.z &&					// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½Ö°ï¿½
+						character->shadow.LT.z < obj->bottomPlane[2].getStart().z)						// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
 					{
-						float tempMaxUz = obj->bottomPlane[3].getX(character->shadow.RT.z);				// ¿ÀºêÁ§Æ® À§ÀÇ ÃÖ´ë°ª
+						float tempMaxUz = obj->bottomPlane[3].getX(character->shadow.RT.z);				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ª
 						if (tempMaxUz < obj->bottomPlane[3].getEnd().x) tempMaxUz = obj->bottomPlane[3].getEnd().x;
 						float tempMaxDz = obj->bottomPlane[1].getX(character->shadow.LB.z);
 						if (obj->bottomPlane[1].getEnd().x < tempMaxDz) tempMaxDz = obj->bottomPlane[1].getEnd().x;
@@ -653,64 +671,64 @@ void CollisionManager::enemyObjectCollision(Enemy* enemy)
 						if (character->shadow.LB.x < tempMaxDz &&
 							tempMaxUz < character->shadow.RT.x)
 						{
-							if (character->prePos.y < character->pos.y) // ³«ÇÏ ÁßÀÏ ¶§
+							if (character->prePos.y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 							{
 								if (obj->topPlane[0].getStart().y - 5 < character->pos.y &&
-									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ÇØ´ç ¹üÀ§¿¡ µé¾î°¡¸é
+									character->pos.y <= obj->topPlane[0].getStart().y + 5) // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½
 								{
 									if (enemy->getEnemyType() == ENEMY_TYPE::CHEERLEADER ||
 										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLBOY ||
 										enemy->getEnemyType() == ENEMY_TYPE::SCHOOLGIRL)
 									{
-										// y°ª º¸Á¤
+										// yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 										character->pos.y = obj->topPlane[0].getStart().y;
-										// »óÅÂº¸Á¤
+										// ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½
 										enemy->setPlatform(obj);
 										enemy->SetState(EN_STATE::EN_IDLE);
 										enemy->getInfo().jumpPower = 0;
 										enemy->getInfo().isSky = false;
 									}
 								}
-								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ³«ÇÏ Áß ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À» ¶§
+								else if (character->pos.y > obj->topPlane[0].getStart().y + 5) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
-							else if (character->pos.y < character->prePos.y) // Á¡ÇÁ ÁßÀÏ ¶§ 
+							else if (character->pos.y < character->prePos.y) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
 							{
-								if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+								if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 								{
 									LRUDCollision(character, obj);
 								}
 							}
 						}
 					}
-					// ¿ÀºêÁ§Æ®¿Í ¾È°ãÃÆÀ»¶§ (ÇÊ¿äÇÑ°¡?)
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ï¿½ï¿½Ñ°ï¿½?)
 					else
 					{
-						if (obj->topPlane[0].getStart().y < character->pos.y) // ¿ÀºêÁ§Æ® ³ôÀÌº¸´Ù ³·À¸¸é Ãæµ¹Ã³¸®
+						if (obj->topPlane[0].getStart().y < character->pos.y) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½
 						{
 							LRUDCollision(character, obj);
 						}
 					}
 				}
 			}
-			else // °øÁßÀÌ ¾Æ´Ò ¶§(isSky == false)
+			else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½(isSky == false)
 			{
-				if (character->pos.y == 0) // Áö¸éÀÏ ¶§
+				if (character->pos.y == 0) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				{
 					LRUDCollision(character, obj);
 				}
-				else // Áö¸éÀÌ ¾Æ´Ò ¶§(¿ÀºêÁ§Æ® À§ÀÏ ¶§)
+				else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
 				{
 					if (enemy->getPlatform() != nullptr)
 					{
-						if (enemy->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// ¹þ¾î³ª¸é
-							character->shadow.LT.z > enemy->getPlatform()->bottomPlane[2].getStart().z ||					// ¹þ¾î³ª¸é
-							enemy->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// ¹þ¾î³ª¸é
-							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// ¹þ¾î³ª¸é
-							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[0].getEnd().x ||						// ¹þ¾î³ª¸é
-							character->shadow.RB.x < enemy->getPlatform()->bottomPlane[2].getEnd().x)						// ¹þ¾î³ª¸é
+						if (enemy->getPlatform()->bottomPlane[0].getStart().z > character->shadow.LB.z ||					// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.LT.z > enemy->getPlatform()->bottomPlane[2].getStart().z ||					// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							enemy->getPlatform()->bottomPlane[3].getX(character->shadow.RB.z) > character->shadow.RB.x ||	// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[1].getX(character->shadow.LT.z) ||	// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.LT.x > enemy->getPlatform()->bottomPlane[0].getEnd().x ||						// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
+							character->shadow.RB.x < enemy->getPlatform()->bottomPlane[2].getEnd().x)						// ï¿½ï¿½ï¿½î³ªï¿½ï¿½
 						{
 							enemy->SetState(EN_STATE::EN_JUMP);
 							enemy->getInfo().isSky = true;
@@ -725,6 +743,7 @@ void CollisionManager::enemyObjectCollision(Enemy* enemy)
 
 void CollisionManager::destructObject()
 {
+
 	vector<Object*> vObj = _stageM->getStage()->getObjectM()->getVObject();
 	if (vObj.empty() == false)
 	{
@@ -764,11 +783,43 @@ void CollisionManager::bossDestructObject(Enemy* enemy)
 			{
 				if (vObj[i]->getObj()->des == OBJECT_DESTRUCTION::BEFOREDESTRUCTION)
 				{
-					RECT temp2;
+					vector3 temp = vector3((enemy->getInfo().rcAttack.right + enemy->getInfo().rcAttack.left) / 2, 0, (enemy->getInfo().rcAttack.bottom + enemy->getInfo().rcAttack.top) / 2);
+					if (enemy->getInfo().dest == DIRECTION::LEFT)
+					{
+						if (vObj[i]->getObj()->bottomPlane[2].getStart().x < temp.x &&
+							temp.x < vObj[i]->getObj()->bottomPlane[0].getEnd().x &&
+							vObj[i]->getObj()->bottomPlane[0].getStart().z < enemy->getObj()->shadow.LB.z &&
+							enemy->getObj()->shadow.LT.z < vObj[i]->getObj()->bottomPlane[2].getStart().z)
+						{
+							_stageM->getStage()->getObjectM()->particleSwitch(vObj[i]->getObj()->type);
+							_stageM->getStage()->getObjectM()->popObject(i);
+							cout << "checkLeft" << endl;
+							break;
+						}
+					}
+					else if (enemy->getInfo().dest == DIRECTION::RIGHT)
+					{
+						if (vObj[i]->getObj()->bottomPlane[0].getStart().x < temp.x &&
+							temp.x < vObj[i]->getObj()->bottomPlane[2].getEnd().x &&
+							vObj[i]->getObj()->bottomPlane[0].getStart().z < enemy->getObj()->shadow.RB.z &&
+							enemy->getObj()->shadow.RT.z < vObj[i]->getObj()->bottomPlane[2].getStart().z)
+						{
+							_stageM->getStage()->getObjectM()->particleSwitch(vObj[i]->getObj()->type);
+							_stageM->getStage()->getObjectM()->popObject(i);
+							cout << "checkRight" << endl;
+							break;
+						}
+					}
+
+
+
+					/*RECT temp2;
 					if (IntersectRect(&temp2, &enemy->getInfo().rcAttack, &vObj[i]->getObj()->rc))
 					{
+						cout << "check" << endl;
 						_stageM->getStage()->getObjectM()->popObject(i);
-					}
+						break;
+					}*/
 				}
 			}
 		}
