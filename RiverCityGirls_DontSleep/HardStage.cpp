@@ -27,6 +27,21 @@ HRESULT HardStage::init()
 	====================================================================*/
 	_objectM->pushObject(OBJECT_TYPE::LADDER, vector3(1555, 0, 930));
 	_objectM->pushObject(OBJECT_TYPE::HARDPLATFORM, vector3(850, 0, 950));
+
+
+
+
+
+
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 900, 0, WINSIZEY / 2 + 550));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 - 500, 0, WINSIZEY / 2 + 900));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 - 300 , 0, WINSIZEY / 2 + 800));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 900));
+	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 700, 0, WINSIZEY / 2 + 900));
+	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 700));
+	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 300, 0, WINSIZEY / 2 + 900));
+	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 - 200, 0, WINSIZEY / 2 + 900));
+	
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/

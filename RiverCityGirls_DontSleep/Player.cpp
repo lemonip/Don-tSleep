@@ -198,7 +198,7 @@ void Player::render()
 	if (KEY_M->isToggleKey(VK_SHIFT))
 	{
 		Rectangle(getMapDC(), _obj.shadow.rc);
-		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
+		Rectangle(getMapDC(), _info.attackRc);
 	}
 
 	}

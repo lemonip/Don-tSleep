@@ -201,6 +201,7 @@
     <ClInclude Include="enemyWAttack.h" />
     <ClInclude Include="enemyWeaponHit.h" />
     <ClInclude Include="enemyWIdle.h" />
+    <ClInclude Include="enemyWJump.h" />
     <ClInclude Include="enemyWPickup.h" />
     <ClInclude Include="enemyWRun.h" />
     <ClInclude Include="enemyWThrow.h" />
@@ -338,6 +339,7 @@
     <ClCompile Include="enemyWAttack.cpp" />
     <ClCompile Include="enemyWeaponHit.cpp" />
     <ClCompile Include="enemyWIdle.cpp" />
+    <ClCompile Include="enemyWJump.cpp" />
     <ClCompile Include="enemyWPickup.cpp" />
     <ClCompile Include="enemyWRun.cpp" />
     <ClCompile Include="enemyWThrow.cpp" />

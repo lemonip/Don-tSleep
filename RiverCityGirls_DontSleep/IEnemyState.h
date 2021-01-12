@@ -15,6 +15,7 @@ protected:
 	float _stateTimer;
 	vector3 _tempPos;
 	bool _isGoBack;
+	bool wait;
 	float tempAngle;
 	float _checkTimer;
 	float _hitIdxTimer;

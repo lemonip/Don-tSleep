@@ -8,6 +8,17 @@ void enemyRun::EnterState()
 	_thisEn->SetImage();
 	_stateTimer = TIME_M->getWorldTime();
 
+	//방향에 따른 이팩트 실행
+	switch (_thisEn->getInfo().dest)
+	{
+	case DIRECTION::LEFT:
+		EFFECT_M->play("ef_runL", _thisEn->getObj()->rc.right, _thisEn->getObj()->rc.bottom);
+		break;
+	case DIRECTION::RIGHT:
+		EFFECT_M->play("ef_runR", _thisEn->getObj()->rc.left, _thisEn->getObj()->rc.bottom);
+		break;
+	}
+
 }
 
 void enemyRun::UpdateState()

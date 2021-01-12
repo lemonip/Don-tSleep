@@ -59,7 +59,7 @@ void IEnemyState::Damage(int atk)
 	//체력이 1/3 이하면 베깅
 	else if (_thisEn->getInfo().hp <= _thisEn->getInfo().maxHp / 3)
 	{ 
-		if(RND->getInt(10) <= 5)
+		if(RND->getInt(10) <= 10)
 		_thisEn->SetState(EN_STATE::EN_BEGGING);
 	}
 	//체력이 1/2 이하면 스턴
