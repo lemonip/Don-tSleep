@@ -11,7 +11,12 @@ class StageManager;
 
 struct tagWall
 {
+	bool isUsed;
 	vector3 LT, RT, RB, LB;
+	tagWall()
+	{
+		isUsed = false;
+	}
 };
 
 
@@ -50,6 +55,7 @@ public:
 	virtual void rightWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	virtual void floorInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	virtual void poolInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
+
 	/*====================================================================
 									GETTER
 	====================================================================*/

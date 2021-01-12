@@ -19,13 +19,21 @@ public:
 	bool _isActive;
 	bool _isMove;
 
+	int _alpha;
 public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 	virtual void render(HDC hdc);
 
+
 	void setActive(bool active) { _isActive = active; }
+	void setPos(vector3* pos) { _pos = pos; }
+	void setPos(vector3 pos) { *_pos = pos; }
+
+	void setAlpha(int alpha) { _alpha = alpha; }
+	int getAlpha() { return _alpha; }
+	void changeImg(string imgName);
 };
 
 /*====================================================================
@@ -70,4 +78,20 @@ public:
 	virtual void release();
 	virtual void update();
 	void render(HDC hdc);
+};
+
+/*====================================================================
+						S T A G E	D O O R
+====================================================================*/
+
+class StageDoor : public UI
+{
+	
+public:
+	StageDoor(int alpha);
+
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render(HDC hdc);
 };

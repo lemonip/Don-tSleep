@@ -45,7 +45,11 @@ void Stage::render()
 	_enemyM->render();
 	_objectM->render();
 	wallRender();
-}
+	
+	if (_leftDoor.isUsed) UI_M->findUI("doorLeft")->render(getMapDC());
+	if (_rightDoor.isUsed)UI_M->findUI("doorRight")->render(getMapDC());
+
+}	
 
 void Stage::backWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
 {

@@ -7,6 +7,8 @@
 
 HRESULT GameScene::init()
 {
+	UI_M->addDoor("doorLeft", IMG_M->findImage("UI_UnLocked_Door"), vector3(0, 0, 0), 155);
+	UI_M->addDoor("doorRight", IMG_M->findImage("UI_UnLocked_Door"), vector3(0, 0, 0), 155);
 	/*====================================================================
 		게임 씬은 스테이지 매니저와 콜리전 매니저를 가집니다.
 	====================================================================*/
@@ -33,6 +35,8 @@ HRESULT GameScene::init()
 	UI_M->addBar("bossHPBar", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(200, 580, 0),
 		&_stageM->getPlayer()->getInfo().hp, &_stageM->getPlayer()->getInfo().maxHP);
 	UI_M->findUI("bossHPBar")->setActive(true);
+
+	
 
 	return S_OK;
 }

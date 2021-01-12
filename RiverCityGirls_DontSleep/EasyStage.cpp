@@ -55,13 +55,15 @@ HRESULT EasyStage::init()
 		스테이지 문 만들기
 	====================================================================*/
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+	_leftDoor.isUsed = false;
 
+	_rightDoor.isUsed = true;
 	_rightDoor.LT = vector3(1310, 0, 385);
 	_rightDoor.RT = vector3(1575, 0, 385);
 	_rightDoor.LB = vector3(1310, 0, 430);
 	_rightDoor.RB = vector3(1575, 0, 430);
-
-
+	UI_M->findUI("doorRight")->setPos(vector3((_rightDoor.LT.x + _rightDoor.RT.x) / 2, (float)0, _rightDoor.LT.z - 200));
+	
 
 	_enemyCount = 0;
 	_maxEnemyCount = 5;

@@ -53,10 +53,14 @@ HRESULT BossStage::init()
 	//if (_enemyM->getVEnemy().empty()) UI_M->findUI("bossHPBar")->setActive(false);
 
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+	_leftDoor.isUsed = true;
 	_leftDoor.LT = vector3(185, 0, 780);
 	_leftDoor.RT = vector3(480, 0, 780);
 	_leftDoor.LB = vector3(185, 0, 1015);
 	_leftDoor.RB = vector3(480, 0, 1015);
+	UI_M->findUI("doorLeft")->setPos(&vector3((_leftDoor.LT.x + _leftDoor.RT.x) / 2, (float)0, _leftDoor.LT.z - 200));
+
+	_rightDoor.isUsed = false;
 
 	_enemyCount = 0;
 	_maxEnemyCount = 1;

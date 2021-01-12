@@ -10,6 +10,7 @@ class ObjectManager : public gameNode
 {
 private:
 	vector<Object*> _vObject;
+
 	vector<Object*> _vParticleLeftUp;
 	vector<Object*> _vParticleLeftDown;
 	vector<Object*> _vParticleRightUp;
