@@ -43,10 +43,6 @@ void ItemObj::release()
 
 void ItemObj::update()
 {
-	if (_obj.ani)
-	{
-		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 5);
-	}
 }
 
 void ItemObj::render()
