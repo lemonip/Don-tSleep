@@ -689,14 +689,13 @@ void Player::checkItem()
 				case ITEM_TYPE::CHILI:
 					if (_info.hp < _info.maxHP)
 					{
-						_info.hp += _objectM->getVObject()[i]->getInfo().healValue;
+						_info.hp += _objectM->getVObject()[i]->getInfo().value;
 						_objectM->popObject(i);
 						if (i == _objectM->getVObject().size())return;
 					}
 					break;
 				}
 			}
-			
 		}
 	}
 
