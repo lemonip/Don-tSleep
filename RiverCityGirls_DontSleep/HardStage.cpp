@@ -52,14 +52,14 @@ HRESULT HardStage::init()
 	_leftDoor.RT = vector3(360, 0, 890);
 	_leftDoor.LB = vector3(160, 0, 940);
 	_leftDoor.RB = vector3(360, 0, 940);
-	_leftDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+	UI_M->findUI("doorLeft")->setPos(&vector3((_leftDoor.LT.x + _leftDoor.RT.x) / 2, (float)0, _leftDoor.LT.z - 200));
 
 	_rightDoor.isUsed = true;
 	_rightDoor.LT = vector3(2040, 0, 1275);
 	_rightDoor.RT = vector3(2250, 0, 1275);
 	_rightDoor.LB = vector3(2040, 0, 1420);
 	_rightDoor.RB = vector3(2250, 0, 1420);
-	_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+	UI_M->findUI("doorRight")->setPos(&vector3((_rightDoor.LT.x + _rightDoor.RT.x) / 2, (float)0, _rightDoor.LT.z - 200));
 
 	_enemyCount = 0;
 	_maxEnemyCount = 10;

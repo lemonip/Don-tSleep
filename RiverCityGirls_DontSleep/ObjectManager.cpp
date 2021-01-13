@@ -21,7 +21,7 @@ void ObjectManager::update()
 {
 	for (int i = 0; i < _vObject.size(); i++)
 	{
-		/*if (_vObject[i]->getObj()->isRender)*/ _vObject[i]->update();
+		if (_vObject[i]->getObj()->isRender) _vObject[i]->update();
 
 	}
 	for (int i = 0; i < _vParticleLeftUp.size(); ++i)
