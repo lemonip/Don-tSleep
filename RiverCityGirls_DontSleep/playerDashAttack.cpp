@@ -42,6 +42,8 @@ void playerDashAttack::UpdateState()
 	case DIRECTION::LEFT:
 		if (_isCollision && _thisPl->getObj().imgIndex.x >= 6)
 		{
+			SOUND_M->playSFX("kyoko_sAttack", SFXVOLUME);
+
 			EFFECT_M->play("ef_blueAttack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 			_isCollision = false;

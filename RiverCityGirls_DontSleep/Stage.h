@@ -3,7 +3,7 @@
 #include "ObjectManager.h"
 #include "EnemyManager.h"
 #define BGMVOLUME .5f
-#define SFXVOLUME .5f
+#define SFXVOLUME .8f
 
 class StageManager;
 /*====================================================================

@@ -5,6 +5,7 @@
 
 void playerCombo2::EnterState()
 {
+
 	//타격에 여부초기화
 	_isCollision = false;
 	_isEffect = false;
@@ -50,6 +51,8 @@ void playerCombo2::UpdateState()
 	case DIRECTION::LEFT:
 		if (_isEffect && _thisPl->getObj().imgIndex.x >= 2)
 		{
+			SOUND_M->playSFX("kyoko_combo", SFXVOLUME);
+
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 			_isEffect = false;
@@ -58,6 +61,8 @@ void playerCombo2::UpdateState()
 	case DIRECTION::RIGHT:
 		if (_isEffect && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
 		{
+			SOUND_M->playSFX("kyoko_combo", SFXVOLUME);
+
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 			_isEffect = false;
@@ -80,7 +85,6 @@ void playerCombo2::UpdateState()
 				if (_isCollision && IntersectRect(&_temp, &_thisPl->getInfo().attackRc,
 					&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 					_thisPl->setState(PL_STATE::COMBO3);
-
 				else _thisPl->setState(PL_STATE::IDLE);
 			}
 		}
