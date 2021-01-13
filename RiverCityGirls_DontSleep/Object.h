@@ -4,7 +4,7 @@
 
 struct tagInfo
 {
-	int value;
+	int healValue;
 	ITEM_TYPE type;
 };
 
