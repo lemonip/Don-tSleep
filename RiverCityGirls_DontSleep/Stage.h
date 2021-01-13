@@ -13,6 +13,7 @@ class StageManager;
 
 struct tagWall
 {
+	image* img;
 	bool isUsed;
 	vector3 LT, RT, RB, LB;
 	tagWall()
@@ -36,6 +37,7 @@ protected:
 	tagWall _pool;
 	tagWall _leftDoor;
 	tagWall _rightDoor;
+	tagWall _shopDoor;
 
 	float _zAngle;
 

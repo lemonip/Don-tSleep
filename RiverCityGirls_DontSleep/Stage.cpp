@@ -46,9 +46,10 @@ void Stage::render()
 	_objectM->render();
 	wallRender();
 
-	if (_leftDoor.isUsed) UI_M->findUI("doorLeft")->render(getMapDC());
-	if (_rightDoor.isUsed) UI_M->findUI("doorRight")->render(getMapDC());
 
+	if (_leftDoor.isUsed) _leftDoor.img->render(getMapDC(), (_leftDoor.LT.x + _leftDoor.RT.x) / 2, _leftDoor.LT.z - 200);
+	if (_rightDoor.isUsed) _rightDoor.img->render(getMapDC(), (_rightDoor.LT.x + _rightDoor.RT.x) / 2, _rightDoor.LT.z - 200);
+	if (_shopDoor.isUsed) _shopDoor.img->render(getMapDC(), (_shopDoor.LT.x + _shopDoor.RT.x) / 2, _shopDoor.LT.z - 200);
 }
 
 void Stage::backWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)

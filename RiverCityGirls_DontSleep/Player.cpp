@@ -414,7 +414,7 @@ void Player::stageInit()
 		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // 이전 스테이지가 노말이였으면
 		{
 			_obj.setPosX(270);
-			_obj.setPosY(0); // 나중에 추가해야함
+			_obj.setPosY(0);
 			_obj.setPosZ(480);
 		}
 		else if (_stageM->getPreStage() == STAGETYPE::BOSS) // 이전 스테이지가 보스였으면
@@ -427,9 +427,9 @@ void Player::stageInit()
 	case STAGETYPE::BOSS: // 현재 스테이지가 보스면
 		if (_stageM->getPreStage() == STAGETYPE::HARD) // 이전 스테이지가 하드이였으면
 		{
-			_obj.setPosX(275);
+			_obj.setPosX(450);
 			_obj.setPosY(0);
-			_obj.setPosZ(605);
+			_obj.setPosZ(880);
 		}
 		break;
 	default:
