@@ -177,7 +177,6 @@ void Player::update()
 			cout << "ÇÃ·§Æû Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 		}
 		else cout << "NULL" << endl;
-		
 	}
 	_colM->destructObject();
 }

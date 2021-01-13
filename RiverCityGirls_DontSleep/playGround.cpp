@@ -64,7 +64,15 @@ void playGround::update()
 		cout << "마우스 Y좌표: " << _ptMouse.y << endl;
 	}
 
-	
+	if (KEY_M->isOnceKeyDown(VK_F5))
+	{
+		SCENE_M->setInitScene("shop");		//이닛하는 경우
+	}
+
+	if (KEY_M->isOnceKeyDown(VK_F6))
+	{
+		SCENE_M->setScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
+	}
 }
 
 /*====================================================================

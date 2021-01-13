@@ -30,6 +30,9 @@ public:
 
 	//이닛하지 않고 씬만 변경하는 함수
 	HRESULT setScene(string sceneName);
+	
+	//이닛하고 씬도 변경
+	HRESULT setInitScene(string sceneName);
 
 	SceneManager() {};
 	~SceneManager() {};
