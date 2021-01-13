@@ -9,7 +9,8 @@ class IBossState : public gameNode
 {
 protected:
 	Boss* _thisBs;
-
+	bool _isEffect;
+	
 public:
 	IBossState() {}
 	~IBossState() {}
@@ -26,6 +27,7 @@ public:
 	void ResetFrame();
 	void Damaged(int atk);
 	void Attack();
+	void collision();
 
 
 };

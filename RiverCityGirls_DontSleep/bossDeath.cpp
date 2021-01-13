@@ -8,8 +8,7 @@ void bossDeath::EnterState()
 	_thisBs->ChangeImg("Bs_death");
 
 	LookatPlayer();
-	ResetFrame();
-	
+	ResetFrame();	
 }
 
 void bossDeath::UpdateState()

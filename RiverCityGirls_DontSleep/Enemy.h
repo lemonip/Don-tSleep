@@ -71,7 +71,7 @@ protected:
 		bool isSky;                 //공중에 있니
 		bool isDead;				//죽었니
 		bool isFriend;				//동료니
-		bool hasWeapon;				//무기들었니
+		bool hasWeapon;				//무기들었니	
 	};
 	
 

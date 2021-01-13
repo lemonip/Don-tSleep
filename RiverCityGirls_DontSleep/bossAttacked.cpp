@@ -5,7 +5,12 @@
 void bossAttacked::EnterState()
 {
 	LookatPlayer();
+	RECT _temp;
+	_enterTime = TIME_M->getWorldTime();
 	
+	Damaged(_thisBs->getPlayerAddress()->getInfo().force);
+		
+	// 이미지를 바꿈
 	switch (RND->getInt(3))
 	{		
 		
@@ -44,17 +49,23 @@ void bossAttacked::EnterState()
 		}
 		break;
 	}
-	
+
+	//이미지를 초기화
 	ResetFrame();
 }
 
 void bossAttacked::UpdateState()
 {		
-
+	
 }
 
 void bossAttacked::ExitState()
 {
 	_thisBs->SetState(BS_STATE::IDLE);
-	_thisBs->getInfo().isAttack = false;
+	if (_thisBs->getPlayerAddress()->getInfo().state == PL_STATE::DASHSATTACK)
+	{
+		_thisBs->getInfo().isAttack = false;
+	}
+	else
+	_thisBs->getInfo().isAttack = true;
 }
