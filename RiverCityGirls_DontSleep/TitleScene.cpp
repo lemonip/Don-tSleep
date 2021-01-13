@@ -9,7 +9,7 @@ HRESULT TitleScene::init()
 	====================================================================*/
 	EVENT_M->addEvent(new moviePlay(VIDEOTYPE::GAME_INTRO));
 	// 소리재생하면 끌때 자꾸 버그뜸
-	SOUND_M->play("openingBG", .5f);
+	SOUND_M->playMusic("openingBG", .5f);
 
 	/*====================================================================
 		맵의 사이즈를 지정하고, 타이틀은 UI로 취급하며, 배경은 루프시킵니다.

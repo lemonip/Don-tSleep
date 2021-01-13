@@ -30,4 +30,5 @@ void playerDead::UpdateState()
 
 void playerDead::ExitState()
 {
+
 }

@@ -4,12 +4,14 @@
 
 HRESULT pet::init()
 {
+	//애니관련
 	_obj.init(OBJECT_GROUP::OBJECT, IMG_M->findImage("pet"), vector3(WINSIZEX/2, 0, WINSIZEY / 2));
 	_obj.ani = new animation;
 	_obj.ani->setDefPlayFrame(false, true);
 	_obj.ani->setFPS(1);
 	_obj.ani->init(_obj.img->getWidth(), _obj.img->getHeight(), _obj.img->getFrameWidth(), _obj.img->getFrameHeight());
 	
+	//======================================
 	_xOffset = 60;
 	_yOffset = -200;
 	_obj.pos.y = _yOffset;
@@ -30,6 +32,7 @@ void pet::update(vector3 pos)
 	if(!_obj.ani->isPlay())_obj.ani->start();
 
 	
+	//==================================
 	//펫이 일정 거리 이상 멀어지면 보정 속도를 추가한다.
 	int revisionXSpeed = 0;
 	int revisionYSpeed = 0;

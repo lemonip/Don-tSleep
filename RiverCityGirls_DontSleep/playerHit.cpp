@@ -45,4 +45,6 @@ void playerHit::UpdateState()
 
 void playerHit::ExitState()
 {
+	_thisPl->setIsControl(true);
+
 }

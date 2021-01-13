@@ -29,4 +29,6 @@ void playerDown::UpdateState()
 
 void playerDown::ExitState()
 {
+	_thisPl->setIsControl(true);
+
 }

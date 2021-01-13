@@ -270,7 +270,7 @@ void playGround::addImage()
 	IMG_M->addImage("chili", "source/image/object/chili.bmp", 50, 50, true, MAGENTA, true);
 	IMG_M->addImage("hen", "source/image/object/hen.bmp", 50, 50, true, MAGENTA, true);
 
-	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 256, 192, 4, 3, true, MAGENTA, true);
+	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 576, 432, 4, 3, true, MAGENTA, true);
 	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 256, 256, 4, 4, true, MAGENTA, true);
 
 	//================= ¿Ã∆—∆Æ =================

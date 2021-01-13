@@ -52,7 +52,7 @@ void playerCombo1::EnterState()
 		{
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
-			SOUND_M->play("kyoko_combo", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_combo", SFXVOLUME);
 			//타격에 성공했는지 확인
 			_isCollision = true;
 		}
