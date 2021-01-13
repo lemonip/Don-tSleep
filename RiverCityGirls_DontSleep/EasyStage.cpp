@@ -21,6 +21,13 @@ HRESULT EasyStage::init()
 	rightWallInit(vector3(1635, WINSIZEY, 0), vector3(1928, WINSIZEY, 0), vector3(1928, 0, 678), vector3(1635, 0, 385));
 
 	floorInit(vector3(0, 0, 650), vector3(2028, 0, 650), vector3(1928, 0, 650), vector3(57, 0, 650));
+	
+	/*====================================================================
+	배경음악을 넣어줍니다.
+	====================================================================*/
+	SOUND_M->stop("openingBG");
+	SOUND_M->play("stage", BGMVOLUME);
+	SOUND_M->play("kyoko_battlestart",.5f);
 
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.

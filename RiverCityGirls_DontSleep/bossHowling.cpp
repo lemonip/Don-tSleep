@@ -27,6 +27,9 @@ void bossHowling::UpdateState()
 	{
 		_thisBs->SetState(BS_STATE::DASH);
 	}	
+
+	EFFECT_M->play("Bss_howling", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+		(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 }
 
 void bossHowling::ExitState()

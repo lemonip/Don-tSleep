@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
+#include "pet.h"
 
 #define ATTACKSIZE		480			//일반공격 사이트
 #define THROWSPEED		15			//일반무기 날리는 속도
@@ -12,7 +13,6 @@ class ObjectManager;
 class EnemyManager;
 class IPlayerState;
 class CollisionManager;
-
 /*====================================================================
 		플래이어입니다. Stage와 링크되어 있어,
 		에너미 매니저, 오브젝트 매니저와 연결됩니다.
@@ -117,6 +117,7 @@ private:
 	tagInfo	   _info;			//플레이어 정보
 	GameObject _obj;			//게임 오브젝트
 	RECT _temp;					//충돌용
+	pet _pet;					//펫
 
 	StageManager* _stageM;		//스테이지 매니저 링크
 	ObjectManager* _objectM;	//오브젝트 매니저 링크

@@ -1,10 +1,34 @@
 #include "stdafx.h"
 #include "playGround.h"
 
+
 /*====================================================================
 	playGround¿¡¼­, ÀÌ¹ÌÁö¸¦ Ãß°¡ÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù.
 	°ÔÀÓ ³»¿¡¼­ ¾²ÀÌ´Â ¸ðµç ÀÌ¹ÌÁö´Â ÀÌ °÷¿¡¼­ Ãß°¡ÇÕ´Ï´Ù.
 ====================================================================*/
+
+void playGround::addSource()
+{
+	//================= ½ºÅ×ÀÌÁö =================
+	SOUND_M->addSound("bossStage", "source/bgm/bossStage.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("hardStage", "source/bgm/hardStage.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("menuBG", "source/bgm/menuBG.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("openingBG", "source/bgm/openingBG.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("shopBG", "source/bgm/shopBG.mp3", tagVolumeType::MUSIC, true);
+	SOUND_M->addSound("stage", "source/bgm/stage.mp3", tagVolumeType::MUSIC, true);
+
+	//================= ÇÃ·¹ÀÌ¾î =================
+	SOUND_M->addSound("kyoko_battlestart", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_coin", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_combo", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_dashSAttack", "source/mr/playerMr/kyoko_dashSAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_hurricane", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_jumpAttack", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_sAttack", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_weapon_bat", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
+
+}
+
 
 void playGround::addImage()
 {
@@ -31,6 +55,10 @@ void playGround::addImage()
 	IMG_M->addImage("select_misako2", "source/image/ui/scene/SelectScene_misako2.bmp", 375, 675, true, MAGENTA);
 	IMG_M->addImage("select_kyoko_background", "source/image/ui/scene/SelectScene_kyoko_background.bmp", 360, 563, true, MAGENTA);
 	IMG_M->addImage("select_misako_background", "source/image/ui/scene/SelectScene_misako_background.bmp", 360, 563, true, MAGENTA);
+	
+	//ìƒì  ì”¬
+	IMG_M->addImage("shop_background", "source/image/ui/scene/ShopScene_background.bmp", 1280, 720, false, MAGENTA);
+
 
 	//°ÔÀÓ ¾À
 	IMG_M->addImage("dialogWindow", "source/image/ui/scene/dialogWindow.bmp", 1280, 150, true, MAGENTA);
@@ -51,6 +79,7 @@ void playGround::addImage()
 	IMG_M->addImage("UI_Locked_Door", "source/image/ui/battle/UI_Locked_Door.bmp", 52, 76, true, MAGENTA);
 	IMG_M->addImage("UI_UnLocked_Door", "source/image/ui/battle/UI_UnLocked_Door.bmp", 52, 76, true, MAGENTA);
 
+	IMG_M->addImage("phone", "source/image/ui/inven/phone.bmp", 480, 642, true, MAGENTA);
 	//================= ½ºÅ×ÀÌÁö =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
 	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);
@@ -214,10 +243,20 @@ void playGround::addImage()
 	IMG_M->addFrameImage("Bs_attacked3", "source/image/character/enemy/boss/attacked 03.bmp", 737, 598, 3, 2, true, MAGENTA, true);
 
 
-
-
-
+	//================= º¸½º ÀÌÆåÆ®===============
+	EFFECT_M->addEffect("Bss_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_smash", "Boss smash.bmp", 960, 89, 96, 89, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_howling", "Boss howling.bmp", 1821, 165,227.f, 165, 1.f, 3.f, 100);
+	EFFECT_M->addEffect("Bss_howling2", "Boss howling2.bmp", 416, 208, 208, 208, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_meteor", "Boss meteor2.bmp", 2424, 320, 404, 320, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_crush", "crush.bmp", 190, 193, 190, 193, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_stand", "Boss stand2.bmp", 3390, 144, 484.2f, 144, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_phase", "Boss phase1.bmp", 299, 82, 99.6f, 82, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Ob_break", "obj break.bmp", 3304, 248, 236, 248, 1.f, 3.f, 50);
+	
 	//================= ¿ÀºêÁ§Æ® =================
+
 	IMG_M->addImage("desk", "source/image/object/desk.bmp", 147, 162, true, MAGENTA, true);
 	IMG_M->addImage("table", "source/image/object/table.bmp", 339, 162, true, MAGENTA, true);
 	IMG_M->addFrameImage("vendingMachine", "source/image/object/vendingMachine.bmp", 525, 260, 2, 1, true, MAGENTA, true);
@@ -228,6 +267,7 @@ void playGround::addImage()
 	IMG_M->addImage("pillar_particle_3", "source/image/object/pillar_particle_3.bmp", 64, 64, true, MAGENTA, true);
 
 	IMG_M->addFrameImage("bat", "source/image/object/bat.bmp", 179, 104, 1, 2, true, MAGENTA, true);
+	IMG_M->addFrameImage("pet", "source/image/object/pet.bmp", 576, 96, 6, 1, true, MAGENTA, true);
 	//================= ¾ÆÀÌÅÛ =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
 	IMG_M->addImage("apple", "source/image/object/apple.bmp", 50, 50, true, MAGENTA, true);

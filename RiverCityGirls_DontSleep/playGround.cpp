@@ -26,6 +26,7 @@ HRESULT playGround::init()
 	gameNode::init(true);
 	AddFontResourceA("source/font/CookieRun Bold.otf");
 	addImage();							//이미지 세팅
+	addSource();						//소스 추가
 	addScene();							//씬 세팅
 	SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
 	//SCENE_M->changeScene("title");		//첫 시작씬 (title)
@@ -63,7 +64,15 @@ void playGround::update()
 		cout << "마우스 Y좌표: " << _ptMouse.y << endl;
 	}
 
-	
+	if (KEY_M->isOnceKeyDown(VK_F5))
+	{
+		SCENE_M->setInitScene("shop");		//이닛하는 경우
+	}
+
+	if (KEY_M->isOnceKeyDown(VK_F6))
+	{
+		SCENE_M->setScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
+	}
 }
 
 /*====================================================================
@@ -111,4 +120,3 @@ void playGround::addScene()
 	SCENE_M->addScene("shop", new ShopScene);			//상점 씬 추가
 	SCENE_M->addScene("ending", new EndingScene);		//엔딩 씬 추가
 }
-

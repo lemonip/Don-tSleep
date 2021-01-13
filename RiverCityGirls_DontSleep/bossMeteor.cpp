@@ -60,6 +60,9 @@ void bossMeteor::UpdateState()
 		{
 			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
 			_thisBs->xzyMove(0, 0, 80.0f);	
+
+			EFFECT_M->play("Bss_meteor", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+				(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 		}
 
 		if (_thisBs->getObj()->pos.y >= 0)
@@ -70,6 +73,7 @@ void bossMeteor::UpdateState()
 			_thisBs->getInfo().isSky = false;
 		}
 	}
+	
 }
 
 void bossMeteor::ExitState()
