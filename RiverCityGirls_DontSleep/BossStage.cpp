@@ -64,6 +64,7 @@ HRESULT BossStage::init()
 
 	_enemyCount = 0;
 	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = true;
 	return S_OK;
 }
 

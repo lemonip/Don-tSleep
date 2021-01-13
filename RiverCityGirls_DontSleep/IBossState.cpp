@@ -32,7 +32,6 @@ void IBossState::ResetFrame()
 void IBossState::Damaged(int atk)
 {
 	_thisBs->getInfo().hp -= atk;
-	cout << _thisBs->getInfo().hp << endl;
 
 	if (_thisBs->getInfo().hp < 0) { _thisBs->getInfo().hp = 0; }
 

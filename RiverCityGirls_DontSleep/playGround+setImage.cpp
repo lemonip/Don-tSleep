@@ -82,6 +82,15 @@ void playGround::addImage()
 	IMG_M->addImage("UI_Shop_Door1", "source/image/ui/battle/UI_Shop_Door1.bmp", 52, 45, true, MAGENTA);
 	IMG_M->addImage("UI_Shop_Door2", "source/image/ui/battle/UI_Shop_Door2.bmp", 52, 45, true, MAGENTA);
 
+	IMG_M->addImage("Stage_UI_Chain_Left", "source/image/ui/battle/Stage_UI_Chain_Left.bmp", 42, 900, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Right", "source/image/ui/battle/Stage_UI_Chain_Right.bmp", 42, 900, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Top", "source/image/ui/battle/Stage_UI_Chain_Top.bmp", 1600, 43, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Bottom", "source/image/ui/battle/Stage_UI_Chain_Bottom.bmp", 1600, 43, true, MAGENTA);
+	IMG_M->addFrameImage("Stage_UI_Lock_Appear", "source/image/ui/battle/Stage_UI_Lock_Appear.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Damage1", "source/image/ui/battle/Stage_UI_Lock_Damage1.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Damage2", "source/image/ui/battle/Stage_UI_Lock_Damage2.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Disappear", "source/image/ui/battle/Stage_UI_Lock_Disappear.bmp", 840, 130, 7, 1, true, MAGENTA, true);
+
 	IMG_M->addImage("phone", "source/image/ui/inven/phone.bmp", 480, 642, true, MAGENTA);
 	//================= 스테이지 =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);

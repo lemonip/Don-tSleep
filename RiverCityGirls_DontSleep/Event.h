@@ -1,11 +1,14 @@
 #pragma once
 
+class UI;
+class LocationLock;
 class Video;
 enum class VIDEOTYPE;
 
 enum class DIALOGLIST;
 enum class DIRECTION;
 class Player;
+
 
 /*====================================================================
 	이벤트 클래스입니다. 다양한 이벤트에게 상속하고 있습니다.
@@ -142,15 +145,16 @@ public:
 class locationLock : public Event
 {
 private:
-	bool isStart;
-	bool isEnd;
+	bool _isStart;
+	bool _isEnd;
+ 
 
-	int enemyCount;
-	int maxEnemyCount;
+	LocationLock* _event;
 public:
 	locationLock();
 
-	virtual void enter(int maxEnemy);
+	virtual void enter(bool playerControl);
 	virtual bool update();
 	virtual void exit();
+
 };

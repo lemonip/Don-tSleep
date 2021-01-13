@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "Object.h"
+
 #define PARTICLEMAX 60
 /*====================================================================
 	오브젝트 매니저입니다. 오브젝트를 벡터에 넣어 관리하며,
@@ -15,6 +16,7 @@ private:
 	vector<Object*> _vParticleRightUp;
 	vector<Object*> _vParticleRightDown;
 
+	
 public:
 	virtual HRESULT init();
 	virtual void release();
@@ -24,7 +26,6 @@ public:
 	Object* findHardPlatform();
 	void particleInit(vector3 pos, OBJECT_TYPE type);
 	void particleSwitch(OBJECT_TYPE type);
-
 
 /*====================================================================
 								GETTER
