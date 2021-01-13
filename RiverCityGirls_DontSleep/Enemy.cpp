@@ -122,25 +122,23 @@ void Enemy::update()
 			RECT temp;
 			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
 			{
-				if(_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
-				else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
-				else
+				if (abs(_obj.pos.z - _player->getObj().pos.z) < 40)
 				{
-					if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
+					if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
+					else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
+					else
 					{
-						if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
-						else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
-						else SetState(EN_STATE::EN_HIT);
-					}	
+						if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
+						{
+							if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
+							else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
+							else SetState(EN_STATE::EN_HIT);
+						}
+					}
 				}
 			}
 		}
 	}
-	if (_state == EN_STATE::EN_DIE)
-	{
-		
-	}
-	//EFFECT_M->play("ef_point", (_obj.rc.left + _obj.rc.right) / 2, _obj.rc.top);
 }
 
 void Enemy::render()
