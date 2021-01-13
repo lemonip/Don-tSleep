@@ -57,14 +57,21 @@ HRESULT NormalStage::init()
 	_leftDoor.RT = vector3(180, 0, 610);
 	_leftDoor.LB = vector3(0, 0, 775);
 	_leftDoor.RB = vector3(180, 0, 775);
-	UI_M->findUI("doorLeft")->setPos(&vector3((_leftDoor.LT.x + _leftDoor.RT.x) / 2, (float)0, _leftDoor.LT.z - 200));
+	_leftDoor.img = IMG_M->findImage("UI_UnLocked_Door");
 
 	_rightDoor.isUsed = true;
 	_rightDoor.LT = vector3(2580, 0, 535);
 	_rightDoor.RT = vector3(2820, 0, 535);
 	_rightDoor.LB = vector3(2580, 0, 760);
 	_rightDoor.RB = vector3(2820, 0, 760);
-	UI_M->findUI("doorRight")->setPos(&vector3((_rightDoor.LT.x + _rightDoor.RT.x) / 2, (float)0, _rightDoor.LT.z - 200));
+	_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+
+	_shopDoor.isUsed = true;
+	_shopDoor.LT = vector3(1070, 0, 540);
+	_shopDoor.RT = vector3(1270, 0, 540);
+	_shopDoor.LB = vector3(1070, 0, 600);
+	_shopDoor.RB = vector3(1270, 0, 600);
+	_shopDoor.img = IMG_M->findImage("UI_Shop_Door1");
 
 	_enemyCount = 0;
 	_maxEnemyCount = 7;

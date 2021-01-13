@@ -58,7 +58,7 @@ HRESULT BossStage::init()
 	_leftDoor.RT = vector3(480, 0, 780);
 	_leftDoor.LB = vector3(185, 0, 1015);
 	_leftDoor.RB = vector3(480, 0, 1015);
-	UI_M->findUI("doorLeft")->setPos(&vector3((_leftDoor.LT.x + _leftDoor.RT.x) / 2, (float)0, _leftDoor.LT.z - 200));
+	_leftDoor.img = IMG_M->findImage("UI_UnLocked_Door");
 
 	_rightDoor.isUsed = false;
 
