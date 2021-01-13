@@ -18,7 +18,12 @@ ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 		break;
 	case ITEM_TYPE::COIN:
 		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("coin"), pos);
-		_info.value = 1;
+		_obj.ani = new animation;
+		_obj.ani->setDefPlayFrame(false, false);
+		_obj.ani->setFPS(1);
+		_obj.ani->init(_obj.img->getWidth(), _obj.img->getHeight(), _obj.img->getFrameWidth(), _obj.img->getFrameHeight());
+		_obj.ani->start();
+		_info.value = 10;
 		break;
 	case ITEM_TYPE::MEAT:
 		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("meat"), pos);
@@ -54,12 +59,13 @@ void ItemObj::update()
 {
 	if (_obj.ani)
 	{
-		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 2);
+		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 5);
 	}
 }
 
 void ItemObj::render()
 {
+	//ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::RENDER);
 	switch (getInfo().type)
 	{
 	case ITEM_TYPE::MONEY:

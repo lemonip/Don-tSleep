@@ -79,6 +79,7 @@ void EnemyManager::popEnemy(int index)
 		{
 			SAFE_DELETE(_vEnemy[i]);
 			_vEnemy.erase(_vEnemy.begin() + i);
+			break;
 		}
 		else  i++;
 	}

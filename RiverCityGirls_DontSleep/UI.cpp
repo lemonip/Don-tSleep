@@ -57,6 +57,9 @@ void Bar::render(HDC hdc)
 
 }
 
+/*====================================================================
+						핸 드 폰
+====================================================================*/
 HRESULT CallPhone::init()
 {
 	return E_NOTIMPL;
@@ -70,9 +73,7 @@ void CallPhone::update()
 {
 }
 
-/*====================================================================
-						핸 드 폰
-====================================================================*/
+
 void CallPhone::render(HDC hdc)
 {
 
@@ -96,31 +97,4 @@ void Option::update()
 
 void Option::render(HDC hdc)
 {
-}
-
-/*====================================================================
-						스테이지 문
-====================================================================*/
-
-StageDoor::StageDoor(int alpha)
-{
-	_alpha = alpha;
-}
-
-HRESULT StageDoor::init()
-{
-	return S_OK;
-}
-
-void StageDoor::release()
-{
-}
-
-void StageDoor::update()
-{
-}
-
-void StageDoor::render(HDC hdc)
-{
-	_img->render(hdc, _pos->x, _pos->z);
 }
