@@ -54,12 +54,7 @@ HRESULT Enemy::init()
 		_info.hasWeapon = false;			//무기들었니
 	};
 	_info.isActive = true;
-	_obj.ani = new animation;
-	_obj.ani->init(IMG_M->findImage("money")->getWidth(), IMG_M->findImage("money")->getHeight(),
-		IMG_M->findImage("money")->getFrameWidth(), IMG_M->findImage("money")->getFrameHeight());
-	_obj.ani->setDefPlayFrame(false, true);
-	_obj.ani->setFPS(1);
-	_obj.ani->start();
+
 
 	_ES_IDLE = new enemyIdle;
 	_ES_WALK = new enemyWalk;
@@ -127,34 +122,29 @@ void Enemy::update()
 			RECT temp;
 			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
 			{
-				if(_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
-				else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
-				else
+				if (abs(_obj.pos.z - _player->getObj().pos.z) < 40)
 				{
-					if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
+					if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
+					else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
+					else
 					{
-						if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
-						else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
-						else SetState(EN_STATE::EN_HIT);
-					}	
+						if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
+						{
+							if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
+							else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
+							else SetState(EN_STATE::EN_HIT);
+						}
+					}
 				}
 			}
 		}
 	}
-	if (_state == EN_STATE::EN_DIE)
-	{
-		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 5);
-		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("money"), _obj.pos);
-	}
-	//EFFECT_M->play("ef_point", (_obj.rc.left + _obj.rc.right) / 2, _obj.rc.top);
 }
 
 void Enemy::render()
 {
 	if (KEY_M->isToggleKey(VK_SHIFT) && _info.isAttack)
 		Rectangle(getMapDC(), _info.rcAttack);
-
-	IMG_M->findImage("money")->aniRender(getBackDC(), _obj.pos.x, _obj.pos.z, _obj.ani);
 
 }
 

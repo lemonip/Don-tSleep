@@ -50,7 +50,6 @@ bool IEnemyState::endFrame()
 void IEnemyState::Damage(int atk)
 {
 	_thisEn->getInfo().hp -= atk;
-	cout << _thisEn->getInfo().hp << endl;
 
 	if (_thisEn->getInfo().hp < 0) { _thisEn->getInfo().hp = 0; }
 
@@ -59,7 +58,7 @@ void IEnemyState::Damage(int atk)
 	//체력이 1/3 이하면 베깅
 	else if (_thisEn->getInfo().hp <= _thisEn->getInfo().maxHp / 3)
 	{ 
-		if(RND->getInt(10) <= 10)
+		if(RND->getInt(10) <= 5)
 		_thisEn->SetState(EN_STATE::EN_BEGGING);
 	}
 	//체력이 1/2 이하면 스턴

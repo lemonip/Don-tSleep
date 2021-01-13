@@ -132,6 +132,7 @@ public:
 	GameObject& getRefObj() { return _obj; }
 	ENEMY_TYPE getEnemyType() { return _ENEMY_TYPE; }
 	EN_STATE getState() { return _state; }
+	ObjectManager* getObjectM() { return _objectM; }
 	/*====================================================================
 									SETTER
 	====================================================================*/
