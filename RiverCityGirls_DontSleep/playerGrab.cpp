@@ -5,8 +5,7 @@
 
 void playerGrab::EnterState()
 {
-	//적이랑 인터섹트렉트하고 / 적이 GRAB상태일경우
-
+	_fail = false;
 	//타이머초기화
 	_stateTimer = TIME_M->getWorldTime();
 	//이미지변경
@@ -35,6 +34,18 @@ void playerGrab::UpdateState()
 				}
 			}
 		}
+	}
+
+	if (!_fail && TIME_M->getWorldTime() - _stateTimer > 2.f)
+	{
+		_thisPl->changeImg("pl_grabFail", false);
+		_fail = true;
+	}
+
+	if (_fail && isEndFrame(false))
+	{
+		_thisPl->setIsControl(true);
+		_thisPl->setState(PL_STATE::IDLE);
 	}
 
 }

@@ -7,6 +7,7 @@
 
 HRESULT GameScene::init()
 {
+	UI_M->addLock("LocationLock", vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
 	/*====================================================================
 		게임 씬은 스테이지 매니저와 콜리전 매니저를 가집니다.
 	====================================================================*/
@@ -34,6 +35,9 @@ HRESULT GameScene::init()
 		&_stageM->getPlayer()->getInfo().hp, &_stageM->getPlayer()->getInfo().maxHP);
 	UI_M->findUI("bossHPBar")->setActive(true);
 
+
+
+	
 	return S_OK;
 }
 

@@ -8,17 +8,14 @@ void playerHit::EnterState()
 {
 	RECT temp;
 
+	SOUND_M->playSFX("kyoko_hit", SFXVOLUME);
+
 	//이뮨상태로 만들기
 	_thisPl->getInfo().isImmune = true;
 	_thisPl->getRefObj().alpha = 180;
 
-	//체력 깎기
-	for (int i = 0; i !=_thisPl->getEnemyM()->getVEnemy().size(); i++)
-	{
-		_thisPl->getInfo().hp -= _thisPl->getEnemyM()->getVEnemy()[i]->getInfo().attack;
-		//맞은수 세기
-		_thisPl->getInfo().hitCount++;
-	}
+	//맞은수 세기
+	_thisPl->getInfo().hitCount++;
 
 	//이미지변경
 	_thisPl->changeImg("pl_hit", false);
@@ -45,4 +42,6 @@ void playerHit::UpdateState()
 
 void playerHit::ExitState()
 {
+	_thisPl->setIsControl(true);
+
 }

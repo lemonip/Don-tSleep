@@ -26,6 +26,9 @@ void playGround::addSource()
 	SOUND_M->addSound("kyoko_jumpAttack", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_sAttack", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_weapon_bat", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_down", "source/mr/playerMr/kyoko_down.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_hit", "source/mr/playerMr/kyoko_hit.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);
 
 	//================= 보스 ======================
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
@@ -90,6 +93,15 @@ void playGround::addImage()
 	IMG_M->addImage("UI_UnLocked_Door", "source/image/ui/battle/UI_UnLocked_Door.bmp", 52, 76, true, MAGENTA);
 	IMG_M->addImage("UI_Shop_Door1", "source/image/ui/battle/UI_Shop_Door1.bmp", 52, 45, true, MAGENTA);
 	IMG_M->addImage("UI_Shop_Door2", "source/image/ui/battle/UI_Shop_Door2.bmp", 52, 45, true, MAGENTA);
+
+	IMG_M->addImage("Stage_UI_Chain_Left", "source/image/ui/battle/Stage_UI_Chain_Left.bmp", 42, 900, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Right", "source/image/ui/battle/Stage_UI_Chain_Right.bmp", 42, 900, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Top", "source/image/ui/battle/Stage_UI_Chain_Top.bmp", 1600, 43, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Bottom", "source/image/ui/battle/Stage_UI_Chain_Bottom.bmp", 1600, 43, true, MAGENTA);
+	IMG_M->addFrameImage("Stage_UI_Lock_Appear", "source/image/ui/battle/Stage_UI_Lock_Appear.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Damage1", "source/image/ui/battle/Stage_UI_Lock_Damage1.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Damage2", "source/image/ui/battle/Stage_UI_Lock_Damage2.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Disappear", "source/image/ui/battle/Stage_UI_Lock_Disappear.bmp", 840, 130, 7, 1, true, MAGENTA, true);
 
 	IMG_M->addImage("phone", "source/image/ui/inven/phone.bmp", 480, 642, true, MAGENTA);
 	//================= 스테이지 =================
@@ -277,7 +289,7 @@ void playGround::addImage()
 	IMG_M->addImage("chili", "source/image/object/chili.bmp", 50, 50, true, MAGENTA, true);
 	IMG_M->addImage("hen", "source/image/object/hen.bmp", 50, 50, true, MAGENTA, true);
 
-	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 256, 192, 4, 3, true, MAGENTA, true);
+	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 576, 432, 4, 3, true, MAGENTA, true);
 	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 256, 256, 4, 4, true, MAGENTA, true);
 
 	//================= 이팩트 =================

@@ -35,4 +35,6 @@ void playerStun::UpdateState()
 
 void playerStun::ExitState()
 {
+	_thisPl->setIsControl(true);
+
 }

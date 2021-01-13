@@ -53,7 +53,7 @@ void playerCombo1::EnterState()
 		{
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
-			SOUND_M->play("kyoko_combo", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_combo", SFXVOLUME);
 			//타격에 성공했는지 확인
 			_isCollision = true;
 		}
@@ -79,6 +79,8 @@ void playerCombo1::UpdateState()
 			if (_thisPl->getInfo().dest == DIRECTION::LEFT
 				&&_isCollision && _thisPl->getObj().imgIndex.x >= 2)
 			{
+				SOUND_M->playSFX("kyoko_weapon_bat", SFXVOLUME);
+
 				EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 				_isCollision = false;
@@ -88,6 +90,8 @@ void playerCombo1::UpdateState()
 			if (_thisPl->getInfo().dest == DIRECTION::RIGHT
 				&&_isCollision && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
 			{
+				SOUND_M->playSFX("kyoko_weapon_bat", SFXVOLUME);
+
 				EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 				_isCollision = false;
@@ -105,6 +109,7 @@ void playerCombo1::UpdateState()
 		{
 			for (int i = 0; i < _thisPl->getEnemyM()->getVEnemy().size(); i++)
 			{
+
 				//타격을 맞췄었고, 에너미와 충돌중이다.
 				if (_isCollision && IntersectRect(&_temp, &_thisPl->getInfo().attackRc,
 					&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))

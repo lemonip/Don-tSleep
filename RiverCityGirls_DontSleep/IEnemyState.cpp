@@ -50,7 +50,6 @@ bool IEnemyState::endFrame()
 void IEnemyState::Damage(int atk)
 {
 	_thisEn->getInfo().hp -= atk;
-	cout << _thisEn->getInfo().hp << endl;
 
 	if (_thisEn->getInfo().hp < 0) { _thisEn->getInfo().hp = 0; }
 
