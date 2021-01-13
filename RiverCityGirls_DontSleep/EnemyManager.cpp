@@ -33,6 +33,8 @@ void EnemyManager::update()
 		}
 		else  i++;
 	}
+
+	
 }
 
 void EnemyManager::render()

@@ -52,11 +52,14 @@ void ItemObj::release()
 
 void ItemObj::update()
 {
+	if (_obj.ani)
+	{
+		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 2);
+	}
 }
 
 void ItemObj::render()
 {
-	//ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::RENDER);
 	switch (getInfo().type)
 	{
 	case ITEM_TYPE::MONEY:
