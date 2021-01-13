@@ -48,7 +48,6 @@ void GameScene::release()
 void GameScene::update()
 {
 	_stageM->update();
-
 }
 
 void GameScene::render()

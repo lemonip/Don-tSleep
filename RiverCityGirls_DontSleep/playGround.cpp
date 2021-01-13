@@ -28,8 +28,8 @@ HRESULT playGround::init()
 	addImage();							//이미지 세팅
 	addSource();						//소스 추가
 	addScene();							//씬 세팅
-	SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
-	//SCENE_M->changeScene("title");		//첫 시작씬 (title)
+	//SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
+	SCENE_M->changeScene("title");		//첫 시작씬 (title)
 	
 
 	return S_OK;
