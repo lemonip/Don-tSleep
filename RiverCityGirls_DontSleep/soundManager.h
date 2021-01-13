@@ -72,6 +72,11 @@ public:
     void setVolumeDialogue(float volume);
     void setVolumeSFX(float volume);
 
+	void stopMusic(string keyName);
+	void pauseMusic(string keyName);
+	void resumeMusic(string keyName);
+	
+
     void stop(string keyName);
     void pause(string keyName);
     void resume(string keyName);
