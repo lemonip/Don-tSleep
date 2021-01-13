@@ -5,6 +5,7 @@
 
 void playerCombo1::EnterState()
 {
+	SOUND_M->playSFX("kyoko_battlestart", .5f);
 	//타격에 여부초기화
 	_isCollision = false;
 
