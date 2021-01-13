@@ -12,13 +12,8 @@ void playerHit::EnterState()
 	_thisPl->getInfo().isImmune = true;
 	_thisPl->getRefObj().alpha = 180;
 
-	//체력 깎기
-	for (int i = 0; i !=_thisPl->getEnemyM()->getVEnemy().size(); i++)
-	{
-		_thisPl->getInfo().hp -= _thisPl->getEnemyM()->getVEnemy()[i]->getInfo().attack;
-		//맞은수 세기
-		_thisPl->getInfo().hitCount++;
-	}
+	//맞은수 세기
+	_thisPl->getInfo().hitCount++;
 
 	//이미지변경
 	_thisPl->changeImg("pl_hit", false);
