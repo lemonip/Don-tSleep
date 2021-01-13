@@ -124,8 +124,6 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-	//cout << (int)_info.state<< endl;
-
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
@@ -175,7 +173,6 @@ void Player::update()
 			cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 		}
 		else cout << "NULL" << endl;
-		
 	}
 	_colM->destructObject();
 }
