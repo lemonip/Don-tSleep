@@ -350,6 +350,21 @@ void CollisionManager::playerWallCollsion()
 			character->pos.x = Linear(pool.RT, pool.RB).getX(character->shadow.LB.z) + character->shadow.width / 2;
 		}
 	}
+
+	if (_stageM->getStage()->getLockEventStart() == true && _stageM->getStage()->getLockEventEnd() == false) // 지역락 걸렸을 때
+	{
+		if (character->shadow.LT.x < CAMERA_M->GetX() - WINSIZEX / 2)
+		{
+			character->pos.x = CAMERA_M->GetX() - WINSIZEX / 2 + character->shadow.width / 2;
+		}
+		else if (character->shadow.RB.x > CAMERA_M->GetX() + WINSIZEX / 2)
+		{
+			character->pos.x = CAMERA_M->GetX() + WINSIZEX / 2 - character->shadow.width / 2;
+		}
+	}
+	
+		
+	
 }
 
 void CollisionManager::enemyWallColiision(GameObject* character)

@@ -25,8 +25,8 @@ HRESULT EasyStage::init()
 	/*====================================================================
 	배경음악을 넣어줍니다.
 	====================================================================*/
-	SOUND_M->playMusic("stage", BGMVOLUME);
-	SOUND_M->playSFX("kyoko_battlestart",.5f);
+	//SOUND_M->playMusic("stage", BGMVOLUME);
+	
 
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
@@ -41,7 +41,7 @@ HRESULT EasyStage::init()
 
 
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2-300, 0, WINSIZEY / 2+ 300 ));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 80));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 80));
 	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 300));
 	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 200));
 	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 500, 0, WINSIZEY / 2 + 120));
@@ -74,7 +74,9 @@ HRESULT EasyStage::init()
 
 
 	_enemyCount = 0;
-	_maxEnemyCount = 5;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1200;
 	return S_OK;
 }
 

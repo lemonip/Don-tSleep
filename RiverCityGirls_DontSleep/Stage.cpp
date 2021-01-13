@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Stage.h"
 #include "ObjectManager.h"
+#include "StageManager.h"
+#include "Player.h"
 
 /*====================================================================
 	스테이지 초기화 시 에너미 매니저와 오브젝트 매니저를 할당하고 초기화합니다.
@@ -13,6 +15,7 @@ HRESULT Stage::init()
 
 	_objectM = new ObjectManager;
 	_objectM->init();
+	
 	return S_OK;
 }
 
@@ -30,10 +33,11 @@ void Stage::update()
 	_enemyM->update();
 	_objectM->update();
 
-	// 지역락 조건 추가해야함
-	if (_enemyCount >= _maxEnemyCount) _doorActive = DOOR_ACTIVITY::ACTIVE;
 
-
+	if (lockEventEnd == false)
+	{
+		startLocationLock(vector3(_lockStartLine, 0, 0), _stageM->getPlayer()->getObj().pos, _maxEnemyCount);
+	}
 }
 
 void Stage::render()
@@ -96,6 +100,40 @@ void Stage::poolInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb)
 	_pool.RT = rt;
 	_pool.RB = rb;
 	_pool.LB = lb;
+}
+
+void Stage::startLocationLock(vector3 lockPos, vector3 playerPos, int maxEnemyNum)
+{
+	if (lockEventStart == false && lockPos.x < playerPos.x)
+	{
+		cout << "시작" << endl;
+		EVENT_M->addEvent(new locationLock(), true); // 이벤트 시작
+		_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+		lockEventStart = true;
+		_enemyCount = 0;
+		_maxEnemyCount = maxEnemyNum;
+		_leftDoor.img = IMG_M->findImage("UI_Locked_Door");
+		_rightDoor.img = IMG_M->findImage("UI_Locked_Door");
+		_shopDoor.img = IMG_M->findImage("UI_Locked_Door");
+	}
+
+	if (lockEventStart == true && lockEventEnd == false)
+	{
+		if (_enemyCount >= _maxEnemyCount && ((LocationLock*)UI_M->findUI("LocationLock"))->isUnlockStart() == false)
+		{
+			((LocationLock*)UI_M->findUI("LocationLock"))->startUnlock();
+		}
+		if (((LocationLock*)UI_M->findUI("LocationLock"))->isUnlockEnd())
+		{
+			_doorActive = DOOR_ACTIVITY::ACTIVE;
+			
+			((LocationLock*)UI_M->findUI("LocationLock"))->setActive(false);
+			_leftDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+			_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+			_shopDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+			lockEventEnd = true;
+		}
+	}
 }
 
 void Stage::polylineRender(vector3 A, vector3 B)

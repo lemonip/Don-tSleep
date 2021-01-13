@@ -49,7 +49,7 @@ enum class UITYPE : int
 	UI,
 	BAR,
 	INVENTORY,
-	DOOR,
+	LOCATIONLOCK,
 };
 
 /*====================================================================

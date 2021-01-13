@@ -76,6 +76,20 @@ void UIManager::addBar(string name, image * front, image * back, vector3 pos, in
 	_mUI.insert(make_pair(name, ui));
 }
 
+void UIManager::addLock(string name, vector3 pos)
+{
+	_miUI = _mUI.find(name);
+	if (_miUI != _mUI.end()) return;
+
+	UI* ui = new LocationLock();
+	ui->_pos = new vector3(pos.x, pos.y, pos.z);
+	ui->init();
+	ui->_type = UITYPE::LOCATIONLOCK;
+	ui->_isActive = false;
+
+	_mUI.insert(make_pair(name, ui));
+}
+
 /*====================================================================
 						UI를 제거합니다.
 ====================================================================*/
