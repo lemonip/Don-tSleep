@@ -51,6 +51,11 @@ public:
 	inline POINT getFramePos() { return _frameList[_playList[_nowPlayIndex]]; }
 	inline int getFrameWidth() { return _frameWidth; }
 	inline int getFrameHeight() { return _frameHeight; }
+	inline int getEndFrame() { return _frameHeight; }
+	//현재 애니메이션인덱스
+	inline DWORD getFrameIndex() { return _nowPlayIndex; };
+	//마지막 애니메이션인덱스
+	inline DWORD getFrameMaxIndex() { return _frameNum; };
 
 };
 

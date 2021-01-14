@@ -1,7 +1,6 @@
 #pragma once
 #include "Object.h"
 
-
 class ItemObj : public Object
 {
 private:
@@ -13,5 +12,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	
 };
 

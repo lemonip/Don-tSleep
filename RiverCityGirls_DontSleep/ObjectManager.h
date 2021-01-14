@@ -7,6 +7,7 @@
 	오브젝트 매니저입니다. 오브젝트를 벡터에 넣어 관리하며,
 	push로 오브젝트를 집어 넣을 수 있습니다.
 ====================================================================*/
+class StageManager;
 class ObjectManager : public gameNode
 {
 private:
@@ -16,7 +17,7 @@ private:
 	vector<Object*> _vParticleRightUp;
 	vector<Object*> _vParticleRightDown;
 
-	
+	StageManager* _stage;
 public:
 	virtual HRESULT init();
 	virtual void release();
@@ -41,5 +42,8 @@ public:
 	void pushWeapon(WEAPON_TYPE type, vector3 pos);		//무기를 넣는다.
 
 	void popObject(int index);							//오브젝트를 삭제한다.
+
+	void setLinkStageM(StageManager* stage) { _stage = stage; }
+
 };
 

@@ -15,6 +15,7 @@ HRESULT Stage::init()
 
 	_objectM = new ObjectManager;
 	_objectM->init();
+	_objectM->setLinkStageM(_stageM);
 
 	return S_OK;
 }

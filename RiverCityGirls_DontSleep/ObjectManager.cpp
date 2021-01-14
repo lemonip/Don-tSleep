@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ObjectManager.h"
 #include "AllObjects.h"
+#include "StageManager.h"
 
 HRESULT ObjectManager::init()
 {
@@ -367,7 +368,13 @@ void ObjectManager::pushObject(OBJECT_TYPE type, vector3 pos)
 
 void ObjectManager::pushItem(ITEM_TYPE type, vector3 pos)
 {
+	
 	_vObject.push_back(new ItemObj(type, pos));
+
+	for (int i = 0; i != _vObject.size(); i++)
+	{
+		_vObject[i]->setLinkPlayer(_stage->getPlayer());
+	}
 }
 
 void ObjectManager::pushWeapon(WEAPON_TYPE type, vector3 pos)

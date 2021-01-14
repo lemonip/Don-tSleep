@@ -71,7 +71,7 @@ HRESULT Player::init()
 		_info.goalState = GOALPOS::PLAYER;
 
 		_info.hp = _info.maxHP = 100;
-		_info.force = 10;
+		_info.force = 50;
 		_info.LV = 1;
 		_info.exp = 0;
 		_info.hitCount = 3;
@@ -118,9 +118,11 @@ HRESULT Player::init()
 	}
 	setState(PL_STATE::WAIT);
 
+
 	//인벤추가
 	UI_M->setLinkPlayer(this);
 	UI_M->addPhone("inven");
+
 	return S_OK;
 }
 
@@ -691,8 +693,9 @@ void Player::checkItem()
 				//소지금 올려줌
 				case ITEM_TYPE::MONEY:
 				case ITEM_TYPE::COIN:
+					_objectM->getVObject()[i]->getObj()->isActive = false;
 					_info.coin += _objectM->getVObject()[i]->getInfo().value;
-				//	_objectM->popObject(i);
+					_objectM->popObject(i);
 					if (i == _objectM->getVObject().size())return;
 					break;
 				//체력회복
@@ -748,8 +751,8 @@ void Player::keyInput()
 	if (!_info.isControl) return;
 
 	//인벤토리창 열기
-	if (UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('Z')) UI_M->findUI("inven")->setActive(false);
-	if (!UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('Z')) UI_M->findUI("inven")->setActive(true);
+	if (UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('I')) UI_M->findUI("inven")->setActive(false);
+	if (!UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('I')) UI_M->findUI("inven")->setActive(true);
 
 
 	//공격키받기(커맨드를위해)

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Object.h"
 #include "ItemObj.h"
+#include "Player.h"
 
 HRESULT Object::init()
 {
@@ -18,5 +19,11 @@ void Object::update()
 
 void Object::render()
 {
+}
+
+bool Object::isEndFrame()
+{
+	if (_obj.ani->getFrameIndex() >= _obj.ani->getFrameMaxIndex()) return true;
+	else return false;
 }
 

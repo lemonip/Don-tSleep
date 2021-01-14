@@ -1,27 +1,35 @@
 #include "stdafx.h"
 #include "ItemObj.h"
-
+#include "Player.h"
 ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 {
 	_info.type = type;
+	_info.iscollision = false;
 
 	switch (type)
 	{
 	case ITEM_TYPE::MONEY:
 		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_money"), pos);
+		_obj.size.x = _obj.size.x/4;
+		_obj.size.z = _obj.size.z/2;
 		_obj.ani = new animation;
 		_obj.ani->setDefPlayFrame(false, false);
 		_obj.ani->setFPS(1);
 		_obj.ani->init(_obj.img->getWidth(), _obj.img->getHeight(), _obj.img->getFrameWidth(), _obj.img->getFrameHeight());
+
 		_obj.ani->start();
 		_info.value = 100;
+
 		break;
 	case ITEM_TYPE::COIN:
 		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_coin"), pos);
+		_obj.size.x = _obj.size.x / 4;
+		_obj.size.z = _obj.size.z / 2;
 		_obj.ani = new animation;
 		_obj.ani->setDefPlayFrame(false, true);
 		_obj.ani->setFPS(1);
 		_obj.ani->init(_obj.img->getWidth(), _obj.img->getHeight(), _obj.img->getFrameWidth(), _obj.img->getFrameHeight());
+
 	    _obj.ani->start();
 		_info.value = 1;
 		break;
@@ -57,12 +65,11 @@ void ItemObj::release()
 
 void ItemObj::update()
 {
-	/*
-	if (_obj.ani)
-	{
-		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 5);
-	}
-	*/
+	Object::update();
+	RECT temp;
+	//충돌한 적이 없는데 충돌시
+	if (!_info.iscollision  && IntersectRect(&temp, &_obj.rc, &_info.player->getRefObj().rc)) _info.iscollision = true;
+
 	if (_obj.ani)
 	{
 		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 5);
@@ -89,3 +96,4 @@ void ItemObj::render()
 	}
 
 }
+

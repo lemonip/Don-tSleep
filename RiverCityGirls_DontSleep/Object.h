@@ -1,10 +1,14 @@
 #pragma once
 #include "gameNode.h"
 #include "GameObject.h"
+class Player;
 
 struct tagInfo
 {
+	bool iscollision;
 	int value;
+	Player* player;
+
 	ITEM_TYPE type;
 };
 
@@ -30,5 +34,8 @@ public:
 	GameObject& getRefObj() { return _obj; }
 	tagInfo& getInfo() { return _info; }
 	OBJECT_TYPE getType() { return _type; }
+
+	void setLinkPlayer(Player* player) { _info.player = player; }
+	bool isEndFrame();
 };
 
