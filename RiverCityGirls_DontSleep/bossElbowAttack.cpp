@@ -21,52 +21,25 @@ void bossElbowAttack::UpdateState()
 	else if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x) _thisBs->setDest(DIRECTION::LEFT);
 	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
 	{*/
+	RECT _temp;
 
-	if (!_thisBs->getIsphase())
+	if (_thisBs->getInfo().isAttack && TIME_M->getWorldTime() - _enterTime > 0.7f)
 	{
-		RECT _temp;
-		if (_thisBs->getInfo().isAttack && TIME_M->getWorldTime() - _enterTime > 0.7f)
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{
-			if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-			{
-				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 70, _thisBs->getObj()->pos.z - 150, 200, 100);
-			}
-
-			else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
-			{
-				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 70, _thisBs->getObj()->pos.z - 150, 200, 100);
-			}
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 70, _thisBs->getObj()->pos.z -150, 200, 100);
 		}
-		if (!_isEffect && IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getRefObj().rc) && TIME_M->getWorldTime() - _enterTime > 0.6f)
+
+		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
-			EFFECT_M->play("ef_attack", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
-				(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
-			_isEffect = true;
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 70, _thisBs->getObj()->pos.z -150, 200, 100);
 		}
 	}
-
-	if (_thisBs->getIsphase())
+	if (!_isEffect && IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getRefObj().rc) && TIME_M->getWorldTime() - _enterTime > 0.6f)
 	{
-		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
-		RECT _temp;
-		if (_thisBs->getInfo().isAttack && TIME_M->getWorldTime() - _enterTime > 0.7f)
-		{
-			if (_thisBs->getInfo().dest == DIRECTION::LEFT)
-			{
-				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 70, _thisBs->getObj()->pos.z - 150, 200, 100);
-			}
-
-			else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
-			{
-				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 70, _thisBs->getObj()->pos.z - 150, 200, 100);
-			}
-		}
-		if (!_isEffect && IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getRefObj().rc) && TIME_M->getWorldTime() - _enterTime > 0.6f)
-		{
-			EFFECT_M->play("ef_attack", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
-				(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
-			_isEffect = true;
-		}
+		EFFECT_M->play("ef_attack", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+			(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
+		_isEffect = true;
 	}
 	
 }

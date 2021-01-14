@@ -22,7 +22,7 @@ ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 		_obj.ani->setDefPlayFrame(false, true);
 		_obj.ani->setFPS(1);
 		_obj.ani->init(_obj.img->getWidth(), _obj.img->getHeight(), _obj.img->getFrameWidth(), _obj.img->getFrameHeight());
-	    _obj.ani->start();
+		_obj.ani->start();
 		_info.value = 20;
 		break;
 	case ITEM_TYPE::MEAT:
@@ -66,7 +66,7 @@ void ItemObj::update()
 	if (_obj.ani)
 	{
 		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 5);
-		if (!_obj.ani->isPlay()&&_info.value == 20)_obj.ani->start();
+		if (!_obj.ani->isPlay() && _info.value == 20)_obj.ani->start();
 	}
 }
 
