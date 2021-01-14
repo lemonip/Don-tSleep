@@ -28,7 +28,7 @@ void DataManager::addData()
 	//==========[Player]==========
 	saveLoadData.PosX = to_string((int)_data.playerPos.x);
 	saveLoadData.PosY = to_string(0);
-	saveLoadData.PosZ = to_string((int)_data.playerPos.z); 
+	saveLoadData.PosZ = to_string((int)_data.playerPos.z);
 	saveLoadData.HP = to_string(_data.hp);
 	saveLoadData.MaxHP = to_string(_data.maxHP);
 	saveLoadData.Force = to_string(_data.force);
@@ -50,7 +50,7 @@ void DataManager::addData()
 	arrData.push_back(saveLoadData);
 
 	_vDatas.push_back(arrData);
-	
+
 }
 
 void DataManager::saveIniData(int num)
@@ -64,7 +64,7 @@ void DataManager::saveIniData(int num)
 	GetCurrentDirectory(256, str);
 	strncat_s(str, 256, dir, 254); // 파일 위치
 
-	
+
 	for (int i = 0; i < _vDatas.size(); i++)
 	{
 		arrSaveLoadData arrData = _vDatas[i];
@@ -85,7 +85,7 @@ void DataManager::saveIniData(int num)
 		WritePrivateProfileString("Stage", "HardLockEvent", arrData[0].hardLockEvent.c_str(), str);
 		arrData.clear();
 	}
-	
+
 	_vDatas.clear();
 }
 
@@ -188,7 +188,7 @@ void DataManager::loadStageData()
 	default:
 		break;
 	}
-	
+
 
 	//플레이어 데이터
 	_player->getPObj()->pos = _data.playerPos;
@@ -198,6 +198,24 @@ void DataManager::loadStageData()
 	_player->getInfo().coin = _data.coin;
 	_player->getInfo().LV = _data.LV;
 	_player->getInfo().exp = _data.exp;
+}
+
+int DataManager::loadIniStageData(int num)
+{
+	char str[256];
+	char dir[256];
+
+	ZeroMemory(dir, sizeof(dir));
+	sprintf_s(dir, "\\%s%d.ini", "Save_Data", num);
+
+	GetCurrentDirectory(256, str);
+	strncat_s(str, 256, dir, 254);
+
+	if (PathFileExists(str))
+	{
+		return GetPrivateProfileInt("Stage", "CurrentStage", 0, str);
+	}
+	else -1;
 }
 
 

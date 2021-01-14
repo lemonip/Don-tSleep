@@ -331,22 +331,27 @@ void locationLock::exit()
 	Event::exit();
 }
 
+/*====================================================================
+	하트 이벤트
+====================================================================*/
 void heart::enter(bool playerControl)
 {
 	Event::enter(playerControl);
+
 	_ratio = 1;
 	_img = IMG_M->findImage("UI_heart");
-	_timer = TIME_M->getWorldTime() + 2.0f;
+	_timer = TIME_M->getWorldTime() + 1.0f;
 }
 
 bool heart::update()
 {
-	cout << _ratio << endl;
-	if (TIME_M->getWorldTime() - _timer > 0.02f)
+	//0.01로초마다 비율을 줄인다.
+	if (TIME_M->getWorldTime() - _timer > 0.01f)
 	{
-		_ratio -= 0.02f;
+		_ratio -= 0.01f;
 		_timer = TIME_M->getWorldTime();
 	}
+	//비율이 0.2이하면 이벤트를 종료한다.
 	if (_ratio <= 0.2f) return true;
 	return false;
 }

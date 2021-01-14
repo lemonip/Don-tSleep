@@ -6,9 +6,9 @@
 enum class SELECTTYPE
 {
 	LOAD,
+	CHARACTER,
 	OPTION,
 	MANUAL,
-	CHARACTER,
 };
 
 
@@ -30,6 +30,8 @@ private:
 	float _ratioOffset;
 	float _ratioTime;
 
+	bool _kyokoSelect;
+
 public:
 
 	virtual HRESULT init();
@@ -37,7 +39,16 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void load();		//로드 버튼 콜백 함수
+	void load(int n);		//로드 버튼 콜백 함수
+	void load0();		//로드 버튼 콜백 함수
+	void load1();		//로드 버튼 콜백 함수
+	void load2();		//로드 버튼 콜백 함수
+	void load3();		//로드 버튼 콜백 함수
+
+	void character0();	//캐릭터 버튼 콜백 함수
+	void character1();	//캐릭터 버튼 콜백 함수
+
+
 
 
 	void setState(SELECTTYPE type);

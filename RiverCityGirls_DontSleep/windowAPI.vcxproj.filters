@@ -887,9 +887,6 @@
     <ClCompile Include="playerClimbTop.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
-    <ClCompile Include="playGround+setImage.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
     <ClCompile Include="Weapon.cpp">
       <Filter>playGround\ObjectManager\Weapon</Filter>
     </ClCompile>
@@ -910,6 +907,9 @@
     </ClCompile>
     <ClCompile Include="DeadScene.cpp">
       <Filter>playGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="playGround+addSource.cpp">
+      <Filter>playGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

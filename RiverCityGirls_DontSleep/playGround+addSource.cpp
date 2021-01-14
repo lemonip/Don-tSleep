@@ -9,7 +9,15 @@
 
 void playGround::addSource()
 {
-	
+	addImage();
+	AddFontResourceA("source/font/CookieRun Bold.otf");
+
+	//================= 메뉴 =================
+	SOUND_M->addSound("shop_voice", "source/mr/menuMr/shop_voice.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("menu_confirm", "source/mr/menuMr/menu_confirm.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("menu_cursor", "source/mr/menuMr/menu_cursor.mp3", tagVolumeType::SFX, false);
+
+
 	//================= 스테이지 =================
 	SOUND_M->addSound("bossStage", "source/bgm/bossStage.mp3", tagVolumeType::MUSIC, true);
 	SOUND_M->addSound("hardStage", "source/bgm/hardStage.mp3", tagVolumeType::MUSIC, true);
@@ -48,14 +56,14 @@ void playGround::addSource()
 	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);
 	
 	//================= 보스 ======================
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
+	/*SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_dashSAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);*/
 
 }
 
@@ -85,7 +93,8 @@ void playGround::addImage()
 	IMG_M->addImage("select_misako2", "source/image/ui/scene/SelectScene_misako2.bmp", 375, 675, true, MAGENTA);
 	IMG_M->addImage("select_kyoko_background", "source/image/ui/scene/SelectScene_kyoko_background.bmp", 360, 563, true, MAGENTA);
 	IMG_M->addImage("select_misako_background", "source/image/ui/scene/SelectScene_misako_background.bmp", 360, 563, true, MAGENTA);
-	
+	IMG_M->addImage("SelectScene_manual", "source/image/ui/scene/SelectScene_manual.bmp", 1280, 720, false, MAGENTA);
+
 
 	//상점 씬
 	IMG_M->addImage("shop_background", "source/image/ui/scene/ShopScene_background.bmp", 1280, 720, false, MAGENTA);
@@ -346,4 +355,3 @@ void playGround::addImage()
 	EFFECT_M->addEffect("Bss_stun", "Boss stun.bmp", 850, 100, 142, 100, 1.f, 0.07f, 2);
 	
 }
-

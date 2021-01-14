@@ -22,7 +22,7 @@ struct tagSaveLoadData
 	string easyLockEvent;
 	string normalLockEvent;
 	string hardLockEvent;
-};	
+};
 
 
 
@@ -83,7 +83,7 @@ public:
 	void saveStageData();
 	void loadStageData();
 
-
+	int loadIniStageData(int num);
 
 	void checkData();
 	void setPlayerHP(int num);
@@ -92,6 +92,6 @@ public:
 	void setLinkPlayer(Player* player);
 	void setLinkStageM(StageManager* stageM);
 
-	
+
 };
 
