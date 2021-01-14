@@ -24,14 +24,11 @@ using namespace std;
 HRESULT playGround::init()
 {
 	gameNode::init(true);
-	AddFontResourceA("source/font/CookieRun Bold.otf");
-	addImage();							//이미지 세팅
 	addSource();						//소스 추가
 	addScene();							//씬 세팅
-	SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
-	//SCENE_M->changeScene("title");		//첫 시작씬 (title)
+	//SCENE_M->changeScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
+	SCENE_M->changeScene("title");		//첫 시작씬 (title)
 	
-
 	return S_OK;
 }
 
@@ -88,7 +85,7 @@ void playGround::render()
 	//================ 렌더 시작 =================
 	if (EVENT_M->getIsMovie()) return;	//영상 재생 중에는 렌더하지 않는다.
 	SCENE_M->render();								//씬 렌더
-	EFFECT_M->render();								//이팩트 렌더
+	
 	CAMERA_M->render(getBackDC(),_mapBuffer);		//카메라 렌더
 	EVENT_M->render(getBackDC());					//이벤트 렌더
 

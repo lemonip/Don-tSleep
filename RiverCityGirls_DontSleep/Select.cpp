@@ -93,6 +93,8 @@ bool Select::update()
 	{
 		if (KEY_M->isOnceKeyDown(VK_RETURN) || KEY_M->isOnceKeyDown(VK_SPACE))
 		{
+			SOUND_M->playSFX("menu_confirm");
+
 			_vButton[_index]->_state = BUTTONSTATE::UP;
 			_selectTime = TIME_M->getWorldTime();
 			_vButton[_index]->_isSelect = true;
@@ -104,11 +106,15 @@ bool Select::update()
 		{
 			if (KEY_M->isOnceKeyDown(VK_DOWN) || KEY_M->isOnceKeyDown(VK_RIGHT))
 			{
+				SOUND_M->playSFX("menu_cursor");
+
 				_index++;
 				if (_index >= _vButton.size()) _index = 0;
 			}
 			if (KEY_M->isOnceKeyDown(VK_UP) || KEY_M->isOnceKeyDown(VK_LEFT))
 			{
+				SOUND_M->playSFX("menu_cursor");
+
 				_index--;
 				if (_index < 0) _index = _vButton.size() - 1;
 			}
@@ -127,11 +133,11 @@ bool Select::update()
 
 			if (KEY_M->isOnceKeyUp(VK_LBUTTON))
 			{
+				SOUND_M->playSFX("menu_confirm");
 				_vButton[i]->_state = BUTTONSTATE::UP;
 				_vButton[i]->_isSelect = true;
 				_selectTime = TIME_M->getWorldTime();
 				if (_vButton[i]->funcp) _vButton[i]->funcp();
-				//if (_vButton[i]->funcp) _vButton[i]->funcp(_vButton[_index]->_param);
 			}
 		}
 	}
@@ -166,7 +172,7 @@ void Select::render(HDC hdc)
 
 	for (int i = 0; i < _vButton.size(); i++)
 	{
-		if (KEY_M->isToggleKey(VK_TAB)) Rectangle(hdc, _vButton[i]->_rc);
+		if (KEY_M->isToggleKey(VK_SHIFT)) Rectangle(hdc, _vButton[i]->_rc);
 		_vButton[i]->render(hdc);
 	}
 }
