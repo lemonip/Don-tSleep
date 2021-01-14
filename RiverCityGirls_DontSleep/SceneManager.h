@@ -12,6 +12,7 @@ public:
 	typedef map<string, gameNode*>::iterator mapSceneIter;
 
 private:
+	gameNode* _prevScene;
 	static gameNode* _currentScene;
 
 	mapSceneList _mSceneList;
@@ -33,6 +34,9 @@ public:
 	
 	//이닛하고 씬도 변경
 	HRESULT setInitScene(string sceneName);
+
+	//이전 씬으로 돌아감
+	HRESULT setPrevScene();
 
 	SceneManager() {};
 	~SceneManager() {};

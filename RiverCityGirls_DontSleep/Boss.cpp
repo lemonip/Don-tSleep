@@ -74,6 +74,7 @@ HRESULT Boss::init()
 	_isPhase = false;
 
 	_BState = NULL;
+
 	SetState(BS_STATE::IDLE);
 
 	return S_OK;
@@ -124,8 +125,6 @@ void Boss::update()
 	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
 	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
 
-
-
 	_stageM->getColM()->bossDestructObject(this);
 
 }
@@ -173,6 +172,7 @@ void Boss::SetState(BS_STATE state)
 	//상태 링크
 	_BState->LinkBSAddress(this);
 	_BState->EnterState();
+
 }
 
 void Boss::SetDest(DIRECTION dest)

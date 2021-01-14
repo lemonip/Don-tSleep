@@ -59,6 +59,7 @@ void playGround::addImage()
 
 	//»óÁ¡ ¾À
 	IMG_M->addImage("shop_background", "source/image/ui/scene/ShopScene_background.bmp", 1280, 720, false, MAGENTA);
+	IMG_M->addImage("ShopScene_list", "source/image/ui/scene/ShopScene_list.bmp", 403, 168, true, MAGENTA);
 
 
 	//°ÔÀÓ ¾À
@@ -72,8 +73,9 @@ void playGround::addImage()
 
 	//================= UI =================
 	IMG_M->addImage("shadow", "source/image/character/shadow.bmp", 128, 38, true, MAGENTA, true);
-	IMG_M->addImage("bossHPBack", "source/image/ui/battle/boss_HP_back.bmp", 898, 120, true, MAGENTA);
-	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 898, 120, true, MAGENTA);
+	IMG_M->addImage("bossHPBack", "source/image/ui/battle/boss_HP_back.bmp", 689, 120, true, MAGENTA);
+	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 689, 120, true, MAGENTA);
+	IMG_M->addImage("bossHPFrame", "source/image/ui/battle/boss_HP_frame.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("UI_kyoko", "source/image/ui/scene/UI_Kyoko_Portrait.bmp", 120, 135, true, MAGENTA);
@@ -288,6 +290,13 @@ void playGround::addImage()
 
 	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 256, 192, 4, 3, true, MAGENTA, true);
 	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 256, 256, 4, 4, true, MAGENTA, true);
+
+	//================= »óÁ¡ ¾ÆÀÌÅÛ =================
+	IMG_M->addImage("aloe", "source/image/item/aloe.bmp", 50, 76, true, MAGENTA);
+	IMG_M->addImage("hamburger", "source/image/item/hamburger.bmp", 64, 55, true, MAGENTA);
+	IMG_M->addImage("icecream", "source/image/item/icecream.bmp", 55, 70, true, MAGENTA);
+	IMG_M->addImage("tempura", "source/image/item/tempura.bmp", 58, 60, true, MAGENTA);
+
 
 	//================= ÀÌÆÑÆ® =================
 	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, .15f, 50);

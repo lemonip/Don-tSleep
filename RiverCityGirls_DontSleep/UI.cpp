@@ -19,7 +19,7 @@ void UI::update()
 
 void UI::render(HDC hdc)
 {
-	_img->render(hdc, _pos->x, _pos->y);
+	_img->render(hdc, _pos->x + _img->getWidth() / 2, _pos->y + _img->getHeight() / 2);
 }
 
 /*====================================================================
@@ -54,7 +54,6 @@ void Bar::render(HDC hdc)
 	_back->render(hdc, _pos->x + _back->getWidth() / 2, _pos->y + _back->getHeight() / 2);
 	_front->render(hdc, _pos->x, _pos->y, 0, 0, _front->getWidth()*_ratio, _front->getHeight());			//잘라 그리는 버전
 	//_front->render(hdc, _pos.x + _front->getWidth() / 2, _pos.y + _back->getHeight() / 2, _ratio, 1); //비율로 축소 시켜 그리는 버전
-
 }
 
 /*====================================================================

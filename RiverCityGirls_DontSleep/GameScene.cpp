@@ -27,17 +27,12 @@ HRESULT GameScene::init()
 	====================================================================*/
 	//ÄìÄÚ ¾ó±¼ ÀÌ¹ÌÁö
 	UI_M->setIsActive(true);
-	UI_M->addImage("UI_kyoko", IMG_M->findImage("UI_kyoko"), vector3(70, 80, 0));
+	UI_M->addImage("UI_kyoko", IMG_M->findImage("UI_kyoko"), vector3(20, 20, 0));
 	UI_M->findUI("UI_kyoko")->setActive(true);
 
-	//ÄìÄÚ HP¹Ù (ÀÓ½Ã)
-	UI_M->addBar("bossHPBar", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(200, 580, 0),
-		&_stageM->getPlayer()->getInfo().hp, &_stageM->getPlayer()->getInfo().maxHP);
-	UI_M->findUI("bossHPBar")->setActive(true);
+	//ÄìÄÚ HP¹Ù
 
 
-
-	
 	return S_OK;
 }
 
