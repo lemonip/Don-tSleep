@@ -22,29 +22,32 @@ void enemyWIdle::UpdateState()
 	Jump();
 	if ((wait && TIME_M->getWorldTime() - _stateTimer > 2.f) || !wait) //대기를 2초 이상 하면
 	{
-		//내가 동료가 아니고 가까우면 공격한다.
-		if (!_thisEn->getInfo().isFriend &&
-			getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
+		if (_thisEn->getPlayerAddress()->getInfo().state != PL_STATE::DEAD)
 		{
-			_thisEn->SetState(EN_STATE::EN_WATTACK);
-		}
-		else
-		{
-			//가깝지 않으면 다가간다.
-			if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 200)
+			//내가 동료가 아니고 가까우면 공격한다.
+			if (!_thisEn->getInfo().isFriend &&
+				getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100)
 			{
-				_thisEn->SetState(EN_STATE::EN_WWALK);
+				_thisEn->SetState(EN_STATE::EN_WATTACK);
 			}
 			else
 			{
-				switch (RND->getInt(2))
+				//가깝지 않으면 다가간다.
+				if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 200)
 				{
-				case 0:
 					_thisEn->SetState(EN_STATE::EN_WWALK);
-					break;
-				case 1:
-					_thisEn->SetState(EN_STATE::EN_WRUN);
-					break;
+				}
+				else
+				{
+					switch (RND->getInt(2))
+					{
+					case 0:
+						_thisEn->SetState(EN_STATE::EN_WWALK);
+						break;
+					case 1:
+						_thisEn->SetState(EN_STATE::EN_WRUN);
+						break;
+					}
 				}
 			}
 		}

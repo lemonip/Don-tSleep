@@ -317,6 +317,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 576, 432, 4, 3, true, MAGENTA, true);
 	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 512, 512, 4, 4, true, MAGENTA, true);
 
+
 	//================= 상점 아이템 =================
 	IMG_M->addImage("aloe", "source/image/item/aloe.bmp", 50, 76, true, MAGENTA);
 	IMG_M->addImage("hamburger", "source/image/item/hamburger.bmp", 64, 55, true, MAGENTA);
