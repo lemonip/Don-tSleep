@@ -1,14 +1,10 @@
 #pragma once
 #include"IBossState.h"
 
-class StageManager;
-class Player;
-class Boss;
 
 class bossStandAttack :public IBossState
 {
-private:
-	
+private:	
 	float _enterTime;
 public:
 

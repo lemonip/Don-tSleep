@@ -6,8 +6,8 @@ void bossBlock::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_block");
+	SOUND_M->play("bblock", SFXVOLUME);
 	_thisBs->getInfo().isAttack = true;
-
 	LookatPlayer();
 	ResetFrame();
 }

@@ -8,8 +8,7 @@ void bossMove::EnterState()
 	_enterTime = TIME_M->getWorldTime();	 
 	_angle = PI / 2;
 	_speed = 3.0f;
-	_thisBs->ChangeImg("Bs_move");	
-	
+	_thisBs->ChangeImg("Bs_move");		
 	ResetFrame();
 }
 
@@ -44,13 +43,10 @@ void bossMove::UpdateState()
 		{
 			_thisBs->SetState(BS_STATE::WAIT);
 		}
-
 		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
-
 	}
 }
 
 void bossMove::ExitState()
-{
-	
+{	
 }

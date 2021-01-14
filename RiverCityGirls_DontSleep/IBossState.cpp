@@ -21,7 +21,6 @@ void IBossState::ResetFrame()
 		_thisBs->getObj()->imgIndex.x = 0;
 		_thisBs->getObj()->imgIndex.y = 1;
 	}
-
 	else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 	{
 		_thisBs->getObj()->imgIndex.x = _thisBs->getObj()->img->getMaxFrameX();
@@ -30,18 +29,15 @@ void IBossState::ResetFrame()
 }
 
 void IBossState::Damaged(int atk)
-{
-	
-	_thisBs->getInfo().hp -= 50;
-
+{	
+	_thisBs->getInfo().hp -= atk;
 
 	if (_thisBs->getInfo().hp < 0) { _thisBs->getInfo().hp = 0; }
 
 	//체력이 0이면 죽는다.
 	if (_thisBs->getInfo().hp <= 0)
 	{ 
-		_thisBs->SetState(BS_STATE::DEATH);
-		
+		_thisBs->SetState(BS_STATE::DEATH);		
 	}
 	//체력이 1/3 이하면 페이즈
 	else if (_thisBs->getInfo().hp <= _thisBs->getInfo().maxHp / 3 && _thisBs->getInfo().phaseCount == 0)
@@ -55,7 +51,6 @@ void IBossState::Damaged(int atk)
 		_thisBs->SetState(BS_STATE::GROGGY);
 		_thisBs->getInfo().groggyCount++;
 	}
-
 	else _thisBs->SetState(BS_STATE::ATTACKED);	
 }
 
@@ -76,5 +71,4 @@ void IBossState::collision()
 {
 	RECT _temp;
 	if (IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getRefObj().rc) && fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30);
-
 }

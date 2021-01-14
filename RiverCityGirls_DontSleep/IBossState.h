@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "Boss.h"
 #include "Player.h"
+#include "Stage.h""
 
 class Boss;
 
@@ -9,9 +10,7 @@ class IBossState : public gameNode
 {
 protected:
 	Boss* _thisBs;
-	bool _isEffect;
-	
-	
+	bool _isEffect;	
 public:
 	IBossState() {}
 	~IBossState() {}

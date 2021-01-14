@@ -9,11 +9,10 @@ void bossMeteor::EnterState()
 	_speed = 25.0f;
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_meteor");
-
+	SOUND_M->play("bmeteor", SFXVOLUME);
 	_thisBs->getInfo().jumpPower = 18.0f;
 	_thisBs->getInfo().isSky = true;
 	_isEffect = false;
-
 	LookatPlayer();
 	ResetFrame();
 }
@@ -26,7 +25,6 @@ void bossMeteor::UpdateState()
 		{
 			_thisBs->xzyMove(0, 0, -_thisBs->getInfo().jumpPower);
 			if (_thisBs->getObj()->pos.y < -600) _thisBs->getObj()->pos.y = -600;
-
 		}
 
 		if (2.5f < TIME_M->getWorldTime() - _enterTime && TIME_M->getWorldTime() - _enterTime <= 3.0f) // 하늘 위에서 움직이는 시간
@@ -40,7 +38,6 @@ void bossMeteor::UpdateState()
 			_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 				_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
 		}
-
 
 		if (4.0f < TIME_M->getWorldTime() - _enterTime) // 떨어지는 시간
 		{
@@ -86,7 +83,6 @@ void bossMeteor::UpdateState()
 		{
 			_thisBs->xzyMove(0, 0, -_thisBs->getInfo().jumpPower);
 			if (_thisBs->getObj()->pos.y < -600) _thisBs->getObj()->pos.y = -600;
-
 		}
 
 		if (2.5f < TIME_M->getWorldTime() - _enterTime && TIME_M->getWorldTime() - _enterTime <= 3.0f) // 하늘 위에서 움직이는 시간
@@ -100,7 +96,6 @@ void bossMeteor::UpdateState()
 			_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 				_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);
 		}
-
 
 		if (4.0f < TIME_M->getWorldTime() - _enterTime) // 떨어지는 시간
 		{
@@ -136,8 +131,7 @@ void bossMeteor::UpdateState()
 				_thisBs->getInfo().isSky = false;
 			}
 		}
-	}
-	
+	}	
 }
 
 void bossMeteor::ExitState()

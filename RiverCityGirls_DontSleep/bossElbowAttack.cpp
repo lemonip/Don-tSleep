@@ -4,35 +4,29 @@
 #include "Player.h"
 
 void bossElbowAttack::EnterState()
-{
-	
+{	
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_elbow");
+	SOUND_M->play("belbow", SFXVOLUME);
 	_thisBs->getInfo().isAttack = true;
 	_isEffect = false;
-
 	LookatPlayer();
 	ResetFrame();
 }
 
 void bossElbowAttack::UpdateState()
 {
-	/*if (_thisBs->getPlayerAddress()->getObj().pos.x > _thisBs->getObj()->pos.x) _thisBs->setDest(DIRECTION::RIGHT);
-	else if (_thisBs->getPlayerAddress()->getObj().pos.x < _thisBs->getObj()->pos.x) _thisBs->setDest(DIRECTION::LEFT);
-	if (TIME_M->getWorldTime() - _enterTime > 0.5f && TIME_M->getWorldTime() - _enterTime < 8.0f)
-	{*/
-
 	if (!_thisBs->getIsphase())
 	{
 		RECT _temp;
 		if (_thisBs->getInfo().isAttack && TIME_M->getWorldTime() - _enterTime > 0.7f)
 		{
-			if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+			if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x == 3)
 			{
 				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 70, _thisBs->getObj()->pos.z - 150, 200, 100);
 			}
 
-			else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+			else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x == 6)
 			{
 				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 70, _thisBs->getObj()->pos.z - 150, 200, 100);
 			}
@@ -51,12 +45,12 @@ void bossElbowAttack::UpdateState()
 		RECT _temp;
 		if (_thisBs->getInfo().isAttack && TIME_M->getWorldTime() - _enterTime > 0.7f)
 		{
-			if (_thisBs->getInfo().dest == DIRECTION::LEFT)
+			if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x == 3)
 			{
 				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x - 70, _thisBs->getObj()->pos.z - 150, 200, 100);
 			}
 
-			else if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
+			else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x == 6)
 			{
 				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 70, _thisBs->getObj()->pos.z - 150, 200, 100);
 			}
@@ -67,8 +61,7 @@ void bossElbowAttack::UpdateState()
 				(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 			_isEffect = true;
 		}
-	}
-	
+	}	
 }
 
 void bossElbowAttack::ExitState()

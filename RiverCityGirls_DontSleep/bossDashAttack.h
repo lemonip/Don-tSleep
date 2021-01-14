@@ -11,7 +11,6 @@ private:
 	float _enterTime;
 	float _angle;
 	float _speed;
-
 	vector3 _startPos;
 public:
 

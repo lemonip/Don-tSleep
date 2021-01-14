@@ -35,14 +35,12 @@ private:
 	IBossState*	_idle;			//기본
 	IBossState*	_wait;			//대기
 	IBossState*	_move;			//걷기	
-
 	IBossState*	_block;			//막기	
 	IBossState*	_attacked;		//피격
 	IBossState*	_groggy;		//기절	
 	IBossState* _phase;			//페이즈2
 	IBossState*	_down;			//쓰러짐
-	IBossState*	_death;			//사망
-	
+	IBossState*	_death;			//사망	
 	IBossState*	_howling;		//하울링 어택
 	IBossState*	_meteor;		//메테오 어택
 	IBossState*	_dash;			//대쉬 어택
@@ -56,8 +54,6 @@ private:
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;	
 	float _frameTimer;
-	
-
 	   
 public:
 	Boss() {};
@@ -68,7 +64,6 @@ public:
 	virtual void render();			//렌더
 
 	//접근자===================================================
-
 	bool getIsphase() { return _isPhase; }
 	BS_STATE getIsState() { return _state; }
 
@@ -81,10 +76,7 @@ public:
 
 	//기능함수===================================================
 	void playFrame(int count);
-	void frameUpdate();
-	//void setFrame(FRAMETYPE _frametype);
-
-	void ChangeImg(string imgName);						//이미지변경
-	
+	void frameUpdate();	
+	void ChangeImg(string imgName);						//이미지변경	
 };
 

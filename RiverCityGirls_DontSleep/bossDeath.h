@@ -4,7 +4,7 @@
 class bossDeath :public IBossState
 {
 private:
-	int _count;
+	
 public:
 
 	virtual void EnterState();

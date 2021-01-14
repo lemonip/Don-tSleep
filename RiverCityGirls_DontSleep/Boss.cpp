@@ -35,22 +35,20 @@ HRESULT Boss::init()
 	_obj.imgIndex = { 0,0 };
 	
 	_frameTimer = TIME_M->getWorldTime();
+	
+	_info.dest = DIRECTION::LEFT;		//방향
+	_info.gravity = 0;					//중력
+	_info.jumpPower = 0;				//점프력
+	_info.baseSpeed = _info.speed = 3;	//속도
+	_info.frameTimer = 0;				//프레임시간 타이머
 
-	{
-		_info.dest = DIRECTION::LEFT;		//방향
-		_info.gravity = 0;					//중력
-		_info.jumpPower = 0;				//점프력
-		_info.baseSpeed = _info.speed = 3;	//속도
-		_info.frameTimer = 0;				//프레임시간 타이머
+	_info.hp = _info.maxHp = 500;		//체력
+	_info.attack = 10;					//공격력
+	_info.groggyCount = 0;
+	_info.phaseCount = 0;
 
-		_info.hp = _info.maxHp = 500;		//체력
-		_info.attack = 10;					//공격력
-		_info.groggyCount = 0;
-		_info.phaseCount = 0;
-
-		_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
-		_info.hasWeapon = false;			//무기들었니
-	};
+	_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
+	_info.hasWeapon = false;			//무기들었니	
 
 	//상태패턴 등록
 	_idle = new bossIdle;
@@ -90,31 +88,17 @@ void Boss::update()
 {
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
-
 	_BState->UpdateState();	
-
 	_obj.update();
 	_obj.shadowUpdate();
-
-	frameUpdate();
-
-	
-
-	
-
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::GROGGY);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::DOWN);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::METEOR);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::PHASE);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DASH);
-	
-
+	frameUpdate();		
 	_stageM->getColM()->bossDestructObject(this);
+
+	cout << _player->getInfo().hp << endl;
 }
 
 void Boss::render()
-{	
-	//if(_info.isAttack)Rectangle(getMapDC(), _info.rcAttack);
+{		
 }
 
 void Boss::SetState(BS_STATE state)
@@ -155,7 +139,6 @@ void Boss::SetState(BS_STATE state)
 	//상태 링크
 	_BState->LinkBSAddress(this);
 	_BState->EnterState();
-
 }
 
 void Boss::SetDest(DIRECTION dest)
@@ -182,8 +165,7 @@ void Boss::frameUpdate()
 		playFrame(0);
 		break;
 
-		case BS_STATE::METEOR:
-						
+		case BS_STATE::METEOR:						
 		playFrame(1);
 		break;
 
@@ -195,8 +177,7 @@ void Boss::frameUpdate()
 		case BS_STATE::PHASE:
 		case BS_STATE::HOWLING:
 		case BS_STATE::ATTACKED:
-		case BS_STATE::STANDATTACK:
-		
+		case BS_STATE::STANDATTACK:		
 		playFrame(-1);
 		break;
 
@@ -210,8 +191,7 @@ void Boss::playFrame(int count)
 {
 	switch (count)
 	{
-	case -1:	//한 번 재생 후 기본
-				
+	case -1:	//한 번 재생 후 기본				
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX())
 		{
 			_obj.imgIndex.x = 0;
@@ -223,19 +203,19 @@ void Boss::playFrame(int count)
 			SetState(BS_STATE::IDLE);			
 		}
 		break;
+
 	case 1:		//한 번만 재생
 	
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = 0;
 		break;
+
 	case 0:		//무한 재생
 		if (_info.dest == DIRECTION::RIGHT && _obj.imgIndex.x >= _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;
 		else if (_info.dest == DIRECTION::LEFT && _obj.imgIndex.x <= 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
 		break;
 	}
-
-	/*if (_obj.imgIndex.x < 0) _obj.imgIndex.x = _obj.img->getMaxFrameX();
-	else if (_obj.imgIndex.x > _obj.img->getMaxFrameX()) _obj.imgIndex.x = 0;*/
+	
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT: 
@@ -249,94 +229,6 @@ void Boss::playFrame(int count)
 		break;
 	}
 }
-
-/*void Boss::setFrame(FRAMETYPE _frametype)
-{
-	switch (_dest)
-	{
-	case DIRECTION::LEFT:
-		_obj.imgIndex.y = 0;
-		break;
-	case DIRECTION::RIGHT:
-		_obj.imgIndex.y = 1;
-		break;
-	}
-	_obj.img->setFrameY((int)_dest);
-
-	//프레임 실행 시간 설정
-	if (TIME_M->getWorldTime() - _frameTimer > 1.0f)
-	{		
-		_frameTimer = TIME_M->getWorldTime();
-		switch (_dest)
-		{
-		case DIRECTION::LEFT:
-			if (_frametype != FRAMETYPE::REVERSROOP && _frametype != FRAMETYPE::REVERSONCE) ++_obj.imgIndex.x;
-			else --_obj.imgIndex.x;
-
-
-			break;
-		case DIRECTION::RIGHT:
-			if (_frametype != FRAMETYPE::REVERSROOP&& _frametype != FRAMETYPE::REVERSONCE) --_obj.imgIndex.x;
-			else  ++_obj.imgIndex.x;
-			break;
-		}
-	}
-
-	//프레임 x 번호 조절
-	switch (_frametype)
-	{
-	case FRAMETYPE::ONCE://한 번 재생
-	{
-		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 고정
-		if (_dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
-		{
-			_obj.imgIndex.x = _obj.img->getMaxFrameX(); return;
-		}
-		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 고정
-		else if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
-		{
-			_obj.imgIndex.x = 0; return;
-		}
-
-	}
-	break;
-	case FRAMETYPE::ROOP://무한 재생
-	{
-		//왼쪽의 경우 x인덱스가 0번부터~ 끝번까지 프레임이 다 되면 끝번호로 프레임번호 0번으로 갱신
-		if (_dest == DIRECTION::LEFT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
-			_obj.imgIndex.x = 0;
-
-		//오른쪽의 경우 x인덱스가 끝번부터 0번까지 프레임이 다 되면 0번으로 프레임 번호 끝번호로 갱신
-		else if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x < 0)
-			_obj.imgIndex.x = _obj.img->getMaxFrameX();
-	}
-	break;
-	case FRAMETYPE::REVERSONCE://반대 한번 재생
-	{
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
-		{
-			_obj.imgIndex.x = _obj.img->getMaxFrameX(); return;
-		}
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
-		{
-			_obj.imgIndex.x = 0; return;
-		}
-	}
-	break;
-	case FRAMETYPE::REVERSROOP://반대 무한 재생
-	{
-		if (_dest == DIRECTION::RIGHT && _obj.imgIndex.x > _obj.img->getMaxFrameX())
-			_obj.imgIndex.x = 0;
-
-		else if (_dest == DIRECTION::LEFT && _obj.imgIndex.x < 0)
-			_obj.imgIndex.x = _obj.img->getMaxFrameX();
-
-	}
-	break;
-	}
-}*/
-
-
 
 void Boss::ChangeImg(string imgName)
 {

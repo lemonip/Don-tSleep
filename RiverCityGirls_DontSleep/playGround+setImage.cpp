@@ -48,15 +48,20 @@ void playGround::addSource()
 	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);
 	*/
 	//================= º¸½º ======================
-	/*SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_dashSAttack.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);*/
-
+	SOUND_M->addSound("battacked1", "source/mr/BossMr/Boss attacked1.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("battacked2", "source/mr/BossMr/Boss attacked2.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("battacked3", "source/mr/BossMr/Boss attacked3.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bblock", "source/mr/BossMr/Boss block.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bdash", "source/mr/BossMr/Boss dash.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bslap", "source/mr/BossMr/Boss slap.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bsmash", "source/mr/BossMr/Boss smash.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bmeteor", "source/mr/BossMr/Boss meteor jump.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("belbow", "source/mr/BossMr/Boss elbow.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bstand", "source/mr/BossMr/Boss Standattack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bhowling", "source/mr/BossMr/Boss howling.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bdown", "source/mr/BossMr/Boss down.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bgroggy", "source/mr/BossMr/Boss groggy.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("bdeath", "source/mr/BossMr/Boss death.mp3", tagVolumeType::SFX, false);
 }
 
 

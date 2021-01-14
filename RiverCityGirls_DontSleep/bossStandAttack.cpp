@@ -5,16 +5,15 @@ void bossStandAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_standat");
+	SOUND_M->play("bstand", SFXVOLUME);
 	_thisBs->getInfo().isAttack = true;
 	_isEffect = false;
-
 	LookatPlayer();
 	ResetFrame();
 }
 
 void bossStandAttack::UpdateState()
 {
-
 	if (!_thisBs->getIsphase())
 	{
 		if (TIME_M->getWorldTime() - _enterTime > 0.5f && _thisBs->getInfo().isAttack)
@@ -44,7 +43,6 @@ void bossStandAttack::UpdateState()
 			EFFECT_M->play("Bss_stand", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z + 200);
 			_isEffect = true;
 		}
-
 		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
 	}
 }
@@ -52,7 +50,6 @@ void bossStandAttack::UpdateState()
 
 void bossStandAttack::ExitState()
 {
-	_thisBs->getInfo().isAttack = false;
-	
+	_thisBs->getInfo().isAttack = false;	
 	_thisBs->SetState(BS_STATE::IDLE);
 }

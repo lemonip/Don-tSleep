@@ -7,16 +7,14 @@ void bossHowling::EnterState()
 {	
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
-	
-	_thisBs->getInfo().isAttack = true;
-	   
+	SOUND_M->play("bhowling", SFXVOLUME);	
+	_thisBs->getInfo().isAttack = true;	   
 	LookatPlayer();
 	ResetFrame();
 }
 
 void bossHowling::UpdateState()
-{
-	
+{	
 	if (!_thisBs->getIsphase())
 	{
 		if (_thisBs->getInfo().isAttack)
@@ -59,10 +57,7 @@ void bossHowling::UpdateState()
 			EFFECT_M->play("Bss_howling2", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
 				(_thisBs->getInfo().rcAttack.bottom + _thisBs->getInfo().rcAttack.top) / 2);
 		}
-		
-	}
-	
-
+	}	
 }
 
 void bossHowling::ExitState()
