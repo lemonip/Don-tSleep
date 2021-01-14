@@ -74,6 +74,7 @@ HRESULT Boss::init()
 	_isPhase = false;
 
 	_BState = NULL;
+
 	SetState(BS_STATE::IDLE);
 
 
@@ -111,6 +112,7 @@ void Boss::update()
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::PHASE);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DASH);
 	
+
 	_stageM->getColM()->bossDestructObject(this);
 
 	cout << getInfo().hp << endl;
@@ -160,6 +162,7 @@ void Boss::SetState(BS_STATE state)
 	//상태 링크
 	_BState->LinkBSAddress(this);
 	_BState->EnterState();
+
 }
 
 void Boss::SetDest(DIRECTION dest)

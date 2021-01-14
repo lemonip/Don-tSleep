@@ -23,7 +23,7 @@ HRESULT StageManager::init()
 	EVENT_M->setLinkPlayer(_player);
 
 	//첫 스테이지 세팅
-	setStage(STAGETYPE::BOSS);
+	setStage(STAGETYPE::EASY);
 
 	return S_OK;
 }
