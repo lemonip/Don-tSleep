@@ -8,8 +8,7 @@ void bossAttacked::EnterState()
 	RECT _temp;
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->getInfo().isAttack = true;
-	Damaged(_thisBs->getPlayerAddress()->getInfo().force);
-		
+
 	// 이미지를 바꿈
 	switch (RND->getInt(3))
 	{		
@@ -48,16 +47,23 @@ void bossAttacked::EnterState()
 			_thisBs->ChangeImg("Bs_attacked3");
 		}
 		break;
-	}
-
-	
-
+	}	
 	//이미지를 초기화
 	ResetFrame();
 }
 
 void bossAttacked::UpdateState()
 {		
+
+	if (_thisBs->getIsphase())
+	{
+		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
+	}
+
+	if (TIME_M->getWorldTime() - _enterTime > 1.5f)
+	{
+		_thisBs->SetState(BS_STATE::WAIT);
+	}
 	/*if (_thisBs->getInfo().hp == _thisBs->getInfo().maxHp / 1.6f)
 	{
 		_thisBs->SetState(BS_STATE::DOWN);
@@ -71,11 +77,10 @@ void bossAttacked::UpdateState()
 	else if (_thisBs->getInfo().hp == _thisBs->getInfo().maxHp / 3)
 	{
 		_thisBs->SetState(BS_STATE::PHASE);
-	}*/
+	}*/	
 }
 
 void bossAttacked::ExitState()
 {
-	//_thisBs->getInfo().isAttack = true;
-	_thisBs->SetState(BS_STATE::IDLE);		
+	
 }

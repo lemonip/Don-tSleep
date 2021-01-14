@@ -14,18 +14,39 @@ void bossStandAttack::EnterState()
 
 void bossStandAttack::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 0.5f)
+
+	if (!_thisBs->getIsphase())
 	{
-		if (_thisBs->getInfo().isAttack)
-		{
+		if (TIME_M->getWorldTime() - _enterTime > 0.5f && _thisBs->getInfo().isAttack)
+		{						
 			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
+			_thisBs->getInfo().isAttack = false;
+		}
+
+		if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.5f)
+		{
+			EFFECT_M->play("Bss_stand", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z + 200);
+			_isEffect = true;
 		}
 	}
 
-	if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.5f)
+	if (_thisBs->getIsphase())
 	{
-		EFFECT_M->play("Bss_stand", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z + 200);		
-		_isEffect = true;
+		if (TIME_M->getWorldTime() - _enterTime > 0.5f && _thisBs->getInfo().isAttack)
+		{
+			if (_thisBs->getInfo().isAttack)
+			{
+				_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
+			}
+		}
+
+		if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.5f)
+		{
+			EFFECT_M->play("Bss_stand", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z + 200);
+			_isEffect = true;
+		}
+
+		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
 	}
 }
 

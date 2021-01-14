@@ -16,7 +16,7 @@ void bossSmashAttack::EnterState()
 
 void bossSmashAttack::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 1.9f)
+	if (TIME_M->getWorldTime() - _enterTime > 2.3f)
 	{
 		Attack();
 	}
@@ -43,6 +43,7 @@ void bossSmashAttack::UpdateState()
 		_isEffect = true;
 	}
 
+	EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
 	
 }
 
