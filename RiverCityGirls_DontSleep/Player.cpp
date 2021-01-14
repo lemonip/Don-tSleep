@@ -10,6 +10,8 @@
 #include "ItemObj.h"
 #include "Object.h"
 #include "pet.h"
+#include "Enemy.h"
+
 //상태
 #include "IPlayerState.h"
 #include "playerIdle.h"
@@ -127,6 +129,7 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
+	cout << _info.isAttack << endl;
 	_pet.update(vector3( _obj.pos.x, _obj.pos.y, _obj.pos.z));
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
@@ -204,7 +207,7 @@ void Player::render()
 	if (KEY_M->isToggleKey(VK_SHIFT))
 	{
 		Rectangle(getMapDC(), _obj.shadow.rc);
-		Rectangle(getMapDC(), _info.attackRc);
+		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
 	}
 
 	}
@@ -729,6 +732,7 @@ void Player::gravity()
 			if (_info.dest == DIRECTION::RIGHT && KEY_M->isStayKeyDown(VK_RIGHT))setState(_info.preState);
 		}
 		_info.isSky = false;
+		_info.isAttack = false;
 		_platform = nullptr;
 	}
 	if (_obj.pos.y > 0) _info.jumpPower = 0;
@@ -740,6 +744,8 @@ void Player::keyInput()
 {
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl) return;
+
+
 
 	//공격키받기(커맨드를위해)
 	if (KEY_M->isOnceKeyDownV('D'));

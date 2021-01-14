@@ -100,4 +100,5 @@ void playerJumpAttack::UpdateState()
 
 void playerJumpAttack::ExitState()
 {
+	_thisPl->getInfo().isAttack = false;
 }
