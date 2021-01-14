@@ -10,6 +10,8 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <shlwapi.h>
+
 
 #include "commonMacroFunction.h"
 #include "randomFunction.h"
@@ -34,6 +36,7 @@
 #include "DataManager.h"
 #include "Enums.h"
 
+#pragma comment(lib, "shlwapi.lib")
 using namespace std;
 using namespace TFIVE_UTIL;
 

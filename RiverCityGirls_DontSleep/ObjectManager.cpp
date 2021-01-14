@@ -25,104 +25,7 @@ void ObjectManager::update()
 		if (_vObject[i]->getObj()->isRender) _vObject[i]->update();
 	}
 
-	for (int i = 0; i < _vParticleLeftUp.size(); ++i)
-	{
-		if (_vParticleLeftUp[i]->getObj()->isRender)
-		{
-			if ((TIME_M->getWorldTime() - _vParticleLeftUp[i]->getTimer()) < 0.5f)
-			{
-				switch (_vParticleLeftUp[i]->getObj()->type)
-				{
-				case OBJECT_TYPE::PILLAR_PARTICLE_1:
-					_vParticleLeftUp[i]->getObj()->pos.y += 5.0f;
-					break;
-				case OBJECT_TYPE::PILLAR_PARTICLE_2:
-					_vParticleLeftUp[i]->getObj()->pos.y += 6.0f;
-					_vParticleLeftUp[i]->getObj()->pos.x += 1.0f;
-					break;
-				case OBJECT_TYPE::PILLAR_PARTICLE_3:
-					_vParticleLeftUp[i]->getObj()->pos.y += 4.0f;
-					_vParticleLeftUp[i]->getObj()->pos.x -= 0.5f;
-					break;
-				default:
-					break;
-				}
-			}
-			else _vParticleLeftUp[i]->getObj()->isRender = false;
-		}
-	}
-
-	for (int i = 0; i < _vParticleLeftDown.size(); ++i)
-	{
-		if ((TIME_M->getWorldTime() - _vParticleLeftDown[i]->getTimer()) < 0.5f)
-		{
-			switch (_vParticleLeftDown[i]->getObj()->type)
-			{
-			case OBJECT_TYPE::PILLAR_PARTICLE_1:
-				_vParticleLeftDown[i]->getObj()->pos.y += 5.0f;
-				break;
-			case OBJECT_TYPE::PILLAR_PARTICLE_2:
-				_vParticleLeftDown[i]->getObj()->pos.y += 6.0f;
-				_vParticleLeftDown[i]->getObj()->pos.x += 1.0f;
-				break;
-			case OBJECT_TYPE::PILLAR_PARTICLE_3:
-				_vParticleLeftDown[i]->getObj()->pos.y += 4.0f;
-				_vParticleLeftDown[i]->getObj()->pos.x -= 0.5f;
-				break;
-			default:
-				break;
-			}
-		}
-		else _vParticleLeftDown[i]->getObj()->isRender = false;
-	}
-
-	for (int i = 0; i < _vParticleRightUp.size(); ++i)
-	{
-		if ((TIME_M->getWorldTime() - _vParticleRightUp[i]->getTimer()) < 0.5f)
-		{
-			switch (_vParticleRightUp[i]->getObj()->type)
-			{
-			case OBJECT_TYPE::PILLAR_PARTICLE_1:
-				_vParticleRightUp[i]->getObj()->pos.y += 5.0f;
-				break;
-			case OBJECT_TYPE::PILLAR_PARTICLE_2:
-				_vParticleRightUp[i]->getObj()->pos.y += 6.0f;
-				_vParticleRightUp[i]->getObj()->pos.x += 1.0f;
-				break;
-			case OBJECT_TYPE::PILLAR_PARTICLE_3:
-				_vParticleRightUp[i]->getObj()->pos.y += 4.0f;
-				_vParticleRightUp[i]->getObj()->pos.x -= 0.5f;
-				break;
-			default:
-				break;
-			}
-		}
-		else _vParticleRightUp[i]->getObj()->isRender = false;
-	}
-
-	for (int i = 0; i < _vParticleRightDown.size(); ++i)
-	{
-		if ((TIME_M->getWorldTime() - _vParticleRightDown[i]->getTimer()) < 0.5f)
-		{
-			switch (_vParticleRightDown[i]->getObj()->type)
-			{
-			case OBJECT_TYPE::PILLAR_PARTICLE_1:
-				_vParticleRightDown[i]->getObj()->pos.y += 5.0f;
-				break;
-			case OBJECT_TYPE::PILLAR_PARTICLE_2:
-				_vParticleRightDown[i]->getObj()->pos.y += 6.0f;
-				_vParticleRightDown[i]->getObj()->pos.x += 1.0f;
-				break;
-			case OBJECT_TYPE::PILLAR_PARTICLE_3:
-				_vParticleRightDown[i]->getObj()->pos.y += 4.0f;
-				_vParticleRightDown[i]->getObj()->pos.x -= 0.5f;
-				break;
-			default:
-				break;
-			}
-		}
-		else _vParticleRightDown[i]->getObj()->isRender = false;
-	}
+	particleMove();
 }
 
 void ObjectManager::render()
@@ -327,6 +230,108 @@ void ObjectManager::particleSwitch(OBJECT_TYPE type)
 		break;
 	}
 
+}
+
+void ObjectManager::particleMove()
+{
+	for (int i = 0; i < _vParticleLeftUp.size(); ++i)
+	{
+		if (_vParticleLeftUp[i]->getObj()->isRender)
+		{
+			if ((TIME_M->getWorldTime() - _vParticleLeftUp[i]->getTimer()) < 0.5f)
+			{
+				switch (_vParticleLeftUp[i]->getObj()->type)
+				{
+				case OBJECT_TYPE::PILLAR_PARTICLE_1:
+					_vParticleLeftUp[i]->getObj()->pos.y += 5.0f;
+					break;
+				case OBJECT_TYPE::PILLAR_PARTICLE_2:
+					_vParticleLeftUp[i]->getObj()->pos.y += 6.0f;
+					_vParticleLeftUp[i]->getObj()->pos.x += 1.0f;
+					break;
+				case OBJECT_TYPE::PILLAR_PARTICLE_3:
+					_vParticleLeftUp[i]->getObj()->pos.y += 4.0f;
+					_vParticleLeftUp[i]->getObj()->pos.x -= 0.5f;
+					break;
+				default:
+					break;
+				}
+			}
+			else _vParticleLeftUp[i]->getObj()->isRender = false;
+		}
+	}
+
+	for (int i = 0; i < _vParticleLeftDown.size(); ++i)
+	{
+		if ((TIME_M->getWorldTime() - _vParticleLeftDown[i]->getTimer()) < 0.5f)
+		{
+			switch (_vParticleLeftDown[i]->getObj()->type)
+			{
+			case OBJECT_TYPE::PILLAR_PARTICLE_1:
+				_vParticleLeftDown[i]->getObj()->pos.y += 5.0f;
+				break;
+			case OBJECT_TYPE::PILLAR_PARTICLE_2:
+				_vParticleLeftDown[i]->getObj()->pos.y += 6.0f;
+				_vParticleLeftDown[i]->getObj()->pos.x += 1.0f;
+				break;
+			case OBJECT_TYPE::PILLAR_PARTICLE_3:
+				_vParticleLeftDown[i]->getObj()->pos.y += 4.0f;
+				_vParticleLeftDown[i]->getObj()->pos.x -= 0.5f;
+				break;
+			default:
+				break;
+			}
+		}
+		else _vParticleLeftDown[i]->getObj()->isRender = false;
+	}
+
+	for (int i = 0; i < _vParticleRightUp.size(); ++i)
+	{
+		if ((TIME_M->getWorldTime() - _vParticleRightUp[i]->getTimer()) < 0.5f)
+		{
+			switch (_vParticleRightUp[i]->getObj()->type)
+			{
+			case OBJECT_TYPE::PILLAR_PARTICLE_1:
+				_vParticleRightUp[i]->getObj()->pos.y += 5.0f;
+				break;
+			case OBJECT_TYPE::PILLAR_PARTICLE_2:
+				_vParticleRightUp[i]->getObj()->pos.y += 6.0f;
+				_vParticleRightUp[i]->getObj()->pos.x += 1.0f;
+				break;
+			case OBJECT_TYPE::PILLAR_PARTICLE_3:
+				_vParticleRightUp[i]->getObj()->pos.y += 4.0f;
+				_vParticleRightUp[i]->getObj()->pos.x -= 0.5f;
+				break;
+			default:
+				break;
+			}
+		}
+		else _vParticleRightUp[i]->getObj()->isRender = false;
+	}
+
+	for (int i = 0; i < _vParticleRightDown.size(); ++i)
+	{
+		if ((TIME_M->getWorldTime() - _vParticleRightDown[i]->getTimer()) < 0.5f)
+		{
+			switch (_vParticleRightDown[i]->getObj()->type)
+			{
+			case OBJECT_TYPE::PILLAR_PARTICLE_1:
+				_vParticleRightDown[i]->getObj()->pos.y += 5.0f;
+				break;
+			case OBJECT_TYPE::PILLAR_PARTICLE_2:
+				_vParticleRightDown[i]->getObj()->pos.y += 6.0f;
+				_vParticleRightDown[i]->getObj()->pos.x += 1.0f;
+				break;
+			case OBJECT_TYPE::PILLAR_PARTICLE_3:
+				_vParticleRightDown[i]->getObj()->pos.y += 4.0f;
+				_vParticleRightDown[i]->getObj()->pos.x -= 0.5f;
+				break;
+			default:
+				break;
+			}
+		}
+		else _vParticleRightDown[i]->getObj()->isRender = false;
+	}
 }
 
 
