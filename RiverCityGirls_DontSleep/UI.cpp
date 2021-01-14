@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "UI.h"
+#include "Player.h"
 
 HRESULT UI::init()
 {
@@ -33,7 +34,6 @@ Bar::Bar(image * front, image * back, int* currentGauge, int* maxGauge)
 	_current = currentGauge;
 	_max = maxGauge;
 }
-
 HRESULT Bar::init()
 {
 	_ratio = *_current / *_max;
@@ -61,7 +61,9 @@ void Bar::render(HDC hdc)
 ====================================================================*/
 HRESULT CallPhone::init()
 {
-	return E_NOTIMPL;
+	_img = IMG_M->findImage("phone");
+	_itemImg = IMG_M->findImage("ui_bat");
+	return S_OK;
 }
 
 void CallPhone::release()
@@ -75,7 +77,11 @@ void CallPhone::update()
 
 void CallPhone::render(HDC hdc)
 {
-
+	if(_isActive)
+	{ 
+		_img->render(hdc, WINSIZEX*0.2 , WINSIZEY*0.57);
+		if (_player->getInfo().hasWeapon)_itemImg->render(hdc, WINSIZEX*0.186, WINSIZEY * 0.48);
+	}
 }
 
 /*====================================================================

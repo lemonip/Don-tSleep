@@ -56,7 +56,6 @@ HRESULT Player::init()
 		_obj.ani = new animation;
 		_info.jumpPower = 0;
 		_info.speed = 4.f;
-
 		_info.hasMember = false;
 		_info.hasWeapon = false;
 		_info.isImmune = false;
@@ -67,7 +66,6 @@ HRESULT Player::init()
 		_info.isConDest = true;
 		_info.isSky = false;
 		_info.isClimb = false;
-
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
 		_info.dest = DIRECTION::RIGHT;
 		_info.goalState = GOALPOS::PLAYER;
@@ -119,6 +117,10 @@ HRESULT Player::init()
 		_SAttackDown = new playerSAttackDown;
 	}
 	setState(PL_STATE::WAIT);
+
+	//인벤추가
+	UI_M->setLinkPlayer(this);
+	UI_M->addPhone("inven");
 	return S_OK;
 }
 
@@ -129,7 +131,6 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-	cout << _info.isAttack << endl;
 	_pet.update(vector3( _obj.pos.x, _obj.pos.y, _obj.pos.z));
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
@@ -190,7 +191,6 @@ void Player::render()
 	/*====================================================================
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
-
 	_pet.render(getMapDC());
 	//플래이어 오브젝트 렌더
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
@@ -745,6 +745,9 @@ void Player::keyInput()
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl) return;
 
+	//인벤토리창 열기
+	if (UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('Z')) UI_M->findUI("inven")->setActive(false);
+	if (!UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('Z')) UI_M->findUI("inven")->setActive(true);
 
 
 	//공격키받기(커맨드를위해)

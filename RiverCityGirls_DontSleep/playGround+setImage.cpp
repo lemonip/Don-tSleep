@@ -106,6 +106,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("Stage_UI_Lock_Disappear", "source/image/ui/battle/Stage_UI_Lock_Disappear.bmp", 840, 130, 7, 1, true, MAGENTA, true);
 
 	IMG_M->addImage("phone", "source/image/ui/inven/phone.bmp", 480, 642, true, MAGENTA);
+	IMG_M->addImage("ui_bat", "source/image/ui/inven/ui_bat.bmp", 80, 79, true, MAGENTA);
 	//================= 스테이지 =================
 	IMG_M->addImage("easyStage", "source/image/stage/easy.bmp", 2028, 678, false, MAGENTA);
 	IMG_M->addImage("normalStage", "source/image/stage/normal.bmp", 2865, 837, false, MAGENTA);

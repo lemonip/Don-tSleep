@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "UIManager.h"
+#include "Player.h"
 
 HRESULT UIManager::init()
 {
@@ -85,6 +86,22 @@ void UIManager::addLock(string name, vector3 pos)
 	ui->_pos = new vector3(pos.x, pos.y, pos.z);
 	ui->init();
 	ui->_type = UITYPE::LOCATIONLOCK;
+	ui->_isActive = false;
+
+	_mUI.insert(make_pair(name, ui));
+}
+
+void UIManager::addPhone(string name)
+{
+	//ui 이름 없으면 추가 이미 있으면 추가하지 않고 리턴
+	_miUI = _mUI.find(name);
+	if (_miUI != _mUI.end()) return;
+
+	//생성하고 이닛
+	UI* ui = new CallPhone();
+	ui->init();
+	ui->setLinkPlayer(_player);
+	ui->_type = UITYPE::INVENTORY;
 	ui->_isActive = false;
 
 	_mUI.insert(make_pair(name, ui));

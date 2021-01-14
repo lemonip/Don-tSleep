@@ -65,7 +65,6 @@ void ItemObj::update()
 
 void ItemObj::render()
 {
-	//ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::RENDER);
 	switch (getInfo().type)
 	{
 	case ITEM_TYPE::MONEY:
