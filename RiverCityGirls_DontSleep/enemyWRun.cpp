@@ -4,6 +4,7 @@
 
 void enemyWRun::EnterState()
 {
+	//SOUND_M->play("enemy_run", SFXVOLUME);
 	_thisEn->getInfo().speed = _thisEn->getInfo().baseSpeed + 3;
 	_thisEn->SetImage();
 	_stateTimer = TIME_M->getWorldTime();

@@ -26,7 +26,20 @@ void playGround::addSource()
 	SOUND_M->addSound("kyoko_jumpAttack", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_sAttack", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_weapon_bat", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
-
+	/*
+	//================= ¿¡³Ê¹Ì ====================
+	SOUND_M->addSound("enemy_attack1", "source/mr/enemyMr/enemy_Attack1.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_attack2", "source/mr/enemyMr/enemy_Attack2.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_attack3", "source/mr/enemyMr/enemy_Attack3.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_die", "source/mr/enemyMr/enemy_Die.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_down", "source/mr/enemyMr/enemy_Down.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_guard", "source/mr/enemyMr/enemy_Guard.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_jump", "source/mr/enemyMr/enemy_Jump.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_jumpattack", "source/mr/enemyMr/enemy_JumpAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_run", "source/mr/enemyMr/enemy_Run.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_stun", "source/mr/enemyMr/enemy_Stun.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("enemy_wattack", "source/mr/enemyMr/enemy_WAttack.mp3", tagVolumeType::SFX, false);
+	*/
 }
 
 
