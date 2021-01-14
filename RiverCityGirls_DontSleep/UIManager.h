@@ -34,6 +34,7 @@ public:
 /*====================================================================
 							ADD UI
 ====================================================================*/
+	void addUI(string, image* img, vector3 pos);													//단일 이미지 UI를 추가한다.
 	void addImage(string, image* img, vector3 pos);													//단일 이미지 UI를 추가한다.
 	void addBar(string name, image * front, image * back, vector3 pos, int* current, int* max);		//프로그레스 바 UI를 추가한다.
 	void addLock(string name, vector3 pos);

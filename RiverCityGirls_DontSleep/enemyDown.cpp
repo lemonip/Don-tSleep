@@ -13,7 +13,7 @@ void enemyDown::EnterState()
 void enemyDown::UpdateState()
 {
 	LookAtPlayer();
-	_thisEn->xzyMove(0, 0, -10.0f);
+	_thisEn->xzyMove(0, 0, -30.0f);
 
 	//HIT의 상태가 끝났다.
 	if (endFrame())

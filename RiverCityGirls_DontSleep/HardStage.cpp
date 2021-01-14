@@ -45,7 +45,16 @@ HRESULT HardStage::init()
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
+	// 지역락 관련 변수들
+	_enemyCount = 0;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1000;
 
+
+	/*====================================================================
+		스테이지에 문을 추가합니다
+	====================================================================*/
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
 	_leftDoor.isUsed = true;
 	_leftDoor.LT = vector3(160, 0, 890);
@@ -62,11 +71,7 @@ HRESULT HardStage::init()
 	_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
 
 	_shopDoor.isUsed = false;
-
-	_enemyCount = 0;
-	_maxEnemyCount = 1;
-	lockEventStart = lockEventEnd = false;
-	_lockStartLine = 1000;
+	
 	return S_OK;
 }
 

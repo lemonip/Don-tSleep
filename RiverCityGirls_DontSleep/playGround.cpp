@@ -58,6 +58,16 @@ void playGround::update()
 	SCENE_M->update();						//¾À ¾÷µ¥ÀÌÆ®
 	//================= µð¹ö±ë ¿ë =================
 	if (KEY_M->isOnceKeyDown(VK_F12)) DATA_M->checkData();
+	if (KEY_M->isOnceKeyDown(VK_F7))
+	{
+		DATA_M->saveStageData();
+		DATA_M->addData();
+		DATA_M->saveIniData(1);
+	}
+	if (KEY_M->isOnceKeyDown(VK_F8))
+	{
+		if (DATA_M->loadIniData(1)) DATA_M->loadStageData();
+	}
 }
 
 /*====================================================================

@@ -9,7 +9,7 @@
 
 void playGround::addSource()
 {
-	/*
+	
 	//================= 스테이지 =================
 	SOUND_M->addSound("bossStage", "source/bgm/bossStage.mp3", tagVolumeType::MUSIC, true);
 	SOUND_M->addSound("hardStage", "source/bgm/hardStage.mp3", tagVolumeType::MUSIC, true);
@@ -27,7 +27,7 @@ void playGround::addSource()
 	SOUND_M->addSound("kyoko_jumpAttack", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_sAttack", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_weapon_bat", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
-	*/
+	
 
 	//================= 에너미 ====================
 	SOUND_M->addSound("enemy_attack1", "source/mr/enemyMr/enemy_Attack1.mp3", tagVolumeType::SFX, false);
@@ -42,20 +42,20 @@ void playGround::addSource()
 	SOUND_M->addSound("enemy_stun", "source/mr/enemyMr/enemy_Stun.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("enemy_wattack", "source/mr/enemyMr/enemy_WAttack.mp3", tagVolumeType::SFX, false);
 	
-	/*
+	
 	SOUND_M->addSound("kyoko_down", "source/mr/playerMr/kyoko_down.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_hit", "source/mr/playerMr/kyoko_hit.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);
-	*/
+	
 	//================= 보스 ======================
-	/*SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_dashSAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);*/
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
 
 }
 
@@ -113,6 +113,10 @@ void playGround::addImage()
 	IMG_M->addImage("UI_UnLocked_Door", "source/image/ui/battle/UI_UnLocked_Door.bmp", 52, 76, true, MAGENTA);
 	IMG_M->addImage("UI_Shop_Door1", "source/image/ui/battle/UI_Shop_Door1.bmp", 52, 45, true, MAGENTA);
 	IMG_M->addImage("UI_Shop_Door2", "source/image/ui/battle/UI_Shop_Door2.bmp", 52, 45, true, MAGENTA);
+	IMG_M->addImage("playerHPPoint", "source/image/ui/battle/HP_Point.bmp", 25, 23, true, MAGENTA);
+	IMG_M->addImage("playerHPBar", "source/image/ui/battle/UI_Player_bar.bmp", 414, 94, true, MAGENTA);
+	IMG_M->addImage("coin", "source/image/ui/battle/coin.bmp", 36, 36, true, MAGENTA);
+	IMG_M->addImage("UI_heart", "source/image/ui/battle/UI_heart.bmp", 1280*5, 720*5, true, MAGENTA);
 
 	IMG_M->addImage("Stage_UI_Chain_Left", "source/image/ui/battle/Stage_UI_Chain_Left.bmp", 42, 900, true, MAGENTA);
 	IMG_M->addImage("Stage_UI_Chain_Right", "source/image/ui/battle/Stage_UI_Chain_Right.bmp", 42, 900, true, MAGENTA);
@@ -304,12 +308,13 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pet", "source/image/object/pet.bmp", 576, 96, 6, 1, true, MAGENTA, true);
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
-	IMG_M->addImage("apple", "source/image/object/apple.bmp", 50, 50, true, MAGENTA, true);
-	IMG_M->addImage("chili", "source/image/object/chili.bmp", 50, 50, true, MAGENTA, true);
-	IMG_M->addImage("hen", "source/image/object/hen.bmp", 50, 50, true, MAGENTA, true);
+	IMG_M->addImage("apple", "source/image/object/apple.bmp", 100, 100, true, MAGENTA, true);
+	IMG_M->addImage("chili", "source/image/object/chili.bmp", 100, 100, true, MAGENTA, true);
+	IMG_M->addImage("hen", "source/image/object/hen.bmp", 100, 100, true, MAGENTA, true);
 
 	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 576, 432, 4, 3, true, MAGENTA, true);
-	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 256, 192, 4, 3, true, MAGENTA, true);
+	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 512, 512, 4, 4, true, MAGENTA, true);
+
 
 	//================= 상점 아이템 =================
 	IMG_M->addImage("aloe", "source/image/item/aloe.bmp", 50, 76, true, MAGENTA);

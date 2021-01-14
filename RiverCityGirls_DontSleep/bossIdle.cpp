@@ -15,7 +15,35 @@ void bossIdle::EnterState()
 void bossIdle::UpdateState()
 {	
 	LookatPlayer();
-	if (TIME_M->getWorldTime() - _enterTime > 1.f)_thisBs->SetState(BS_STATE::MOVE);
+	if (!_thisBs->getIsphase())
+	{
+		if (_thisBs->getIsState() != BS_STATE::DEATH && _thisBs->getIsState() != BS_STATE::BLOCK)
+		{
+			RECT _temp;
+			if (IntersectRect(&_temp, &_thisBs->getObj()->rc, &_thisBs->getPlayerAddress()->getInfo().attackRc) && !_thisBs->getInfo().isAttack && _thisBs->getPlayerAddress()->getInfo().isAttack)
+			{
+				Damaged(_thisBs->getPlayerAddress()->getInfo().force);
+			}
+		}
+		if (TIME_M->getWorldTime() - _enterTime > 1.f)_thisBs->SetState(BS_STATE::MOVE);
+	}
+
+	if (_thisBs->getIsphase())
+	{
+		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
+
+		if (_thisBs->getIsState() != BS_STATE::DEATH && _thisBs->getIsState() != BS_STATE::BLOCK)
+		{
+			RECT _temp;
+			if (IntersectRect(&_temp, &_thisBs->getObj()->rc, &_thisBs->getPlayerAddress()->getInfo().attackRc) && !_thisBs->getInfo().isAttack && _thisBs->getPlayerAddress()->getInfo().isAttack)
+			{
+				Damaged(_thisBs->getPlayerAddress()->getInfo().force);
+			}
+		}
+		if (TIME_M->getWorldTime() - _enterTime > 1.f)_thisBs->SetState(BS_STATE::MOVE);	
+	}
+	
+	
 }
 
 void bossIdle::ExitState()

@@ -26,7 +26,7 @@ HRESULT EasyStage::init()
 		배경음악을 넣어줍니다.
 	====================================================================*/
 	//SOUND_M->stop("openingBG");
-	SOUND_M->playMusic("stage", BGMVOLUME);
+	//SOUND_M->playMusic("stage", BGMVOLUME);
 	//SOUND_M->playMusic("kyoko_battlestart",.5f);
 	//SOUND_M->playMusic("stage", BGMVOLUME);
 
@@ -59,7 +59,15 @@ HRESULT EasyStage::init()
 	EVENT_M->addEvent(new cameraMove(vector3(50, 0, 0), 8, 1.0, 0.1f));
 	EVENT_M->addEvent(new waitForSec(1.5f));
 	*/
+	EVENT_M->addEvent(new heart, false);
 	EVENT_M->addEvent(new dialogue(DIALOGLIST::EASY_START), false);
+
+
+	// 지역락 관련 변수들
+	_enemyCount = 0;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1200;
 
 	/*====================================================================
 		스테이지 문 만들기
@@ -76,10 +84,7 @@ HRESULT EasyStage::init()
 
 	_shopDoor.isUsed = false;
 
-	_enemyCount = 0;
-	_maxEnemyCount = 1;
-	lockEventStart = lockEventEnd = false;
-	_lockStartLine = 1200;
+
 	return S_OK;
 }
 

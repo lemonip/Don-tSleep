@@ -104,7 +104,7 @@ private:
 		int hp;					//체력
 		int maxHP;				//최대 체력
 		int force;				//공격력
-		float coin;					//소지금
+		int coin;					//소지금
 		int	   LV;					//레벨
 		float  exp;					//경험치
 		int hitCount;				//피격 카운트 (3번맞으면 다운됨)

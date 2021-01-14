@@ -158,3 +158,22 @@ public:
 	virtual void exit();
 
 };
+
+/*====================================================================
+	ÇÏÆ®
+====================================================================*/
+class heart : public Event
+{
+
+private:
+	image* _img;
+	float _ratio;
+	float _timer;
+
+public:
+	virtual void enter(bool playerControl);
+	virtual bool update();
+	virtual void exit();
+
+	void render(HDC hdc);
+};

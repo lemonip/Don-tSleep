@@ -23,7 +23,7 @@ HRESULT StageManager::init()
 	EVENT_M->setLinkPlayer(_player);
 
 	//첫 스테이지 세팅
-	setStage(STAGETYPE::EASY);
+	setStage(STAGETYPE::BOSS);
 
 	return S_OK;
 }
@@ -59,7 +59,6 @@ void StageManager::update()
 	if (KEY_M->isOnceKeyDown(VK_F2)) setStage(STAGETYPE::NORMAL);
 	if (KEY_M->isOnceKeyDown(VK_F3)) setStage(STAGETYPE::HARD);
 	if (KEY_M->isOnceKeyDown(VK_F4)) setStage(STAGETYPE::BOSS);
-	if (KEY_M->isOnceKeyDown(VK_F11)) DATA_M->saveStageData(_player, this);
 #endif
 }
 
@@ -165,7 +164,7 @@ void StageManager::changeStage()
 						_stage->getShopDoor().LT.x <= _player->getObj().pos.x &&
 						_player->getObj().pos.x <= _stage->getShopDoor().RB.x)
 					{
-						DATA_M->saveStageData(_player, this);
+						DATA_M->saveStageData();
 						SCENE_M->setInitScene("shop");
 						_keyTimer = 0;
 					}

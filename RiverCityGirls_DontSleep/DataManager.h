@@ -1,16 +1,28 @@
 #pragma once
 #include "singletonBase.h"
 
+
 class Player;
 class StageManager;
 
 // 무슨 데이터를 가지고 있어야하나?
 struct tagSaveLoadData
 {
-	const char* subject;
-	const char* title;
-	const char* body;
-};
+	string PosX;
+	string PosY;
+	string PosZ;
+	string HP;
+	string MaxHP;
+	string Force;
+	string Coin;
+	string LV;
+	string EXP;
+
+	string CurrentStage;
+	string easyLockEvent;
+	string normalLockEvent;
+	string hardLockEvent;
+};	
 
 
 
@@ -30,13 +42,22 @@ class DataManager : public singletonBase<DataManager>
 
 		// stage
 		int curStage;
-		bool lockEventEnd;
+		bool easyLockEventEnd;
+		bool normalLockEventEnd;
+		bool hardLockEventEnd;
+		tagStageData()
+		{
+			curStage = 0;
+			easyLockEventEnd = 0;
+			normalLockEventEnd = 0;
+			hardLockEventEnd = 0;
+		}
 	};
 
 
 private:
-	typedef vector<tagSaveLoadData>					arrSaveLoadData;
-	typedef vector<tagSaveLoadData>::iterator		arrSaveLoadIter;
+	typedef vector<tagSaveLoadData>						arrSaveLoadData;
+	typedef vector<tagSaveLoadData>::iterator			arrSaveLoadIter;
 
 	typedef vector<arrSaveLoadData>					vSaveLoadDataList;
 	typedef vector<arrSaveLoadData>::iterator		vSaveLoadDataIter;
@@ -51,20 +72,18 @@ public:
 	~DataManager();
 
 	HRESULT init();
+	void release();
 
 	//데이터 추가 함수
-	void addData(const char* subject, const char* title, const char* body);
+	void addData();
 	//ini파일 만들어주는 함수
-	void iniSave(const char* fileName);
+	void saveIniData(int num);
+	bool loadIniData(int num);
 
-	void saveStageData(Player* player, StageManager* stage);
-	void loadStageData(Player* player, StageManager* stage);
+	void saveStageData();
 	void loadStageData();
-	//문자열 데이터 불러오는 함수
-	string loadDataString(const char* fileName, const char* subject, const char* title);
 
-	//정수 데이터 불러오는 함수
-	int loadDataInterger(const char* fileName, const char* subject, const char* title);
+
 
 	void checkData();
 	void setPlayerHP(int num);
@@ -72,5 +91,7 @@ public:
 	bool minusPlayerCoin(float numf);
 	void setLinkPlayer(Player* player);
 	void setLinkStageM(StageManager* stageM);
+
+	
 };
 
