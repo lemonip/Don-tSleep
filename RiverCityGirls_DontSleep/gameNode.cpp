@@ -57,8 +57,6 @@ void gameNode::release()
 		KEY_M->release();
 		KEY_M->releaseSingleton();
 
-		SAVELOAD_M->releaseSingleton();
-
 		SCENE_M->release();
 		SCENE_M->releaseSingleton();
 

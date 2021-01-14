@@ -28,7 +28,6 @@
 #include "SceneManager.h"
 #include "timeManager.h"
 #include "effectManager.h"
-#include "SaveLoadManager.h"
 #include "zOrderManager.h"
 #include "EventManager.h"
 #include "UIManager.h"
@@ -58,7 +57,6 @@ using namespace TFIVE_UTIL;
 #define SCENE_M SceneManager::getSingleton()
 #define TIME_M timeManager::getSingleton()
 #define EFFECT_M effectManager::getSingleton()
-#define SAVELOAD_M SaveLoadManager::getSingleton()
 #define ZORDER_M zOrderManager::getSingleton()
 #define EVENT_M EventManager::getSingleton()
 #define UI_M UIManager::getSingleton()

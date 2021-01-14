@@ -304,12 +304,12 @@ void playGround::addImage()
 	IMG_M->addFrameImage("pet", "source/image/object/pet.bmp", 576, 96, 6, 1, true, MAGENTA, true);
 	//================= 아이템 =================
 	IMG_M->addImage("meat", "source/image/item/meat.bmp", 60, 51, true, MAGENTA, true);
-	IMG_M->addImage("apple", "source/image/object/apple.bmp", 50, 50, true, MAGENTA, true);
-	IMG_M->addImage("chili", "source/image/object/chili.bmp", 50, 50, true, MAGENTA, true);
-	IMG_M->addImage("hen", "source/image/object/hen.bmp", 50, 50, true, MAGENTA, true);
+	IMG_M->addImage("apple", "source/image/object/apple.bmp", 100, 100, true, MAGENTA, true);
+	IMG_M->addImage("chili", "source/image/object/chili.bmp", 100, 100, true, MAGENTA, true);
+	IMG_M->addImage("hen", "source/image/object/hen.bmp", 100, 100, true, MAGENTA, true);
 
 	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 576, 432, 4, 3, true, MAGENTA, true);
-	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 256, 256, 4, 4, true, MAGENTA, true);
+	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 512, 512, 4, 4, true, MAGENTA, true);
 
 	//================= 상점 아이템 =================
 	IMG_M->addImage("aloe", "source/image/item/aloe.bmp", 50, 76, true, MAGENTA);
