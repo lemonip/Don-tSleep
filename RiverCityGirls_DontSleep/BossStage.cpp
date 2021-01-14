@@ -56,6 +56,9 @@ HRESULT BossStage::init()
 	UI_M->findUI("bossHPBar2")->setActive(true);
 
 
+	/*====================================================================
+		스테이지 문 만들기
+	====================================================================*/
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
 	_leftDoor.isUsed = true;
 	_leftDoor.LT = vector3(185, 0, 780);
@@ -66,6 +69,9 @@ HRESULT BossStage::init()
 
 	_rightDoor.isUsed = false;
 
+	_shopDoor.isUsed = false;
+
+	// 지역락 관련 변수들
 	_enemyCount = 0;
 	_maxEnemyCount = 1;
 	lockEventStart = lockEventEnd = true;

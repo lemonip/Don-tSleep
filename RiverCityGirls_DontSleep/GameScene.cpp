@@ -32,7 +32,8 @@ HRESULT GameScene::init()
 
 	//ÄìÄÚ HP¹Ù
 
-
+	DATA_M->setLinkStageM(_stageM);
+	DATA_M->setLinkPlayer(_stageM->getPlayer());
 	return S_OK;
 }
 

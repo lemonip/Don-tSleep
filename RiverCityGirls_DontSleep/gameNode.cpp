@@ -35,6 +35,7 @@ HRESULT gameNode::init(bool managerInit)
 		TXTDATA->init();
 		CAMERA_M->init();
 		EVENT_M->init();
+		DATA_M->init();
 	}
 
 	return S_OK;
@@ -56,8 +57,6 @@ void gameNode::release()
 		KEY_M->release();
 		KEY_M->releaseSingleton();
 
-		SAVELOAD_M->releaseSingleton();
-
 		SCENE_M->release();
 		SCENE_M->releaseSingleton();
 
@@ -72,6 +71,9 @@ void gameNode::release()
 
 		SOUND_M->release();
 		SOUND_M->releaseSingleton();
+
+		DATA_M->release();
+		DATA_M->releaseSingleton();
 	}
 	ReleaseDC(_hWnd, _hdc);
 }

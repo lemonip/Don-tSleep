@@ -15,7 +15,7 @@ HRESULT Stage::init()
 
 	_objectM = new ObjectManager;
 	_objectM->init();
-	
+
 	return S_OK;
 }
 
@@ -106,7 +106,6 @@ void Stage::startLocationLock(vector3 lockPos, vector3 playerPos, int maxEnemyNu
 {
 	if (lockEventStart == false && lockPos.x < playerPos.x)
 	{
-		cout << "시작" << endl;
 		EVENT_M->addEvent(new locationLock(), true); // 이벤트 시작
 		_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
 		lockEventStart = true;
@@ -126,11 +125,11 @@ void Stage::startLocationLock(vector3 lockPos, vector3 playerPos, int maxEnemyNu
 		if (((LocationLock*)UI_M->findUI("LocationLock"))->isUnlockEnd())
 		{
 			_doorActive = DOOR_ACTIVITY::ACTIVE;
-			
+
 			((LocationLock*)UI_M->findUI("LocationLock"))->setActive(false);
 			_leftDoor.img = IMG_M->findImage("UI_UnLocked_Door");
 			_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
-			_shopDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+			_shopDoor.img = IMG_M->findImage("UI_Shop_Door1");
 			lockEventEnd = true;
 		}
 	}

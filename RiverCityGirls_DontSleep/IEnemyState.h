@@ -2,6 +2,8 @@
 #include "gameNode.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "StageManager.h"
+#include "Stage.h""
 
 class Enemy;
 

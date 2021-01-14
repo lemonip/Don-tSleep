@@ -258,7 +258,6 @@
     <ClInclude Include="playGround.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SaveLoadManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="schoolBoy.h" />
@@ -394,7 +393,6 @@
     <ClCompile Include="playerWalk.cpp" />
     <ClCompile Include="playGround+setImage.cpp" />
     <ClCompile Include="playGround.cpp" />
-    <ClCompile Include="SaveLoadManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="schoolBoy.cpp" />

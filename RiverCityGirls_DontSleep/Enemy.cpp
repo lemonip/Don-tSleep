@@ -47,8 +47,8 @@ HRESULT Enemy::init()
 		_info.baseSpeed = _info.speed = 3;	//속도
 		_info.frameTimer = 0;				//프레임시간 타이머
 
-		_info.hp = _info.maxHp = 40;		//체력
-		_info.attack = 1;					//공격력
+		_info.hp = _info.maxHp = 100;		//체력
+		_info.attack = 5;					//공격력
 
 		_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
 		_info.hasWeapon = false;			//무기들었니
@@ -124,15 +124,18 @@ void Enemy::update()
 			{
 				if (abs(_obj.pos.z - _player->getObj().pos.z) < 40)
 				{
-					if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
-					else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
-					else
+					if (_player->getObj().imgIndex.x == 3)
 					{
-						if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
+						if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
+						else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
+						else
 						{
-							if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
-							else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
-							else SetState(EN_STATE::EN_HIT);
+							if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
+							{
+								if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
+								else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
+								else SetState(EN_STATE::EN_HIT);
+							}
 						}
 					}
 				}
