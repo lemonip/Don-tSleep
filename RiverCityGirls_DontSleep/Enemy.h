@@ -65,6 +65,8 @@ protected:
 		int hp;						//체력
 		int maxHp;					//최대 체력
 		int attack;					//공격력
+		int groggyCount;			//그로기용 카운트
+		int phaseCount;				//페이즈용 카운트
 
 		bool isActive;              //플레이어 발견했니
 		bool isAttack;				//공격했니

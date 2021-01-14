@@ -381,7 +381,7 @@ void Player::hit()
 
 	}
 
-	cout << "체력" << _info.hp << endl;
+	//cout << "체력" << _info.hp << endl;
 }
 
 //스테이지가 바뀔 때마다 초기화시키는 함수

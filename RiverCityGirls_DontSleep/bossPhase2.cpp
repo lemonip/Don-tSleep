@@ -29,9 +29,7 @@ void bossPhase2::UpdateState()
 
 void bossPhase2::ExitState()
 {
-	_thisBs->SetState(BS_STATE::WAIT);
 	_thisBs->getInfo().isAttack = false;
 	_thisBs->setIsphase(true);
-	_isEffect = true;
-	
+	_isEffect = true;	
 }
