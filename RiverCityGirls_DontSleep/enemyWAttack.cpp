@@ -4,7 +4,7 @@
 
 void enemyWAttack::EnterState()
 {
-	//SOUND_M->play("enemy_wattack", SFXVOLUME);
+	SOUND_M->play("enemy_wattack", SFXVOLUME);
 	_thisEn->SetImage();
 	LookAtPlayer();
 	RECT temp;
