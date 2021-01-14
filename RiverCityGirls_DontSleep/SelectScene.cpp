@@ -40,7 +40,6 @@ HRESULT SelectScene::init()
 	_charSelect->addButton(Button(IMG_M->findImage("select_kyoko2"), IMG_M->findImage("select_kyoko"), vector3(WINSIZEX/2 + 100, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 0));
 	_charSelect->addButton(Button(IMG_M->findImage("select_misako2"), IMG_M->findImage("select_misako"), vector3(WINSIZEX/2 + 450, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 1));
 
-
 	//옵션 UI와 버튼
 
 

@@ -13,6 +13,7 @@ void ObjectManager::release()
 	{
 		_vObject[i]->release();
 		delete _vObject[i];
+		break;
 	}
 	_vObject.clear();
 }
