@@ -95,6 +95,11 @@ void NormalStage::release()
 void NormalStage::update()
 {
 	Stage::update();
+
+	if (KEY_M->isOnceKeyDown(VK_F5))
+	{
+		SCENE_M->setInitScene("shop");		//상점 입장
+	}
 }
 
 void NormalStage::render()

@@ -7,6 +7,7 @@ gameNode* SceneManager::_currentScene = NULL;
 HRESULT SceneManager::init()
 {
 	_currentScene = NULL;
+	_prevScene = NULL;
 
 	return S_OK;
 }
@@ -85,9 +86,10 @@ HRESULT SceneManager::setScene(string sceneName)
 	//찾고자 하는 씬이 현재 씬과 같으면 바꿀필요가 없음
 	if (find->second == _currentScene) return S_OK;
 
+	_prevScene = _currentScene;
+
 	//바꾸려는 씬을 현재씬으로 체인지 (릴리즈나 이닛을 하지 않음)
 	_currentScene = find->second;
-
 
 	return S_OK;
 }
@@ -107,8 +109,20 @@ HRESULT SceneManager::setInitScene(string sceneName)
 	//릴리즈는 하지 않고 이닛함
 	find->second->init();
 	
-	//바꾸려는 씬을 현재씬으로 체인지
+	_prevScene = _currentScene;
+
+	//바꾸려는 씬을 현재 씬으로 체인지
 	_currentScene = find->second;
+
+	return S_OK;
+}
+
+HRESULT SceneManager::setPrevScene()
+{
+	//현재 씬의 릴리즈 함수를 실행시켜 메모리 해제를 하고
+	if (_currentScene) _currentScene->release();
+
+	_currentScene = _prevScene;
 
 	return S_OK;
 }

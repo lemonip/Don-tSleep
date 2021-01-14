@@ -49,29 +49,18 @@ void playGround::release()
 ====================================================================*/
 void playGround::update()
 {
-	gameNode::update();					//게임 노드에서 매니저들을 업데이트한다.
+	gameNode::update();						//게임 노드에서 매니저들을 업데이트한다.
 
 	if (EVENT_M->getIsMovie()) return;		//영상 재생 중에는 업데이트 하지 않는다.
-	EFFECT_M->update();					//이팩트매니저 업데이트
-	CAMERA_M->update();					//카메라를 업데이트 한다.
-	UI_M->update();						//UI 업데이트
-	SCENE_M->update();					//씬 업데이트
-
+	EFFECT_M->update();						//이팩트매니저 업데이트
+	CAMERA_M->update();						//카메라를 업데이트 한다.
+	UI_M->update();							//UI 업데이트
+	SCENE_M->update();						//씬 업데이트
 
 	if (KEY_M->isOnceKeyDown(VK_LBUTTON))
 	{
 		cout << "마우스 X좌표: " << _ptMouse.x << endl;
 		cout << "마우스 Y좌표: " << _ptMouse.y << endl;
-	}
-
-	if (KEY_M->isOnceKeyDown(VK_F5))
-	{
-		SCENE_M->setInitScene("shop");		//이닛하는 경우
-	}
-
-	if (KEY_M->isOnceKeyDown(VK_F6))
-	{
-		SCENE_M->setScene("game");		//원활한 디버깅을 위해 game 씬으로 시작.
 	}
 }
 
