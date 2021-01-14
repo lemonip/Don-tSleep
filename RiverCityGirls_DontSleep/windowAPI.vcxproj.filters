@@ -510,6 +510,9 @@
     <ClInclude Include="enemyWJump.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
+    <ClInclude Include="DeadScene.h">
+      <Filter>playGround\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -904,6 +907,9 @@
     </ClCompile>
     <ClCompile Include="enemyWJump.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadScene.cpp">
+      <Filter>playGround\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -173,6 +173,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="DataManager.h" />
+    <ClInclude Include="DeadScene.h" />
     <ClInclude Include="EasyStage.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
@@ -310,6 +311,7 @@
     <ClCompile Include="cheerLeader.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="DeadScene.cpp" />
     <ClCompile Include="EasyStage.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
