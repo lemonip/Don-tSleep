@@ -510,6 +510,9 @@
     <ClInclude Include="enemyWJump.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
+    <ClInclude Include="DeadScene.h">
+      <Filter>playGround\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -884,9 +887,6 @@
     <ClCompile Include="playerClimbTop.cpp">
       <Filter>playGround\Player\playerState</Filter>
     </ClCompile>
-    <ClCompile Include="playGround+setImage.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
     <ClCompile Include="Weapon.cpp">
       <Filter>playGround\ObjectManager\Weapon</Filter>
     </ClCompile>
@@ -904,6 +904,12 @@
     </ClCompile>
     <ClCompile Include="enemyWJump.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadScene.cpp">
+      <Filter>playGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="playGround+addSource.cpp">
+      <Filter>playGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
