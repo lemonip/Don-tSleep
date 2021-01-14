@@ -7,6 +7,7 @@ void bossIdle::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();	
 	_thisBs->ChangeImg("Bs_idle");
+	
 	   
 	ResetFrame();
 }
@@ -14,7 +15,7 @@ void bossIdle::EnterState()
 void bossIdle::UpdateState()
 {	
 	LookatPlayer();
-	if (TIME_M->getWorldTime() - _enterTime > 2.0f)_thisBs->SetState(BS_STATE::MOVE);
+	if (TIME_M->getWorldTime() - _enterTime > 1.f)_thisBs->SetState(BS_STATE::MOVE);
 }
 
 void bossIdle::ExitState()

@@ -34,5 +34,7 @@ public:
 		int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer);
 
 	void play(string effectName, int x, int y);
+
+	bool getIsrunning(string effectName);
 };
 

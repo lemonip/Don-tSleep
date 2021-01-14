@@ -24,7 +24,7 @@ void bossStandAttack::UpdateState()
 
 	if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.5f)
 	{
-		EFFECT_M->play("Bss_stand", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z + 200);
+		EFFECT_M->play("Bss_stand", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z + 200);		
 		_isEffect = true;
 	}
 }

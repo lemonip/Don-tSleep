@@ -63,9 +63,7 @@ void bossMeteor::UpdateState()
 			if (!_isEffect)
 			{
 				EFFECT_M->play("Bss_meteor", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
-					(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
-
-				_isEffect = true;
+					(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);				
 			}
 		}
 
@@ -82,6 +80,6 @@ void bossMeteor::UpdateState()
 
 void bossMeteor::ExitState()
 {
-	_thisBs->ChangeImg("Bs_meteor");
-	_thisBs->SetState(BS_STATE::DOWN);
+	_thisBs->getInfo().isAttack = false;
+	_isEffect = true;
 }

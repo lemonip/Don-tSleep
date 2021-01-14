@@ -76,6 +76,7 @@ HRESULT Boss::init()
 	_BState = NULL;
 	SetState(BS_STATE::IDLE);
 
+
 	return S_OK;
 }
 
@@ -96,31 +97,23 @@ void Boss::update()
 	frameUpdate();
 
 	if (_state != BS_STATE::DEATH && _state != BS_STATE::BLOCK)
-	{
-		if (_player->getInfo().isAttack)
+	{		
+		RECT temp;
+		if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc) && !getInfo().isAttack && _player->getInfo().isAttack)
 		{
-			RECT temp;
-			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc) && !getInfo().isAttack)
-			{
-				SetState(BS_STATE::ATTACKED);				
-			}
-		}
+			SetState(BS_STATE::ATTACKED);				
+		}		
 	}
 
-	else if (getInfo().hp <= 0)
-	{
-		SetState(BS_STATE::DEATH);
-	}
-
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::SLAP);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::METEOR);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::GROGGY);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::DOWN);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::METEOR);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::PHASE);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::ELBOW);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DASH);
 	
 	_stageM->getColM()->bossDestructObject(this);
 
-	cout << _player->getInfo().hp << endl;
+	cout << getInfo().hp << endl;
 
 }
 

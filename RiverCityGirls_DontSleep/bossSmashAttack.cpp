@@ -49,6 +49,5 @@ void bossSmashAttack::UpdateState()
 void bossSmashAttack::ExitState()
 {
 	_thisBs->SetState(BS_STATE::IDLE);
-	_thisBs->getInfo().isAttack = false;
-	
+	_thisBs->getInfo().isAttack = false;	
 }

@@ -43,7 +43,6 @@ void bossHowling::ExitState()
 {
 	_thisBs->getInfo().isAttack = false;
 	
-
 	switch (RND->getInt(2))
 	{
 	case 0:
