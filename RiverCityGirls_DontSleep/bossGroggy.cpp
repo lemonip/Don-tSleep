@@ -6,8 +6,8 @@ void bossGroggy::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_groggy");
+	SOUND_M->play("bgroggy", SFXVOLUME);
 	_isEffect = false;
-
 	LookatPlayer();
 	ResetFrame();
 }

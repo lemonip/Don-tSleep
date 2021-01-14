@@ -12,17 +12,18 @@ void bossAttacked::EnterState()
 		
 	// 이미지를 바꿈
 	switch (RND->getInt(3))
-	{		
-		
+	{				
 	case 0:
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{			
 			_thisBs->ChangeImg("Bs_attacked1");
+			SOUND_M->play("battacked1", SFXVOLUME);
 		}
 
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
 			_thisBs->ChangeImg("Bs_attacked1");
+			SOUND_M->play("battacked1", SFXVOLUME);
 		}
 		break;
 
@@ -30,11 +31,13 @@ void bossAttacked::EnterState()
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{
 			_thisBs->ChangeImg("Bs_attacked2");
+			SOUND_M->play("battacked2", SFXVOLUME);
 		}
 
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
 			_thisBs->ChangeImg("Bs_attacked2");
+			SOUND_M->play("battacked2", SFXVOLUME);
 		}
 		break;
 
@@ -42,40 +45,32 @@ void bossAttacked::EnterState()
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{
 			_thisBs->ChangeImg("Bs_attacked3");
+			SOUND_M->play("battacked3", SFXVOLUME);
 		}
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
 			_thisBs->ChangeImg("Bs_attacked3");
+			SOUND_M->play("battacked3", SFXVOLUME);
 		}
 		break;
-	}
-
-	
-
-	//이미지를 초기화
-	ResetFrame();
+	}		
+	ResetFrame();					//이미지 초기화
 }
 
 void bossAttacked::UpdateState()
-{		
-	/*if (_thisBs->getInfo().hp == _thisBs->getInfo().maxHp / 1.6f)
+{	
+	if (_thisBs->getIsphase())
 	{
-		_thisBs->SetState(BS_STATE::DOWN);
+		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
 	}
 
-	else if (_thisBs->getInfo().hp == _thisBs->getInfo().maxHp / 2)
+	if (TIME_M->getWorldTime() - _enterTime > 1.5f)
 	{
-		_thisBs->SetState(BS_STATE::GROGGY);
-	}
-
-	else if (_thisBs->getInfo().hp == _thisBs->getInfo().maxHp / 3)
-	{
-		_thisBs->SetState(BS_STATE::PHASE);
-	}*/
+		_thisBs->SetState(BS_STATE::WAIT);
+	}	
 }
 
 void bossAttacked::ExitState()
-{
-	//_thisBs->getInfo().isAttack = true;
+{	
 	_thisBs->SetState(BS_STATE::IDLE);		
 }
