@@ -116,8 +116,7 @@ void playGround::addImage()
 	IMG_M->addImage("playerHPPoint", "source/image/ui/battle/HP_Point.bmp", 25, 23, true, MAGENTA);
 	IMG_M->addImage("playerHPBar", "source/image/ui/battle/UI_Player_bar.bmp", 414, 94, true, MAGENTA);
 	IMG_M->addImage("coin", "source/image/ui/battle/coin.bmp", 36, 36, true, MAGENTA);
-	//IMG_M->addImage("UI_heart", "source/image/ui/battle/UI_heart1.bmp", 700, 700, true, MAGENTA);
-	IMG_M->addImage("UI_heart", "source/image/ui/battle/UI_heart2.bmp", 1280*5, 720*5, true, MAGENTA);
+	IMG_M->addImage("UI_heart", "source/image/ui/battle/UI_heart.bmp", 1280*5, 720*5, true, MAGENTA);
 
 	IMG_M->addImage("Stage_UI_Chain_Left", "source/image/ui/battle/Stage_UI_Chain_Left.bmp", 42, 900, true, MAGENTA);
 	IMG_M->addImage("Stage_UI_Chain_Right", "source/image/ui/battle/Stage_UI_Chain_Right.bmp", 42, 900, true, MAGENTA);
