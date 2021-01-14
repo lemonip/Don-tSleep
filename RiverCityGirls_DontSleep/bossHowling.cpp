@@ -7,7 +7,7 @@ void bossHowling::EnterState()
 {	
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
-	SOUND_M->play("bhowling", SFXVOLUME);	
+	SOUND_M->play("bhowling");	
 	_thisBs->getInfo().isAttack = true;	   
 	LookatPlayer();
 	ResetFrame();

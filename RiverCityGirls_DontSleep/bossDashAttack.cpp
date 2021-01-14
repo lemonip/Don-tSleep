@@ -8,7 +8,7 @@ void bossDashAttack::EnterState()
 	_enterTime = TIME_M->getWorldTime();
 	_speed = 0;
 	_thisBs->ChangeImg("Bs_dash2");
-	SOUND_M->play("bdash", SFXVOLUME);
+	SOUND_M->play("bdash");
 	_thisBs->getInfo().isAttack = true;
 	_isEffect = false;
 	LookatPlayer();

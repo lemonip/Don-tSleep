@@ -6,7 +6,7 @@ void bossDown::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_groggy");
-	SOUND_M->play("bdown", SFXVOLUME);
+	SOUND_M->play("bdown");
 	_isEffect = false;
 	LookatPlayer();
 	ResetFrame();

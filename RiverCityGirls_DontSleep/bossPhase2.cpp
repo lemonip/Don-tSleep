@@ -7,7 +7,7 @@ void bossPhase2::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_phase");
-	SOUND_M->play("bhowling", SFXVOLUME);
+	SOUND_M->play("bhowling");
 	_thisBs->setIsphase(true);
 	_isEffect = false;
 	LookatPlayer();

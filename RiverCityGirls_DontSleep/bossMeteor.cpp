@@ -9,7 +9,7 @@ void bossMeteor::EnterState()
 	_speed = 25.0f;
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_meteor");
-	SOUND_M->play("bmeteor", SFXVOLUME);
+	SOUND_M->play("bmeteor");
 	_thisBs->getInfo().jumpPower = 18.0f;
 	_thisBs->getInfo().isSky = true;
 	_isEffect = false;

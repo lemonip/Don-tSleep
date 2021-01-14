@@ -7,7 +7,7 @@ void bossSmashAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_smash");	
-	SOUND_M->play("bsmash", SFXVOLUME);
+	SOUND_M->play("bsmash");
 	_thisBs->getInfo().isAttack = true;
 	_isEffect = false;
 

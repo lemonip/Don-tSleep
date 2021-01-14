@@ -17,13 +17,13 @@ void bossAttacked::EnterState()
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{			
 			_thisBs->ChangeImg("Bs_attacked1");
-			SOUND_M->play("battacked1", SFXVOLUME);
+			SOUND_M->play("battacked1");
 		}
 
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
 			_thisBs->ChangeImg("Bs_attacked1");
-			SOUND_M->play("battacked1", SFXVOLUME);
+			SOUND_M->play("battacked1");
 		}
 		break;
 
@@ -31,13 +31,13 @@ void bossAttacked::EnterState()
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{
 			_thisBs->ChangeImg("Bs_attacked2");
-			SOUND_M->play("battacked2", SFXVOLUME);
+			SOUND_M->play("battacked2");
 		}
 
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
 			_thisBs->ChangeImg("Bs_attacked2");
-			SOUND_M->play("battacked2", SFXVOLUME);
+			SOUND_M->play("battacked2");
 		}
 		break;
 
@@ -45,12 +45,12 @@ void bossAttacked::EnterState()
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{
 			_thisBs->ChangeImg("Bs_attacked3");
-			SOUND_M->play("battacked3", SFXVOLUME);
+			SOUND_M->play("battacked3");
 		}
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
 		{
 			_thisBs->ChangeImg("Bs_attacked3");
-			SOUND_M->play("battacked3", SFXVOLUME);
+			SOUND_M->play("battacked3");
 		}
 		break;
 	}		

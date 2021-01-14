@@ -7,7 +7,7 @@ void bossElbowAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_elbow");
-	SOUND_M->play("belbow", SFXVOLUME);
+	SOUND_M->play("belbow");
 	_thisBs->getInfo().isAttack = true;
 	_isEffect = false;
 	LookatPlayer();

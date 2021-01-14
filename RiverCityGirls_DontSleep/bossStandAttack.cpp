@@ -5,7 +5,7 @@ void bossStandAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_standat");
-	SOUND_M->play("bstand", SFXVOLUME);
+	SOUND_M->play("bstand");
 	_thisBs->getInfo().isAttack = true;
 	_isEffect = false;
 	LookatPlayer();

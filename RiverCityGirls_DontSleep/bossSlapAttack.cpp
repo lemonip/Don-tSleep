@@ -7,7 +7,7 @@ void bossSlapAttack::EnterState()
 {
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_slap");
-	SOUND_M->play("bslap", SFXVOLUME);
+	SOUND_M->play("bslap");
 	_thisBs->getInfo().isAttack = true;	
 	_isEffect = false;
 	LookatPlayer();

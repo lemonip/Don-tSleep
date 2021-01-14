@@ -5,7 +5,7 @@
 void bossDeath::EnterState()
 {	
 	_thisBs->ChangeImg("Bs_death");
-	SOUND_M->play("bdeath", SFXVOLUME);
+	SOUND_M->play("bdeath");
 	LookatPlayer();
 	ResetFrame();	
 }
