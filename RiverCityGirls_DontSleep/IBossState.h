@@ -11,7 +11,6 @@ protected:
 	Boss* _thisBs;
 	bool _isEffect;
 	
-	
 public:
 	IBossState() {}
 	~IBossState() {}

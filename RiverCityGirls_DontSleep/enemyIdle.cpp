@@ -21,48 +21,45 @@ void enemyIdle::UpdateState()
 	Jump();
 	if ((wait && TIME_M->getWorldTime() - _stateTimer > 2.f) || !wait) //대기를 2초 이상 하면
 	{
-		if (_thisEn->getPlayerAddress()->getInfo().state != PL_STATE::DEAD)
+		//내가 동료가 아니고 가까우면 공격한다.
+		if (!_thisEn->getInfo().isFriend &&
+			getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100 && 
+			abs(_thisEn->getObj()->pos.z - _thisEn->getPlayerAddress()->getObj().pos.z) <= 30)
 		{
-			//내가 동료가 아니고 가까우면 공격한다.
-			if (!_thisEn->getInfo().isFriend &&
-				getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) <= 100 &&
-				abs(_thisEn->getObj()->pos.z - _thisEn->getPlayerAddress()->getObj().pos.z) <= 30)
+			switch (RND->getInt(5))
 			{
-				switch (RND->getInt(5))
-				{
-				case 0:
-				case 1:
-					_thisEn->SetState(EN_STATE::EN_ATTACK1);
-					break;
-				case 2:
-					_thisEn->SetState(EN_STATE::EN_ATTACK3);
-					break;
-				case 3:
-					_thisEn->SetState(EN_STATE::EN_JUMP);
-					break;
-				case 4:
-					_thisEn->SetState(EN_STATE::EN_GUARD);
-					break;
-				}
+			case 0:
+			case 1:
+				_thisEn->SetState(EN_STATE::EN_ATTACK1);
+				break;
+			case 2:
+				_thisEn->SetState(EN_STATE::EN_ATTACK3);
+				break;
+			case 3:
+				_thisEn->SetState(EN_STATE::EN_JUMP);
+				break;
+			case 4:
+				_thisEn->SetState(EN_STATE::EN_GUARD);
+				break;
+			}
+		}
+		else
+		{
+			//가깝지 않으면 다가간다.
+			if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 200)
+			{
+				_thisEn->SetState(EN_STATE::EN_WALK);
 			}
 			else
 			{
-				//가깝지 않으면 다가간다.
-				if (getDistance(_thisEn->getObj()->pos.x, _thisEn->getObj()->pos.z, _thisEn->getPlayerAddress()->getObj().pos.x, _thisEn->getPlayerAddress()->getObj().pos.z) < 200)
+				switch (RND->getInt(2))
 				{
+				case 0:
 					_thisEn->SetState(EN_STATE::EN_WALK);
-				}
-				else
-				{
-					switch (RND->getInt(2))
-					{
-					case 0:
-						_thisEn->SetState(EN_STATE::EN_WALK);
-						break;
-					case 1:
-						_thisEn->SetState(EN_STATE::EN_RUN);
-						break;
-					}
+					break;
+				case 1:
+					_thisEn->SetState(EN_STATE::EN_RUN);
+					break;
 				}
 			}
 		}

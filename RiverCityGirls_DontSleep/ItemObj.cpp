@@ -66,7 +66,7 @@ void ItemObj::update()
 	if (_obj.ani)
 	{
 		_obj.ani->frameUpdate(TIME_M->getElapsedTime() * 5);
-		if (!_obj.ani->isPlay()&&_info.value == 20)_obj.ani->start();
+		if (!_obj.ani->isPlay() && _info.value == 20)_obj.ani->start();
 	}
 }
 
