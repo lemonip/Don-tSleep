@@ -54,31 +54,37 @@ void bossWait::UpdateState()
 	{
 		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
 
-		if (_thisBs->getIsState() != BS_STATE::DEATH && _thisBs->getIsState() != BS_STATE::BLOCK)
+		switch (RND->getInt(4))
 		{
-			RECT _temp;
-			if (IntersectRect(&_temp, &_thisBs->getObj()->rc, &_thisBs->getPlayerAddress()->getInfo().attackRc) && !_thisBs->getInfo().isAttack && _thisBs->getPlayerAddress()->getInfo().isAttack)
-			{
-				Damaged(_thisBs->getPlayerAddress()->getInfo().force);
-			}
+		case 0:
+			_thisBs->SetState(BS_STATE::SLAP);			
+			break;
+		case 1:
+			_thisBs->SetState(BS_STATE::ELBOW);				
+			break;
+		case 2:
+			_thisBs->SetState(BS_STATE::BLOCK);
+			break;	
+		case 3:
+			_thisBs->SetState(BS_STATE::HOWLING);			
+			break;
 		}
 
-		if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 120 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30
-			&& TIME_M->getWorldTime() - _enterTime > 0.7f)
+		if (_thisBs->getIsphase())
 		{
 			switch (RND->getInt(4))
 			{
 			case 0:
-				_thisBs->SetState(BS_STATE::SMASH);
+				_thisBs->SetState(BS_STATE::SMASH);				
 				break;
 			case 1:
-				_thisBs->SetState(BS_STATE::ELBOW);
+				_thisBs->SetState(BS_STATE::ELBOW);				
 				break;
 			case 2:
-				_thisBs->SetState(BS_STATE::BLOCK);
+				_thisBs->SetState(BS_STATE::BLOCK);				
 				break;
 			case 3:
-				_thisBs->SetState(BS_STATE::HOWLING);
+				_thisBs->SetState(BS_STATE::HOWLING);				
 				break;
 			}
 		}
@@ -91,6 +97,5 @@ void bossWait::UpdateState()
 }
 
 void bossWait::ExitState()
-{
-	
+{	
 }

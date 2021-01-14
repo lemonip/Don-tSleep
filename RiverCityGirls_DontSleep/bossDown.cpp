@@ -45,7 +45,6 @@ void bossDown::UpdateState()
 
 void bossDown::ExitState()
 {
-	_thisBs->SetState(BS_STATE::STANDATTACK);
 	_thisBs->getInfo().isAttack = false;
 	_isEffect = true;
 }

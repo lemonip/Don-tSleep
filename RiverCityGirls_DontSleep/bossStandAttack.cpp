@@ -23,12 +23,11 @@ void bossStandAttack::UpdateState()
 
 		if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.5f)
 		{
-			EFFECT_M->play("Bss_stand", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z + 200);
-			_isEffect = true;
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
 		}
 	}
 
-	if (_thisBs->getIsphase())
+	if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.5f)
 	{
 		if (TIME_M->getWorldTime() - _enterTime > 0.5f && _thisBs->getInfo().isAttack)
 		{

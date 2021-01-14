@@ -4,7 +4,7 @@
 #include "Player.h"
 
 void bossElbowAttack::EnterState()
-{	
+{
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_elbow");
 	SOUND_M->play("belbow", SFXVOLUME);
@@ -61,7 +61,7 @@ void bossElbowAttack::UpdateState()
 				(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 			_isEffect = true;
 		}
-	}	
+	}
 }
 
 void bossElbowAttack::ExitState()

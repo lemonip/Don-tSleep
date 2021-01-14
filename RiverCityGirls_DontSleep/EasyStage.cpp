@@ -26,9 +26,9 @@ HRESULT EasyStage::init()
 		배경음악을 넣어줍니다.
 	====================================================================*/
 	SOUND_M->stop("openingBG");
-	SOUND_M->playMusic("stage", BGMVOLUME);
-	SOUND_M->playMusic("kyoko_battlestart",.5f);
-	SOUND_M->playMusic("stage", BGMVOLUME);
+	SOUND_M->playMusic("stage");
+	SOUND_M->playMusic("kyoko_battlestart");
+	SOUND_M->playMusic("stage");
 
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
@@ -42,10 +42,10 @@ HRESULT EasyStage::init()
 	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 250));
 
 
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2-300, 0, WINSIZEY / 2+ 300 ));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2-300, 0, WINSIZEY / 2+ 300 ));
 	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 80));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 300));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 200));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 300));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 200));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 500, 0, WINSIZEY / 2 + 120));
 
 

@@ -54,7 +54,7 @@ private:
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;	
 	float _frameTimer;
-	   
+
 public:
 	Boss() {};
 	~Boss() {};
@@ -65,7 +65,6 @@ public:
 
 	//접근자===================================================
 	bool getIsphase() { return _isPhase; }
-	BS_STATE getIsState() { return _state; }
 
 	//지정자===================================================
 	void SetState(BS_STATE state);

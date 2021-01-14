@@ -29,15 +29,15 @@ void IBossState::ResetFrame()
 }
 
 void IBossState::Damaged(int atk)
-{	
+{
 	_thisBs->getInfo().hp -= atk;
 
 	if (_thisBs->getInfo().hp < 0) { _thisBs->getInfo().hp = 0; }
 
 	//체력이 0이면 죽는다.
 	if (_thisBs->getInfo().hp <= 0)
-	{ 
-		_thisBs->SetState(BS_STATE::DEATH);		
+	{
+		_thisBs->SetState(BS_STATE::DEATH);
 	}
 	//체력이 1/3 이하면 페이즈
 	else if (_thisBs->getInfo().hp <= _thisBs->getInfo().maxHp / 3 && _thisBs->getInfo().phaseCount == 0)
@@ -51,7 +51,7 @@ void IBossState::Damaged(int atk)
 		_thisBs->SetState(BS_STATE::GROGGY);
 		_thisBs->getInfo().groggyCount++;
 	}
-	else _thisBs->SetState(BS_STATE::ATTACKED);	
+	else _thisBs->SetState(BS_STATE::ATTACKED);
 }
 
 void IBossState::Attack()

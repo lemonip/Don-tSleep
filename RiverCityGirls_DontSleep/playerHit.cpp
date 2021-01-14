@@ -8,7 +8,7 @@ void playerHit::EnterState()
 {
 	RECT temp;
 
-	SOUND_M->playSFX("kyoko_hit", SFXVOLUME);
+	SOUND_M->playSFX("kyoko_hit");
 
 	//이뮨상태로 만들기
 	_thisPl->getInfo().isImmune = true;

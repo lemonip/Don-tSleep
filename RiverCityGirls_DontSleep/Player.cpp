@@ -10,6 +10,8 @@
 #include "ItemObj.h"
 #include "Object.h"
 #include "pet.h"
+#include "Enemy.h"
+
 //상태
 #include "IPlayerState.h"
 #include "playerIdle.h"
@@ -54,7 +56,6 @@ HRESULT Player::init()
 		_obj.ani = new animation;
 		_info.jumpPower = 0;
 		_info.speed = 4.f;
-
 		_info.hasMember = false;
 		_info.hasWeapon = false;
 		_info.isImmune = false;
@@ -65,7 +66,6 @@ HRESULT Player::init()
 		_info.isConDest = true;
 		_info.isSky = false;
 		_info.isClimb = false;
-
 		_info.moveDest = MOVE_DIRECTION::RIGHT;
 		_info.dest = DIRECTION::RIGHT;
 		_info.goalState = GOALPOS::PLAYER;
@@ -117,6 +117,10 @@ HRESULT Player::init()
 		_SAttackDown = new playerSAttackDown;
 	}
 	setState(PL_STATE::WAIT);
+
+	//인벤추가
+	UI_M->setLinkPlayer(this);
+	UI_M->addPhone("inven");
 	return S_OK;
 }
 
@@ -187,7 +191,6 @@ void Player::render()
 	/*====================================================================
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
-
 	_pet.render(getMapDC());
 	//플래이어 오브젝트 렌더
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
@@ -204,7 +207,7 @@ void Player::render()
 	if (KEY_M->isToggleKey(VK_SHIFT))
 	{
 		Rectangle(getMapDC(), _obj.shadow.rc);
-		Rectangle(getMapDC(), _info.attackRc);
+		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
 	}
 
 	}
@@ -380,6 +383,8 @@ void Player::hit()
 		}
 
 	}
+	//체력이 0보다 작아지면 0으로 고정
+	if (_info.hp <= 0)_info.hp = 0;
 }
 
 //스테이지가 바뀔 때마다 초기화시키는 함수
@@ -679,12 +684,16 @@ void Player::checkItem()
 			// 충돌한다면
 			if (IntersectRect(&temp, &_obj.rc, &_objectM->getVObject()[i]->getRefObj().rc))
 			{
+				if(_objectM->getVObject()[i]->getObj()->weaponType ==WEAPON_TYPE::NONE)
+
 				switch (_objectM->getVObject()[i]->getInfo().type)
 				{
 				//소지금 올려줌
 				case ITEM_TYPE::MONEY:
-					break;
 				case ITEM_TYPE::COIN:
+					_info.coin += _objectM->getVObject()[i]->getInfo().value;
+				//	_objectM->popObject(i);
+					if (i == _objectM->getVObject().size())return;
 					break;
 				//체력회복
 				case ITEM_TYPE::MEAT:
@@ -725,6 +734,7 @@ void Player::gravity()
 			if (_info.dest == DIRECTION::RIGHT && KEY_M->isStayKeyDown(VK_RIGHT))setState(_info.preState);
 		}
 		_info.isSky = false;
+		_info.isAttack = false;
 		_platform = nullptr;
 	}
 	if (_obj.pos.y > 0) _info.jumpPower = 0;
@@ -736,6 +746,11 @@ void Player::keyInput()
 {
 	//키조작을 못하는 상태라면 리턴
 	if (!_info.isControl) return;
+
+	//인벤토리창 열기
+	if (UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('Z')) UI_M->findUI("inven")->setActive(false);
+	if (!UI_M->findUI("inven")->_isActive && KEY_M->isOnceKeyDown('Z')) UI_M->findUI("inven")->setActive(true);
+
 
 	//공격키받기(커맨드를위해)
 	if (KEY_M->isOnceKeyDownV('D'));
