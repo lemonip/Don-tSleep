@@ -8,6 +8,7 @@ class Boss;
 class bossStandAttack :public IBossState
 {
 private:
+	
 	float _enterTime;
 public:
 

@@ -63,3 +63,10 @@ void IBossState::Attack()
 	}
 	_thisBs->getInfo().isAttack = true;
 }
+
+void IBossState::collision()
+{
+	RECT _temp;
+	if (IntersectRect(&_temp, &_thisBs->getInfo().rcAttack, &_thisBs->getPlayerAddress()->getRefObj().rc) && fabs(_thisBs->getPlayerAddress()->getPObj()->pos.z - _thisBs->getObj()->pos.z) > 30);
+
+}

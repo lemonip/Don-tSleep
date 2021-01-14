@@ -3,6 +3,7 @@
 
 class bossAttacked :public IBossState
 {
+	float _enterTime;
 public:
 
 	virtual void EnterState();

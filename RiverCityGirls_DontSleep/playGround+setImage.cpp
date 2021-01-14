@@ -30,6 +30,15 @@ void playGround::addSource()
 	SOUND_M->addSound("kyoko_hit", "source/mr/playerMr/kyoko_hit.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);
 
+	//================= 보스 ======================
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_dashSAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
 }
 
 
@@ -259,16 +268,7 @@ void playGround::addImage()
 
 
 	//================= 보스 이펙트===============
-	EFFECT_M->addEffect("Bss_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_smash", "Boss smash.bmp", 960, 89, 96, 89, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_howling", "Boss howling.bmp", 1821, 165,227.f, 165, 1.f, 3.f, 100);
-	EFFECT_M->addEffect("Bss_howling2", "Boss howling2.bmp", 416, 208, 208, 208, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_meteor", "Boss meteor2.bmp", 2424, 320, 404, 320, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_crush", "crush.bmp", 190, 193, 190, 193, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_stand", "Boss stand2.bmp", 3390, 144, 484.2f, 144, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_phase", "Boss phase1.bmp", 299, 82, 99.6f, 82, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Ob_break", "obj break.bmp", 3304, 248, 236, 248, 1.f, 3.f, 50);
+	
 	
 	//================= 오브젝트 =================
 
@@ -304,5 +304,16 @@ void playGround::addImage()
 	EFFECT_M->addEffect("ef_star", "star.bmp", 1350, 90, 90, 90, 1.f, .2f, 20);
 	EFFECT_M->addEffect("ef_stun", "stun.bmp", 420, 54, 70, 54, 1.f, .07f, 20);
 	EFFECT_M->addEffect("ef_point", "point.bmp", 560, 70, 70, 70, 1.f, .1f, 20);
+
+	
+	EFFECT_M->addEffect("Bss_smash", "Boss smash.bmp", 960, 89, 96, 89, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_dash", "Boss dash.bmp", 4160, 300, 416, 300, 1.f, 0.5f, 1);
+	EFFECT_M->addEffect("Bss_howling", "Boss howling.bmp", 1821, 165, 227.f, 165, 1.f, 3.f, 100);
+	EFFECT_M->addEffect("Bss_howling2", "Boss howling2.bmp", 1000, 500, 500, 500, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_meteor", "Boss meteor3.bmp", 2424, 320, 404, 320, 1.f, 1.f, 50);	
+	EFFECT_M->addEffect("Bss_stand", "Boss stand2.bmp", 3390, 144, 484.2f, 144, 1.f, 100, 20);
+	EFFECT_M->addEffect("Bss_phase", "Boss phase1.bmp", 1500, 410, 500, 410, 1.f, 0.2f, 50);
+	EFFECT_M->addEffect("Bss_stun", "Boss stun.bmp", 850, 100, 142, 100, 1.f, 0.07f, 2);
+	
 }
 

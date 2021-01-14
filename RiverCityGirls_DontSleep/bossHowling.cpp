@@ -7,7 +7,7 @@ void bossHowling::EnterState()
 {	
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_howling");
-
+	
 	_thisBs->getInfo().isAttack = true;
 	   
 	LookatPlayer();
@@ -27,13 +27,31 @@ void bossHowling::UpdateState()
 	{
 		_thisBs->SetState(BS_STATE::DASH);
 	}	
+	if (TIME_M->getWorldTime() - _enterTime > 0.6f)
+	{
+		EFFECT_M->play("Bss_howling", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+			_thisBs->getInfo().rcAttack.bottom);	
 
-	EFFECT_M->play("Bss_howling", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
-		(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
+		EFFECT_M->play("Bss_howling2", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+			(_thisBs->getInfo().rcAttack.bottom + _thisBs->getInfo().rcAttack.top) / 2);
+	}
+	
+
 }
 
 void bossHowling::ExitState()
 {
 	_thisBs->getInfo().isAttack = false;
-	_thisBs->SetState(BS_STATE::DASH);
+	
+
+	switch (RND->getInt(2))
+	{
+	case 0:
+		_thisBs->SetState(BS_STATE::METEOR);
+		break;
+	case 1:
+		_thisBs->SetState(BS_STATE::DASH);
+		break;
+	}
+	
 }

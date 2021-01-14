@@ -12,6 +12,7 @@ void bossMeteor::EnterState()
 
 	_thisBs->getInfo().jumpPower = 18.0f;
 	_thisBs->getInfo().isSky = true;
+	_isEffect = false;
 
 	LookatPlayer();
 	ResetFrame();
@@ -19,8 +20,7 @@ void bossMeteor::EnterState()
 
 void bossMeteor::UpdateState()
 {	
-	//Attack();
-
+	
 	if (0.5f < TIME_M->getWorldTime() - _enterTime && TIME_M->getWorldTime() - _enterTime <= 2.5f) // 하늘 위로 올라가는 시간
 	{
 		_thisBs->xzyMove(0, 0, -_thisBs->getInfo().jumpPower);
@@ -60,9 +60,13 @@ void bossMeteor::UpdateState()
 		{
 			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
 			_thisBs->xzyMove(0, 0, 80.0f);	
+			if (!_isEffect)
+			{
+				EFFECT_M->play("Bss_meteor", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+					(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 
-			EFFECT_M->play("Bss_meteor", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
-				(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
+				_isEffect = true;
+			}
 		}
 
 		if (_thisBs->getObj()->pos.y >= 0)
