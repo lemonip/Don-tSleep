@@ -58,6 +58,9 @@ void ShopScene::render()
 	//상점 아이템의 이미지와 텍스트를 출력한다.
 	for (int i = 0; i < 4; i++)
 	{
+		if(i==_index)SetTextColor(getMapDC(), RGB(255, 255, 255));
+		if(i!=_index)SetTextColor(getMapDC(), RGB(0, 0, 0));
+
 		//이미지
 		_vShopItem[i]._img->render(getMapDC(), 880 - i * 15, 250 + 80 * i);
 
