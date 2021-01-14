@@ -49,6 +49,19 @@ void UIManager::render(HDC hdc)
 /*====================================================================
 					단일 이미지로 UI를 추가합니다.
 ====================================================================*/
+void UIManager::addUI(string name, image * img, vector3 pos)
+{
+	_miUI = _mUI.find(name);
+	if (_miUI != _mUI.end()) return;
+
+	UI* ui = new UI;
+	ui->_type = UITYPE::UI;
+	ui->_img = img;
+	ui->_pos = new vector3(pos.x, pos.y, pos.z);
+	ui->_isActive = false;
+
+	_mUI.insert(make_pair(name, ui));
+}
 void UIManager::addImage(string name, image* img, vector3 pos)
 {
 	_miUI = _mUI.find(name);

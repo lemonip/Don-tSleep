@@ -34,18 +34,27 @@ HRESULT HardStage::init()
 
 
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 900, 0, WINSIZEY / 2 + 550));
-	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 - 500, 0, WINSIZEY / 2 + 900));
-	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 - 300 , 0, WINSIZEY / 2 + 800));
-	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 900));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 - 500, 0, WINSIZEY / 2 + 900));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 - 300 , 0, WINSIZEY / 2 + 800));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 900));
 	//_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 700, 0, WINSIZEY / 2 + 900));
-	//_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 700));
+	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 700));
 	//_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 300, 0, WINSIZEY / 2 + 900));
-	//_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 - 200, 0, WINSIZEY / 2 + 900));
+	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 - 200, 0, WINSIZEY / 2 + 900));
 	
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
+	// 지역락 관련 변수들
+	_enemyCount = 0;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1000;
 
+
+	/*====================================================================
+		스테이지에 문을 추가합니다
+	====================================================================*/
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
 	_leftDoor.isUsed = true;
 	_leftDoor.LT = vector3(160, 0, 890);
@@ -61,10 +70,8 @@ HRESULT HardStage::init()
 	_rightDoor.RB = vector3(2250, 0, 1420);
 	_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
 
-	_enemyCount = 0;
-	_maxEnemyCount = 1;
-	lockEventStart = lockEventEnd = false;
-	_lockStartLine = 1000;
+	_shopDoor.isUsed = false;
+	
 	return S_OK;
 }
 

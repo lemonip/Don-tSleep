@@ -162,9 +162,6 @@
     <ClInclude Include="effect.h">
       <Filter>2DGameFramework\effect</Filter>
     </ClInclude>
-    <ClInclude Include="SaveLoadManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
@@ -513,6 +510,9 @@
     <ClInclude Include="enemyWJump.h">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
     </ClInclude>
+    <ClInclude Include="DeadScene.h">
+      <Filter>playGround\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -562,9 +562,6 @@
     </ClCompile>
     <ClCompile Include="effect.cpp">
       <Filter>2DGameFramework\effect</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveLoadManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>playGround\Player</Filter>
@@ -910,6 +907,9 @@
     </ClCompile>
     <ClCompile Include="enemyWJump.cpp">
       <Filter>playGround\EnemyManager\Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadScene.cpp">
+      <Filter>playGround\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

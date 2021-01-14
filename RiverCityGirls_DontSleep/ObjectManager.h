@@ -26,6 +26,7 @@ public:
 	Object* findHardPlatform();
 	void particleInit(vector3 pos, OBJECT_TYPE type);
 	void particleSwitch(OBJECT_TYPE type);
+	void particleMove();
 
 /*====================================================================
 								GETTER

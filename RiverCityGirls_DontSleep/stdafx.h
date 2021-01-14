@@ -10,6 +10,8 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <shlwapi.h>
+
 
 #include "commonMacroFunction.h"
 #include "randomFunction.h"
@@ -26,7 +28,6 @@
 #include "SceneManager.h"
 #include "timeManager.h"
 #include "effectManager.h"
-#include "SaveLoadManager.h"
 #include "zOrderManager.h"
 #include "EventManager.h"
 #include "UIManager.h"
@@ -34,6 +35,7 @@
 #include "DataManager.h"
 #include "Enums.h"
 
+#pragma comment(lib, "shlwapi.lib")
 using namespace std;
 using namespace TFIVE_UTIL;
 
@@ -55,7 +57,6 @@ using namespace TFIVE_UTIL;
 #define SCENE_M SceneManager::getSingleton()
 #define TIME_M timeManager::getSingleton()
 #define EFFECT_M effectManager::getSingleton()
-#define SAVELOAD_M SaveLoadManager::getSingleton()
 #define ZORDER_M zOrderManager::getSingleton()
 #define EVENT_M EventManager::getSingleton()
 #define UI_M UIManager::getSingleton()

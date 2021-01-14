@@ -5,10 +5,10 @@
 	enum보다는 enum class만 사용하도록 권장하며, 뒤에 :int를 붙여주세요.
 ====================================================================*/
 
-#define GRAVITY 0.22f
-#define JUMPPOWER 7
+#define GRAVITY 0.98f
+#define JUMPPOWER 25
 #define SPEED 5
-#define FRAMEINTERVAL 0.1f		 //프레임인터벌
+#define FRAMEINTERVAL 0.08f		 //프레임인터벌
 
 /*====================================================================
 	대화 종류입니다.

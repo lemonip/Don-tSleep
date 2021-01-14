@@ -8,13 +8,14 @@ void bossPhase2::EnterState()
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_phase");
 	_thisBs->setIsphase(true);
+	_isEffect = false;
 	LookatPlayer();
 	ResetFrame();
 }
 
 void bossPhase2::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 0.4f && _thisBs->getIsphase())
+	if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.4f && _thisBs->getIsphase())
 	{
 		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
 		EFFECT_M->play("Bss_howling",_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z);
@@ -28,7 +29,7 @@ void bossPhase2::UpdateState()
 
 void bossPhase2::ExitState()
 {
-	_thisBs->SetState(BS_STATE::WAIT);
+	_thisBs->getInfo().isAttack = false;
 	_thisBs->setIsphase(true);
-	EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
+	_isEffect = true;	
 }

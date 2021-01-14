@@ -4,6 +4,7 @@
 
 void enemyWeaponHit::EnterState()
 {
+	SOUND_M->play("enemy_down", SFXVOLUME);
 	_thisEn->SetImage();
 	Damage(_thisEn->getPlayerAddress()->getInfo().force);
 }

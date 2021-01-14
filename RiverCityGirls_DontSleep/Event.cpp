@@ -330,3 +330,33 @@ void locationLock::exit()
 {
 	Event::exit();
 }
+
+void heart::enter(bool playerControl)
+{
+	Event::enter(playerControl);
+	_ratio = 1;
+	_img = IMG_M->findImage("UI_heart");
+	_timer = TIME_M->getWorldTime() + 2.0f;
+}
+
+bool heart::update()
+{
+	cout << _ratio << endl;
+	if (TIME_M->getWorldTime() - _timer > 0.02f)
+	{
+		_ratio -= 0.02f;
+		_timer = TIME_M->getWorldTime();
+	}
+	if (_ratio <= 0.2f) return true;
+	return false;
+}
+
+void heart::exit()
+{
+	Event::exit();
+}
+
+void heart::render(HDC hdc)
+{
+	_img->render(hdc, WINSIZEX/2+_img->getWidth()*(1-_ratio)/2 , WINSIZEY / 2 + _img->getHeight() *(1- _ratio)/2 , _ratio, _ratio);
+}

@@ -4,6 +4,7 @@
 
 void enemyStun::EnterState()
 {
+	SOUND_M->play("enemy_stun", SFXVOLUME);
 	_thisEn->SetImage();
 	_stateTimer = TIME_M->getWorldTime();
 }
