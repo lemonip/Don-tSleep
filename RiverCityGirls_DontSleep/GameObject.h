@@ -31,7 +31,7 @@ public:
 	image* img;				//이미지
 	POINT imgIndex;			//프레임 인덱스
 	animation* ani;			//애니메이션
-
+	animation* ani1;		//애니메이션
 	vector3 pos;			//위치
 	vector3 prePos;			//이전 위치
 	vector3 size;			//크기 (x,z)

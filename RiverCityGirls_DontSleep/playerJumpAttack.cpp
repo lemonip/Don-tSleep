@@ -36,12 +36,13 @@ void playerJumpAttack::EnterState()
 		_thisPl->getInfo().attackGoal.y = _thisPl->getObj().pos.y - 100;
 		_thisPl->getInfo().goalState = GOALPOS::WINOUT;
 	}
+
 }
 
 void playerJumpAttack::UpdateState()
 {
 	RECT _temp;
-
+	
 	//방향에 따른 공격 렉트 생성
 	switch (_thisPl->getInfo().dest)
 	{
@@ -56,7 +57,7 @@ void playerJumpAttack::UpdateState()
 			ATTACKSIZE*0.2, ATTACKSIZE );
 		break;
 	}
-
+	
 	//공격여부
 	if (!_isCollision && checkEnemy())
 	{

@@ -21,6 +21,7 @@ void enemyDie::UpdateState()
 	{
 		_money = false;
 	}
+
 }
 
 void enemyDie::ExitState()

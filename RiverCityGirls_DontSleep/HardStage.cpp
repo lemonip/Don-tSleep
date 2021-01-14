@@ -37,9 +37,9 @@ HRESULT HardStage::init()
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 - 500, 0, WINSIZEY / 2 + 900));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 - 300 , 0, WINSIZEY / 2 + 800));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 900));
-	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 700, 0, WINSIZEY / 2 + 900));
+	//_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 700, 0, WINSIZEY / 2 + 900));
 	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 700));
-	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 300, 0, WINSIZEY / 2 + 900));
+	//_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 + 300, 0, WINSIZEY / 2 + 900));
 	_enemyM->pushEnemy(ENEMY_TYPE::CHEERLEADER, vector3(WINSIZEX / 2 - 200, 0, WINSIZEY / 2 + 900));
 	
 	/*====================================================================
