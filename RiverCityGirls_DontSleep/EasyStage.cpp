@@ -23,10 +23,12 @@ HRESULT EasyStage::init()
 	floorInit(vector3(0, 0, 650), vector3(2028, 0, 650), vector3(1928, 0, 650), vector3(57, 0, 650));
 	
 	/*====================================================================
-	배경음악을 넣어줍니다.
+		배경음악을 넣어줍니다.
 	====================================================================*/
+	//SOUND_M->stop("openingBG");
 	SOUND_M->playMusic("stage", BGMVOLUME);
-	
+	//SOUND_M->playMusic("kyoko_battlestart",.5f);
+	//SOUND_M->playMusic("stage", BGMVOLUME);
 
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
@@ -72,9 +74,12 @@ HRESULT EasyStage::init()
 	_rightDoor.RB = vector3(1575, 0, 430);
 	_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
 
+	_shopDoor.isUsed = false;
 
 	_enemyCount = 0;
-	_maxEnemyCount = 5;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1200;
 	return S_OK;
 }
 

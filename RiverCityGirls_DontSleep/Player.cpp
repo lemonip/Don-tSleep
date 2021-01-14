@@ -362,6 +362,7 @@ void Player::hit()
 					if (IntersectRect(&temp, &_obj.rc, &_enemyM->getVEnemy()[i]->getInfo().rcAttack)
 						&& isRange(_enemyM->getVEnemy()[i]->getRefObj()))
 					{
+						_info.hp -= _enemyM->getVEnemy()[i]->getInfo().attack;
 						if (_info.hitCount >= 4)
 						{ 
 							//맞은 수 초기화
@@ -370,6 +371,7 @@ void Player::hit()
 							if (_info.hp > 10)setState(PL_STATE::DOWN); 
 						}
 						else setState(PL_STATE::HIT);
+						break;
 					}
 				}
 			}
@@ -378,6 +380,7 @@ void Player::hit()
 		}
 
 	}
+
 }
 
 //스테이지가 바뀔 때마다 초기화시키는 함수

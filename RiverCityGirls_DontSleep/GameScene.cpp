@@ -7,6 +7,7 @@
 
 HRESULT GameScene::init()
 {
+	UI_M->addLock("LocationLock", vector3(WINSIZEX / 2, 0, WINSIZEY / 2));
 	/*====================================================================
 		게임 씬은 스테이지 매니저와 콜리전 매니저를 가집니다.
 	====================================================================*/
@@ -26,14 +27,13 @@ HRESULT GameScene::init()
 	====================================================================*/
 	//쿄코 얼굴 이미지
 	UI_M->setIsActive(true);
-	UI_M->addImage("UI_kyoko", IMG_M->findImage("UI_kyoko"), vector3(70, 80, 0));
+	UI_M->addImage("UI_kyoko", IMG_M->findImage("UI_kyoko"), vector3(20, 20, 0));
 	UI_M->findUI("UI_kyoko")->setActive(true);
 
-	//쿄코 HP바 (임시)
-	UI_M->addBar("bossHPBar", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(200, 580, 0),
-		&_stageM->getPlayer()->getInfo().hp, &_stageM->getPlayer()->getInfo().maxHP);
-	UI_M->findUI("bossHPBar")->setActive(true);
+	//쿄코 HP바
 
+	DATA_M->setLinkStageM(_stageM);
+	DATA_M->setLinkPlayer(_stageM->getPlayer());
 	return S_OK;
 }
 
@@ -46,7 +46,6 @@ void GameScene::release()
 void GameScene::update()
 {
 	_stageM->update();
-
 }
 
 void GameScene::render()

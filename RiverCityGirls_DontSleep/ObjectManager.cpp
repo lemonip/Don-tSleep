@@ -13,6 +13,7 @@ void ObjectManager::release()
 	{
 		_vObject[i]->release();
 		delete _vObject[i];
+		break;
 	}
 	_vObject.clear();
 }
@@ -22,8 +23,8 @@ void ObjectManager::update()
 	for (int i = 0; i < _vObject.size(); i++)
 	{
 		if (_vObject[i]->getObj()->isRender) _vObject[i]->update();
-
 	}
+
 	for (int i = 0; i < _vParticleLeftUp.size(); ++i)
 	{
 		if (_vParticleLeftUp[i]->getObj()->isRender)
@@ -50,6 +51,7 @@ void ObjectManager::update()
 			else _vParticleLeftUp[i]->getObj()->isRender = false;
 		}
 	}
+
 	for (int i = 0; i < _vParticleLeftDown.size(); ++i)
 	{
 		if ((TIME_M->getWorldTime() - _vParticleLeftDown[i]->getTimer()) < 0.5f)
@@ -73,6 +75,7 @@ void ObjectManager::update()
 		}
 		else _vParticleLeftDown[i]->getObj()->isRender = false;
 	}
+
 	for (int i = 0; i < _vParticleRightUp.size(); ++i)
 	{
 		if ((TIME_M->getWorldTime() - _vParticleRightUp[i]->getTimer()) < 0.5f)
@@ -96,6 +99,7 @@ void ObjectManager::update()
 		}
 		else _vParticleRightUp[i]->getObj()->isRender = false;
 	}
+
 	for (int i = 0; i < _vParticleRightDown.size(); ++i)
 	{
 		if ((TIME_M->getWorldTime() - _vParticleRightDown[i]->getTimer()) < 0.5f)
@@ -324,6 +328,7 @@ void ObjectManager::particleSwitch(OBJECT_TYPE type)
 	}
 
 }
+
 
 void ObjectManager::pushObject(OBJECT_TYPE type, vector3 pos)
 {

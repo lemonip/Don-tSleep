@@ -74,6 +74,8 @@ void playerJumpAttack::UpdateState()
 		case DIRECTION::LEFT:
 			//if( _thisPl->getObj().imgIndex.x >= 4)
 			{
+			SOUND_M->playSFX("kyoko_jumpAttack", SFXVOLUME);
+
 			EFFECT_M->play("ef_star", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom)*0.6);
 			_isEffect = false;
@@ -82,6 +84,8 @@ void playerJumpAttack::UpdateState()
 		case DIRECTION::RIGHT:
 			//if(_thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 4)
 			{
+			SOUND_M->playSFX("kyoko_jumpAttack", SFXVOLUME);
+
 			EFFECT_M->play("ef_star", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom)*0.6);
 			_isEffect = false;

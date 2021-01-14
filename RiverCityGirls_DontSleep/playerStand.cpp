@@ -18,4 +18,6 @@ void playerStand::UpdateState()
 
 void playerStand::ExitState()
 {
+	_thisPl->setIsControl(true);
+
 }

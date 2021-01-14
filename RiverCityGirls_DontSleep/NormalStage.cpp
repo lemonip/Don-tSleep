@@ -47,10 +47,21 @@ HRESULT NormalStage::init()
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 250));
 
 
+
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
 
+	// 지역락 관련 변수들
+	_enemyCount = 0;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1200;
+
+
+	/*====================================================================
+		스테이지에 문을 추가합니다
+	====================================================================*/
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
 	_leftDoor.isUsed = true;
 	_leftDoor.LT = vector3(0, 0, 610);
@@ -73,8 +84,7 @@ HRESULT NormalStage::init()
 	_shopDoor.RB = vector3(1270, 0, 600);
 	_shopDoor.img = IMG_M->findImage("UI_Shop_Door1");
 
-	_enemyCount = 0;
-	_maxEnemyCount = 7;
+
 	return S_OK;
 }
 
@@ -86,6 +96,11 @@ void NormalStage::release()
 void NormalStage::update()
 {
 	Stage::update();
+
+	if (KEY_M->isOnceKeyDown(VK_F5))
+	{
+		SCENE_M->setInitScene("shop");		//상점 입장
+	}
 }
 
 void NormalStage::render()

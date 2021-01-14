@@ -8,8 +8,7 @@ class Boss;
 class bossSlapAttack :public IBossState
 {
 private:
-	
-	float _enterTime;
+		float _enterTime;
 
 public:
 

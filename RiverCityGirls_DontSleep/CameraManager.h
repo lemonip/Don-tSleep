@@ -46,6 +46,8 @@ public:
 
 	float GetX() { return centerX; }
 	float GetY() { return centerY; }
+	float GetTargetX() { return targetX; }
+	float GetTargetY() { return targetY; }
 	float GetLeft() { return drawLeft; }
 	float GetTop() { return drawTop; }
 	float GetCameraXSize() { return cameraXSize; }

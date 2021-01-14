@@ -74,7 +74,9 @@ HRESULT Boss::init()
 	_isPhase = false;
 
 	_BState = NULL;
+
 	SetState(BS_STATE::IDLE);
+
 
 	return S_OK;
 }
@@ -96,43 +98,29 @@ void Boss::update()
 	frameUpdate();
 
 	if (_state != BS_STATE::DEATH && _state != BS_STATE::BLOCK)
-	{
-		if (_player->getInfo().isAttack)
+	{		
+		RECT temp;
+		if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc) && !getInfo().isAttack && _player->getInfo().isAttack)
 		{
-			RECT temp;
-			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
-			{
-				SetState(BS_STATE::ATTACKED);				
-			}
-		}
+			SetState(BS_STATE::ATTACKED);				
+		}		
 	}
 
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::SLAP);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::HOWLING);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::ELBOW);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DOWN);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD6)) SetState(BS_STATE::ELBOW);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD7)) SetState(BS_STATE::GROGGY);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD8)) SetState(BS_STATE::HOWLING);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD9)) SetState(BS_STATE::IDLE);
-	if (KEY_M->isOnceKeyDown('Q')) SetState(BS_STATE::DASH);
-	if (KEY_M->isOnceKeyDown('W')) SetState(BS_STATE::METEOR);
-	if (KEY_M->isOnceKeyDown('E')) SetState(BS_STATE::METEORDOWN);
-	if (KEY_M->isOnceKeyDown('R')) SetState(BS_STATE::SLAP);
-	if (KEY_M->isOnceKeyDown('T')) SetState(BS_STATE::SMASH);
-	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
-	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
-
-
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::DOWN);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::METEOR);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::PHASE);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DASH);
+	
 
 	_stageM->getColM()->bossDestructObject(this);
+
 
 }
 
 void Boss::render()
 {	
-	if(_info.isAttack)Rectangle(getMapDC(), _info.rcAttack);
+	//if(_info.isAttack)Rectangle(getMapDC(), _info.rcAttack);
 }
 
 void Boss::SetState(BS_STATE state)
@@ -173,6 +161,7 @@ void Boss::SetState(BS_STATE state)
 	//상태 링크
 	_BState->LinkBSAddress(this);
 	_BState->EnterState();
+
 }
 
 void Boss::SetDest(DIRECTION dest)

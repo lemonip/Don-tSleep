@@ -61,8 +61,12 @@ HRESULT HardStage::init()
 	_rightDoor.RB = vector3(2250, 0, 1420);
 	_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
 
+	_shopDoor.isUsed = false;
+
 	_enemyCount = 0;
-	_maxEnemyCount = 10;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1000;
 	return S_OK;
 }
 

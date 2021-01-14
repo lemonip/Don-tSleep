@@ -2,6 +2,20 @@
 #include "Event.h"
 #include "Video.h"
 #include "Player.h"
+#include "UI.h"
+
+
+void Event::enter(bool playerControl)
+{
+	_isMovie = _isCameraMove = false;
+	if (_player) _player->setIsControl(playerControl);
+}
+
+void Event::exit()
+{
+	_isMovie = _isCameraMove = false;
+	if (_player) _player->setIsControl(true);
+}
 
 /*====================================================================
 	카메라 이동과 배율 조정 이벤트
@@ -281,36 +295,32 @@ void waitForSec::exit()
 	Event::exit();
 }
 
-void Event::enter(bool playerControl)
-{
-	_isMovie = _isCameraMove = false;
-	if(_player) _player->setIsControl(playerControl);
-}
 
-void Event::exit()
-{
-	_isMovie = _isCameraMove = false;
-	if (_player) _player->setIsControl(true);
-}
 
+/*====================================================================
+	지역락 이벤트
+====================================================================*/
 locationLock::locationLock()
 {
 	
 }
 
-void locationLock::enter(int maxEnemy)
+void locationLock::enter(bool playerControl)
 {
-	enemyCount = 0;
-	maxEnemyCount = maxEnemy;
+	_isMovie = false;
+	_isCameraMove = true;
+	if (_player) _player->setIsControl(playerControl);
+	_event = (LocationLock*)UI_M->findUI("LocationLock");
+	_event->resetUI();
+	_event->setActive(true);
+	_event->startLock();
 }
 
 bool locationLock::update()
 {
-	/*CAMERA_M->*/
-
-
-	if (enemyCount == maxEnemyCount)
+	if (_event->isUnlockEnd() == true)
 	{
+		
 		return true;
 	}
 	return false;
@@ -318,4 +328,5 @@ bool locationLock::update()
 
 void locationLock::exit()
 {
+	Event::exit();
 }

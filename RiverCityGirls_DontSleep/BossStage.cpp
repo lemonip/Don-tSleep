@@ -47,10 +47,14 @@ HRESULT BossStage::init()
 	/*====================================================================
 		UI 배치입니다.
 	====================================================================*/
-	UI_M->addBar("bossHPBar", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(200, 580, 0),
+
+	//보스 체력 UI
+	UI_M->addImage("bossHPBar1", IMG_M->findImage("bossHPFrame"), vector3(200, 580, 0));
+	UI_M->addBar("bossHPBar2", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(235, 580, 0),
 		&_enemyM->getVEnemy()[0]->getInfo().hp, &_enemyM->getVEnemy()[0]->getInfo().maxHp);
-	UI_M->findUI("bossHPBar")->setActive(true);
-	//if (_enemyM->getVEnemy().empty()) UI_M->findUI("bossHPBar")->setActive(false);
+	UI_M->findUI("bossHPBar1")->setActive(true);
+	UI_M->findUI("bossHPBar2")->setActive(true);
+
 
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
 	_leftDoor.isUsed = true;
@@ -62,8 +66,11 @@ HRESULT BossStage::init()
 
 	_rightDoor.isUsed = false;
 
+	_shopDoor.isUsed = false;
+
 	_enemyCount = 0;
 	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = true;
 	return S_OK;
 }
 

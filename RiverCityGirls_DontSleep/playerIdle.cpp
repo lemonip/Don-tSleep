@@ -63,7 +63,7 @@ void playerIdle::UpdateState()
 		{
 			if(_thisPl->getEnemyM()->getVEnemy()[i]->getState() ==EN_STATE::EN_BEGGING)
 			{
-				if (IntersectRect(&temp, &_thisPl->getInfo().attackRc,
+				if (IntersectRect(&temp, &_thisPl->getRefObj().rc,
 					&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc))
 					&& _thisPl->isRange(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj()))
 				{

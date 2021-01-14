@@ -9,7 +9,8 @@ void bossDashAttack::EnterState()
 	_speed = 0;
 	_thisBs->ChangeImg("Bs_dash2");
 	_thisBs->getInfo().isAttack = true;
-	
+	_isEffect = false;
+		
 	LookatPlayer();
 	ResetFrame();
 
@@ -34,7 +35,7 @@ void bossDashAttack::UpdateState()
 		}
 		else if (_thisBs->getInfo().dest == DIRECTION::LEFT)
 		{
-			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 80, _thisBs->getObj()->pos.z - 200, 100, 200);
+			_thisBs->getInfo().rcAttack = RectMake(_thisBs->getObj()->pos.x - 170, _thisBs->getObj()->pos.z - 200, 100, 200);
 		}		
 	}
 	
@@ -60,12 +61,22 @@ void bossDashAttack::UpdateState()
 			_thisBs->getObj()->imgIndex = PointMake(0, 1);
 		}
 	}
-	EFFECT_M->play("Bss_dash", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
-		(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
+	if (!_isEffect && _thisBs->getInfo().dest == DIRECTION::LEFT && TIME_M->getWorldTime() - _enterTime > 0.3f)
+	{
+		EFFECT_M->play("Bss_dash", _thisBs->getInfo().rcAttack.right + 100,
+			 _thisBs->getInfo().rcAttack.bottom);
+	}
+
+	if (!_isEffect && _thisBs->getInfo().dest == DIRECTION::RIGHT && TIME_M->getWorldTime() - _enterTime > 0.3f)
+	{
+		EFFECT_M->play("Bss_dash", _thisBs->getInfo().rcAttack.left - 100,
+			_thisBs->getInfo().rcAttack.bottom);
+	}
 }
 
 void bossDashAttack::ExitState()
 {
 	//_thisBs->SetState(BS_STATE::HOWLING);
-	_thisBs->getInfo().isAttack = false;
+	_thisBs->getInfo().isAttack = false;	
+	_isEffect = true;
 }

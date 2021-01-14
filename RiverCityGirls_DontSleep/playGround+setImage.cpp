@@ -26,6 +26,7 @@ void playGround::addSource()
 	SOUND_M->addSound("kyoko_jumpAttack", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_sAttack", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_weapon_bat", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
+
 	/*
 	//================= 에너미 ====================
 	SOUND_M->addSound("enemy_attack1", "source/mr/enemyMr/enemy_Attack1.mp3", tagVolumeType::SFX, false);
@@ -40,6 +41,21 @@ void playGround::addSource()
 	SOUND_M->addSound("enemy_stun", "source/mr/enemyMr/enemy_Stun.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("enemy_wattack", "source/mr/enemyMr/enemy_WAttack.mp3", tagVolumeType::SFX, false);
 	*/
+
+	SOUND_M->addSound("kyoko_down", "source/mr/playerMr/kyoko_down.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_hit", "source/mr/playerMr/kyoko_hit.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);
+
+	//================= 보스 ======================
+	/*SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_dashSAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);*/
+
 }
 
 
@@ -72,6 +88,7 @@ void playGround::addImage()
 
 	//상점 씬
 	IMG_M->addImage("shop_background", "source/image/ui/scene/ShopScene_background.bmp", 1280, 720, false, MAGENTA);
+	IMG_M->addImage("ShopScene_list", "source/image/ui/scene/ShopScene_list.bmp", 403, 168, true, MAGENTA);
 
 
 	//게임 씬
@@ -85,8 +102,9 @@ void playGround::addImage()
 
 	//================= UI =================
 	IMG_M->addImage("shadow", "source/image/character/shadow.bmp", 128, 38, true, MAGENTA, true);
-	IMG_M->addImage("bossHPBack", "source/image/ui/battle/boss_HP_back.bmp", 898, 120, true, MAGENTA);
-	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 898, 120, true, MAGENTA);
+	IMG_M->addImage("bossHPBack", "source/image/ui/battle/boss_HP_back.bmp", 689, 120, true, MAGENTA);
+	IMG_M->addImage("bossHPFront", "source/image/ui/battle/boss_HP_front.bmp", 689, 120, true, MAGENTA);
+	IMG_M->addImage("bossHPFrame", "source/image/ui/battle/boss_HP_frame.bmp", 898, 120, true, MAGENTA);
 	IMG_M->addImage("save_load_close", "source/image/ui/scene/save_load_close.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("save_load_open", "source/image/ui/scene/save_load_open.bmp", 365, 150, true, MAGENTA);
 	IMG_M->addImage("UI_kyoko", "source/image/ui/scene/UI_Kyoko_Portrait.bmp", 120, 135, true, MAGENTA);
@@ -94,6 +112,15 @@ void playGround::addImage()
 	IMG_M->addImage("UI_UnLocked_Door", "source/image/ui/battle/UI_UnLocked_Door.bmp", 52, 76, true, MAGENTA);
 	IMG_M->addImage("UI_Shop_Door1", "source/image/ui/battle/UI_Shop_Door1.bmp", 52, 45, true, MAGENTA);
 	IMG_M->addImage("UI_Shop_Door2", "source/image/ui/battle/UI_Shop_Door2.bmp", 52, 45, true, MAGENTA);
+
+	IMG_M->addImage("Stage_UI_Chain_Left", "source/image/ui/battle/Stage_UI_Chain_Left.bmp", 42, 900, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Right", "source/image/ui/battle/Stage_UI_Chain_Right.bmp", 42, 900, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Top", "source/image/ui/battle/Stage_UI_Chain_Top.bmp", 1600, 43, true, MAGENTA);
+	IMG_M->addImage("Stage_UI_Chain_Bottom", "source/image/ui/battle/Stage_UI_Chain_Bottom.bmp", 1600, 43, true, MAGENTA);
+	IMG_M->addFrameImage("Stage_UI_Lock_Appear", "source/image/ui/battle/Stage_UI_Lock_Appear.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Damage1", "source/image/ui/battle/Stage_UI_Lock_Damage1.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Damage2", "source/image/ui/battle/Stage_UI_Lock_Damage2.bmp", 650, 116, 7, 1, true, MAGENTA, true);
+	IMG_M->addFrameImage("Stage_UI_Lock_Disappear", "source/image/ui/battle/Stage_UI_Lock_Disappear.bmp", 840, 130, 7, 1, true, MAGENTA, true);
 
 	IMG_M->addImage("phone", "source/image/ui/inven/phone.bmp", 480, 642, true, MAGENTA);
 	//================= 스테이지 =================
@@ -259,17 +286,7 @@ void playGround::addImage()
 	IMG_M->addFrameImage("Bs_attacked3", "source/image/character/enemy/boss/attacked 03.bmp", 737, 598, 3, 2, true, MAGENTA, true);
 
 
-	//================= 보스 이펙트===============
-	EFFECT_M->addEffect("Bss_attack", "attack.bmp", 612, 196, 204, 196, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_smash", "Boss smash.bmp", 960, 89, 96, 89, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_howling", "Boss howling.bmp", 1821, 165,227.f, 165, 1.f, 3.f, 100);
-	EFFECT_M->addEffect("Bss_howling2", "Boss howling2.bmp", 416, 208, 208, 208, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_meteor", "Boss meteor2.bmp", 2424, 320, 404, 320, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_crush", "crush.bmp", 190, 193, 190, 193, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_stand", "Boss stand2.bmp", 3390, 144, 484.2f, 144, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_phase", "Boss phase1.bmp", 299, 82, 99.6f, 82, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Bss_stun", "stun.bmp", 420, 54, 70, 54, 1.f, 3.f, 50);
-	EFFECT_M->addEffect("Ob_break", "obj break.bmp", 3304, 248, 236, 248, 1.f, 3.f, 50);
+	
 	
 	//================= 오브젝트 =================
 
@@ -290,8 +307,15 @@ void playGround::addImage()
 	IMG_M->addImage("chili", "source/image/object/chili.bmp", 50, 50, true, MAGENTA, true);
 	IMG_M->addImage("hen", "source/image/object/hen.bmp", 50, 50, true, MAGENTA, true);
 
-	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 256, 192, 4, 3, true, MAGENTA, true);
+	IMG_M->addFrameImage("money", "source/image/object/money_green.bmp", 576, 432, 4, 3, true, MAGENTA, true);
 	IMG_M->addFrameImage("coin", "source/image/object/gold_coin_spin.bmp", 256, 256, 4, 4, true, MAGENTA, true);
+
+	//================= 상점 아이템 =================
+	IMG_M->addImage("aloe", "source/image/item/aloe.bmp", 50, 76, true, MAGENTA);
+	IMG_M->addImage("hamburger", "source/image/item/hamburger.bmp", 64, 55, true, MAGENTA);
+	IMG_M->addImage("icecream", "source/image/item/icecream.bmp", 55, 70, true, MAGENTA);
+	IMG_M->addImage("tempura", "source/image/item/tempura.bmp", 58, 60, true, MAGENTA);
+
 
 	//================= 이팩트 =================
 	EFFECT_M->addEffect("ef_attack", "attack.bmp", 612, 196, 204, 196, 1.f, .15f, 50);
@@ -305,5 +329,16 @@ void playGround::addImage()
 	EFFECT_M->addEffect("ef_star", "star.bmp", 1350, 90, 90, 90, 1.f, .2f, 20);
 	EFFECT_M->addEffect("ef_stun", "stun.bmp", 420, 54, 70, 54, 1.f, .07f, 20);
 	EFFECT_M->addEffect("ef_point", "point.bmp", 560, 70, 70, 70, 1.f, .1f, 20);
+
+	
+	EFFECT_M->addEffect("Bss_smash", "Boss smash.bmp", 960, 89, 96, 89, 1.f, 3.f, 50);
+	EFFECT_M->addEffect("Bss_dash", "Boss dash.bmp", 4160, 300, 416, 300, 1.f, 0.5f, 2);
+	EFFECT_M->addEffect("Bss_howling", "Boss howling.bmp", 1821, 165, 227, 165, 1.f, 0.3f, 2);
+	EFFECT_M->addEffect("Bss_howling2", "Boss howling2.bmp", 1000, 500, 500, 500, 1.f, 1.f, 2);
+	EFFECT_M->addEffect("Bss_meteor", "Boss meteor3.bmp", 2424, 320, 404, 320, 1.f, 0.2f, 2);	
+	EFFECT_M->addEffect("Bss_stand", "Boss stand2.bmp", 3390, 144, 484, 144, 1.f, 3.f, 2);
+	EFFECT_M->addEffect("Bss_phase", "Boss phase1.bmp", 1500, 410, 500, 410, 1.f, 0.2f, 2);
+	EFFECT_M->addEffect("Bss_stun", "Boss stun.bmp", 850, 100, 142, 100, 1.f, 0.07f, 2);
+	
 }
 

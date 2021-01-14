@@ -26,6 +26,8 @@ void playerSAttackDown::EnterState()
 
 	//¹«±â¶³¾î¶ß¸®±â
 	dropWeapon();
+	SOUND_M->playSFX("kyoko_hurricane", SFXVOLUME);
+
 
 }
 

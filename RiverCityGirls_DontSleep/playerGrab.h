@@ -3,7 +3,7 @@
 
 class playerGrab :public IPlayerState
 {
-
+	bool _fail;
 public:
 	virtual void EnterState();
 	virtual void UpdateState();
