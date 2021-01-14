@@ -3,7 +3,7 @@
 
 void enemyWJump::EnterState()
 {
-	SOUND_M->play("enemy_jump", SFXVOLUME);
+	SOUND_M->play("enemy_jump");
 	_thisEn->SetImage();
 	_thisEn->getInfo().jumpPower = JUMPPOWER;
 	_thisEn->getInfo().isSky = true;

@@ -3,7 +3,7 @@
 
 void playerDown::EnterState()
 {
-	SOUND_M->playSFX("kyoko_down", SFXVOLUME);
+	SOUND_M->playSFX("kyoko_down");
 
 	//이뮨상태로 만들기
 	_thisPl->getInfo().isImmune = true;

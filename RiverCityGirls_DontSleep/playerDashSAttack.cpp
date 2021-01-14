@@ -45,13 +45,13 @@ void playerDashSAttack::UpdateState()
 		switch (_thisPl->getInfo().dest)
 		{
 		case DIRECTION::LEFT:
-			SOUND_M->playSFX("kyoko_dashSAttack", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_dashSAttack");
 
 				EFFECT_M->play("ef_blueAttack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 			break;
 		case DIRECTION::RIGHT:
-			SOUND_M->playSFX("kyoko_dashSAttack", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_dashSAttack");
 
 				EFFECT_M->play("ef_blueAttack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);

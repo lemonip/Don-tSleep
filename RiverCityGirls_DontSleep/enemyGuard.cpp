@@ -4,7 +4,7 @@
 
 void enemyGuard::EnterState()
 {
-	SOUND_M->play("enemy_guard", SFXVOLUME);
+	SOUND_M->play("enemy_guard");
 	_thisEn->SetImage();
 	_stateTimer = TIME_M->getWorldTime();
 }

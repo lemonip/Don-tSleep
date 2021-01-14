@@ -4,7 +4,7 @@
 
 void enemyDown::EnterState()
 {
-	SOUND_M->play("enemy_down", SFXVOLUME);
+	SOUND_M->play("enemy_down");
 	isDown = true;
 	_thisEn->SetImage();
 	_thisEn->getInfo().isSky = true;

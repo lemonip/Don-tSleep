@@ -64,7 +64,7 @@ void playerSAttack::UpdateState()
 		if (_thisPl->getInfo().dest == DIRECTION::LEFT
 			&&_isCollision && _thisPl->getObj().imgIndex.x >= 6)
 		{
-			SOUND_M->playSFX("kyoko_sAttack", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_sAttack");
 
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
@@ -75,7 +75,7 @@ void playerSAttack::UpdateState()
 		if (_thisPl->getInfo().dest == DIRECTION::RIGHT
 			&&_isCollision && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 6)
 		{
-			SOUND_M->playSFX("kyoko_sAttack", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_sAttack");
 
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);

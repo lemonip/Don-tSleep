@@ -25,10 +25,10 @@ HRESULT EasyStage::init()
 	/*====================================================================
 		배경음악을 넣어줍니다.
 	====================================================================*/
-	//SOUND_M->stop("openingBG");
-	//SOUND_M->playMusic("stage", BGMVOLUME);
-	//SOUND_M->playMusic("kyoko_battlestart",.5f);
-	//SOUND_M->playMusic("stage", BGMVOLUME);
+	SOUND_M->stop("openingBG");
+	SOUND_M->playMusic("stage");
+	SOUND_M->playMusic("kyoko_battlestart");
+	SOUND_M->playMusic("stage");
 
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.

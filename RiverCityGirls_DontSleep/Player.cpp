@@ -692,7 +692,7 @@ void Player::checkItem()
 				case ITEM_TYPE::MONEY:
 				case ITEM_TYPE::COIN:
 					_info.coin += _objectM->getVObject()[i]->getInfo().value;
-					_objectM->popObject(i);
+				//	_objectM->popObject(i);
 					if (i == _objectM->getVObject().size())return;
 					break;
 				//체력회복

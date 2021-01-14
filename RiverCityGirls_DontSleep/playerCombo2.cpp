@@ -51,7 +51,7 @@ void playerCombo2::UpdateState()
 	case DIRECTION::LEFT:
 		if (_isEffect && _thisPl->getObj().imgIndex.x >= 2)
 		{
-			SOUND_M->playSFX("kyoko_combo", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_combo");
 
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
@@ -61,7 +61,7 @@ void playerCombo2::UpdateState()
 	case DIRECTION::RIGHT:
 		if (_isEffect && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
 		{
-			SOUND_M->playSFX("kyoko_combo", SFXVOLUME);
+			SOUND_M->playSFX("kyoko_combo");
 
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);

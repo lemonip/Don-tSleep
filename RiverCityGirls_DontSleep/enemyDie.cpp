@@ -5,7 +5,7 @@
 
 void enemyDie::EnterState()
 {
-	SOUND_M->play("enemy_die", SFXVOLUME);
+	SOUND_M->play("enemy_die");
 	_thisEn->SetImage();
 	_money = true;
 	_checkTimer = TIME_M->getWorldTime();
