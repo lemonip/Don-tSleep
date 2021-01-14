@@ -8,11 +8,11 @@
 using namespace FMOD;
 
 #define SOUNDBUFFER 10
-#define EXTRACHANNELBUFFER 5
+#define EXTRACHANNELBUFFER 10
 
 #define TOTALSOUNDBUFFER SOUNDBUFFER + EXTRACHANNELBUFFER
 
-enum tagVolumeType
+enum class tagVolumeType
 {
     MUSIC,
     SFX,
@@ -71,6 +71,11 @@ public:
     void setVolumeMusic(float volume);
     void setVolumeDialogue(float volume);
     void setVolumeSFX(float volume);
+
+	void stopMusic(string keyName);
+	void pauseMusic(string keyName);
+	void resumeMusic(string keyName);
+	
 
     void stop(string keyName);
     void pause(string keyName);

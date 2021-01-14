@@ -9,9 +9,9 @@ void bossMeteor::EnterState()
 	_speed = 25.0f;
 	_enterTime = TIME_M->getWorldTime();
 	_thisBs->ChangeImg("Bs_meteor");
-	_thisBs->getInfo().jumpPower = 10.0f;
+
+	_thisBs->getInfo().jumpPower = 18.0f;
 	_thisBs->getInfo().isSky = true;
-	_thisBs->getInfo().gravity = 0.501f;
 
 	LookatPlayer();
 	ResetFrame();
@@ -31,32 +31,49 @@ void bossMeteor::UpdateState()
 	if (2.5f < TIME_M->getWorldTime() - _enterTime && TIME_M->getWorldTime() - _enterTime <= 3.0f) // 하늘 위에서 움직이는 시간
 	{
 		_thisBs->ChangeImg("Bs_meteordown");
-
+		
 		if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x <= 0) _thisBs->getObj()->imgIndex.x = 1;
 		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x >= 1) _thisBs->getObj()->imgIndex.x = 0;
-
+			   		 		
 		_thisBs->xzyMove(cosf(_angle) * _speed, -sinf(_angle) * _speed, 0);
 		_angle = getAngle(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z,
 			_thisBs->getPlayerAddress()->getPObj()->pos.x, _thisBs->getPlayerAddress()->getPObj()->pos.z);		
 	}
 
-	if (3.0f < TIME_M->getWorldTime() - _enterTime) // 떨어지는 시간
+
+	if (4.0f < TIME_M->getWorldTime() - _enterTime) // 떨어지는 시간
 	{
-		if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x <= 0) _thisBs->getObj()->imgIndex.x = 1;
-		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x >= 1) _thisBs->getObj()->imgIndex.x = 0;
+		_thisBs->getInfo().isAttack = true;
+
+		if (_thisBs->getInfo().dest == DIRECTION::LEFT && _thisBs->getObj()->imgIndex.x <= 0)
+		{
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
+			_thisBs->getObj()->imgIndex.x = 1;
+		}
+		else if (_thisBs->getInfo().dest == DIRECTION::RIGHT && _thisBs->getObj()->imgIndex.x >= 1)
+		{
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
+			_thisBs->getObj()->imgIndex.x = 0;
+		}
 
 		if (_thisBs->getInfo().isSky)
 		{
-			_thisBs->xzyMove(0, 0, 10.0f);
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
+			_thisBs->xzyMove(0, 0, 80.0f);	
+
+			EFFECT_M->play("Bss_meteor", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+				(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 		}
 
 		if (_thisBs->getObj()->pos.y >= 0)
 		{
+			_thisBs->getInfo().isAttack = false;
 			_thisBs->SetState(BS_STATE::DOWN);
 			_thisBs->getObj()->pos.y = 0;
 			_thisBs->getInfo().isSky = false;
 		}
 	}
+	
 }
 
 void bossMeteor::ExitState()

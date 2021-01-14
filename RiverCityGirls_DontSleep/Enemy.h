@@ -41,6 +41,7 @@ enum class EN_STATE
 	EN_WRUN,					   //무기+뛰기
 	EN_WTHROW,					   //무기+던지기
 	EN_WWALK,					   //무기+걷기
+	EN_WJUMP                       //무기+점프
 };
 
 class Enemy : public gameNode
@@ -65,20 +66,21 @@ protected:
 		int maxHp;					//최대 체력
 		int attack;					//공격력
 
+		bool isActive;              //플레이어 발견했니
 		bool isAttack;				//공격했니
 		bool isSky;                 //공중에 있니
 		bool isDead;				//죽었니
 		bool isFriend;				//동료니
 		bool hasWeapon;				//무기들었니
 	};
+	
 
 	IEnemyState* _EState;
 	IEnemyState* _ES_IDLE;
 	IEnemyState* _ES_WALK;
 	IEnemyState* _ES_RUN;
 	IEnemyState* _ES_JUMP;
-	IEnemyState* _ES_LADDER;
-	IEnemyState* _ES_LADDERTRANSITION;
+	IEnemyState* _ES_WJUMP;
 	IEnemyState* _ES_PATROL;
 	IEnemyState* _ES_STUN;
 	IEnemyState* _ES_BEGGING;
@@ -105,6 +107,7 @@ protected:
 	IEnemyState* _ES_WTHROW;
 	IEnemyState* _ES_WWALK;
 	
+	
 	ENEMY_TYPE _ENEMY_TYPE;		//에너미 유형
 	EN_STATE _state;            //현재 상태 enum
 	tagInfo _info;				//정보
@@ -129,6 +132,7 @@ public:
 	GameObject& getRefObj() { return _obj; }
 	ENEMY_TYPE getEnemyType() { return _ENEMY_TYPE; }
 	EN_STATE getState() { return _state; }
+	ObjectManager* getObjectM() { return _objectM; }
 	/*====================================================================
 									SETTER
 	====================================================================*/

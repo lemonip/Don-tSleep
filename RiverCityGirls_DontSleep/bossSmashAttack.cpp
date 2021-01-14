@@ -30,6 +30,9 @@ void bossSmashAttack::UpdateState()
 		_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x + 50, _thisBs->getObj()->pos.z, 50, 50);
 		RECT _temp;
 	}*/
+
+	EFFECT_M->play("Bss_smash", (_thisBs->getInfo().rcAttack.left + _thisBs->getInfo().rcAttack.right) / 2,
+		(_thisBs->getInfo().rcAttack.top + _thisBs->getInfo().rcAttack.bottom) / 2);
 }
 
 void bossSmashAttack::ExitState()

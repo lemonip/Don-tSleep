@@ -131,3 +131,5 @@ void effectManager::play(string effectName, int x, int y)
 		}
 	}
 }
+
+

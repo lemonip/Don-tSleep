@@ -3,6 +3,8 @@
 
 void playerDown::EnterState()
 {
+	SOUND_M->playSFX("kyoko_down", SFXVOLUME);
+
 	//이뮨상태로 만들기
 	_thisPl->getInfo().isImmune = true;
 	_thisPl->getRefObj().alpha = 180;
@@ -29,4 +31,6 @@ void playerDown::UpdateState()
 
 void playerDown::ExitState()
 {
+	_thisPl->setIsControl(true);
+
 }

@@ -26,6 +26,8 @@ public:
 	virtual void render(HDC hdc);
 
 	void setActive(bool active) { _isActive = active; }
+	void setPos(vector3* pos) { _pos = pos; }
+
 };
 
 /*====================================================================
@@ -70,4 +72,50 @@ public:
 	virtual void release();
 	virtual void update();
 	void render(HDC hdc);
+};
+
+/*====================================================================
+					L O C A T I O N		L O C K
+====================================================================*/
+class LocationLock : public UI
+{
+	struct tagChain
+	{
+		float speed;
+		image* img;
+		vector3 pos;
+	};
+private:
+	bool isLockingStart;
+	bool isLockingEnd;
+	bool isUnlockingStart;
+	bool isUnlockingEnd;
+	float _chainTimer;
+	float _lockTimer;
+	float _lockCoolTime;
+
+	tagChain _chainLeft;
+	tagChain _chainRight;
+	tagChain _chainBottom;
+	tagChain _chainTop;
+
+	image* _Lock;
+	int _imgFrameX;
+public:
+	LocationLock();
+
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	void render(HDC hdc);
+
+	void startLock();
+	void resetFrameIdx();
+	void changeLockImg1();
+	void changeLockImg2();
+	void startUnlock();
+	void resetUI();
+	bool isUnlockEnd() { return isUnlockingEnd; }
+	bool isUnlockStart() { return isUnlockingStart; }
+
 };

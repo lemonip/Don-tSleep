@@ -5,15 +5,19 @@
 
 void playerSAttack::EnterState()
 {
+	RECT temp;
 	//몹이 넘어져있으면 밟기로 변경
 	for (int i = 0; i != _thisPl->getEnemyM()->getVEnemy().size(); i++)
 	{
 		
-		if (_thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_DOWN
-		 || _thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_WEAPONHIT)
+		if (IntersectRect(&temp, &_thisPl->getRefObj().rc,&(_thisPl->getEnemyM()->getVEnemy()[i]->getRefObj().rc)))
 		{
-			_thisPl->setState(PL_STATE::STOMP);
-			return;
+			if(_thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_DOWN
+			 || _thisPl->getEnemyM()->getVEnemy()[i]->getState() == EN_STATE::EN_WEAPONHIT)
+			{
+				_thisPl->setState(PL_STATE::STOMP);
+				return;
+			}
 		}
 	}
 
@@ -60,6 +64,8 @@ void playerSAttack::UpdateState()
 		if (_thisPl->getInfo().dest == DIRECTION::LEFT
 			&&_isCollision && _thisPl->getObj().imgIndex.x >= 6)
 		{
+			SOUND_M->playSFX("kyoko_sAttack", SFXVOLUME);
+
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 			_isCollision = false;
@@ -69,6 +75,8 @@ void playerSAttack::UpdateState()
 		if (_thisPl->getInfo().dest == DIRECTION::RIGHT
 			&&_isCollision && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 6)
 		{
+			SOUND_M->playSFX("kyoko_sAttack", SFXVOLUME);
+
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
 			_isCollision = false;

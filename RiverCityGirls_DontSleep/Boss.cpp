@@ -19,6 +19,7 @@
 #include "bossStandAttack.h"
 #include "IBossState.h"
 
+#include "CollisionManager.h"
 #include "StageManager.h"
 #include "ObjectManager.h"
 #include "Player.h"
@@ -34,6 +35,20 @@ HRESULT Boss::init()
 	_obj.imgIndex = { 0,0 };
 	
 	_frameTimer = TIME_M->getWorldTime();
+
+	{
+		_info.dest = DIRECTION::LEFT;		//방향
+		_info.gravity = 0;					//중력
+		_info.jumpPower = 0;				//점프력
+		_info.baseSpeed = _info.speed = 3;	//속도
+		_info.frameTimer = 0;				//프레임시간 타이머
+
+		_info.hp = _info.maxHp = 500;		//체력
+		_info.attack = 10;					//공격력
+
+		_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
+		_info.hasWeapon = false;			//무기들었니
+	};
 
 	//상태패턴 등록
 	_idle = new bossIdle;
@@ -55,11 +70,12 @@ HRESULT Boss::init()
 	_smash = new bossSmashAttack;
 	_standattack = new bossStandAttack;
 	
-	_info.isAttack = false;
+	_info.isAttack = false;	
+	_isPhase = false;
 
 	_BState = NULL;
 	SetState(BS_STATE::IDLE);
-		
+
 	return S_OK;
 }
 
@@ -77,15 +93,24 @@ void Boss::update()
 	_obj.update();
 	_obj.shadowUpdate();
 
-
-
 	frameUpdate();
 
+	if (_state != BS_STATE::DEATH && _state != BS_STATE::BLOCK)
+	{
+		if (_player->getInfo().isAttack)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
+			{
+				SetState(BS_STATE::ATTACKED);				
+			}
+		}
+	}
 
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::ATTACKED);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD1)) SetState(BS_STATE::SLAP);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD2)) SetState(BS_STATE::BLOCK);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::DASH);
-	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::DEATH);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD3)) SetState(BS_STATE::HOWLING);
+	if (KEY_M->isOnceKeyDown(VK_NUMPAD4)) SetState(BS_STATE::ELBOW);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD5)) SetState(BS_STATE::DOWN);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD6)) SetState(BS_STATE::ELBOW);
 	if (KEY_M->isOnceKeyDown(VK_NUMPAD7)) SetState(BS_STATE::GROGGY);
@@ -98,6 +123,10 @@ void Boss::update()
 	if (KEY_M->isOnceKeyDown('T')) SetState(BS_STATE::SMASH);
 	if (KEY_M->isOnceKeyDown('Y')) SetState(BS_STATE::STANDATTACK);
 	if (KEY_M->isOnceKeyDown('U')) SetState(BS_STATE::WAIT);
+
+
+
+	_stageM->getColM()->bossDestructObject(this);
 
 }
 
@@ -227,7 +256,7 @@ void Boss::playFrame(int count)
 	switch (_info.dest)
 	{
 	case DIRECTION::LEFT: 
-		--_obj.imgIndex.x;
+		_obj.imgIndex.x--;
 		_obj.imgIndex.y = 0;
 		break;
 		

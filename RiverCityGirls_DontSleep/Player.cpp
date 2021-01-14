@@ -7,6 +7,9 @@
 #include "EnemyManager.h"
 #include "CollisionManager.h"
 #include "Enemy.h"
+#include "ItemObj.h"
+#include "Object.h"
+#include "pet.h"
 //상태
 #include "IPlayerState.h"
 #include "playerIdle.h"
@@ -76,6 +79,8 @@ HRESULT Player::init()
 		_info.frameTimer = TIME_M->getWorldTime();
 		_info.rendType = RENDERTYPE::FRAME_RENDER;
 		_info.immuneTimer = 0;
+
+		_pet.init();
 	}
 
 	//상태패턴 등록
@@ -122,8 +127,7 @@ void Player::release()
 //업뎃 순서 중요함★ 상태->중력->키입력
 void Player::update()
 {
-	//cout << (int)_info.state<< endl;
-
+	_pet.update(vector3( _obj.pos.x, _obj.pos.y, _obj.pos.z));
 	_obj.prePos = _obj.pos;
 	_obj.preShadow = _obj.shadow;
 
@@ -140,6 +144,8 @@ void Player::update()
 	 hit();
 	//무기 업뎃
 	if (_info.attackObj!=NULL)weaponUpdate();
+	//아이템 상호작용
+	checkItem();
 
 	//오브젝트 업뎃
 	_obj.update();
@@ -171,7 +177,6 @@ void Player::update()
 			cout << "플랫폼 Z: " << _platform->bottomPlane[0].getEnd().z << endl;
 		}
 		else cout << "NULL" << endl;
-		
 	}
 	_colM->destructObject();
 }
@@ -183,6 +188,7 @@ void Player::render()
 		Z-ORDER에 따라 알파 프레임 렌더 시킵니다.
 	====================================================================*/
 
+	_pet.render(getMapDC());
 	//플래이어 오브젝트 렌더
 	ZORDER_M->renderObject(getMapDC(), &_obj, _info.rendType);
 
@@ -198,7 +204,7 @@ void Player::render()
 	if (KEY_M->isToggleKey(VK_SHIFT))
 	{
 		Rectangle(getMapDC(), _obj.shadow.rc);
-		if(_info.isAttack) Rectangle(getMapDC(), _info.attackRc);
+		Rectangle(getMapDC(), _info.attackRc);
 	}
 
 	}
@@ -310,6 +316,11 @@ bool Player::moveAttackObj()
 
 	_info.attackObj->pos.y -= sinf(getAngle(0, _info.attackObj->pos.y, 0, _info.attackGoal.y)) * 6.0f;
 	
+	//공격 렉트를 어택 오브젝트의 위치에 맞춤.
+	_info.attackRc = RectMakeCenter(_info.attackObj->pos.x,
+		_info.attackObj->pos.z + _info.attackObj->pos.y,
+		_info.attackObj->size.x + 200, _info.attackObj->size.z + 100);
+
 	if (getDistance(_info.attackObj->pos.x, _info.attackObj->pos.z + _info.attackObj->pos.y,
 		_info.attackGoal.x, _info.attackGoal.z + _info.attackGoal.y) < 5)
 	{
@@ -351,6 +362,7 @@ void Player::hit()
 					if (IntersectRect(&temp, &_obj.rc, &_enemyM->getVEnemy()[i]->getInfo().rcAttack)
 						&& isRange(_enemyM->getVEnemy()[i]->getRefObj()))
 					{
+						_info.hp -= _enemyM->getVEnemy()[i]->getInfo().attack;
 						if (_info.hitCount >= 4)
 						{ 
 							//맞은 수 초기화
@@ -359,6 +371,7 @@ void Player::hit()
 							if (_info.hp > 10)setState(PL_STATE::DOWN); 
 						}
 						else setState(PL_STATE::HIT);
+						break;
 					}
 				}
 			}
@@ -367,6 +380,10 @@ void Player::hit()
 		}
 
 	}
+
+	//체력이 0보다 작아지면 0으로 고정
+	if (_info.hp <= 0)_info.hp = 0;
+
 }
 
 //스테이지가 바뀔 때마다 초기화시키는 함수
@@ -403,7 +420,7 @@ void Player::stageInit()
 		if (_stageM->getPreStage() == STAGETYPE::NORMAL) // 이전 스테이지가 노말이였으면
 		{
 			_obj.setPosX(270);
-			_obj.setPosY(0); // 나중에 추가해야함
+			_obj.setPosY(0);
 			_obj.setPosZ(480);
 		}
 		else if (_stageM->getPreStage() == STAGETYPE::BOSS) // 이전 스테이지가 보스였으면
@@ -416,9 +433,9 @@ void Player::stageInit()
 	case STAGETYPE::BOSS: // 현재 스테이지가 보스면
 		if (_stageM->getPreStage() == STAGETYPE::HARD) // 이전 스테이지가 하드이였으면
 		{
-			_obj.setPosX(275);
+			_obj.setPosX(450);
 			_obj.setPosY(0);
-			_obj.setPosZ(605);
+			_obj.setPosZ(880);
 		}
 		break;
 	default:
@@ -652,6 +669,49 @@ void Player::setPos(float x, float z, float y)
 
 	//최종 렉트 갱신
 	_obj.update();
+}
+
+//아이템이랑 상호작용
+void Player::checkItem()
+{
+	RECT temp;
+	for (int i = 0; i != _objectM->getVObject().size();i++)
+	{
+		//활성화 상태일때
+		if (_objectM->getVObject()[i]->getObj()->isActive)
+		{
+			// 충돌한다면
+			if (IntersectRect(&temp, &_obj.rc, &_objectM->getVObject()[i]->getRefObj().rc))
+			{
+				switch (_objectM->getVObject()[i]->getInfo().type)
+				{
+				//소지금 올려줌
+				case ITEM_TYPE::MONEY:
+					break;
+				case ITEM_TYPE::COIN:
+					break;
+				//체력회복
+				case ITEM_TYPE::MEAT:
+				case ITEM_TYPE::APPLE:
+				case ITEM_TYPE::HEN:
+				case ITEM_TYPE::CHILI:
+					if (_info.hp < _info.maxHP)
+					{
+						_info.hp += _objectM->getVObject()[i]->getInfo().value;
+						_objectM->popObject(i);
+						if (i == _objectM->getVObject().size())return;
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	//체력수치 보정
+	if (_info.hp > _info.maxHP)
+	{
+		_info.hp = _info.maxHP;
+	}
 }
 
 

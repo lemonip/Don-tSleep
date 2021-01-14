@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "EnemyManager.h"
 
+#include "Stage.h"
+#include "StageManager.h"
 #include "schoolGirl.h"
 #include "schoolBoy.h"
 #include "cheerLeader.h"
@@ -33,6 +35,8 @@ void EnemyManager::update()
 		}
 		else  i++;
 	}
+
+	
 }
 
 void EnemyManager::render()
@@ -77,6 +81,8 @@ void EnemyManager::popEnemy(int index)
 		{
 			SAFE_DELETE(_vEnemy[i]);
 			_vEnemy.erase(_vEnemy.begin() + i);
+			_stageM->getStage()->setEnemyCount(_stageM->getStage()->getEnemyCount() + 1);
+			break;
 		}
 		else  i++;
 	}

@@ -26,9 +26,9 @@ HRESULT soundManager::init()
     _sfxChannel = new Channel*[TOTALSOUNDBUFFER];
 
     // 메모리 공간 할당
-    memset(_sound, 0, sizeof(Sound*)*TOTALSOUNDBUFFER);
-    memset(_channel, 0, sizeof(Channel*)*2);
-    memset(_sfxChannel, 0, sizeof(Channel*)*TOTALSOUNDBUFFER);
+    memset(_sound, 0, sizeof(Sound*) * TOTALSOUNDBUFFER);
+    memset(_channel, 0, sizeof(Channel*) * 2);
+    memset(_sfxChannel, 0, sizeof(Channel*) * TOTALSOUNDBUFFER);
 
 	_masterVolume = 1.0f;
 	_musicVolume = 1.0f;
@@ -61,10 +61,10 @@ void soundManager::addSound(string keyName, string soundName, tagVolumeType volu
     {
         switch (volumeType)
         {
-        case SFX:
+		case tagVolumeType::SFX:
             _system->createSound(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &_sound[_mTotalSounds.size()]);
             break;
-        case DIALOGUE: case MUSIC: default:
+        case tagVolumeType::DIALOGUE: case  tagVolumeType::MUSIC: default:
             _system->createStream(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &_sound[_mTotalSounds.size()]);
             break;
         }
@@ -73,10 +73,10 @@ void soundManager::addSound(string keyName, string soundName, tagVolumeType volu
     {
         switch (volumeType)
         {
-        case SFX:
+        case  tagVolumeType::SFX:
             _system->createSound(soundName.c_str(), FMOD_DEFAULT, NULL, &_sound[_mTotalSounds.size()]);
             break;
-        case DIALOGUE: case MUSIC: default:
+        case  tagVolumeType::DIALOGUE: case tagVolumeType::MUSIC: default:
             _system->createStream(soundName.c_str(), FMOD_DEFAULT, NULL, &_sound[_mTotalSounds.size()]);
             break;
         }
@@ -188,6 +188,21 @@ void soundManager::setVolumeSFX(float volume)
     }
 }
 
+void soundManager::stopMusic(string keyName)
+{
+	_channel[0]->stop();
+}
+
+void soundManager::pauseMusic(string keyName)
+{
+	_channel[0]->setPaused(true);
+}
+
+void soundManager::resumeMusic(string keyName)
+{
+	_channel[0]->setPaused(false);
+}
+
 void soundManager::stop(string keyName)
 {
     arrSoundsIter iter = _mTotalSounds.begin();
@@ -206,7 +221,6 @@ void soundManager::stop(string keyName)
 void soundManager::pause(string keyName)
 {
     arrSoundsIter iter = _mTotalSounds.begin();
-
     int count = 0;
     for (iter; iter != _mTotalSounds.end(); ++iter, count++)
     {

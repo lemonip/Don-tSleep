@@ -2,15 +2,21 @@
 #include "gameNode.h"
 #include "Object.h"
 
+#define PARTICLEMAX 60
 /*====================================================================
-	¿ÀºêÁ§Æ® ¸Å´ÏÀúÀÔ´Ï´Ù. ¿ÀºêÁ§Æ®¸¦ º¤ÅÍ¿¡ ³Ö¾î °ü¸®ÇÏ¸ç,
-	push·Î ¿ÀºêÁ§Æ®¸¦ Áı¾î ³ÖÀ» ¼ö ÀÖ½À´Ï´Ù.
+	ì˜¤ë¸Œì íŠ¸ ë§¤ë‹ˆì €ì…ë‹ˆë‹¤. ì˜¤ë¸Œì íŠ¸ë¥¼ ë²¡í„°ì— ë„£ì–´ ê´€ë¦¬í•˜ë©°,
+	pushë¡œ ì˜¤ë¸Œì íŠ¸ë¥¼ ì§‘ì–´ ë„£ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 ====================================================================*/
 class ObjectManager : public gameNode
 {
 private:
 	vector<Object*> _vObject;
+	vector<Object*> _vParticleLeftUp;
+	vector<Object*> _vParticleLeftDown;
+	vector<Object*> _vParticleRightUp;
+	vector<Object*> _vParticleRightDown;
 
+	
 public:
 	virtual HRESULT init();
 	virtual void release();
@@ -18,6 +24,8 @@ public:
 	virtual void render();
 
 	Object* findHardPlatform();
+	void particleInit(vector3 pos, OBJECT_TYPE type);
+	void particleSwitch(OBJECT_TYPE type);
 
 /*====================================================================
 								GETTER
@@ -27,10 +35,10 @@ public:
 /*====================================================================
 								FUNCTION
 ====================================================================*/
-	void pushObject(OBJECT_TYPE type, vector3 pos);		//¿ÀºêÁ§Æ®¸¦ ³Ö´Â´Ù.
-	void pushItem(ITEM_TYPE type, vector3 pos);			//¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
-	void pushWeapon(WEAPON_TYPE type, vector3 pos);		//¹«±â¸¦ ³Ö´Â´Ù.
+	void pushObject(OBJECT_TYPE type, vector3 pos);		//ì˜¤ë¸Œì íŠ¸ë¥¼ ë„£ëŠ”ë‹¤.
+	void pushItem(ITEM_TYPE type, vector3 pos);			//ì•„ì´í…œì„ ë„£ëŠ”ë‹¤.
+	void pushWeapon(WEAPON_TYPE type, vector3 pos);		//ë¬´ê¸°ë¥¼ ë„£ëŠ”ë‹¤.
 
-	void popObject(int index);						//¿ÀºêÁ§Æ®¸¦ »èÁ¦ÇÑ´Ù.
+	void popObject(int index);							//ì˜¤ë¸Œì íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
 };
 

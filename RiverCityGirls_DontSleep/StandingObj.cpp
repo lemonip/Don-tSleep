@@ -21,6 +21,18 @@ StandingObj::StandingObj(OBJECT_TYPE type, vector3 pos)
 		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::HARDPLATFORM, nullptr, pos, 0); //58
 		_type = type;
 		break;
+	case OBJECT_TYPE::PILLAR_PARTICLE_1:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::PILLAR_PARTICLE_1, IMG_M->findImage("pillar_particle_1"), pos, 0); //58
+		_type = type;
+		break;
+	case OBJECT_TYPE::PILLAR_PARTICLE_2:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::PILLAR_PARTICLE_2, IMG_M->findImage("pillar_particle_2"), pos, 0); //58
+		_type = type;
+		break;
+	case OBJECT_TYPE::PILLAR_PARTICLE_3:
+		_obj.init(OBJECT_GROUP::OBJECT, OBJECT_TYPE::PILLAR_PARTICLE_3, IMG_M->findImage("pillar_particle_3"), pos, 0); //58
+		_type = type;
+		break;
 	default:
 		break;
 	}
@@ -48,6 +60,18 @@ void StandingObj::render()
 
 		break;
 	case OBJECT_TYPE::TABLE:
+		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::RENDER);
+
+		break;
+	case OBJECT_TYPE::PILLAR_PARTICLE_1:
+		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::RENDER);
+
+		break;
+	case OBJECT_TYPE::PILLAR_PARTICLE_2:
+		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::RENDER);
+
+		break;
+	case OBJECT_TYPE::PILLAR_PARTICLE_3:
 		ZORDER_M->renderObject(getMapDC(), &_obj, RENDERTYPE::RENDER);
 
 		break;

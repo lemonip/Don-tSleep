@@ -39,10 +39,50 @@ HRESULT NormalStage::init()
 	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 3 * 2, 0, WINSIZEY / 2));
 	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 250));
 
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 40));
+	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 - 200, 0, WINSIZEY / 2 + 300));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 200, 0, WINSIZEY / 2 + 200));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 400, 0, WINSIZEY / 2 + 300));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 600, 0, WINSIZEY / 2 + 200));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 300));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 250));
+
+
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
+
+	// 지역락 관련 변수들
+	_enemyCount = 0;
+	_maxEnemyCount = 1;
+	lockEventStart = lockEventEnd = false;
+	_lockStartLine = 1200;
+
+
+	/*====================================================================
+		스테이지에 문을 추가합니다
+	====================================================================*/
+	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
+	_leftDoor.isUsed = true;
+	_leftDoor.LT = vector3(0, 0, 610);
+	_leftDoor.RT = vector3(180, 0, 610);
+	_leftDoor.LB = vector3(0, 0, 775);
+	_leftDoor.RB = vector3(180, 0, 775);
+	_leftDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+
+	_rightDoor.isUsed = true;
+	_rightDoor.LT = vector3(2580, 0, 535);
+	_rightDoor.RT = vector3(2820, 0, 535);
+	_rightDoor.LB = vector3(2580, 0, 760);
+	_rightDoor.RB = vector3(2820, 0, 760);
+	_rightDoor.img = IMG_M->findImage("UI_UnLocked_Door");
+
+	_shopDoor.isUsed = true;
+	_shopDoor.LT = vector3(1070, 0, 540);
+	_shopDoor.RT = vector3(1270, 0, 540);
+	_shopDoor.LB = vector3(1070, 0, 600);
+	_shopDoor.RB = vector3(1270, 0, 600);
+	_shopDoor.img = IMG_M->findImage("UI_Shop_Door1");
+
 
 	return S_OK;
 }
