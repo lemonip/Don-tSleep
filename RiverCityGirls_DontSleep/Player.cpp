@@ -381,7 +381,9 @@ void Player::hit()
 
 	}
 
-	cout << "체력" << _info.hp << endl;
+	//체력이 0보다 작아지면 0으로 고정
+	if (_info.hp <= 0)_info.hp = 0;
+
 }
 
 //스테이지가 바뀔 때마다 초기화시키는 함수
