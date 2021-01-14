@@ -66,6 +66,8 @@ HRESULT BossStage::init()
 
 	_rightDoor.isUsed = false;
 
+	_shopDoor.isUsed = false;
+
 	_enemyCount = 0;
 	_maxEnemyCount = 1;
 	lockEventStart = lockEventEnd = true;

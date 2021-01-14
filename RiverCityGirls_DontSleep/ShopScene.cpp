@@ -132,7 +132,7 @@ void ShopScene::KeyInput()
 	//구입
 	if (KEY_M->isOnceKeyDown('B'))
 	{
-
+		DATA_M->setPlayerHP(70);
 	}
 
 	//나가기
@@ -140,5 +140,6 @@ void ShopScene::KeyInput()
 	{
 		SCENE_M->setPrevScene();
 		CAMERA_M->SetMap(*this, IMG_M->findImage("normalStage"));
+		DATA_M->loadStageData();
 	}
 }

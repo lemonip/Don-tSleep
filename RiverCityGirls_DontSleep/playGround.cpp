@@ -56,12 +56,8 @@ void playGround::update()
 	CAMERA_M->update();						//카메라를 업데이트 한다.
 	UI_M->update();							//UI 업데이트
 	SCENE_M->update();						//씬 업데이트
-
-	if (KEY_M->isOnceKeyDown(VK_LBUTTON))
-	{
-		cout << "마우스 X좌표: " << _ptMouse.x << endl;
-		cout << "마우스 Y좌표: " << _ptMouse.y << endl;
-	}
+	//================= 디버깅 용 =================
+	if (KEY_M->isOnceKeyDown(VK_F12)) DATA_M->checkData();
 }
 
 /*====================================================================
@@ -89,6 +85,7 @@ void playGround::render()
 	//================= 디버깅 용 =================
 	//FPS 확인
 	if (KEY_M->isToggleKey(VK_TAB)) TIME_M->render(getBackDC());
+	
 
 	//================= 이중 버퍼링 =================
 	_backBuffer->render(getHDC());

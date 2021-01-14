@@ -44,7 +44,7 @@ protected:
 	int _lockStartLine;
 	bool lockEventStart;
 	bool lockEventEnd;
-	
+
 	DOOR_ACTIVITY _doorActive;
 	int _enemyCount;
 	int _maxEnemyCount;
@@ -63,7 +63,7 @@ public:
 	virtual void rightWallInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	virtual void floorInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
 	virtual void poolInit(vector3 lt, vector3 rt, vector3 rb, vector3 lb);
-	
+
 	void setLocationLockEnemyCount(int* enemyCount, int* maxEnemyCount) { enemyCount = &_enemyCount; maxEnemyCount = &_maxEnemyCount; }
 	void startLocationLock(vector3 lockPos, vector3 playerPos, int maxEnemyNum);
 
@@ -79,6 +79,7 @@ public:
 	tagWall getPool() { return _pool; }
 	tagWall getLeftDoor() { return _leftDoor; }
 	tagWall getRightDoor() { return _rightDoor; }
+	tagWall getShopDoor() { return _shopDoor; }
 	DOOR_ACTIVITY getDoorActive() { return _doorActive; }
 	int getEnemyCount() { return _enemyCount; }
 	bool getLockEventStart() { return lockEventStart; }
@@ -88,6 +89,8 @@ public:
 	====================================================================*/
 	void setLinkStageM(StageManager* stageM) { _stageM = stageM; }
 	void setEnemyCount(int num) { _enemyCount = num; }
+	void setLockEventStart(bool is) { lockEventStart = is; }
+	void setLockEventEnd(bool is) { lockEventEnd = is; }
 	/*====================================================================
 									디버그용 임시함수
 	====================================================================*/

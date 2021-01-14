@@ -115,7 +115,6 @@ void Boss::update()
 
 	_stageM->getColM()->bossDestructObject(this);
 
-	cout << getInfo().hp << endl;
 
 }
 
