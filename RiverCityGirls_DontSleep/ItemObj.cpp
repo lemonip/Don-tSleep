@@ -8,7 +8,7 @@ ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 	switch (type)
 	{
 	case ITEM_TYPE::MONEY:
-		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("money"), pos);
+		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_money"), pos);
 		_obj.ani = new animation;
 		_obj.ani->setDefPlayFrame(false, false);
 		_obj.ani->setFPS(1);
@@ -17,7 +17,7 @@ ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 		_info.value = 10;
 		break;
 	case ITEM_TYPE::COIN:
-		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("coin"), pos);
+		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_coin"), pos);
 		_obj.ani = new animation;
 		_obj.ani->setDefPlayFrame(false, true);
 		_obj.ani->setFPS(1);
@@ -26,19 +26,19 @@ ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 		_info.value = 20;
 		break;
 	case ITEM_TYPE::MEAT:
-		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("meat"), pos);
+		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_meat"), pos);
 		_info.value = 10;
 		break;
 	case ITEM_TYPE::APPLE:
-		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("meappleat"), pos);
+		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_meappleat"), pos);
 		_info.value = 10;
 		break;
 	case ITEM_TYPE::HEN:
-		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("hen"), pos);
+		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_hen"), pos);
 		_info.value = 50;
 		break;
 	case ITEM_TYPE::CHILI:
-		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("chili"), pos);
+		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("item_chili"), pos);
 		_info.value = 30;
 		break;
 	default:

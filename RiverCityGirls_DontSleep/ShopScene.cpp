@@ -91,25 +91,25 @@ void ShopScene::ItemSet()
 		shopItem item;
 		_vShopItem.push_back(item);
 	}
-	_vShopItem[0]._img = IMG_M->findImage("aloe");
+	_vShopItem[0]._img = IMG_M->findImage("shop_aloe");
 	_vShopItem[0]._name = "알로에";
 	_vShopItem[0]._explain = "20 회복 / 알로에 맛이 나는 음료수";
 	_vShopItem[0]._price = 200;
 	_vShopItem[0]._heal = 20;
 
-	_vShopItem[1]._img = IMG_M->findImage("hamburger");
+	_vShopItem[1]._img = IMG_M->findImage("shop_hamburger");
 	_vShopItem[1]._name = "햄버거";
 	_vShopItem[1]._explain = "40 회복 / 참개빵 위에 순쇠고기 패티 두장";
 	_vShopItem[1]._price = 400;
 	_vShopItem[1]._heal = 40;
 
-	_vShopItem[2]._img = IMG_M->findImage("icecream");
+	_vShopItem[2]._img = IMG_M->findImage("shop_icecream");
 	_vShopItem[2]._name = "아이스크림";
 	_vShopItem[2]._explain = "10 회복 / 아이스크림이 얹어진 초코 파르페";
 	_vShopItem[2]._price = 100;
 	_vShopItem[2]._heal = 10;
 
-	_vShopItem[3]._img = IMG_M->findImage("tempura");
+	_vShopItem[3]._img = IMG_M->findImage("shop_tempura");
 	_vShopItem[3]._name = "덴푸라";
 	_vShopItem[3]._explain = "80 회복 / 매점에서 이런 걸 왜 팔지";
 	_vShopItem[3]._price = 800;
@@ -143,6 +143,6 @@ void ShopScene::KeyInput()
 	{
 		SCENE_M->setPrevScene();
 		CAMERA_M->SetMap(*this, IMG_M->findImage("normalStage"));
-		DATA_M->loadStageData();
+		//DATA_M->loadStageData();
 	}
 }

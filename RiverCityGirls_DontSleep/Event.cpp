@@ -340,7 +340,7 @@ void heart::enter(bool playerControl)
 
 	_ratio = 1;
 	_img = IMG_M->findImage("UI_heart");
-	_timer = TIME_M->getWorldTime() + 1.0f;
+	_timer = TIME_M->getWorldTime() + 0.5f;
 }
 
 bool heart::update()
