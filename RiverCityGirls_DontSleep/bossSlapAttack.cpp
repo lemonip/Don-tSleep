@@ -37,7 +37,7 @@ void bossSlapAttack::UpdateState()
 }
 
 void bossSlapAttack::ExitState()
-{
+{	
 	_thisBs->SetState(BS_STATE::IDLE);
 	_thisBs->getInfo().isAttack = false;	
 }
