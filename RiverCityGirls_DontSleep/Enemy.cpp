@@ -115,30 +115,25 @@ void Enemy::update()
 		_info.jumpPower = 0;
 	}
 
-	if (_state != EN_STATE::EN_DIE && _state != EN_STATE::EN_GUARD)
+	if (_player->getInfo().isAttack /*&& _player->getObj().imgIndex.x == 3*/)
 	{
-		if (_player->getInfo().isAttack)
+		RECT temp;
+		if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc) && abs(_obj.pos.z - _player->getObj().pos.z) < 100)
 		{
-			RECT temp;
-			if (IntersectRect(&temp, &_obj.rc, &_player->getInfo().attackRc))
+			if (_state != EN_STATE::EN_DIE && _state != EN_STATE::EN_GUARD)
 			{
-				if (abs(_obj.pos.z - _player->getObj().pos.z) < 40)
+				if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
+				else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
+				else
 				{
-					if (_player->getObj().imgIndex.x == 3)
+					if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
 					{
-						if (_player->getInfo().hasWeapon) SetState(EN_STATE::EN_WEAPONHIT);
-						else if (_player->getInfo().state == PL_STATE::GRAB) SetState(EN_STATE::EN_HELDHIT);
-						else
-						{
-							if (_state != EN_STATE::EN_HIT3 && _state != EN_STATE::EN_DOWN)
-							{
-								if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
-								else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
-								else SetState(EN_STATE::EN_HIT);
-							}
-						}
+						if (_state == EN_STATE::EN_HIT) SetState(EN_STATE::EN_HIT2);
+						else if (_state == EN_STATE::EN_HIT2) SetState(EN_STATE::EN_HIT3);
+						else SetState(EN_STATE::EN_HIT);
 					}
 				}
+				
 			}
 		}
 	}
