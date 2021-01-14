@@ -14,7 +14,7 @@ ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 		_obj.ani->setFPS(1);
 		_obj.ani->init(_obj.img->getWidth(), _obj.img->getHeight(), _obj.img->getFrameWidth(), _obj.img->getFrameHeight());
 		_obj.ani->start();
-		_info.value = 10;
+		_info.value = 100;
 		break;
 	case ITEM_TYPE::COIN:
 		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("coin"), pos);
@@ -23,7 +23,7 @@ ItemObj::ItemObj(ITEM_TYPE type, vector3 pos)
 		_obj.ani->setFPS(1);
 		_obj.ani->init(_obj.img->getWidth(), _obj.img->getHeight(), _obj.img->getFrameWidth(), _obj.img->getFrameHeight());
 	    _obj.ani->start();
-		_info.value = 10;
+		_info.value = 1;
 		break;
 	case ITEM_TYPE::MEAT:
 		_obj.init(OBJECT_GROUP::ITEM, IMG_M->findImage("meat"), pos);

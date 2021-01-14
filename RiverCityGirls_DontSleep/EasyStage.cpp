@@ -42,10 +42,10 @@ HRESULT EasyStage::init()
 	_objectM->pushWeapon(WEAPON_TYPE::BAT, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 250));
 
 
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2-300, 0, WINSIZEY / 2+ 300 ));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2-300, 0, WINSIZEY / 2+ 300 ));
 	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2, 0, WINSIZEY / 2 + 80));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 300));
-	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 200));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLGIRL, vector3(WINSIZEX / 2 + 1000, 0, WINSIZEY / 2 + 300));
+	//_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 800, 0, WINSIZEY / 2 + 200));
 	_enemyM->pushEnemy(ENEMY_TYPE::SCHOOLBOY, vector3(WINSIZEX / 2 + 500, 0, WINSIZEY / 2 + 120));
 
 

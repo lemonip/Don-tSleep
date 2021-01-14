@@ -684,12 +684,16 @@ void Player::checkItem()
 			// 충돌한다면
 			if (IntersectRect(&temp, &_obj.rc, &_objectM->getVObject()[i]->getRefObj().rc))
 			{
+				if(_objectM->getVObject()[i]->getObj()->weaponType ==WEAPON_TYPE::NONE)
+
 				switch (_objectM->getVObject()[i]->getInfo().type)
 				{
 				//소지금 올려줌
 				case ITEM_TYPE::MONEY:
-					break;
 				case ITEM_TYPE::COIN:
+					_info.coin += _objectM->getVObject()[i]->getInfo().value;
+					_objectM->popObject(i);
+					if (i == _objectM->getVObject().size())return;
 					break;
 				//체력회복
 				case ITEM_TYPE::MEAT:

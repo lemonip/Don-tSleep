@@ -41,13 +41,14 @@ void playGround::addSource()
 	SOUND_M->addSound("enemy_run", "source/mr/enemyMr/enemy_Run.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("enemy_stun", "source/mr/enemyMr/enemy_Stun.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("enemy_wattack", "source/mr/enemyMr/enemy_WAttack.mp3", tagVolumeType::SFX, false);
-	
+	/*
 	
 	SOUND_M->addSound("kyoko_down", "source/mr/playerMr/kyoko_down.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("kyoko_hit", "source/mr/playerMr/kyoko_hit.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("kyoko_stomp", "source/mr/playerMr/kyoko_stomp.mp3", tagVolumeType::SFX, false);*/
 	
 	//================= º¸½º ======================
+	/*
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_battlestart.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_coin.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_combo.mp3", tagVolumeType::SFX, false);
@@ -55,7 +56,7 @@ void playGround::addSource()
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_hurricane.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_jumpAttack.mp3", tagVolumeType::SFX, false);
 	SOUND_M->addSound("", "source/mr/playerMr/kyoko_sAttack.mp3", tagVolumeType::SFX, false);
-	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);
+	SOUND_M->addSound("", "source/mr/playerMr/kyoko_weapon_bat.mp3", tagVolumeType::SFX, false);*/
 
 }
 
