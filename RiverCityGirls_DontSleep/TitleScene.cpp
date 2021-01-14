@@ -4,12 +4,10 @@
 HRESULT TitleScene::init()
 {
 	/*====================================================================
-		타이틀 씬에서 인트로 등의 연출을 진행합니다.
-		인트로 비디오 이벤트를 실행합니다. 비디오 실행 동안은 모든 업데이트와 렌더가 멈춥니다.
+		타이틀 씬에서 인트로 등의 연출을 진행합니다. 음악과 인트로 영상을 재생합니다.
 	====================================================================*/
+	//SOUND_M->playMusic("openingBG", .5f);
 	EVENT_M->addEvent(new moviePlay(VIDEOTYPE::GAME_INTRO));
-	// 소리재생하면 끌때 자꾸 버그뜸
-	SOUND_M->playMusic("openingBG", .5f);
 
 	/*====================================================================
 		맵의 사이즈를 지정하고, 타이틀은 UI로 취급하며, 배경은 루프시킵니다.
@@ -34,7 +32,7 @@ HRESULT TitleScene::init()
 		UI에 타이틀 이미지를 추가하고, UI 이동을 실행시킵니다.
 	====================================================================*/
 	UI_M->setIsActive(true);
-	UI_M->addImage("title", IMG_M->findImage("start_title"), vector3(WINSIZEX / 2 - 300, WINSIZEY / 2, 0));
+	UI_M->addImage("title", IMG_M->findImage("start_title"), vector3(WINSIZEX / 2 - 500, WINSIZEY / 2 - 100, 0));
 	UI_M->findUI("title")->setActive(true);
 	_titleInter = new Interpolation;
 
@@ -71,7 +69,7 @@ void TitleScene::update()
 
 	_kyokoInter->moveTo(&_kyokoPos, 1050.0f, WINSIZEY / 2 + 200.0f, 0.7f);
 	_misakoInter->moveTo(&_misakoPos, 800.0f, WINSIZEY / 2 + 200.0f, 0.7f);
-	_titleInter->moveTo(UI_M->findUI("title")->_pos, WINSIZEX / 2 - 300, WINSIZEY / 2 - 100, 1.0f);
+	_titleInter->moveTo(UI_M->findUI("title")->_pos, WINSIZEX / 2 - 500, WINSIZEY / 2 - 200, 1.0f);
 
 	_kyokoInter->update();
 	_misakoInter->update();

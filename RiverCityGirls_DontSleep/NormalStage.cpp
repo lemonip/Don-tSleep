@@ -99,6 +99,7 @@ void NormalStage::update()
 
 	if (KEY_M->isOnceKeyDown(VK_F5))
 	{
+		SOUND_M->playSFX("shop_voice");
 		SCENE_M->setInitScene("shop");		//상점 입장
 	}
 }

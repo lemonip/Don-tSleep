@@ -47,7 +47,7 @@ HRESULT Enemy::init()
 		_info.baseSpeed = _info.speed = 3;	//속도
 		_info.frameTimer = 0;				//프레임시간 타이머
 
-		_info.hp = _info.maxHp = 100;		//체력
+		_info.hp = _info.maxHp = 50;		//체력
 		_info.attack = 5;					//공격력
 
 		_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;

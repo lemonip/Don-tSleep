@@ -30,15 +30,16 @@ HRESULT SelectScene::init()
 	====================================================================*/
 	//로드 파일 선택 버튼
 	_loadSelect = new Select;
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 1, 0), std::bind(&SelectScene::load, this), 0));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 2, 0), std::bind(&SelectScene::load, this), 1));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 3, 0), std::bind(&SelectScene::load, this), 2));
-	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 4, 0), std::bind(&SelectScene::load, this), 3));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 1, 0), std::bind(&SelectScene::load0, this), 0));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 2, 0), std::bind(&SelectScene::load1, this), 1));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 3, 0), std::bind(&SelectScene::load2, this), 2));
+	_loadSelect->addButton(Button(IMG_M->findImage("save_load_close"), IMG_M->findImage("save_load_open"), vector3(900, (WINSIZEY - 150) / 4 * 4, 0), std::bind(&SelectScene::load3, this), 3));
 
 	//캐릭터 선택 버튼과 이미지
 	_charSelect = new Select;
-	_charSelect->addButton(Button(IMG_M->findImage("select_kyoko2"), IMG_M->findImage("select_kyoko"), vector3(WINSIZEX/2 + 100, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 0));
-	_charSelect->addButton(Button(IMG_M->findImage("select_misako2"), IMG_M->findImage("select_misako"), vector3(WINSIZEX/2 + 450, WINSIZEY / 2, 0), std::bind(&SelectScene::load, this), 1));
+	_charSelect->addButton(Button(IMG_M->findImage("select_kyoko2"), IMG_M->findImage("select_kyoko"), vector3(WINSIZEX/2 + 100, WINSIZEY / 2, 0), std::bind(&SelectScene::character0, this), 0));
+	_charSelect->addButton(Button(IMG_M->findImage("select_misako2"), IMG_M->findImage("select_misako"), vector3(WINSIZEX/2 + 450, WINSIZEY / 2, 0), std::bind(&SelectScene::character1, this), 1));
+	_kyokoSelect = false;
 
 	//옵션 UI와 버튼
 
@@ -60,6 +61,7 @@ void SelectScene::release()
 
 void SelectScene::update()
 {
+	cout << (int)_state << endl;
 	/*====================================================================
 		캐릭터 일러스트의 이동과 확대 축소 효과를 진행하고
 		배경을 x+1, y+1 대각선 방향으로 루프 시킵니다.
@@ -91,7 +93,8 @@ void SelectScene::update()
 			캐릭터를 선택하고, 옵션창으로 넘어갑니다.
 		====================================================================*/
 		case SELECTTYPE::CHARACTER:
-		if(_charSelect->update()) setState(SELECTTYPE::OPTION);
+		_charSelect->update();
+		if(_kyokoSelect) setState(SELECTTYPE::OPTION);
 		break;
 		/*====================================================================
 			음량 조절 등 옵션 창을 띄우고, 다음으로 넘어갑니다.
@@ -125,11 +128,26 @@ void SelectScene::render()
 	/*====================================================================
 		배경을 loop 값에 따라 루프 렌더하고, 캐릭터 이미지를 띄워 줍니다.
 	====================================================================*/
-	_background->loopRender(getMapDC(), &CAMERA_M->GetScreenRect(), loop.x, loop.y);
-	_background2->render(getMapDC());
-	IMG_M->findImage("start_frame")->render(getMapDC(), 800, 450, 1280 / 1600.0f, 720 / 900.0f);
-	_illust->render(getMapDC(), _illustPos.x - _illustPos.x*_ratioOffset, _illustPos.y - _illustPos.y *_ratioOffset, 0.7f + _ratioOffset, 0.7f + _ratioOffset);
+	
+	//배경
+	switch (_state)
+	{
+	case SELECTTYPE::LOAD: case SELECTTYPE::CHARACTER:
+		_background->loopRender(getMapDC(), &CAMERA_M->GetScreenRect(), loop.x, loop.y);
+		_background2->render(getMapDC());
+		IMG_M->findImage("start_frame")->render(getMapDC(), 800, 450, 1280 / 1600.0f, 720 / 900.0f);
+		_illust->render(getMapDC(), _illustPos.x - _illustPos.x*_ratioOffset, _illustPos.y - _illustPos.y *_ratioOffset, 0.7f + _ratioOffset, 0.7f + _ratioOffset);
 
+		break;
+	case SELECTTYPE::OPTION: case SELECTTYPE::MANUAL:
+		IMG_M->findImage("SelectScene_manual")->render(getMapDC());
+
+		break;
+	default:
+		break;
+	}
+
+	//UI
 	switch (_state)
 	{
 		case SELECTTYPE::LOAD:
@@ -141,23 +159,89 @@ void SelectScene::render()
 			_charSelect->render(getMapDC());
 		break;
 		case SELECTTYPE::OPTION:
+		{
+			//폰트에 대해 설정한다.
+			SetBkMode(getMapDC(), TRANSPARENT);
+			SetTextColor(getMapDC(), RGB(0, 0, 0));
+			HFONT font, oldFont;
+			RECT rcText = RectMake(WINSIZEX / 2, 200, 400, 720);
+			font = CreateFont(50, 0, 0, 0, 0, false, false, false,
+				DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+				PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("CookieRunOTF Bold"));
+			oldFont = (HFONT)SelectObject(getMapDC(), font);
 
+			string _txt = "볼륨 조절? 옵션 창 만드는 중";
+
+			//텍스트를 출력한다.
+			DrawText(getMapDC(), TEXT(_txt.c_str()), strlen(_txt.c_str()), &rcText, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
+			//폰트를 삭제한다.
+			DeleteObject(font);
+		}
 		break;
 		case SELECTTYPE::MANUAL:
+		{
+			//폰트에 대해 설정한다.
+			SetBkMode(getMapDC(), TRANSPARENT);
+			SetTextColor(getMapDC(), RGB(0, 0, 0));
+			HFONT font, oldFont;
+			RECT rcText = RectMake(WINSIZEX/2, 170, 400, 720);
+			font = CreateFont(50, 0, 0, 0, 0, false, false, false,
+				DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+				PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("CookieRunOTF Bold"));
+			oldFont = (HFONT)SelectObject(getMapDC(), font);
 
+			string _txt = "이동: 방향키 / 점프: A \n약공: S / 강공: D \n커맨드공격: → + ↓ + D \n가드: F / 회피:W \n줍기:E / 동료:Q \n인벤: V / 맵 이동 : M \n선택 : SPACEBAR or ENTER / 종료 : ESC \n디버깅 : SHIFT or TAB" ;
+			
+			//텍스트를 출력한다.
+			DrawText(getMapDC(), TEXT(_txt.c_str()), strlen(_txt.c_str()), &rcText, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
+			//폰트를 삭제한다.
+			DeleteObject(font);
+		}
 		break;
 		default:
 		break;
 	}
-
 }
 
 /*====================================================================
 	버튼 선택에 따라 세이브 파일을 로드합니다.
 ====================================================================*/
-void SelectScene::load()
+void SelectScene::load(int n)
 {
-	
+
+}
+void SelectScene::load0()
+{
+	load(0);
+}
+void SelectScene::load1()
+{
+	load(1);
+}
+void SelectScene::load2()
+{
+	load(2);
+}
+void SelectScene::load3()
+{
+	load(3);
+}
+
+/*====================================================================
+	버튼 선택에 따라 캐릭터를 로드합니다.
+====================================================================*/
+void SelectScene::character0()
+{
+	_kyokoSelect = true;
+}
+
+void SelectScene::character1()
+{
+	_kyokoSelect = false;
+	_charSelect = new Select;
+	_charSelect->addButton(Button(IMG_M->findImage("select_kyoko2"), IMG_M->findImage("select_kyoko"), vector3(WINSIZEX / 2 + 100, WINSIZEY / 2, 0), std::bind(&SelectScene::character0, this), 0));
+	_charSelect->addButton(Button(IMG_M->findImage("select_misako2"), IMG_M->findImage("select_misako"), vector3(WINSIZEX / 2 + 450, WINSIZEY / 2, 0), std::bind(&SelectScene::character1, this), 1));
+	_charSelect->_index = 1;
 }
 
 /*====================================================================
@@ -171,15 +255,11 @@ void SelectScene::setState(SELECTTYPE type)
 	{
 		case SELECTTYPE::LOAD:
 
-
 		break;
 		case SELECTTYPE::CHARACTER:
-			
 
 		break;
 		case SELECTTYPE::OPTION:
-
-
 		break;
 		case SELECTTYPE::MANUAL:
 

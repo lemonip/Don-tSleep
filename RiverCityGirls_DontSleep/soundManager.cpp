@@ -45,9 +45,11 @@ void soundManager::release()
         _system->close();
     }
 
-    delete[] _sound;
+    /*
+	delete[] _sound;
     delete[] _channel;
     delete[] _sfxChannel;
+	*/
 }
 
 void soundManager::update()
