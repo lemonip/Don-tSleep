@@ -1,0 +1,8 @@
+﻿  Select.cpp
+c:\users\wls62\desktop\리버시티걸즈\rivercitygirls_dontsleep_pt\select.cpp(25): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\desktop\리버시티걸즈\rivercitygirls_dontsleep_pt\select.cpp(25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\desktop\리버시티걸즈\rivercitygirls_dontsleep_pt\select.cpp(48): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\desktop\리버시티걸즈\rivercitygirls_dontsleep_pt\select.cpp(51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\desktop\리버시티걸즈\rivercitygirls_dontsleep_pt\select.cpp(53): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wls62\desktop\리버시티걸즈\rivercitygirls_dontsleep_pt\select.cpp(128): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  windowAPI.vcxproj -> C:\Users\wls62\Desktop\리버시티걸즈\RiverCityGirls_DontSleep_pt\x64\Debug\windowAPI.exe
