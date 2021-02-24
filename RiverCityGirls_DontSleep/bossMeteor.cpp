@@ -18,7 +18,7 @@ void bossMeteor::EnterState()
 }
 
 void bossMeteor::UpdateState()
-{
+{	
 	if (!_thisBs->getIsphase())
 	{
 		if (0.5f < TIME_M->getWorldTime() - _enterTime && TIME_M->getWorldTime() - _enterTime <= 2.5f) // 하늘 위로 올라가는 시간
@@ -131,7 +131,7 @@ void bossMeteor::UpdateState()
 				_thisBs->getInfo().isSky = false;
 			}
 		}
-	}
+	}	
 }
 
 void bossMeteor::ExitState()

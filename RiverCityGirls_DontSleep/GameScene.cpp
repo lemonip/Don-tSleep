@@ -30,7 +30,7 @@ HRESULT GameScene::init()
 	UI_M->addImage("UI_kyoko", IMG_M->findImage("UI_kyoko"), vector3(20, 20, 0));
 	UI_M->findUI("UI_kyoko")->setActive(true);
 
-	UI_M->addImage("UI_coin", IMG_M->findImage("UI_coin"), vector3(140, 110, 0));
+	UI_M->addImage("UI_coin", IMG_M->findImage("coin"), vector3(130, 110, 0));
 	UI_M->findUI("UI_coin")->setActive(true);
 	
 	//ÄìÄÚ HP¹Ù

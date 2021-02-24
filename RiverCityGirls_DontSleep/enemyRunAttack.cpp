@@ -4,7 +4,7 @@
 
 void enemyRunAttack::EnterState()
 {
-	SOUND_M->play("enemy_attack1");
+	SOUND_M->play("enemy_attack1", SFXVOLUME);
 	_thisEn->SetImage();
 	LookAtPlayer();
 	RECT temp;

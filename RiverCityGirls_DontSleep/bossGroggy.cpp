@@ -14,14 +14,32 @@ void bossGroggy::EnterState()
 
 void bossGroggy::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 3.5f)
+	if (!_thisBs->getIsphase())
 	{
-		_thisBs->SetState(BS_STATE::STANDATTACK);
+		if (TIME_M->getWorldTime() - _enterTime > 3.5f)
+		{
+			_thisBs->SetState(BS_STATE::STANDATTACK);
+		}
+
+		if (!_isEffect)
+		{
+			EFFECT_M->play("Bss_stun", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 250);
+		}
 	}
 
-	if (!_isEffect)
+	if (_thisBs->getIsphase())
 	{
-		EFFECT_M->play("Bss_stun", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 250);
+		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
+
+		if (TIME_M->getWorldTime() - _enterTime > 3.5f)
+		{
+			_thisBs->SetState(BS_STATE::STANDATTACK);
+		}
+
+		if (!_isEffect)
+		{
+			EFFECT_M->play("Bss_stun", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 250);
+		}
 	}
 }
 

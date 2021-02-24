@@ -45,7 +45,7 @@ void playerStomp::UpdateState()
 	case DIRECTION::LEFT:
 		if (_isCollision && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 6)
 		{
-			SOUND_M->playSFX("kyoko_stomp");
+			SOUND_M->playSFX("kyoko_stomp", SFXVOLUME);
 
 			EFFECT_M->play("ef_spark", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) *0.6);
@@ -56,7 +56,7 @@ void playerStomp::UpdateState()
 		if (_isCollision && _thisPl->getObj().imgIndex.x >= 6)
 		{
 			
-			SOUND_M->playSFX("kyoko_stomp");
+			SOUND_M->playSFX("kyoko_stomp", SFXVOLUME);
 
 			EFFECT_M->play("ef_spark", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom)*0.6);

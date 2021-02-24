@@ -3,7 +3,6 @@
 
 Weapon::Weapon(WEAPON_TYPE type, vector3 pos)
 {
-	
 	switch (type)
 	{
 	case WEAPON_TYPE::BAT:

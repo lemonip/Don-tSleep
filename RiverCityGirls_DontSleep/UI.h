@@ -1,7 +1,7 @@
 #pragma once
 
-class Player;
 enum class UITYPE;
+
 /*====================================================================
 						단일 이미지 UI
 ====================================================================*/
@@ -15,7 +15,6 @@ public:
 	vector3 _goal;
 	float _speed;
 	RECT _rc;
-	Player* _player;
 
 	bool _isActive;
 	bool _isMove;
@@ -28,8 +27,6 @@ public:
 
 	void setActive(bool active) { _isActive = active; }
 	void setPos(vector3* pos) { _pos = pos; }
-	void setLinkPlayer(Player* player) { _player = player; }
-
 
 };
 
@@ -70,13 +67,11 @@ public:
 ====================================================================*/
 class CallPhone : public UI
 {
-	image* _itemImg;
 public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 	void render(HDC hdc);
-
 };
 
 /*====================================================================

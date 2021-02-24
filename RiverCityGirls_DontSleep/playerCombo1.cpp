@@ -5,6 +5,7 @@
 
 void playerCombo1::EnterState()
 {
+	SOUND_M->playSFX("kyoko_battlestart", .5f);
 	//타격에 여부초기화
 	_isCollision = false;
 
@@ -52,7 +53,7 @@ void playerCombo1::EnterState()
 		{
 			EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 				(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
-			SOUND_M->playSFX("kyoko_combo");
+			SOUND_M->playSFX("kyoko_combo", SFXVOLUME);
 			//타격에 성공했는지 확인
 			_isCollision = true;
 		}
@@ -78,7 +79,7 @@ void playerCombo1::UpdateState()
 			if (_thisPl->getInfo().dest == DIRECTION::LEFT
 				&&_isCollision && _thisPl->getObj().imgIndex.x >= 2)
 			{
-				SOUND_M->playSFX("kyoko_weapon_bat");
+				SOUND_M->playSFX("kyoko_weapon_bat", SFXVOLUME);
 
 				EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);
@@ -89,7 +90,7 @@ void playerCombo1::UpdateState()
 			if (_thisPl->getInfo().dest == DIRECTION::RIGHT
 				&&_isCollision && _thisPl->getObj().imgIndex.x <= _thisPl->getObj().img->getMaxFrameX() - 2)
 			{
-				SOUND_M->playSFX("kyoko_weapon_bat");
+				SOUND_M->playSFX("kyoko_weapon_bat", SFXVOLUME);
 
 				EFFECT_M->play("ef_attack", (_thisPl->getInfo().attackRc.left + _thisPl->getInfo().attackRc.right) / 2,
 					(_thisPl->getInfo().attackRc.top + _thisPl->getInfo().attackRc.bottom) / 2);

@@ -4,7 +4,7 @@
 
 void enemyJumpAttack::EnterState()
 {
-	SOUND_M->play("enemy_jumpattack");
+	SOUND_M->play("enemy_jumpattack", SFXVOLUME);
 	_thisEn->SetImage();
 	_thisEn->getInfo().isSky = true;
 	LookAtPlayer();

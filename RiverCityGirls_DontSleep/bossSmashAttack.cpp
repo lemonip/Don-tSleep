@@ -17,7 +17,7 @@ void bossSmashAttack::EnterState()
 
 void bossSmashAttack::UpdateState()
 {
-	if (TIME_M->getWorldTime() - _enterTime > 1.9f)
+	if (TIME_M->getWorldTime() - _enterTime > 2.3f)
 	{
 		Attack();
 	}

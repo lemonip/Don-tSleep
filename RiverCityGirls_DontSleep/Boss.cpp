@@ -77,7 +77,6 @@ HRESULT Boss::init()
 
 	SetState(BS_STATE::IDLE);
 
-
 	return S_OK;
 }
 
@@ -95,7 +94,7 @@ void Boss::update()
 	frameUpdate();		
 	_stageM->getColM()->bossDestructObject(this);
 
-	//cout << _player->getInfo().hp << endl;
+	cout << _player->getInfo().hp << endl;
 }
 
 void Boss::render()
