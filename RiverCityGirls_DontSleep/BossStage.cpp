@@ -11,7 +11,6 @@ HRESULT BossStage::init()
 	====================================================================*/
 	backGround = IMG_M->findImage("bossStage");
 	CAMERA_M->SetMap(*this, backGround);
-
 	/*====================================================================
 		스테이지의 벽을 배치합니다. LT, RT, RB, LB 순!!
 	====================================================================*/
@@ -26,6 +25,7 @@ HRESULT BossStage::init()
 	/*====================================================================
 		오브젝트와 에너미를 배치합니다.
 	====================================================================*/
+	
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_LEFT, vector3(1000, 0, 700));
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_BIG_LEFT, vector3(700, 0, 1000));
 	_objectM->pushObject(OBJECT_TYPE::PILLAR_RIGHT, vector3(2100, 0, 700));
@@ -37,18 +37,23 @@ HRESULT BossStage::init()
 
 	_enemyM->pushEnemy(ENEMY_TYPE::BOSS, vector3(WINSIZEX, 0, WINSIZEY - 20));
 
+	_objectM->pushItem(ITEM_TYPE::MEAT, vector3(WINSIZEX / 2 * 2, 0, WINSIZEY * 0.8+200));
+	
 	/*====================================================================
 		스테이지 진입 시 실행 될 이벤트를 추가합니다.
 	====================================================================*/
-	//EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
-	//EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_START), false);
-	////EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_END), false);
-
+	EVENT_M->addEvent(new moviePlay(VIDEOTYPE::BOSS_INTRO));
+	EVENT_M->addEvent(new dialogue(DIALOGLIST::BOSS_START), false);
+	/*====================================================================
+	배경음악을 넣어줍니다.
+	====================================================================*/
+	SOUND_M->playMusic("bossStageBG");
 	/*====================================================================
 		UI 배치입니다.
 	====================================================================*/
 
 	//보스 체력 UI
+	
 	UI_M->addImage("bossHPBar1", IMG_M->findImage("bossHPFrame"), vector3(200, 580, 0));
 	UI_M->addBar("bossHPBar2", IMG_M->findImage("bossHPFront"), IMG_M->findImage("bossHPBack"), vector3(235, 580, 0),
 		&_enemyM->getVEnemy()[0]->getInfo().hp, &_enemyM->getVEnemy()[0]->getInfo().maxHp);
@@ -56,9 +61,6 @@ HRESULT BossStage::init()
 	UI_M->findUI("bossHPBar2")->setActive(true);
 
 
-	/*====================================================================
-		스테이지 문 만들기
-	====================================================================*/
 	_doorActive = DOOR_ACTIVITY::NON_ACTIVE;
 	_leftDoor.isUsed = true;
 	_leftDoor.LT = vector3(185, 0, 780);
@@ -71,7 +73,6 @@ HRESULT BossStage::init()
 
 	_shopDoor.isUsed = false;
 
-	// 지역락 관련 변수들
 	_enemyCount = 0;
 	_maxEnemyCount = 1;
 	lockEventStart = lockEventEnd = true;
