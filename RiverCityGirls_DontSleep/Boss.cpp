@@ -42,10 +42,10 @@ HRESULT Boss::init()
 	_info.baseSpeed = _info.speed = 3;	//속도
 	_info.frameTimer = 0;				//프레임시간 타이머
 
-	_info.hp = _info.maxHp = 500;		//체력
+	_info.hp = _info.maxHp = 3000;		//체력
 	_info.attack = 10;					//공격력
-	_info.groggyCount = 0;
-	_info.phaseCount = 0;
+	_groggyCount = 0;
+	_phaseCount = 0;
 
 	_info.isAttack = _info.isSky = _info.isDead = _info.isFriend = false;
 	_info.hasWeapon = false;			//무기들었니	
@@ -77,6 +77,7 @@ HRESULT Boss::init()
 
 	SetState(BS_STATE::IDLE);
 
+
 	return S_OK;
 }
 
@@ -94,11 +95,17 @@ void Boss::update()
 	frameUpdate();		
 	_stageM->getColM()->bossDestructObject(this);
 
-	cout << _player->getInfo().hp << endl;
+	//cout << _player->getInfo().hp << endl;
+
+	if (KEY_M->isOnceKeyDown('V')) SetState(BS_STATE::SMASH);
+	if (KEY_M->isOnceKeyDown('B')) SetState(BS_STATE::GROGGY);
+	if (KEY_M->isOnceKeyDown('N')) SetState(BS_STATE::PHASE);
+	if (KEY_M->isOnceKeyDown('M')) SetState(BS_STATE::HOWLING);
 }
 
 void Boss::render()
 {		
+	if (KEY_M->isToggleKey(VK_SHIFT) && _info.isAttack) Rectangle(getMapDC(), _info.rcAttack);	
 }
 
 void Boss::SetState(BS_STATE state)

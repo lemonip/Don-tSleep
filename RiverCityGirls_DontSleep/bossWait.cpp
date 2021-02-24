@@ -13,7 +13,7 @@ void bossWait::UpdateState()
 {
 	LookatPlayer();
 
-	if (_thisBs->getIsState() != BS_STATE::DEATH && _thisBs->getIsState() != BS_STATE::BLOCK && _thisBs->getIsState() != BS_STATE::PHASE)
+	if (_thisBs->getState() != BS_STATE::DEATH && _thisBs->getState() != BS_STATE::BLOCK && _thisBs->getState() != BS_STATE::PHASE)
 	{
 		RECT _temp;
 		if (IntersectRect(&_temp, &_thisBs->getObj()->rc, &_thisBs->getPlayerAddress()->getInfo().attackRc) && !_thisBs->getInfo().isAttack && _thisBs->getPlayerAddress()->getInfo().isAttack)
@@ -23,7 +23,7 @@ void bossWait::UpdateState()
 	}
 
 	if (!_thisBs->getIsphase())
-	{				
+	{
 		if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 120 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30
 			&& TIME_M->getWorldTime() - _enterTime > 0.7f)
 		{
@@ -54,17 +54,7 @@ void bossWait::UpdateState()
 	{
 		EFFECT_M->play("Bss_phase", _thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 150);
 
-		if (_thisBs->getIsState() != BS_STATE::DEATH && _thisBs->getIsState() != BS_STATE::BLOCK)
-		{
-			RECT _temp;
-			if (IntersectRect(&_temp, &_thisBs->getObj()->rc, &_thisBs->getPlayerAddress()->getInfo().attackRc) && !_thisBs->getInfo().isAttack && _thisBs->getPlayerAddress()->getInfo().isAttack)
-			{
-				Damaged(_thisBs->getPlayerAddress()->getInfo().force);
-			}
-		}
-
-		if (fabs(_thisBs->getPlayerAddress()->getObj().pos.x - _thisBs->getObj()->pos.x) < 120 && fabs(_thisBs->getPlayerAddress()->getObj().pos.z - _thisBs->getObj()->pos.z) < 30
-			&& TIME_M->getWorldTime() - _enterTime > 0.7f)
+		if (_thisBs->getIsphase())
 		{
 			switch (RND->getInt(4))
 			{
@@ -87,10 +77,9 @@ void bossWait::UpdateState()
 		{
 			_thisBs->SetState(BS_STATE::MOVE);
 		}
-	}	
+	}
 }
 
 void bossWait::ExitState()
 {
-	
 }

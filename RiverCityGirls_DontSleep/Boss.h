@@ -51,10 +51,13 @@ private:
 	IBossState* _meteordown;
 	
 	bool _isPhase;				//페이즈에 들어갔니
+	int _groggyCount;			
+	int _phaseCount;					
+
 	BS_STATE _state;
 	ENEMY_TYPE _ENEMY_TYPE;	
 	float _frameTimer;
-	   
+
 public:
 	Boss() {};
 	~Boss() {};
@@ -65,8 +68,9 @@ public:
 
 	//접근자===================================================
 	bool getIsphase() { return _isPhase; }
-	BS_STATE getIsState() { return _state; }
-
+	BS_STATE getState() {return _state;}
+	int& getGroggyCount() { return _groggyCount; }
+	int& getPhaseCount() { return _phaseCount; }
 	//지정자===================================================
 	void SetState(BS_STATE state);
 	void SetDest(DIRECTION dest);
