@@ -128,7 +128,7 @@ void bossDashAttack::UpdateState()
 }
 
 void bossDashAttack::ExitState()
-{		
+{	
 	_thisBs->getInfo().isAttack = false;	
 	_isEffect = true;
 }

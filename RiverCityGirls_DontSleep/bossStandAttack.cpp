@@ -18,7 +18,8 @@ void bossStandAttack::UpdateState()
 	{
 		if (TIME_M->getWorldTime() - _enterTime > 0.5f && _thisBs->getInfo().isAttack)
 		{						
-			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);			
+			_thisBs->getInfo().rcAttack = RectMakeCenter(_thisBs->getObj()->pos.x, _thisBs->getObj()->pos.z - 100, 400, 300);
+			_thisBs->getInfo().isAttack = false;
 		}
 
 		if (!_isEffect && TIME_M->getWorldTime() - _enterTime > 0.5f)

@@ -99,7 +99,6 @@ void Boss::update()
 
 void Boss::render()
 {		
-	Rectangle(getMapDC(), _info.rcAttack);	
 }
 
 void Boss::SetState(BS_STATE state)
