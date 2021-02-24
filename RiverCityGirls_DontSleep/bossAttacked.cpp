@@ -17,6 +17,7 @@ void bossAttacked::EnterState()
 		{			
 			_thisBs->ChangeImg("Bs_attacked1");
 			SOUND_M->play("battacked1", SFXVOLUME);
+
 		}
 
 		if (_thisBs->getInfo().dest == DIRECTION::RIGHT)
